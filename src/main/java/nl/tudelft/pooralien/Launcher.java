@@ -14,7 +14,7 @@ final class Launcher extends JFrame {
     private Launcher() {
         setSize(300, 200);
         setTitle("Simple");
-        setDefaultCloseOperation();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     /**
@@ -24,8 +24,9 @@ final class Launcher extends JFrame {
     public static void main(String[] args) {
 
         System.out.println("Hi");
-        Launcher simple = new Launcher();
-        simple.setVisible(true);
+        Launcher window = new Launcher();
+        EventHandler event = new EventHandler(window);
+        window.setVisible(true);
 
     }
 }
