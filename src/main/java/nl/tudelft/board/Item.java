@@ -1,11 +1,12 @@
 package nl.tudelft.board;
 
 /**
- * Created by DexterQuintin on 9/7/2017.
+ * Item class, these are the items that will be placed on the board.
  */
 public class Item {
     /**
-     * The id of the item.
+     * The id of the item, this indicates the type of item,
+     * and also the sprite that matches the item.
      */
     private int id;
 
