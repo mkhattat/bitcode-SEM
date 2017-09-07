@@ -1,10 +1,24 @@
-package main.java.nl.tudelft.pooralien;
+package nl.tudelft.pooralien;
 
 /**
  * Created by mostafa on 7-9-17.
  */
-public class Launcher {
+final class Launcher {
+
+    /**
+     * To prevent checkstyle error.
+     */
+    private Launcher() {
+
+    }
+
+    /**
+     * Entry point of the game.
+     * @param args The program arguments.
+     */
     public static void main(String[] args) {
+
         System.out.println("Hi");
+
     }
 }
