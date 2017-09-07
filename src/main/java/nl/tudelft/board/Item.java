@@ -31,7 +31,7 @@ public class Item {
      * @param newId The new id of the item.
      */
     public void setId(final int newId) {
-       id = newId;
+        id = newId;
     }
 
     /**
