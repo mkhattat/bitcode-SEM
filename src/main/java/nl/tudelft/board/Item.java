@@ -4,6 +4,9 @@ package nl.tudelft.board;
  * Created by DexterQuintin on 9/7/2017.
  */
 public class Item {
+    /**
+     * The id of the item.
+     */
     private int id;
 
     /**
