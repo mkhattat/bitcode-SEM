@@ -12,10 +12,10 @@ public class Item {
 
     /**
      * Constructor for Item objects.
-     * @param id The id of the item.
+     * @param itemID The id of the item.
      */
-    public Item(int id) {
-        this.id = id;
+    public Item(final int itemID) {
+        id = itemID;
     }
 
     /**
@@ -30,7 +30,7 @@ public class Item {
      * Sets the id of the item.
      * @param newId The new id of the item.
      */
-    public void setId(int newId) {
+    public void setId(final int newId) {
        id = newId;
     }
 
@@ -40,7 +40,7 @@ public class Item {
      * @return True if the objects are equal, false otherwise.
      */
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(final Object other) {
         if (other instanceof Item) {
             Item that = (Item) other;
             return that.id == this.id;
