@@ -28,10 +28,11 @@ public class EventHandler {
         }
     }
 
-    public class MouseHandler implements MouseListener{
+    public class MouseHandler implements MouseListener, MouseMotionListener{
 
         public MouseHandler(Launcher window) {
             window.addMouseListener(this);
+            window.addMouseMotionListener(this);
         }
 
         public void mousePressed(MouseEvent e) {
@@ -62,5 +63,17 @@ public class EventHandler {
                     + e.getComponent().getClass().getName()
                     + ".");
         }
+
+        public void mouseMoved(MouseEvent e) {
+            //System.out.println("X : " + e.getX());
+            //System.out.println("Y : " + e.getY());
+        }
+
+        public void mouseDragged(MouseEvent e) {
+            System.out.println("X : " + e.getX());
+            System.out.println("Y : " + e.getY());
+        }
+
     }
+
 }
