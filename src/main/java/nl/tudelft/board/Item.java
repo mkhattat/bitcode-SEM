@@ -14,7 +14,7 @@ public class Item {
      * Constructor for Item objects.
      * @param itemID The id of the item.
      */
-    public Item(final int itemID) {
+    Item(final int itemID) {
         id = itemID;
     }
 
