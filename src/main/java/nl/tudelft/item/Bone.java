@@ -8,7 +8,7 @@ public class Bone implements Item {
     /**
      * Constructor for Bone items.
      */
-    Bone() {};
+    Bone() { };
 
     /**
      * Retrieves the location of the Bone sprite.

@@ -8,7 +8,7 @@ public class Leaf implements Item {
     /**
      * Constructor for Leaf items.
      */
-    Leaf() {};
+    Leaf() { };
 
     /**
      * Retrieves the location of the Leaf sprite.

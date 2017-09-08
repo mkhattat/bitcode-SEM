@@ -8,7 +8,7 @@ public class Mask implements Item {
     /**
      * Constructor for Mask items.
      */
-    Mask() {};
+    Mask() { };
 
     /**
      * Retrieves the location of the Mask sprite.

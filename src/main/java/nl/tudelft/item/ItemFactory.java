@@ -10,11 +10,10 @@ public class ItemFactory {
     /**
      * Constructor for ItemFactory objects.
      */
-    public ItemFactory() {};
+    public ItemFactory() { };
 
     /**
-     * Creates a new item based on the provided string,
-     * ignoring case;
+     * Creates a new item based on the provided string (ignoring case).
      * "Axe" results in an axe item
      * "Bone" results in a bone item
      * "Eye" results in an eye item
@@ -51,14 +50,14 @@ public class ItemFactory {
      * @return A random item.
      */
     public Item createRandomItem() {
-        switch (new Random().nextInt(7)) {
+        switch (new Random().nextInt(2 + 2 + 2 + 1)) {
             case 0: return new Axe();
             case 1: return new Bone();
             case 2: return new Eye();
             case 2 + 1: return new Leaf();
             case 2 + 2: return new Mask();
             case 2 + 2 + 1: return new Mouth();
+            default: return new Sun();
         }
-        return new Sun();
     }
 }

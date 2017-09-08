@@ -8,7 +8,7 @@ public class Eye implements Item {
     /**
      * Constructor for Eye items.
      */
-    Eye() {};
+    Eye() { };
 
     /**
      * Retrieves the location of the Eye sprite.

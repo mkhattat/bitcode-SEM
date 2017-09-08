@@ -8,7 +8,7 @@ public class Sun implements Item {
     /**
      * Constructor for Sun items.
      */
-    Sun() {};
+    Sun() { };
 
     /**
      * Retrieves the location of the Sun sprite.

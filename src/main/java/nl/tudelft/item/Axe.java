@@ -8,7 +8,7 @@ public class Axe implements Item {
     /**
      * Constructor for Axe items.
      */
-    Axe() {};
+    Axe() { };
 
     /**
      * Retrieves the location of the Axe sprite.

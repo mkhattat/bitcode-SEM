@@ -8,7 +8,7 @@ public class Mouth implements Item {
     /**
      * Constructor for Mouth items.
      */
-    Mouth() {};
+    Mouth() { };
 
     /**
      * Retrieves the location of the Mouth sprite.
