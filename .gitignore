@@ -7,10 +7,7 @@
 /bin/
 target/
 .idea/*
-f1manager.iml
 /out/*
-/src/main/java/resources/*
-/src/test/java/resources/*
  
 # OS Files #
 .DS_Store
