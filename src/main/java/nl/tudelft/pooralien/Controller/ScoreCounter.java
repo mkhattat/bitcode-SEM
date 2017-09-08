@@ -1,10 +1,10 @@
-package nl.tudelft.pooralien;
+package nl.tudelft.pooralien.Controller;
 
 /**
  * ScoreCounter keeps track of the score of the player.
  * The score should be reset every level.
  */
-class ScoreCounter {
+public class ScoreCounter {
 
     private int score;
     private int scorePerTile = 1;
@@ -55,5 +55,12 @@ class ScoreCounter {
         if (scorePerTile > 0) {
             this.scorePerTile = scorePerTile;
         }
+    }
+
+    /**
+     * @return scorePerTile which is used to multiply the amount of tiles destroyed for the score.
+     */
+    public int getScorePerTile() {
+        return scorePerTile;
     }
 }
