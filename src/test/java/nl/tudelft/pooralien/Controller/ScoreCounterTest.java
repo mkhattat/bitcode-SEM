@@ -1,11 +1,10 @@
 package nl.tudelft.pooralien.Controller;
 import nl.tudelft.pooralien.Controller.ScoreCounter;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.Before;
+import org.junit.Test;
 
-
+import static org.junit.Assert.assertEquals;
 
 
 /**
@@ -15,7 +14,7 @@ public class ScoreCounterTest {
 
     ScoreCounter scoreCounter;
 
-    @BeforeEach
+    @Before
     void setup() {
         scoreCounter = new ScoreCounter(0);
     }
