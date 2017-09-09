@@ -1,7 +1,7 @@
 package nl.tudelft.pooralien.Controller;
 
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * Created by Ivo Schols on 9-9-2017.
