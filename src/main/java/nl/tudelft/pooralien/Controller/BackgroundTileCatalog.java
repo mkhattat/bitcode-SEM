@@ -9,6 +9,9 @@ public class BackgroundTileCatalog {
 
     private ArrayList<BackgroundTile> backgroundTiles = new ArrayList<>();
 
+    private static final int MAX_WIDTH_AND_HEIGHT = 10;
+    private static final int MIN_WIDTH_AND_HEIGHT = 0;
+
     /**
      * Add backgroundTile to backgroundTiles ArrayList.
      * @param backgroundTile
@@ -20,12 +23,22 @@ public class BackgroundTileCatalog {
             return false;
         }
 
-        // If the backgroundTile has been successfully added return true.
-        if (backgroundTiles.add(backgroundTile)) {
-            return true;
+        // Check if the tile has an X coordinate that is allowed.
+        if (!((backgroundTile.getCoordinateX() >= MIN_WIDTH_AND_HEIGHT) && (backgroundTile.getCoordinateX() <= MAX_WIDTH_AND_HEIGHT))) {
+            return false;
         }
 
-        return false;
+        // Check if the tile has an Y coordinate that is allowed.
+        if (!((backgroundTile.getCoordinateY() >= MIN_WIDTH_AND_HEIGHT) && (backgroundTile.getCoordinateY() <= MAX_WIDTH_AND_HEIGHT))) {
+            return false;
+        }
+
+        // If the backgroundTile could not be added return false.
+        if (!(backgroundTiles.add(backgroundTile))) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -42,6 +55,7 @@ public class BackgroundTileCatalog {
             backgroundTiles.trimToSize();
             return true;
         }
+
         return false;
     }
 
@@ -75,7 +89,7 @@ public class BackgroundTileCatalog {
     }
 
     /**
-     * @return
+     * @return integer value with number of elements in the catalog.
      */
     public int size() {
         return backgroundTiles.size();
