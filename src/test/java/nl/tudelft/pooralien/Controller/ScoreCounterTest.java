@@ -1,5 +1,4 @@
 package nl.tudelft.pooralien.Controller;
-import nl.tudelft.pooralien.Controller.ScoreCounter;
 
 import org.junit.Before;
 import org.junit.Test;
