@@ -64,6 +64,9 @@ public class MainScreen {
         rootPane.add(mainFrame, JLayeredPane.DEFAULT_LAYER);
         rootPane.setPreferredSize(mainFrame.getPreferredSize());
 
+        MyMouseAdapter mouseAdapter = new MyMouseAdapter(gridBoard, rootPane);
+        rootPane.addMouseListener(mouseAdapter);
+        rootPane.addMouseMotionListener(mouseAdapter);
 
         window.getContentPane().add(rootPane);
         window.pack();
