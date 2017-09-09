@@ -17,8 +17,10 @@ public class Launcher {
      */
 
     public void launch() {
-        StartupScreen startupScreen = new StartupScreen();
-        startupScreen.show();
+        //StartupScreen startupScreen = new StartupScreen();
+        //startupScreen.show();
+        mainScreen = new MainScreen("Poor Alien", 800, 600);
+        mainScreen.show();
     }
 
     /**
