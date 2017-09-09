@@ -14,8 +14,8 @@ public class BackgroundTileCatalog {
 
     /**
      * Add backgroundTile to backgroundTiles ArrayList.
-     * @param backgroundTile
-     * @return
+     * @param backgroundTile which must be added.
+     * @return false if the X or Y coordinates are invalid or if the tile is already in the list.
      */
     public boolean add(BackgroundTile backgroundTile) {
         // If there is already a backgroundTile in this position return false.
@@ -23,13 +23,17 @@ public class BackgroundTileCatalog {
             return false;
         }
 
-        // Check if the tile has an X coordinate that is allowed.
-        if (!((backgroundTile.getCoordinateX() >= MIN_WIDTH_AND_HEIGHT) && (backgroundTile.getCoordinateX() <= MAX_WIDTH_AND_HEIGHT))) {
+        if (backgroundTile.getCoordinateX() < MIN_WIDTH_AND_HEIGHT) {
+            return false;
+        }
+        if (backgroundTile.getCoordinateX() > MAX_WIDTH_AND_HEIGHT) {
             return false;
         }
 
-        // Check if the tile has an Y coordinate that is allowed.
-        if (!((backgroundTile.getCoordinateY() >= MIN_WIDTH_AND_HEIGHT) && (backgroundTile.getCoordinateY() <= MAX_WIDTH_AND_HEIGHT))) {
+        if (backgroundTile.getCoordinateY() < MIN_WIDTH_AND_HEIGHT) {
+            return false;
+        }
+        if (backgroundTile.getCoordinateY() > MAX_WIDTH_AND_HEIGHT) {
             return false;
         }
 
@@ -43,9 +47,9 @@ public class BackgroundTileCatalog {
 
     /**
      * Remove a backgroundTile from the catalog by its respective coordinates.
-     * @param coordinateX
-     * @param coordinateY
-     * @return
+     * @param coordinateX of the backgroundTile to be removed.
+     * @param coordinateY of the backgroundTile to be removed.
+     * @return true if the backgroundTile exists and is removed.
      */
     public boolean remove(int coordinateX, int coordinateY) {
         int positionInCatalog = this.contains(coordinateX, coordinateY);
@@ -62,7 +66,7 @@ public class BackgroundTileCatalog {
     /**
      * @param coordinateX of the backgroundTile to be checked.
      * @param coordinateY of the backgroundTile to be checked.
-     * @return the position of the backgroundTile in the catalog or -1 if the backgroundTile is not in the catalog.
+     * @return the position of the backgroundTile in the catalog or -1 if invalid.
      */
     public int contains(int coordinateX, int coordinateY) {
         for (BackgroundTile backgroundTile : backgroundTiles) {
@@ -76,12 +80,12 @@ public class BackgroundTileCatalog {
     /**
      * @param coordinateX of the backgroundTile to be checked.
      * @param coordinateY of the backgroundTile to be checked.
-     * @return BackgroundTile object at respective coordinates, if the object is not in the list return null.
+     * @return BackgroundTile at coordinatesXY, if the object is not in the list return null.
      */
     public BackgroundTile get(int coordinateX, int coordinateY) {
         int positionInCatalog = this.contains(coordinateX, coordinateY);
 
-        if(positionInCatalog > -1) {
+        if (positionInCatalog > -1) {
             return backgroundTiles.get(positionInCatalog);
         }
 

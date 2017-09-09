@@ -77,7 +77,7 @@ public class BackgroundTile {
         return colorBackgroundTile;
     }
 
-    /** 
+    /**
      * @param backgroundTile to which this tile must be compared.
      * @return Return true, if Xcoordinate, Ycoordinate and color values are the same else false.
      */

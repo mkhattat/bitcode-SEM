@@ -81,4 +81,9 @@ public class BackgroundTileTest {
         assertFalse(backgroundTile1.equals(new BackgroundTile(0, 0, Color.BLACK)));
     }
 
+    @Test
+    public void tileEqualsNullFalse() {
+        assertFalse(backgroundTile1.equals(null));
+    }
+
 }
