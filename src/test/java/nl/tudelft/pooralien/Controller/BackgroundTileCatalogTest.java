@@ -3,11 +3,12 @@ package nl.tudelft.pooralien.Controller;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 import java.awt.*;
+import java.util.NoSuchElementException;
 
 /**
  * Created by Ivo Schols on 9-9-2017.
@@ -64,6 +65,8 @@ public class BackgroundTileCatalogTest {
     @Test
     public void addIllegalTileTooSmallX() {
         invalidBackgroundTileX = new BackgroundTile(-1, 0, Color.WHITE);
+
+
         assertFalse(backgroundTileCatalog.add(invalidBackgroundTileX));
     }
 
@@ -113,15 +116,15 @@ public class BackgroundTileCatalogTest {
     }
 
     @Test
-    public void containsTileTrue() {
+    public void indexOfTileTrue() {
         backgroundTileCatalog.add(backgroundTile1);
-        assertTrue(backgroundTileCatalog.contains(backgroundTile1.getCoordinateX(), backgroundTile1.getCoordinateY()) > -1);
+        assertTrue(backgroundTileCatalog.indexOf(backgroundTile1.getCoordinateX(), backgroundTile1.getCoordinateY()) > -1);
     }
 
     @Test
-    public void containsTileFalse() {
+    public void indexOfTileFalse() {
         backgroundTileCatalog.add(backgroundTile1);
-        assertFalse(backgroundTileCatalog.contains(backgroundTile2.getCoordinateX(), backgroundTile2.getCoordinateY()) > -1);
+        assertFalse(backgroundTileCatalog.indexOf(backgroundTile2.getCoordinateX(), backgroundTile2.getCoordinateY()) > -1);
     }
 
     @Test
@@ -142,7 +145,14 @@ public class BackgroundTileCatalogTest {
     @Test
     public void getBackgroundTileCatalogNonExistentTile() {
         backgroundTileCatalog.add(backgroundTile1);
-        BackgroundTile backgroundTileTest = backgroundTileCatalog.get(backgroundTile1.getCoordinateX()+1, backgroundTile1.getCoordinateY()+1);
-        assertNull(backgroundTileTest);
+
+        try {
+            backgroundTileCatalog.get(backgroundTile1.getCoordinateX()+1, backgroundTile1.getCoordinateY()+1);
+        } catch (NoSuchElementException e) {
+            assertEquals(
+                    "There is no BackgroundTile at position (X,Y): ("
+                    + (backgroundTile1.getCoordinateX()+1) + "," + (backgroundTile1.getCoordinateY()+1) + ")."
+                    , e.getMessage());
+        }
     }
 }

@@ -87,13 +87,15 @@ public class BackgroundTile {
     }
 
     /**
-     * @param backgroundTile to which this tile must be compared.
+     * @param object to which this tile must be compared.
      * @return Return true, if Xcoordinate, Ycoordinate and color values are the same else false.
      */
-    public boolean equals(BackgroundTile backgroundTile) {
-        if (!(backgroundTile instanceof BackgroundTile)) {
+    public boolean equals(Object object) {
+        if (!(object instanceof BackgroundTile)) {
             return false;
         }
+        BackgroundTile backgroundTile = (BackgroundTile) object;
+
         if (!(backgroundTile.getCoordinateX() == this.getCoordinateX())) {
             return false;
         }
