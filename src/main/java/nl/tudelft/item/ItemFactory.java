@@ -3,7 +3,7 @@ package nl.tudelft.item;
 import java.util.Random;
 
 /**
- * Factory used to create the items that are placed on the item.
+ * Factory used to create the items that are placed on the board.
  */
 public class ItemFactory {
     /**
