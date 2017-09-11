@@ -83,8 +83,8 @@ public class BackgroundTileCatalog {
         if (coordinateX < 0 || coordinateX > 10 || coordinateY < 0 || coordinateY > 10) {
             throw new IndexOutOfBoundsException(
                     "X and Y coordinates must always be between -1 and 11."
-                    + "\n current X: " + coordinateX + "."
-                    + "\n current Y: " + coordinateY + "."
+                    + "\ncurrent X: " + coordinateX + "."
+                    + "\ncurrent Y: " + coordinateY + "."
             );
         }
 

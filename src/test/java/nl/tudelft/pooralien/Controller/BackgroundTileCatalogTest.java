@@ -63,38 +63,6 @@ public class BackgroundTileCatalogTest {
     }
 
     @Test
-    public void addIllegalTileTooSmallX() {
-        invalidBackgroundTileX = new BackgroundTile(-1, 0, Color.WHITE);
-
-
-        assertFalse(backgroundTileCatalog.add(invalidBackgroundTileX));
-    }
-
-    @Test
-    public void addIllegalTileTooBigX() {
-        invalidBackgroundTileX = new BackgroundTile(11, 0, Color.WHITE);
-        assertFalse(backgroundTileCatalog.add(invalidBackgroundTileX));
-    }
-
-    @Test
-    public void addIllegalTileTooSmallY() {
-        invalidBackgroundTileY = new BackgroundTile(0, -1, Color.WHITE);
-        assertFalse(backgroundTileCatalog.add(invalidBackgroundTileY));
-    }
-
-    @Test
-    public void addIllegalTileTooBigY() {
-        invalidBackgroundTileY = new BackgroundTile(0, 11, Color.WHITE);
-        assertFalse(backgroundTileCatalog.add(invalidBackgroundTileY));
-    }
-
-    @Test
-    public void addIllegalTileTooSmallXTooBigY() {
-        invalidBackgroundTileXY = new BackgroundTile(-1, 11, Color.WHITE);
-        assertFalse(backgroundTileCatalog.add(invalidBackgroundTileXY));
-    }
-
-    @Test
     public void addAndRemoveTile() {
         backgroundTileCatalog.add(backgroundTile1);
         assertTrue(backgroundTileCatalog.remove(backgroundTile1.getCoordinateX(), backgroundTile1.getCoordinateY()));
@@ -140,6 +108,22 @@ public class BackgroundTileCatalogTest {
         backgroundTileCatalog.add(backgroundTile2);
         BackgroundTile backgroundTileTest = backgroundTileCatalog.get(backgroundTile1.getCoordinateX(), backgroundTile1.getCoordinateY());
         assertFalse(backgroundTile2.equals(backgroundTileTest));
+    }
+
+    @Test
+    public void getBackgroundTileCatalogInvalidCoordinate() {
+        int invalidCoordinateXY = -1;
+        backgroundTileCatalog.add(backgroundTile1);
+
+        try {
+            backgroundTileCatalog.get(invalidCoordinateXY, invalidCoordinateXY);
+        } catch (IndexOutOfBoundsException e) {
+            assertEquals(
+                    "X and Y coordinates must always be between -1 and 11."
+                    + "\ncurrent X: " + invalidCoordinateXY + "."
+                    + "\ncurrent Y: " + invalidCoordinateXY + "."
+                    , e.getMessage());
+        }
     }
 
     @Test
