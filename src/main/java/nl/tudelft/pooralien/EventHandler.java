@@ -11,8 +11,6 @@ public class EventHandler {
      * @param  window the JFrame where where to listen for events
      */
     public EventHandler(Launcher window) {
-
-        MouseEventHandler mouse = new MouseEventHandler(window);
-
+        new MouseEventHandler(window);
     }
 }

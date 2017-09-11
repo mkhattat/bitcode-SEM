@@ -25,7 +25,7 @@ final class Launcher extends JFrame {
 
         System.out.println("Hi");
         Launcher window = new Launcher();
-        EventHandler event = new EventHandler(window);
+        new EventHandler(window);
         window.setVisible(true);
 
     }
