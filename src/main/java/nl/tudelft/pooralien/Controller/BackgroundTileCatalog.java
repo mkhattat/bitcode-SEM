@@ -10,6 +10,9 @@ public class BackgroundTileCatalog {
 
     private ArrayList<BackgroundTile> backgroundTiles = new ArrayList<>();
 
+    private static final int MAX_WIDTH_AND_HEIGHT = 10;
+    private static final int MIN_WIDTH_AND_HEIGHT = 0;
+
     /**
      * Add backgroundTile to backgroundTiles ArrayList.
      * @param backgroundTile which must be added.
@@ -68,7 +71,7 @@ public class BackgroundTileCatalog {
      * @return True if a backgroundTile exists on these X and Y coordinates.
      */
     public boolean contains(int coordinateX, int coordinateY) {
-        if (this.indexOf(coordinateX,coordinateY) > -1) {
+        if (this.indexOf(coordinateX, coordinateY) > -1) {
             return true;
         }
         return false;
@@ -80,7 +83,8 @@ public class BackgroundTileCatalog {
      * @return BackgroundTile at coordinatesXY, if the object is not in the list return null.
      */
     public BackgroundTile get(int coordinateX, int coordinateY) {
-        if (coordinateX < 0 || coordinateX > 10 || coordinateY < 0 || coordinateY > 10) {
+        if (coordinateX < MIN_WIDTH_AND_HEIGHT || coordinateX > MAX_WIDTH_AND_HEIGHT ||
+                coordinateY < MIN_WIDTH_AND_HEIGHT || coordinateY > MAX_WIDTH_AND_HEIGHT) {
             throw new IndexOutOfBoundsException(
                     "X and Y coordinates must always be between -1 and 11."
                     + "\ncurrent X: " + coordinateX + "."
