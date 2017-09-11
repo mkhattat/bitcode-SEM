@@ -70,7 +70,8 @@ public class BackgroundTileCatalog {
      */
     public int contains(int coordinateX, int coordinateY) {
         for (BackgroundTile backgroundTile : backgroundTiles) {
-            if (backgroundTile.getCoordinateX() == coordinateX && backgroundTile.getCoordinateY() == coordinateY) {
+            if (backgroundTile.getCoordinateX() == coordinateX
+                    && backgroundTile.getCoordinateY() == coordinateY) {
                 return backgroundTiles.indexOf(backgroundTile);
             }
         }

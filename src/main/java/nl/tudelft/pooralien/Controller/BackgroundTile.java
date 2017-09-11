@@ -97,4 +97,12 @@ public class BackgroundTile {
 
         return true;
     }
+
+    @Override
+    @Deprecated
+    // NOTE: Does not work correctly, different object with same values
+    // will generate a different hashCode.
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
