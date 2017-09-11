@@ -119,7 +119,7 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
      * and action type of a mouse action.
      */
     public class MouseAction {
-        private static final int CLICK_ACTION = 1;
+        public static final int CLICK_ACTION = 1;
         public static final int HORIZONTAL_DRAG_ACTION = 2;
         public static final int VERICAL_DRAG_ACTION = 3;
 

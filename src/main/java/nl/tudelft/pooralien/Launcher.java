@@ -8,11 +8,14 @@ import javax.swing.JFrame;
  */
 final class Launcher extends JFrame {
 
+    private static final int FRAME_WIDTH = 300;
+    private static final int FRAME_HEIGHT = 200;
+
     /**
      * To prevent checkstyle error.
      */
     private Launcher() {
-        setSize(300, 200);
+        setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setTitle("Simple");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
