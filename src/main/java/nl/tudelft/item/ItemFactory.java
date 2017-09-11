@@ -96,15 +96,15 @@ public class ItemFactory {
      * or equal to the current lower bound, or if the new upper bound is negative.
      */
     public void setUpperBound(int newUpperBound) throws IllegalArgumentException {
+        if (newUpperBound < 0) {
+            throw new IllegalArgumentException("The upper bound may not be negative."
+                    + "\nThe new upper bound: " + newUpperBound + ".");
+        }
         if (newUpperBound <= lowerBound) {
             throw new IllegalArgumentException(
                     "The upper bound may not be smaller than or equal to the lower bound."
                             + "\nNew upper bound: " + newUpperBound
                             + ", current lower bound: " + lowerBound + ".");
-        }
-        if (newUpperBound < 0) {
-            throw new IllegalArgumentException("The upper bound may not be negative."
-                    + "\nThe new upper bound: " + newUpperBound + ".");
         }
         upperBound = newUpperBound;
     }
