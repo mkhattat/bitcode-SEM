@@ -83,8 +83,8 @@ public class BackgroundTileCatalog {
      * @return BackgroundTile at coordinatesXY, if the object is not in the list return null.
      */
     public BackgroundTile get(int coordinateX, int coordinateY) {
-        if (coordinateX < MIN_WIDTH_AND_HEIGHT || coordinateX > MAX_WIDTH_AND_HEIGHT ||
-                coordinateY < MIN_WIDTH_AND_HEIGHT || coordinateY > MAX_WIDTH_AND_HEIGHT) {
+        if (coordinateX < MIN_WIDTH_AND_HEIGHT || coordinateX > MAX_WIDTH_AND_HEIGHT
+                || coordinateY < MIN_WIDTH_AND_HEIGHT || coordinateY > MAX_WIDTH_AND_HEIGHT) {
             throw new IndexOutOfBoundsException(
                     "X and Y coordinates must always be between -1 and 11."
                     + "\ncurrent X: " + coordinateX + "."
