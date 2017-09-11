@@ -19,6 +19,31 @@ public class BackgroundTileTest {
         backgroundTile1 = new BackgroundTile(0,0, Color.WHITE);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void constructInvalidXCoordinateTooSmall() {
+        BackgroundTile backgroundTile = new BackgroundTile(-1, 0, Color.WHITE);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void constructInvalidXCoordinateTooBig() {
+        BackgroundTile backgroundTile = new BackgroundTile(11, 0, Color.WHITE);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void constructInvalidYCoordinateTooSmall() {
+        BackgroundTile backgroundTile = new BackgroundTile(0, -1, Color.WHITE);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void constructInvalidYCoordinateTooBig() {
+        BackgroundTile backgroundTile = new BackgroundTile(0, 11, Color.WHITE);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void constructInvalidColor() {
+        BackgroundTile backgroundTile = new BackgroundTile(0,0, null);
+    }
+
     @Test
     public void invalidXCoordinateSetNoChange() {
         int currentX = backgroundTile1.getCoordinateX();

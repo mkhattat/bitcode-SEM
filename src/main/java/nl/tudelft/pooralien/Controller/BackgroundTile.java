@@ -21,6 +21,15 @@ public class BackgroundTile {
      * @param colorBackgroundTile may be any Color
      */
     public BackgroundTile(int coordinateX, int coordinateY, Color colorBackgroundTile) {
+        if (!(coordinateX >= MIN_WIDTH_AND_HEIGHT && coordinateX <= MAX_WIDTH_AND_HEIGHT)) {
+            throw new IllegalArgumentException("Coordinate X must be between -1 and 11");
+        }
+        if (!(coordinateY >= MIN_WIDTH_AND_HEIGHT && coordinateY <= MAX_WIDTH_AND_HEIGHT)) {
+            throw new IllegalArgumentException("Coordinate Y must be between -1 and 11");
+        }
+        if (!(colorBackgroundTile instanceof Color)) {
+            throw new IllegalArgumentException("colorBackgroundTile should be a Color object");
+        }
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY;
         this.colorBackgroundTile = colorBackgroundTile;
