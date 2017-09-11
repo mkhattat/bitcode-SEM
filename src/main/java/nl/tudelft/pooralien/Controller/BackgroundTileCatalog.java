@@ -10,9 +10,6 @@ public class BackgroundTileCatalog {
 
     private ArrayList<BackgroundTile> backgroundTiles = new ArrayList<>();
 
-    private static final int MAX_WIDTH_AND_HEIGHT = 10;
-    private static final int MIN_WIDTH_AND_HEIGHT = 0;
-
     /**
      * Add backgroundTile to backgroundTiles ArrayList.
      * @param backgroundTile which must be added.
@@ -21,20 +18,6 @@ public class BackgroundTileCatalog {
     public boolean add(BackgroundTile backgroundTile) {
         // If there is already a backgroundTile in this position return false.
         if (contains(backgroundTile.getCoordinateX(), backgroundTile.getCoordinateY())) {
-            return false;
-        }
-
-        if (backgroundTile.getCoordinateX() < MIN_WIDTH_AND_HEIGHT) {
-            return false;
-        }
-        if (backgroundTile.getCoordinateX() > MAX_WIDTH_AND_HEIGHT) {
-            return false;
-        }
-
-        if (backgroundTile.getCoordinateY() < MIN_WIDTH_AND_HEIGHT) {
-            return false;
-        }
-        if (backgroundTile.getCoordinateY() > MAX_WIDTH_AND_HEIGHT) {
             return false;
         }
 
