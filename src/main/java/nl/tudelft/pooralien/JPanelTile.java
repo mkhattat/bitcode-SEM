@@ -5,13 +5,18 @@ import javax.swing.JPanel;
 import java.awt.Component;
 
 /**
- * Created by mostafa on 9-9-17.
+ * JPanelTile holds image icons on the GridBoard on the screen.
  */
-public class JPanelTile extends JPanel{
+public class JPanelTile extends JPanel {
     private JLabel imageIcon = null;
     private int gridX;
     private int gridY;
 
+    /**
+     * Constructor of JPanelTile.
+     * @param x is the X position of the tile on the GridBoard.
+     * @param y is the Y position of the tile on the GridBoard.
+     */
     public JPanelTile(int x, int y) {
         super();
         this.gridX = x;
@@ -38,14 +43,26 @@ public class JPanelTile extends JPanel{
         super.removeAll();
     }
 
+    /**
+     * Get the ImageIcon which is placed on a JLabel.
+     * @return JLabel containing the Icon of this object.
+     */
     public JLabel getImageIcon() {
         return imageIcon;
     }
 
+    /**
+     * Get the position of this item on the GridBoard.
+     * @return the X position.
+     */
     public int getGridX() {
         return gridX;
     }
 
+    /**
+     * Get the position of this item on the GridBoard.
+     * @return the Y position.
+     */
     public int getGridY() {
         return gridY;
     }
