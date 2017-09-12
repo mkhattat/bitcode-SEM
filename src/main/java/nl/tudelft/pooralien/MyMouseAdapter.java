@@ -30,6 +30,10 @@ public class MyMouseAdapter extends MouseAdapter {
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (dragAnimation == null) {
+            return;
+        }
+        dragAnimation.end();
         dragAnimation = null;
     }
 

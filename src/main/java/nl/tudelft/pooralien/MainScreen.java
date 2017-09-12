@@ -33,14 +33,6 @@ public class MainScreen extends JLayeredPane {
     }
 
     /**
-     * Get the grid board holder containing data about the images.
-     * @return a 2D array containing the images of the items on the screen.
-     */
-    public JPanelTile[][] getGridBoardHolder() {
-        return gridBoardHolder;
-    }
-
-    /**
      * Get the panel grid board containing which is placed on the screen.
      * @return GridBoard of the type JPanel.
      */
@@ -59,6 +51,40 @@ public class MainScreen extends JLayeredPane {
         BufferedImage image = loadImage(fileName);
         gridBoardHolder[x][y].removeAll();
         gridBoardHolder[x][y].add(new JLabel(new ImageIcon(image)));
+        revalidate();
+        repaint();
+    }
+
+    /**
+     * replace items (images) on the board.
+     * @param x the X position on the board.
+     * @param y the Y position on the board.
+     * @param label is the label containing an image.
+     */
+    public void replaceItem(int x, int y, JLabel label) {
+        gridBoardHolder[x][y].removeAll();
+        gridBoardHolder[x][y].add(label);
+        revalidate();
+        repaint();
+    }
+
+    /**
+     * Get the item on the grid board at a specific position.
+     * @param x the X position on the grid board.
+     * @param y the Y position on the grid board.
+     * @return the object of type JPanelTile on the grid board.
+     */
+    public JPanelTile getItem(int x, int y) {
+        return gridBoardHolder[x][y];
+    }
+
+    /**
+     * Remove an item (image) on the grid board at a specific position.
+     * @param x the X position on the grid board.
+     * @param y the Y position on the grid board.
+     */
+    public void removeItem(int x, int y) {
+        gridBoardHolder[x][y].removeAll();
     }
 
     /**
