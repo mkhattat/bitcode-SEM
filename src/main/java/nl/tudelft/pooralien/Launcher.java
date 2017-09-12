@@ -1,7 +1,10 @@
 package nl.tudelft.pooralien;
 
+
+import javax.swing.JFrame;
+
 /**
- * Created by mostafa on 7-9-17.
+ * The Launcher of the game.
  */
 public class Launcher {
 
@@ -11,16 +14,18 @@ public class Launcher {
     public static final int BOARD_HEIGHT = 10;
 
     /**
-     * To prevent checkstyle error.
-    private Launcher() {
-    }
+     * Launch the game GUI.
      */
-
     public void launch() {
         //StartupScreen startupScreen = new StartupScreen();
         //startupScreen.show();
-        mainScreen = new MainScreen("Poor Alien", 800, 600);
-        mainScreen.show();
+        JFrame mainWindow = new JFrame("Poor Alien");
+        mainWindow.setSize(800,600);
+        mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainWindow.getContentPane().add(new MainScreen());
+
+        mainWindow.pack();
+        mainWindow.setVisible(true);
     }
 
     /**

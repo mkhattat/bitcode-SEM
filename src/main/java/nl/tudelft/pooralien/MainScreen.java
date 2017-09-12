@@ -3,7 +3,6 @@ package nl.tudelft.pooralien;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -13,13 +12,12 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Random;
 
 /**
- * Created by mostafa on 7-9-17.
+ * MainScreen class is the GUI of the game screen.
  */
-public class MainScreen {
-    private JFrame window;
-    private JLayeredPane rootPane;
+public class MainScreen extends JLayeredPane {
     private JPanel mainFrame;
     private JLabel headerLabel;
     private JPanel gridBoard;
@@ -27,28 +25,46 @@ public class MainScreen {
     private JPanel controlPanel;
     private GridBagConstraints gbc;
 
-    public MainScreen(String title, int width, int height) {
-        window = new JFrame(title);
-        window.setSize(width, height);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    /**
+     * Constructor of the MainScreen prepare the GUI.
+     */
+    public MainScreen() {
         prepareGUI();
     }
 
-
-    public JPanel[][] getGridBoard() {
+    /**
+     * Get the grid board holder containing data about the images.
+     * @return a 2D array containing the images of the items on the screen.
+     */
+    public JPanelTile[][] getGridBoardHolder() {
         return gridBoardHolder;
     }
 
-    public void show() {
-        window.setVisible(true);
+    /**
+     * Get the panel grid board containing which is placed on the screen.
+     * @return GridBoard of the type JPanel.
+     */
+    public JPanel getGridBoard() {
+        return gridBoard;
     }
 
-    public void hide() {
-        window.setVisible(false);
+    /**
+     * Replace an Item on the screen by loading an image
+     * onto the specific position on the screen.
+     * @param x the X position.
+     * @param y the Y position.
+     * @param fileName file name of the new image which is going to be replaced.
+     */
+    public void replaceItem(int x, int y, String fileName) {
+        BufferedImage image = loadImage(fileName);
+        gridBoardHolder[x][y].removeAll();
+        gridBoardHolder[x][y].add(new JLabel(new ImageIcon(image)));
     }
 
+    /**
+     * prepare the GUI on the screen.
+     */
     private void prepareGUI() {
-        rootPane = new JLayeredPane();
         mainFrame = new JPanel();
         mainFrame.setLayout(new GridBagLayout());
 
@@ -61,15 +77,13 @@ public class MainScreen {
 
         mainFrame.setSize(mainFrame.getPreferredSize());
         mainFrame.setLocation(0, 0);
-        rootPane.add(mainFrame, JLayeredPane.DEFAULT_LAYER);
-        rootPane.setPreferredSize(mainFrame.getPreferredSize());
+        add(mainFrame, JLayeredPane.DEFAULT_LAYER);
+        setPreferredSize(mainFrame.getPreferredSize());
 
-        MyMouseAdapter mouseAdapter = new MyMouseAdapter(gridBoard, rootPane);
-        rootPane.addMouseListener(mouseAdapter);
-        rootPane.addMouseMotionListener(mouseAdapter);
+        MyMouseAdapter mouseAdapter = new MyMouseAdapter(this);
+        addMouseListener(mouseAdapter);
+        addMouseMotionListener(mouseAdapter);
 
-        window.getContentPane().add(rootPane);
-        window.pack();
     }
 
     private void createHeaderLabel() {
@@ -81,45 +95,34 @@ public class MainScreen {
         mainFrame.add(headerLabel, gbc);
     }
 
-
     private void createGridBoard() {
-
         // initial gridBoardHolder
         gridBoardHolder = new JPanelTile[Launcher.BOARD_WIDTH][Launcher.BOARD_HEIGHT];
-
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.weightx = 1;
         gbc.anchor = GridBagConstraints.CENTER;
 
         GridLayout gridLayout = new GridLayout(Launcher.BOARD_WIDTH, Launcher.BOARD_HEIGHT);
-        gridLayout.setHgap(5);
-        gridLayout.setVgap(5);
-
         gridBoard = new JPanel();
         gridBoard.setBackground(Color.darkGray);
         gridBoard.setLayout(gridLayout);
 
-
         BufferedImage image = null;
         try {
-            File file = new File(this.getClass().getResource("/sample.png").toURI());
-            image = ImageIO.read(file);
+            for (int x = 0; x < Launcher.BOARD_WIDTH; x++) {
+                for (int y = 0; y < Launcher.BOARD_HEIGHT; y++) {
+                    Random r = new Random();
+                    int rn = r.nextInt(8 - 1) + 1;
+                    image = loadImage("sample" + rn);
+                    gridBoardHolder[x][y] = new JPanelTile(x, y);
+                    gridBoardHolder[x][y].add(new JLabel(new ImageIcon(image)));
+                    gridBoard.add(gridBoardHolder[x][y]);
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (int x = 0; x < Launcher.BOARD_WIDTH; x++) {
-            for (int y = 0; y < Launcher.BOARD_HEIGHT; y++) {
-                gridBoardHolder[x][y] = new JPanelTile(x, y);
-                gridBoardHolder[x][y].add(new JLabel(new ImageIcon(image)));
-                gridBoard.add(gridBoardHolder[x][y]);
-            }
-
-        }
-
-        gridBoardHolder[9][9].removeAll();
-        gridBoardHolder[9][9].add(new JLabel("TEST"));
-
         mainFrame.add(gridBoard, gbc);
     }
 
@@ -136,5 +139,16 @@ public class MainScreen {
 
         mainFrame.add(controlPanel, gbc);
 
+    }
+
+    private BufferedImage loadImage(String fileName) {
+        BufferedImage image = null;
+        try {
+            File file = new File(this.getClass().getResource("/" + fileName + ".png").toURI());
+            image = ImageIO.read(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return image;
     }
 }
