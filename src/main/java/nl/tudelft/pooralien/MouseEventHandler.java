@@ -3,6 +3,7 @@ package nl.tudelft.pooralien;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import javax.swing.JFrame;
 
 /**
  * Handles mouse events inside a given JFrame using the
@@ -18,7 +19,7 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
      *
      * @param  window the JFrame where where to listen for events
      */
-    public MouseEventHandler(Launcher window) {
+    public MouseEventHandler(JFrame window) {
         window.addMouseListener(this);
         window.addMouseMotionListener(this);
     }
