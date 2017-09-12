@@ -1,6 +1,8 @@
 package nl.tudelft.pooralien;
 
 
+import nl.tudelft.pooralien.ui.MainScreen;
+
 import javax.swing.JFrame;
 
 /**

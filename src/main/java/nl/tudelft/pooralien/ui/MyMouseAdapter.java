@@ -1,4 +1,7 @@
-package nl.tudelft.pooralien;
+package nl.tudelft.pooralien.ui;
+
+import nl.tudelft.pooralien.ui.DragAnimation;
+import nl.tudelft.pooralien.ui.MainScreen;
 
 import java.awt.Point;
 import java.awt.event.MouseAdapter;

@@ -1,4 +1,6 @@
-package nl.tudelft.pooralien;
+package nl.tudelft.pooralien.ui;
+
+import nl.tudelft.pooralien.Launcher;
 
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -16,7 +18,7 @@ public class DragAnimation {
     private MainScreen mainScreen;
     private Direction direction;
 
-    private Point originalCoordinate;
+    private Point previousCoordinate;
     private Point originalGridPosition;
     private Point delta;
 
@@ -48,7 +50,7 @@ public class DragAnimation {
      * @param p is the point where mouse is pressed.
      */
     public void start(Point p) {
-        originalCoordinate = p;
+        previousCoordinate = p;
 
         Component c = mainScreen.getGridBoard().getComponentAt(p);
         if (c instanceof JPanelTile) {
@@ -135,15 +137,15 @@ public class DragAnimation {
     private void updateVertical(Point p) {
         JPanel gridBoard = mainScreen.getGridBoard();
         if (p.y > gridBoard.getY() && p.y < gridBoard.getHeight()) {
-            int deltaP = p.y - originalCoordinate.y;
+            int deltaP = p.y - previousCoordinate.y;
             if (deltaP > 0 && deltaP > selectedItems.get(0).getHeight()) {
                 selectedItems.addFirst(selectedItems.removeLast());
                 repaint(selectedItems);
-                originalCoordinate = p;
+                previousCoordinate = p;
             } else if (deltaP < 0 && deltaP * -1 > selectedItems.get(0).getHeight()) {
                 selectedItems.addLast(selectedItems.removeFirst());
                 repaint(selectedItems);
-                originalCoordinate = p;
+                previousCoordinate = p;
             }
         }
     }
@@ -151,15 +153,15 @@ public class DragAnimation {
     private void updateHorizontal(Point p) {
         JPanel gridBoard = mainScreen.getGridBoard();
         if (p.x > gridBoard.getX() && p.x < gridBoard.getWidth()) {
-            int deltaP = p.x - originalCoordinate.x;
+            int deltaP = p.x - previousCoordinate.x;
             if (deltaP > 0 && deltaP > selectedItems.get(0).getWidth()) {
                 selectedItems.addFirst(selectedItems.removeLast());
                 repaint(selectedItems);
-                originalCoordinate = p;
+                previousCoordinate = p;
             } else if (deltaP < 0 && deltaP * -1 > selectedItems.get(0).getWidth()) {
                 selectedItems.addLast(selectedItems.removeFirst());
                 repaint(selectedItems);
-                originalCoordinate = p;
+                previousCoordinate = p;
             }
         }
     }

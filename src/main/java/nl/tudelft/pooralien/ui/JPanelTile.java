@@ -1,4 +1,4 @@
-package nl.tudelft.pooralien;
+package nl.tudelft.pooralien.ui;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;

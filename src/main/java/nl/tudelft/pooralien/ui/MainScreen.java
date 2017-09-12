@@ -1,4 +1,6 @@
-package nl.tudelft.pooralien;
+package nl.tudelft.pooralien.ui;
+
+import nl.tudelft.pooralien.Launcher;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
