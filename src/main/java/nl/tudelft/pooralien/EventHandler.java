@@ -1,5 +1,7 @@
 package nl.tudelft.pooralien;
 
+import javax.swing.JFrame;
+
 /**
  * Listen for events, capures them and perform actions.
  */
@@ -10,7 +12,7 @@ public class EventHandler {
      *
      * @param  window the JFrame where where to listen for events
      */
-    public EventHandler(Launcher window) {
+    public EventHandler(JFrame window) {
         new MouseEventHandler(window);
     }
 }
