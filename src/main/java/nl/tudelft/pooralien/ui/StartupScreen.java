@@ -6,7 +6,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 /**
- * Created by mostafa on 8-9-17.
+ * A simple startup screen.
  */
 public class StartupScreen {
     private JFrame mainFrame;

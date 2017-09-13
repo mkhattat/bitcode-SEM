@@ -1,8 +1,5 @@
 package nl.tudelft.pooralien.ui;
 
-import nl.tudelft.pooralien.ui.DragAnimation;
-import nl.tudelft.pooralien.ui.MainScreen;
-
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -13,7 +10,7 @@ import java.awt.event.MouseEvent;
 public class MyMouseAdapter extends MouseAdapter {
     private MainScreen mainScreen;
 
-    private DragAnimation dragAnimation;
+    private Animation dragAnimation;
 
     public MyMouseAdapter(MainScreen mainScreen) {
         super();
@@ -27,7 +24,7 @@ public class MyMouseAdapter extends MouseAdapter {
             dragAnimation.update(p);
             return;
         }
-        dragAnimation = new DragAnimation(mainScreen, DragAnimation.Direction.Top_To_Bottom);
+        dragAnimation = new RTLDragAnimation(mainScreen);
         dragAnimation.start(p);
     }
 

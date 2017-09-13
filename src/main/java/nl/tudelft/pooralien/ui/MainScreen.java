@@ -1,5 +1,6 @@
 package nl.tudelft.pooralien.ui;
 
+import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Launcher;
 
 import javax.imageio.ImageIO;
@@ -14,7 +15,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.Random;
 
 /**
  * MainScreen class is the GUI of the game screen.
@@ -90,6 +90,25 @@ public class MainScreen extends JLayeredPane {
     }
 
     /**
+     * Sync the board on the screen with the board data structure.
+     */
+    public void refreshBoard() {
+        for (int x = 0; x < Launcher.BOARD_WIDTH; x++) {
+            for (int y = 0; y < Launcher.BOARD_HEIGHT; y++) {
+                replaceItem(x, y, Game.getGame().getBoard().getItem(x, y).getSprite());
+            }
+        }
+    }
+
+    /**
+     * Set the text of the label at the top of the screen.
+     * @param text the text of the label.
+     */
+    public void setHeaderText(String text) {
+        headerLabel.setText(text);
+    }
+
+    /**
      * prepare the GUI on the screen.
      */
     private void prepareGUI() {
@@ -137,12 +156,11 @@ public class MainScreen extends JLayeredPane {
         gridBoard.setLayout(gridLayout);
 
         BufferedImage image = null;
+        Game game = Game.getGame();
         try {
             for (int x = 0; x < Launcher.BOARD_WIDTH; x++) {
                 for (int y = 0; y < Launcher.BOARD_HEIGHT; y++) {
-                    Random r = new Random();
-                    int rn = r.nextInt(8 - 1) + 1;
-                    image = loadImage("sample" + rn);
+                    image = loadImage(game.getBoard().getItem(x, y).getSprite());
                     gridBoardHolder[x][y] = new JPanelTile(x, y);
                     gridBoardHolder[x][y].add(new JLabel(new ImageIcon(image)));
                     gridBoard.add(gridBoardHolder[x][y]);
@@ -156,8 +174,8 @@ public class MainScreen extends JLayeredPane {
 
     private void createControlPanel() {
         controlPanel = new JPanel();
-        controlPanel.add(new JButton("Start"));
-        controlPanel.add(new JButton("Stop"));
+        controlPanel.add(new JButton("Save"));
+        controlPanel.add(new JButton("Load"));
 
         gbc.gridx = 0;
         gbc.gridy = 2;
