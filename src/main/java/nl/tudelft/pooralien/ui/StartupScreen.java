@@ -1,7 +1,13 @@
 package nl.tudelft.pooralien.ui;
 
-import javax.swing.*;
-import java.awt.*;
+import nl.tudelft.pooralien.Launcher;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -14,13 +20,16 @@ public class StartupScreen {
     private JPanel btnPanel;
     private GridBagConstraints gbc;
 
+    /**
+     * Constructor for the StartupScreen.
+     */
     public StartupScreen() {
         prepareGUI();
     }
 
     private void prepareGUI() {
         mainFrame = new JFrame("Poor Alien");
-        mainFrame.setSize(800,600);
+        mainFrame.setSize(Launcher.SCREEN_WIDTH, Launcher.SCREEN_HEIGHT);
         mainFrame.setLayout(new GridBagLayout());
 
         gbc = new GridBagConstraints();
@@ -61,10 +70,16 @@ public class StartupScreen {
 
     }
 
+    /**
+     * Show the Startup Screen.
+     */
     public void show() {
         mainFrame.setVisible(true);
     }
 
+    /**
+     * Hide the Startup Screen.
+     */
     public void hide() {
         mainFrame.setVisible(false);
     }

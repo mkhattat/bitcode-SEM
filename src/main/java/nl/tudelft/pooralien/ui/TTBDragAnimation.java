@@ -1,7 +1,7 @@
 package nl.tudelft.pooralien.ui;
 
 import nl.tudelft.item.ItemFactory;
-import nl.tudelft.pooralien.Board;
+import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Launcher;
 
