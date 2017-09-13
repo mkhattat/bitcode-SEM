@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.JFrame;
+import java.awt.Point;
 
 /**
  * Handles mouse events inside a given JFrame using the
@@ -17,7 +18,7 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
     /**
      * Initiate event mouse listeners on a given JFrame.
      *
-     * @param  window the JFrame where where to listen for events
+     * @param window the JFrame where where to listen for events
      */
     public MouseEventHandler(JFrame window) {
         window.addMouseListener(this);
@@ -28,11 +29,12 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
      * Is executed when mouse is pressed in the JFrame.
      * Creates a new mouseAction object.
      *
-     * @param  e the mouse event that was captured
+     * @param e the mouse event that was captured
      */
     public void mousePressed(MouseEvent e) {
         System.out.println("Create MouseAction Object");
-        mouseAction = new MouseEventHandler.MouseAction(e.getX(), e.getY());
+        Point mousePosition = new Point(e.getX(), e.getY());
+        mouseAction = new MouseEventHandler.MouseAction(mousePosition);
     }
 
     /**
@@ -40,11 +42,11 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
      * Checks if the mouse action was ether a click action
      * or a drag action.
      *
-     * @param  e the mouse event that was captured
+     * @param e the mouse event that was captured
      */
     public void mouseReleased(MouseEvent e) {
-        int xPos = mouseAction.getInitialPosition()[0];
-        int yPos = mouseAction.getInitialPosition()[1];
+        int xPos = mouseAction.getInitialPosition().x;
+        int yPos = mouseAction.getInitialPosition().y;
 
         if (mouseAction.getMouseActionType() == MouseAction.CLICK_ACTION) {
             System.out.println("Click Action on x:" + xPos + ", y:" + yPos);
@@ -57,7 +59,7 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
      * Is executed when mouse clicked in the JFrame.
      * This is a placeholder.
      *
-     * @param  e the mouse event that was captured
+     * @param e the mouse event that was captured
      */
     public void mouseClicked(MouseEvent e) {
         // mouse clicked
@@ -67,7 +69,7 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
      * Is executed when has moved in the JFrame.
      * This is a placeholder.
      *
-     * @param  e the mouse event that was captured
+     * @param e the mouse event that was captured
      */
     public void mouseMoved(MouseEvent e) {
         // mouse moved
@@ -78,7 +80,7 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
      * Is executed when mouse entered in the JFrame.
      * This is a placeholder.
      *
-     * @param  e the mouse event that was captured
+     * @param e the mouse event that was captured
      */
     public void mouseEntered(MouseEvent e) {
         // mouse entered
@@ -89,7 +91,7 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
      * Is executed when mouse exits the JFrame.
      * This is a placeholder.
      *
-     * @param  e the mouse event that was captured
+     * @param e the mouse event that was captured
      */
     public void mouseExited(MouseEvent e) {
         // mouse exits frame
@@ -102,14 +104,16 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
      * type is click or drag and notifies animation the
      * class.
      *
-     * @param  e the mouse event that was captured
+     * @param e the mouse event that was captured
      */
     public void mouseDragged(MouseEvent e) {
-        mouseAction.setPosition(e.getX(), e.getY());
+        Point mousePosition = new Point(e.getX(), e.getY());
+        mouseAction.setPosition(mousePosition);
+
         if (mouseAction.getMouseActionType() != MouseAction.CLICK_ACTION) {
             if (mouseAction.getMouseActionType() == MouseAction.HORIZONTAL_DRAG_ACTION) {
                 System.out.println("Animate DRAG Horizontal x:" + e.getX() + ", y:" + e.getY());
-            } else if (mouseAction.getMouseActionType() == MouseAction.VERICAL_DRAG_ACTION) {
+            } else if (mouseAction.getMouseActionType() == MouseAction.VERTICAL_DRAG_ACTION) {
                 System.out.println("Animate DRAG Vertical x:" + e.getX() + ", y:" + e.getY());
             }
         }
@@ -122,12 +126,15 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
     public class MouseAction {
         public static final int CLICK_ACTION = 1;
         public static final int HORIZONTAL_DRAG_ACTION = 2;
-        public static final int VERICAL_DRAG_ACTION = 3;
+        public static final int VERTICAL_DRAG_ACTION = 3;
 
         private static final int DRAG_THRESHOLD = 5;
 
-        private int xPosStart, yPosStart;
-        private int xPosCurrent, yPosCurrent;
+        private Point startPoint;
+        private Point currentPoint;
+
+        //private int xPosStart, yPosStart;
+        //private int xPosCurrent, yPosCurrent;
         private int mouseActionType;
 
 
@@ -136,50 +143,41 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
          * y positions and initially set the mouseActionType
          * on click.
          *
-         * @param xPos the initial x position.
-         * @param yPos the initial y position.
+         * @param point Point object to x and y position
          */
-        public MouseAction(int xPos, int yPos) {
-            xPosStart = xPos;
-            yPosStart = yPos;
+        public MouseAction(Point point) {
+            startPoint = point;
             mouseActionType = CLICK_ACTION;
         }
 
         /**
-         * Initialize MouseAction object with initial x and
-         * y positions and initially set the mouseActionType
-         * on click.
+         * Sets a new current position.
          *
-         * @param xPos the initial x position.
-         * @param yPos the initial y position.
+         * @param point Point object to x and y position
          */
-        public void setPosition(int xPos, int yPos) {
+        public void setPosition(Point point) {
             if (mouseActionType == CLICK_ACTION) {
-                determineDragDirection(xPos, yPos);
+                determineDragDirection(point);
             }
-            xPosCurrent = xPos;
-            yPosCurrent = yPos;
+            currentPoint = point;
         }
 
         /**
          * gets the current x and y position.
          *
-         * @return two element array {x,y}
+         * @return current point object
          */
-        public int[] getPosition() {
-            int[] positionArray = {xPosCurrent, yPosCurrent};
-            return positionArray;
+        public Point getPosition() {
+            return currentPoint;
         }
 
         /**
          * gets initial x and y position.
          *
-         * @return two element array {x,y}
+         * @return initial point object
          */
-        public int[] getInitialPosition() {
-            int [] positionArray = {xPosStart, yPosStart};
-            return positionArray;
-
+        public Point getInitialPosition() {
+            return startPoint;
         }
 
         /**
@@ -196,14 +194,13 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
          * checks if mouse has dragged more then DRAG_THRESHOLD over
          * x or y axis and set mouse type action accordingly.
          *
-         * @param xPos current x position
-         * @param yPos current y position
+         * @param point point object with current position
          */
-        private void determineDragDirection(int xPos, int yPos) {
-            if (Math.abs(xPosStart - xPos) >= DRAG_THRESHOLD) {
+        private void determineDragDirection(Point point) {
+            if (Math.abs(startPoint.x - point.x) >= DRAG_THRESHOLD) {
                 mouseActionType = HORIZONTAL_DRAG_ACTION;
-            } else if (Math.abs(yPosStart - yPos) >= DRAG_THRESHOLD) {
-                mouseActionType = VERICAL_DRAG_ACTION;
+            } else if (Math.abs(startPoint.y - point.y) >= DRAG_THRESHOLD) {
+                mouseActionType = VERTICAL_DRAG_ACTION;
             } else {
                 mouseActionType = CLICK_ACTION;
             }
