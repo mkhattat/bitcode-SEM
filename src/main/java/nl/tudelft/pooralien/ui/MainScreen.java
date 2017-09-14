@@ -127,9 +127,9 @@ public class MainScreen extends JLayeredPane {
         add(mainFrame, JLayeredPane.DEFAULT_LAYER);
         setPreferredSize(mainFrame.getPreferredSize());
 
-        MyMouseAdapter mouseAdapter = new MyMouseAdapter(this);
-        addMouseListener(mouseAdapter);
-        addMouseMotionListener(mouseAdapter);
+        //MyMouseAdapter mouseAdapter = new MyMouseAdapter(this);
+        //addMouseListener(mouseAdapter);
+        //addMouseMotionListener(mouseAdapter);
 
     }
 

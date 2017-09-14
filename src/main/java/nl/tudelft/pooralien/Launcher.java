@@ -24,10 +24,12 @@ public class Launcher {
         //StartupScreen startupScreen = new StartupScreen();
         //startupScreen.show();
         JFrame mainWindow = new JFrame("Poor Alien");
+        MainScreen mainScreen = new MainScreen();
         mainWindow.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainWindow.getContentPane().add(new MainScreen());
+        mainWindow.getContentPane().add(mainScreen);
 
+        new MouseEventHandler(mainScreen);
         mainWindow.pack();
         mainWindow.setVisible(true);
     }

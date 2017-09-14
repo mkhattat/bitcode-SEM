@@ -1,7 +1,5 @@
 package nl.tudelft.pooralien.Controller;
 
-import nl.tudelft.pooralien.Controller.Board;
-
 /**
  * class for controlling the flow of the game.
  */

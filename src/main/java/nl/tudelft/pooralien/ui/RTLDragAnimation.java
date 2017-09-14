@@ -130,8 +130,8 @@ public class RTLDragAnimation implements Animation {
             ItemFactory itemFactory = new ItemFactory();
             Game.getGame().getBoard().setItem(
                     itemFactory.createItem(label.getName()), originalXGridPosition, i);
+            i++;
         }
-        i++;
         mainScreen.refreshBoard();
     }
 
