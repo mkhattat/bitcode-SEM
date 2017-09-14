@@ -129,6 +129,9 @@ public class MainScreen extends JLayeredPane {
         setPreferredSize(mainFrame.getPreferredSize());
     }
 
+    /**
+     * create the header label.
+     */
     private void createHeaderLabel() {
         headerLabel = new JLabel("Score goes here!");
         gbc.gridx = 0;
@@ -138,6 +141,9 @@ public class MainScreen extends JLayeredPane {
         mainFrame.add(headerLabel, gbc);
     }
 
+    /**
+     * create the grid board.
+     */
     private void createGridBoard() {
         // initial gridBoardHolder
         gridBoardHolder = new JPanelTile[Launcher.BOARD_WIDTH][Launcher.BOARD_HEIGHT];
@@ -168,6 +174,9 @@ public class MainScreen extends JLayeredPane {
         mainFrame.add(gridBoard, gbc);
     }
 
+    /**
+     * create the control panel with two buttons.
+     */
     private void createControlPanel() {
         controlPanel = new JPanel();
         controlPanel.add(new JButton("Save"));
@@ -183,6 +192,11 @@ public class MainScreen extends JLayeredPane {
 
     }
 
+    /**
+     * Load an image from the resources folder.
+     * @param fileName the name of image.
+     * @return Buffered Image of the loaded image.
+     */
     private BufferedImage loadImage(String fileName) {
         BufferedImage image = null;
         try {

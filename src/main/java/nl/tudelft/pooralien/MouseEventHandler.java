@@ -62,7 +62,6 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
             }
             dragAnimation.end();
             dragAnimation = null;
-            //System.out.println("End Drag Animation");
         }
     }
 
@@ -151,8 +150,6 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
         private Point startPoint;
         private Point currentPoint;
 
-        //private int xPosStart, yPosStart;
-        //private int xPosCurrent, yPosCurrent;
         private int mouseActionType;
 
 

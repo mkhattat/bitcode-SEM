@@ -27,6 +27,9 @@ public class StartupScreen {
         prepareGUI();
     }
 
+    /**
+     * Prepare the items which is going to be shown on the screen.
+     */
     private void prepareGUI() {
         mainFrame = new JFrame("Poor Alien");
         mainFrame.setSize(Launcher.SCREEN_WIDTH, Launcher.SCREEN_HEIGHT);
@@ -46,6 +49,9 @@ public class StartupScreen {
         createButtonPanel();
     }
 
+    /**
+     * setup a label for the welcome text.
+     */
     private void createWelcomeLabel() {
         welcomeLabel = new JLabel("Welcome to the Poor Alien Game!");
         gbc.gridx = 0;
@@ -56,6 +62,9 @@ public class StartupScreen {
         mainFrame.add(welcomeLabel, gbc);
     }
 
+    /**
+     * create a panel containing two buttons.
+     */
     private void createButtonPanel() {
         btnPanel = new JPanel();
         btnPanel.add(new JButton("New Game"));

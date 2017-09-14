@@ -21,8 +21,6 @@ public class Launcher {
      * Launch the game GUI.
      */
     public void launch() {
-        //StartupScreen startupScreen = new StartupScreen();
-        //startupScreen.show();
         JFrame mainWindow = new JFrame("Poor Alien");
         MainScreen mainScreen = new MainScreen();
         mainWindow.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);

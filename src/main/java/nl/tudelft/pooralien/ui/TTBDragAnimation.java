@@ -126,6 +126,10 @@ public class TTBDragAnimation implements Animation {
         mainScreen.refreshBoard();
     }
 
+    /**
+     * restore the dragged items to their original state
+     * and also update the board data structure to apply the changes.
+     */
     private void restoreScreen() {
         int i = 0;
         for (JLabel label : originalItems) {
@@ -138,6 +142,10 @@ public class TTBDragAnimation implements Animation {
         mainScreen.refreshBoard();
     }
 
+    /**
+     * Draw images in the list on the screen.
+     * @param list the list containing Labels (=images) which is going to be shown on the screen.
+     */
     private void drawItems(LinkedList<JLabel> list) {
         int i = 0;
         for (JLabel label : list) {
