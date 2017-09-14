@@ -53,7 +53,7 @@ public class TTBDragAnimation implements Animation {
         if (tile.getImageIcon() == null) {
             return;
         }
-        originalYGridPosition = tile.getGridY();
+        originalYGridPosition = tile.getGridPosition().y;
         int x = (SwingUtilities.convertPoint(tile.getImageIcon(), tile.getImageIcon().getX(),
                 tile.getImageIcon().getY(), mainScreen.getGridBoard())).x;
         deltaX = x - MARGIN;

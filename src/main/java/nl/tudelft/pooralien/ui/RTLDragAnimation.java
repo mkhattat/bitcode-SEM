@@ -54,7 +54,7 @@ public class RTLDragAnimation implements Animation {
             return;
         }
 
-        originalXGridPosition = tile.getGridX();
+        originalXGridPosition = tile.getGridPosition().x;
         int y = (SwingUtilities.convertPoint(tile.getImageIcon(), tile.getImageIcon().getX(),
                 tile.getImageIcon().getY(), mainScreen.getGridBoard())).y;
         deltaY = y + 2 * MARGIN;

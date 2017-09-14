@@ -3,24 +3,22 @@ package nl.tudelft.pooralien.ui;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Component;
+import java.awt.Point;
 
 /**
  * JPanelTile holds image icons on the GridBoard on the screen.
  */
 public class JPanelTile extends JPanel {
     private JLabel imageIcon = null;
-    private int gridX;
-    private int gridY;
+    private Point gridPosition;
 
     /**
      * Constructor of JPanelTile.
-     * @param x is the X position of the tile on the GridBoard.
-     * @param y is the Y position of the tile on the GridBoard.
+     * @param gridPosition is the position of this tile on the grid board.
      */
-    public JPanelTile(int x, int y) {
+    public JPanelTile(Point gridPosition) {
         super();
-        this.gridX = x;
-        this.gridY = y;
+        this.gridPosition = gridPosition;
     }
 
     @Override
@@ -53,17 +51,9 @@ public class JPanelTile extends JPanel {
 
     /**
      * Get the position of this item on the GridBoard.
-     * @return the X position.
+     * @return the position of tile on the grid board.
      */
-    public int getGridX() {
-        return gridX;
-    }
-
-    /**
-     * Get the position of this item on the GridBoard.
-     * @return the Y position.
-     */
-    public int getGridY() {
-        return gridY;
+    public Point getGridPosition() {
+        return gridPosition;
     }
 }

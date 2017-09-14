@@ -9,10 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -161,7 +158,7 @@ public class MainScreen extends JLayeredPane {
             for (int x = 0; x < Launcher.BOARD_WIDTH; x++) {
                 for (int y = 0; y < Launcher.BOARD_HEIGHT; y++) {
                     image = loadImage(game.getBoard().getItem(x, y).getSprite());
-                    gridBoardHolder[x][y] = new JPanelTile(x, y);
+                    gridBoardHolder[x][y] = new JPanelTile(new Point(x, y));
                     gridBoardHolder[x][y].add(new JLabel(new ImageIcon(image)));
                     gridBoard.add(gridBoardHolder[x][y]);
                 }
