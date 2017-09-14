@@ -64,16 +64,28 @@ public class Board {
     }
 
     /**
+     *
      * get a particular item at the given position.
      * @param x is the X coordinate on the board.
      * @param y is the Y coordinate on the board.
-     * @return the item if the given position is valid otherwise return null
+     * @return the item if the given position is valid otherwise return null.
+     * @throws IllegalArgumentException if the x and y are out of the board raneg.
      */
-    public Item getItem(int x, int y) {
-        if (x < WIDTH && x >= 0 && y < HEIGHT && y >= 0) {
-            return items[x][y];
+    public Item getItem(int x, int y) throws IllegalArgumentException {
+        if (x >= WIDTH || x < 0) {
+            throw new IllegalArgumentException(
+                    "The x should be greater or equal than 0 and less than "
+                    + WIDTH + "."
+            );
         }
-        return null;
+        if (y >= HEIGHT || y < 0) {
+            throw new IllegalArgumentException(
+                    "The y should be greater or equal than 0 and less than "
+                    + HEIGHT + "."
+            );
+        }
+
+        return items[x][y];
     }
 
 
@@ -87,23 +99,23 @@ public class Board {
     public ArrayList<Integer> findHSimilaresAt(int x, int y) {
         ArrayList<Integer> founded = new ArrayList<>();
         founded.add(y);
-
+        boolean flag = true;
         int i = 1;
-        while (true) { // checking the right side
+        while (flag) { // checking the right side
             if (y + i < HEIGHT && items[x][y].getSprite().equals(items[x][y + i].getSprite())) {
                 founded.add(y + i);
             } else {
-                break;
+                flag = false;
             }
             i++;
         }
-
         i = 1;
-        while (true) { //checking the left side
+        flag = true;
+        while (flag) { //checking the left side
             if (y - i >= 0 && items[x][y].getSprite().equals(items[x][y - i].getSprite())) {
                 founded.add(y - i);
             } else {
-                break;
+                flag = false;
             }
             i++;
         }
@@ -125,23 +137,23 @@ public class Board {
     public ArrayList<Integer> findVSimilaresAt(int x, int y) {
         ArrayList<Integer> founded = new ArrayList<>();
         founded.add(x);
-
+        boolean flag = true;
         int i = 1;
-        while (true) { // checking the bottom side
+        while (flag) { // checking the bottom side
             if (i + x < WIDTH && items[x][y].getSprite().equals(items[x + i][y].getSprite())) {
                 founded.add(x + i);
             } else {
-                break;
+                flag = false;
             }
             i++;
         }
-
+        flag = true;
         i = 1;
-        while (true) { //checking the top side
+        while (flag) { //checking the top side
             if (x - i >= 0 && items[x][y].getSprite().equals(items[x - i][y].getSprite())) {
                 founded.add(x - i);
             } else {
-                break;
+                flag = false;
             }
             i++;
         }
