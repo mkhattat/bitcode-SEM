@@ -109,12 +109,12 @@ public class BackgroundTile {
         return true;
     }
 
-    @Deprecated
     /**
      * NOTE: If colors are the same and for instance one object has (X,Y): (1,2) and another (2,1).
      * Then they will produce the same hashCode()
      * @return Returns an integer with a very high collision rate.
      */
+    @Deprecated
     public int hashCode() {
         return coordinateX
                 * coordinateY
