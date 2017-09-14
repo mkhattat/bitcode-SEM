@@ -109,11 +109,15 @@ public class BackgroundTile {
         return true;
     }
 
-    @Override
     @Deprecated
-    // NOTE: Does not work correctly, different object with same values
-    // will generate a different hashCode.
+    /**
+     * NOTE: If colors are the same and for instance one object has (X,Y): (1,2) and another (2,1).
+     * Then they will produce the same hashCode()
+     * @return Returns an integer with a very high collision rate.
+     */
     public int hashCode() {
-        return super.hashCode();
+        return coordinateX
+                * coordinateY
+                * colorBackgroundTile.hashCode();
     }
 }
