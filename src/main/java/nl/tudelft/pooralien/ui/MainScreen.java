@@ -9,7 +9,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -123,11 +127,6 @@ public class MainScreen extends JLayeredPane {
         mainFrame.setLocation(0, 0);
         add(mainFrame, JLayeredPane.DEFAULT_LAYER);
         setPreferredSize(mainFrame.getPreferredSize());
-
-        //MyMouseAdapter mouseAdapter = new MyMouseAdapter(this);
-        //addMouseListener(mouseAdapter);
-        //addMouseMotionListener(mouseAdapter);
-
     }
 
     private void createHeaderLabel() {
