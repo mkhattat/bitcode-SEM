@@ -1,8 +1,7 @@
 package nl.tudelft.pooralien.ui;
 
+import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.Controller.Game;
-import nl.tudelft.pooralien.Launcher;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -94,8 +93,8 @@ public class MainScreen extends JLayeredPane {
      * Sync the board on the screen with the board data structure.
      */
     public void refreshBoard() {
-        for (int x = 0; x < Launcher.BOARD_WIDTH; x++) {
-            for (int y = 0; y < Launcher.BOARD_HEIGHT; y++) {
+        for (int x = 0; x < Board.WIDTH; x++) {
+            for (int y = 0; y < Board.HEIGHT; y++) {
                 replaceItem(x, y, Game.getGame().getBoard().getItem(x, y).getSprite());
             }
         }
@@ -146,13 +145,13 @@ public class MainScreen extends JLayeredPane {
      */
     private void createGridBoard() {
         // initial gridBoardHolder
-        gridBoardHolder = new JPanelTile[Launcher.BOARD_WIDTH][Launcher.BOARD_HEIGHT];
+        gridBoardHolder = new JPanelTile[Board.WIDTH][Board.HEIGHT];
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.weightx = 1;
         gbc.anchor = GridBagConstraints.CENTER;
 
-        GridLayout gridLayout = new GridLayout(Launcher.BOARD_WIDTH, Launcher.BOARD_HEIGHT);
+        GridLayout gridLayout = new GridLayout(Board.WIDTH, Board.HEIGHT);
         gridBoard = new JPanel();
         gridBoard.setBackground(Color.darkGray);
         gridBoard.setLayout(gridLayout);
@@ -160,8 +159,8 @@ public class MainScreen extends JLayeredPane {
         BufferedImage image = null;
         Game game = Game.getGame();
         try {
-            for (int x = 0; x < Launcher.BOARD_WIDTH; x++) {
-                for (int y = 0; y < Launcher.BOARD_HEIGHT; y++) {
+            for (int x = 0; x < Board.WIDTH; x++) {
+                for (int y = 0; y < Board.HEIGHT; y++) {
                     image = loadImage(game.getBoard().getItem(x, y).getSprite());
                     gridBoardHolder[x][y] = new JPanelTile(new Point(x, y));
                     gridBoardHolder[x][y].add(new JLabel(new ImageIcon(image)));

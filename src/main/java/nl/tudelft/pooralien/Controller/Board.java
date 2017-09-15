@@ -9,8 +9,8 @@ import java.util.ArrayList;
  * The Board class.
  */
 public class Board {
-    private static final int WIDTH = 10;
-    private static final int HEIGHT = 10;
+    public static final int WIDTH = 10;
+    public static final int HEIGHT = 10;
     private static final int MIN_REQUIRED_ITEMS = 3;
 
     private Item[][] items = new Item[WIDTH][HEIGHT];

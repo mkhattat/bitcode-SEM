@@ -12,18 +12,13 @@ public class Launcher {
 
     private MainScreen mainScreen;
 
-    public static final int BOARD_WIDTH = 10;
-    public static final int BOARD_HEIGHT = 10;
-    public static final int SCREEN_WIDTH = 800;
-    public static final int SCREEN_HEIGHT = 600;
-
     /**
      * Launch the game GUI.
      */
     public void launch() {
         JFrame mainWindow = new JFrame("Poor Alien");
         MainScreen mainScreen = new MainScreen();
-        mainWindow.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        mainWindow.setSize(0, 0);
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.getContentPane().add(mainScreen);
 

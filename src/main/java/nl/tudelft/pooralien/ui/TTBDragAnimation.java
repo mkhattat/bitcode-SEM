@@ -3,12 +3,10 @@ package nl.tudelft.pooralien.ui;
 import nl.tudelft.item.ItemFactory;
 import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.Controller.Game;
-import nl.tudelft.pooralien.Launcher;
 
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import java.awt.Component;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -23,7 +21,7 @@ public class TTBDragAnimation implements Animation {
 
     private Point previousCoordinate;
     private int originalYGridPosition;
-    private int deltaX;
+    private int originalXScreenPosition;
 
     private LinkedList<JLabel> selectedItems = new LinkedList<>();
     private LinkedList<JLabel> originalItems = new LinkedList<>();
@@ -39,7 +37,7 @@ public class TTBDragAnimation implements Animation {
         this.mainScreen = screen;
         previousCoordinate = new Point(0, 0);
         originalYGridPosition = 0;
-        deltaX = 0;
+        originalXScreenPosition = 0;
     }
 
     @Override
@@ -54,11 +52,9 @@ public class TTBDragAnimation implements Animation {
             return;
         }
         originalYGridPosition = tile.getGridPosition().y;
-        int x = (SwingUtilities.convertPoint(tile.getImageIcon(), tile.getImageIcon().getX(),
-                tile.getImageIcon().getY(), mainScreen.getGridBoard())).x;
-        deltaX = x - MARGIN;
+        originalXScreenPosition = tile.getX() +  MARGIN;
 
-        for (int i = 0; i < Launcher.BOARD_HEIGHT; i++) {
+        for (int i = 0; i < Board.HEIGHT; i++) {
             JLabel label;
             String name;
 
@@ -151,7 +147,7 @@ public class TTBDragAnimation implements Animation {
         for (JLabel label : list) {
             int yCoordinate = (int) ((i * label.getHeight() * GAP)
                     + (mainScreen.getGridBoard().getY()));
-            label.setLocation(deltaX, yCoordinate);
+            label.setLocation(originalXScreenPosition, yCoordinate);
             mainScreen.revalidate();
             mainScreen.repaint();
             i++;

@@ -3,12 +3,9 @@ package nl.tudelft.pooralien.ui;
 import nl.tudelft.item.ItemFactory;
 import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.Controller.Game;
-import nl.tudelft.pooralien.Launcher;
-
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import java.awt.Component;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -23,12 +20,12 @@ public class RTLDragAnimation implements Animation {
 
     private Point previousCoordinate;
     private int originalXGridPosition;
-    private int deltaY;
+    private int originalYScreenPosition;
 
     private LinkedList<JLabel> selectedItems = new LinkedList<>();
     private LinkedList<JLabel> originalItems = new LinkedList<>();
 
-    private static final int MARGIN = 5;
+    private static final int MARGIN = 10;
     private static final double GAP = 1.22;
 
     /**
@@ -39,7 +36,7 @@ public class RTLDragAnimation implements Animation {
         this.mainScreen = screen;
         previousCoordinate = new Point(0, 0);
         originalXGridPosition = 0;
-        deltaY = 0;
+        originalYScreenPosition = 0;
     }
 
     @Override
@@ -55,10 +52,8 @@ public class RTLDragAnimation implements Animation {
         }
 
         originalXGridPosition = tile.getGridPosition().x;
-        int y = (SwingUtilities.convertPoint(tile.getImageIcon(), tile.getImageIcon().getX(),
-                tile.getImageIcon().getY(), mainScreen.getGridBoard())).y;
-        deltaY = y + 2 * MARGIN;
-        for (int i = 0; i < Launcher.BOARD_WIDTH; i++) {
+        originalYScreenPosition = tile.getY() + 2 * MARGIN;
+        for (int i = 0; i < Board.WIDTH; i++) {
             JLabel label = mainScreen.getItem(originalXGridPosition, i).getImageIcon();
             String name = Game.getGame().getBoard().getItem(originalXGridPosition, i).getSprite();
 
@@ -146,8 +141,8 @@ public class RTLDragAnimation implements Animation {
     private void drawItems(LinkedList<JLabel> list) {
         int i = 0;
         for (JLabel label : list) {
-            int xCoordinate = (int) ((i * label.getWidth() * GAP) + MARGIN);
-            label.setLocation(xCoordinate, deltaY);
+            int xCoordinate = (int) ((i * label.getWidth() * GAP) + MARGIN / 2);
+            label.setLocation(xCoordinate, originalYScreenPosition);
             mainScreen.revalidate();
             mainScreen.repaint();
             i++;

@@ -1,7 +1,5 @@
 package nl.tudelft.pooralien.ui;
 
-import nl.tudelft.pooralien.Launcher;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -32,7 +30,6 @@ public class StartupScreen {
      */
     private void prepareGUI() {
         mainFrame = new JFrame("Poor Alien");
-        mainFrame.setSize(Launcher.SCREEN_WIDTH, Launcher.SCREEN_HEIGHT);
         mainFrame.setLayout(new GridBagLayout());
 
         gbc = new GridBagConstraints();
