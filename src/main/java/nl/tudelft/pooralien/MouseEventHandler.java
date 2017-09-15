@@ -1,9 +1,13 @@
 package nl.tudelft.pooralien;
 
+import nl.tudelft.pooralien.ui.Animation;
+import nl.tudelft.pooralien.ui.MainScreen;
+import nl.tudelft.pooralien.ui.RTLDragAnimation;
+import nl.tudelft.pooralien.ui.TTBDragAnimation;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import javax.swing.JFrame;
 import java.awt.Point;
 
 /**
@@ -14,15 +18,18 @@ import java.awt.Point;
 public class MouseEventHandler implements MouseListener, MouseMotionListener {
 
     private MouseEventHandler.MouseAction mouseAction;
+    private MainScreen mainScreen;
+    private Animation dragAnimation;
 
     /**
      * Initiate event mouse listeners on a given JFrame.
      *
-     * @param window the JFrame where where to listen for events
+     * @param mainScreen the JFrame where where to listen for events
      */
-    public MouseEventHandler(JFrame window) {
-        window.addMouseListener(this);
-        window.addMouseMotionListener(this);
+    public MouseEventHandler(MainScreen mainScreen) {
+        mainScreen.addMouseListener(this);
+        mainScreen.addMouseMotionListener(this);
+        this.mainScreen = mainScreen;
     }
 
     /**
@@ -32,7 +39,6 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
      * @param e the mouse event that was captured
      */
     public void mousePressed(MouseEvent e) {
-        System.out.println("Create MouseAction Object");
         Point mousePosition = new Point(e.getX(), e.getY());
         mouseAction = new MouseEventHandler.MouseAction(mousePosition);
     }
@@ -51,7 +57,11 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
         if (mouseAction.getMouseActionType() == MouseAction.CLICK_ACTION) {
             System.out.println("Click Action on x:" + xPos + ", y:" + yPos);
         } else {
-            System.out.println("End Drag Animation");
+            if (dragAnimation == null) {
+                return;
+            }
+            dragAnimation.end();
+            dragAnimation = null;
         }
     }
 
@@ -111,10 +121,17 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
         mouseAction.setPosition(mousePosition);
 
         if (mouseAction.getMouseActionType() != MouseAction.CLICK_ACTION) {
+            Point p = e.getPoint();
+            if (dragAnimation != null) {
+                dragAnimation.update(p);
+                return;
+            }
             if (mouseAction.getMouseActionType() == MouseAction.HORIZONTAL_DRAG_ACTION) {
-                System.out.println("Animate DRAG Horizontal x:" + e.getX() + ", y:" + e.getY());
+                dragAnimation = new RTLDragAnimation(mainScreen);
+                dragAnimation.start(p);
             } else if (mouseAction.getMouseActionType() == MouseAction.VERTICAL_DRAG_ACTION) {
-                System.out.println("Animate DRAG Vertical x:" + e.getX() + ", y:" + e.getY());
+                dragAnimation = new TTBDragAnimation(mainScreen);
+                dragAnimation.start(p);
             }
         }
     }
@@ -133,8 +150,6 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
         private Point startPoint;
         private Point currentPoint;
 
-        //private int xPosStart, yPosStart;
-        //private int xPosCurrent, yPosCurrent;
         private int mouseActionType;
 
 
