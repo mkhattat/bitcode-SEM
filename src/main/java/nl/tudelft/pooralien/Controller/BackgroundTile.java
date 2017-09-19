@@ -117,4 +117,5 @@ public class BackgroundTile {
         result = primeNumber * result + colorBackgroundTile.hashCode();
         return result;
     }
+
 }
