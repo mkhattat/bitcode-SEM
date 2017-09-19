@@ -2,6 +2,7 @@ package nl.tudelft.pooralien.Controller;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 /**
  * Created by Ivo Schols on 9-9-2017.
@@ -12,6 +13,46 @@ public class BackgroundTileCatalog {
 
     private static final int MAX_WIDTH_AND_HEIGHT = 10;
     private static final int MIN_WIDTH_AND_HEIGHT = 0;
+    private static final int MAX_TILE_COUNT = 100;
+
+    /**
+     * Random used to generate random items by generating random ints.
+     * These ints will be between the lower bound (inclusive) and the upper bound (exclusive).
+     */
+    private Random intGen;
+
+    /**
+     * Create an empty BackgroundTileCatalog object.
+     */
+    public BackgroundTileCatalog() {
+        intGen = new Random();
+    }
+
+    /**
+     * Pre: count is not smaller than 0 and not bigger than 100.
+     * Create an BackgroundTileCatalog that is is pre filled with white BackgroundTiles.
+     * @param backgroundTileCount count of BackgroundTiles that need to be added to
+     *                            the BackgroundTileCatalog object.
+     */
+    public BackgroundTileCatalog(int backgroundTileCount) {
+        if (backgroundTileCount < 0) {
+            throw new IllegalArgumentException(
+                    "BackgroundTileCount must be bigger than 0 to be added to the catalog");
+        }
+        if (backgroundTileCount > MAX_TILE_COUNT) {
+            throw new IllegalArgumentException(
+                    "BackgroundTileCount must be smaller than 101 to be added to the catalog");
+        }
+        intGen = new Random();
+
+        int tilesAdded = 0;
+
+        while (tilesAdded != (backgroundTileCount)) {
+            if (this.add(createRandomWhiteBackgroundTile())) {
+                tilesAdded++;
+            }
+        }
+    }
 
     /**
      * Add backgroundTile to backgroundTiles ArrayList.
@@ -110,4 +151,15 @@ public class BackgroundTileCatalog {
     public int size() {
         return backgroundTiles.size();
     }
+
+    /**
+     * @return Returns a tile with randoms coordinates to easily populate the BackgroundTileCatalog
+     */
+    public BackgroundTile createRandomWhiteBackgroundTile() {
+        int positionOnBoardX = intGen.nextInt(MAX_WIDTH_AND_HEIGHT + 1);
+        int positionOnBoardY = intGen.nextInt(MAX_WIDTH_AND_HEIGHT + 1);
+
+        return new BackgroundTile(positionOnBoardX, positionOnBoardY);
+    }
+
 }
