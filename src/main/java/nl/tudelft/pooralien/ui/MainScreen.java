@@ -32,6 +32,7 @@ public class MainScreen extends JLayeredPane {
      */
     public MainScreen() {
         prepareGUI();
+        refreshBoard();
     }
 
     /**
