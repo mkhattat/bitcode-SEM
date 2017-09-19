@@ -1,6 +1,5 @@
 package nl.tudelft.pooralien.Controller;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Random;
@@ -48,7 +47,7 @@ public class BackgroundTileCatalog {
 
         int tilesAdded = 0;
 
-        while (tilesAdded != (backgroundTileCount + 1)) {
+        while (tilesAdded != (backgroundTileCount)) {
             if (this.add(createRandomWhiteBackgroundTile())) {
                 tilesAdded++;
             }
@@ -160,7 +159,7 @@ public class BackgroundTileCatalog {
         int positionOnBoardX = intGen.nextInt(MAX_WIDTH_AND_HEIGHT + 1);
         int positionOnBoardY = intGen.nextInt(MAX_WIDTH_AND_HEIGHT + 1);
 
-        return new BackgroundTile(positionOnBoardX, positionOnBoardY, Color.WHITE);
+        return new BackgroundTile(positionOnBoardX, positionOnBoardY);
     }
 
 }
