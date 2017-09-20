@@ -1,9 +1,26 @@
 \documentclass{article}
 
 \usepackage{titlesec}
+\usepackage{longtable}
+\usepackage{array} % for defining a new column type
+\usepackage{varwidth} %for the varwidth minipage environment
+\usepackage{color, colortbl}
+\usepackage{caption}
+\usepackage{subfigure}
+\usepackage{filecontents}
+\usepackage[section]{placeins}
+\usepackage{float}
+
+\definecolor{Gray}{gray}{0.9}
+
 \newcommand{\sectionbreak}{\clearpage}
+\newcommand\minput[1]{%
+  \input{#1}%
+  \ifhmode\ifnum\lastnodetype=11 \unskip\fi\fi}
 
 \begin{document}
+
+\newcolumntype{M}{>{\begin{varwidth}{4cm}}l<{\end{varwidth}}} %M is for Maximal column
 
 \begin{titlepage}
 	\Huge{Assignment 1}
@@ -13,16 +30,75 @@
 \section{The Core}
 
 \subsection{Derive Classes}
+For deriving the the right classes that we can implement in the software we firstly look for noun phrases in the requirements document\footnote{https://github.com/mkhattat/bitcode-SEM/blob/master/docs/requirements.pdf}. Secondly we try to refine the list of phrases and group them by using given guidelines. 
 
-The following list of candidate classes can be derived from the requirements document\footnote{https://github.com/mkhattat/bitcode-SEM/blob/master/docs/requirements.pdf} by looking for noun phrases in this document. We refined this list by sorting them and by defining the type of phrase.
+\paragraph{Noun phrases}
+In table \ref{table:ListDerivedNouns} a list of noun phrases is presented that was derived from the functional requirements in the requirements document.
 
 \begin{center}
-    \begin{tabular}{ | l | l | l |}
+    \begin{longtable}{ | p{1in} | p{3in} |}
     \hline
-    Noun Phrase & Group & Type \\ \hline
-    
-    \end{tabular}
+    \rowcolor{Gray}
+    Noun Phrases & Requirement \\ \hline
+    game, board, grid & The game board will consist of a 10x10 square grid \\ \hline
+    tile & The game will have six different tiles with which the board will be filled.\\ \hline
+    filled board & The game will start with a filled board.\\ \hline
+    mouse & A tile must be able to move horizontal or vertical by using the mouse.\\ \hline
+    row, column & If one tile is moved, the whole row or column will move along with it. The tiles that get past the edge will reappear at the opposite edge. \\ \hline
+	... & A row or column of 3 or more of the same tile (independent of the white outline), will mean that these tiles get removed from the game. \\ \hline
+	... & The tiles above empty tiles will move down one position, the remaining empty tiles shall be filled randomly. \\ \hline
+	player, move & The game will end when the player runs out of possible moves. \\ \hline
+	... & The player should be able to start a new game. \\ \hline
+	... & The player should be able to stop a game in progress. \\ \hline
+	... & The game shall end when the player loses or stops the game, or clears all of the white outlining. \\ \hline
+	turn, cell & The game will end in a set amount of turns. The amount is based upon the amount of cells which are outlined. (For example 1 outlined cell gives the player five moves). \\ \hline
+	white outline & Some cells will have a white outline, moving the tile which rests on this cell will not affect the white outline. \\ \hline
+	... & The white outlining of a cell will be removed once a tile in that cell is removed. \\ \hline
+	pattern & The patterning of white tiles should be preprogrammed. \\ \hline
+	... & The player loses when there are no possible moves left, or if the player has run out of moves. \\ \hline
+	... & The player wins when all white outlined cells are cleared. \\ \hline
+	level, difficulty system & The game could have a level or difficulty based system. \\ \hline
+	scoring system & The game could have a scoring system based on the level or difficulty system. \\ \hline
+	score & The players score could be shown during the game. \\ \hline	
+	\caption{list of derived nouns}\label{table:ListDerivedNouns}
+    \end{longtable}
 \end{center}
+
+
+\paragraph{Refine Candidates} We can refine the list of nouns by sorting them based on the groups of obvious, uncertain or nonsense class candidates. We also define the type of candidate classes such that it can be a physical object, conceptual entity, categories of classes an interface or values. In table \ref{table:ListCandidateClasses} a list of candidate classes is shown. 
+
+\begin{center}
+    \begin{longtable}{ | p{1in} | p{1in} | p{2in} |}
+    \hline
+    \rowcolor{Gray}
+    Candidate Class & Group & Class Type \\ \hline
+	Game & obvious & conceptual entity \\ \hline
+	Board & obvious & interface \\ \hline
+	Tile & obvious & conceptual entity \\ \hline
+	Mouse & obvious & physical object \\ \hline
+	Player & obvious & physical object \\ \hline
+	Level & obvious & conceptual entity \\ \hline
+	Grid & uncertain & value \\ \hline
+	Move & uncertain & conceptual entity \\ \hline
+	Pattern & uncertain & value \\ \hline
+	ScoringSystem & uncertain & conceptual entity \\ \hline
+	Score & uncertain & conceptual entity \\ \hline
+	FilledBoard & nonsense & conceptual entity \\ \hline
+	Row, Column & nonsense & conceptual entity \\ \hline
+	Turn & nonsense & conceptual entity \\ \hline
+	WhiteOutline & nonsense & conceptual entity \\ \hline
+	
+	\caption{list of candidate classes}\label{table:ListCandidateClasses}
+    \end{longtable}
+\end{center}
+
+
+\paragraph{Class-Responsibility-Collaboration Cards} After we refined the list of candidate classes we can create so called "class-responsibility-collaboration Cards" or CRC cards. These cards are used to get an overview of the responsibility of the classes and which classes are collaborating together. In the figure below the CRC cards are presented.
+
+\input{CRC-Cards}
+
+\paragraph{Comparison with the implementation} If we look at classes that were integrated into the initial implementation of the game\footnote{https://github.com/mkhattat/bitcode-SEM/releases} we can spot some differences. Namely, there are a couple of classes missing. This is mostly due to the fact that not all requirements where implemented in the initial version. For example, the Player class and the ScoringSystem class is absence from the code because scoring is not implemented. There is also not a Level class because there exists only one level that is randomly generated. Furthermore, the Game class is replaced by the Launcher class and Move class is replaced by the Animation class.
+
 
 \subsection{Main Classes}
 text
