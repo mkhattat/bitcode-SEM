@@ -34,11 +34,11 @@ public class BackgroundTileCatalogTest {
     public void setup() {
         backgroundTileCatalog = new BackgroundTileCatalog();
 
-        backgroundTile1 = new BackgroundTile(0,0);
-        backgroundTile2 = new BackgroundTile(1, 1);
-        backgroundTile3 = new BackgroundTile(2, 2);
-        backgroundTile4 = new BackgroundTile(3, 10);
-        backgroundTile5 = new BackgroundTile(10, 4);
+        backgroundTile1 = new BackgroundTile(0,0, Color.WHITE);
+        backgroundTile2 = new BackgroundTile(1, 1, Color.WHITE);
+        backgroundTile3 = new BackgroundTile(2, 2, Color.WHITE);
+        backgroundTile4 = new BackgroundTile(3, 10, Color.WHITE);
+        backgroundTile5 = new BackgroundTile(10, 4, Color.WHITE);
     }
 
     @Test
@@ -46,7 +46,8 @@ public class BackgroundTileCatalogTest {
         BackgroundTileCatalog backgroundTileCatalogTenTiles;
 
         try {
-            backgroundTileCatalogTenTiles = new BackgroundTileCatalog(-1);
+            backgroundTileCatalogTenTiles =
+                    new BackgroundTileCatalog(-1, Color.WHITE);
         } catch (IllegalArgumentException e) {
             assertEquals(
                     "BackgroundTileCount must be bigger than 0 to be added to the catalog"
@@ -59,7 +60,8 @@ public class BackgroundTileCatalogTest {
         BackgroundTileCatalog backgroundTileCatalogTenTiles;
 
         try {
-            backgroundTileCatalogTenTiles = new BackgroundTileCatalog(MAX_TILE_COUNT + 1);
+            backgroundTileCatalogTenTiles =
+                    new BackgroundTileCatalog(MAX_TILE_COUNT + 1, Color.WHITE);
         } catch (IllegalArgumentException e) {
             assertEquals(
                     "BackgroundTileCount must be smaller than 101 to be added to the catalog"
@@ -70,7 +72,7 @@ public class BackgroundTileCatalogTest {
     @Test
     public void BackgroundTileCatalog10Tiles() {
         BackgroundTileCatalog backgroundTileCatalogTenTiles =
-                new BackgroundTileCatalog(BACKGROUND_TILE_COUNT);
+                new BackgroundTileCatalog(BACKGROUND_TILE_COUNT, Color.WHITE);
 
         assertEquals(BACKGROUND_TILE_COUNT, backgroundTileCatalogTenTiles.size());
     }

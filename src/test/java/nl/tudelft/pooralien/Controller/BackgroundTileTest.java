@@ -20,7 +20,7 @@ public class BackgroundTileTest {
 
     @Before
     public void setup() {
-        backgroundTile1 = new BackgroundTile(0,0);
+        backgroundTile1 = new BackgroundTile(0,0, Color.WHITE);
     }
 
     @Test
@@ -28,7 +28,7 @@ public class BackgroundTileTest {
         BackgroundTile backgroundTile;
 
         try {
-            backgroundTile = new BackgroundTile(-1, 0);
+            backgroundTile = new BackgroundTile(-1, 0, Color.WHITE);
         } catch (IllegalArgumentException e) {
             assertEquals(
                     "Coordinate X must be between -1 and 11"
@@ -41,7 +41,7 @@ public class BackgroundTileTest {
         BackgroundTile backgroundTile;
 
         try {
-            backgroundTile = new BackgroundTile(11, 0);
+            backgroundTile = new BackgroundTile(11, 0, Color.WHITE);
         } catch (IllegalArgumentException e) {
             assertEquals(
                     "Coordinate X must be between -1 and 11"
@@ -54,7 +54,7 @@ public class BackgroundTileTest {
         BackgroundTile backgroundTile;
 
         try {
-            backgroundTile = new BackgroundTile(0, -1);
+            backgroundTile = new BackgroundTile(0, -1, Color.WHITE);
         } catch (IllegalArgumentException e) {
             assertEquals(
                     "Coordinate Y must be between -1 and 11"
@@ -67,7 +67,7 @@ public class BackgroundTileTest {
         BackgroundTile backgroundTile;
 
         try {
-            backgroundTile = new BackgroundTile(0, 11);
+            backgroundTile = new BackgroundTile(0, 11, Color.WHITE);
         } catch (IllegalArgumentException e) {
             assertEquals(
                     "Coordinate Y must be between -1 and 11"
@@ -77,22 +77,22 @@ public class BackgroundTileTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void constructInvalidXCoordinateTooSmall() {
-        BackgroundTile backgroundTile = new BackgroundTile(-1, 0);
+        BackgroundTile backgroundTile = new BackgroundTile(-1, 0, Color.WHITE);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void constructInvalidXCoordinateTooBig() {
-        BackgroundTile backgroundTile = new BackgroundTile(11, 0);
+        BackgroundTile backgroundTile = new BackgroundTile(11, 0, Color.WHITE);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void constructInvalidYCoordinateTooSmall() {
-        BackgroundTile backgroundTile = new BackgroundTile(0, -1);
+        BackgroundTile backgroundTile = new BackgroundTile(0, -1, Color.WHITE);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void constructInvalidYCoordinateTooBig() {
-        BackgroundTile backgroundTile = new BackgroundTile(0, 11);
+        BackgroundTile backgroundTile = new BackgroundTile(0, 11, Color.WHITE);
     }
 
     @Test
@@ -124,17 +124,22 @@ public class BackgroundTileTest {
 
     @Test
     public void tileEqualsOtherTileTrue() {
-        assertTrue(backgroundTile1.equals(new BackgroundTile(0, 0)));
+        assertTrue(backgroundTile1.equals(new BackgroundTile(0, 0, Color.WHITE)));
     }
 
     @Test
     public void tileEqualsWithDifferentXFalse() {
-        assertFalse(backgroundTile1.equals(new BackgroundTile(1, 0)));
+        assertFalse(backgroundTile1.equals(new BackgroundTile(1, 0, Color.WHITE)));
     }
 
     @Test
     public void tileEqualsWithDifferentYFalse() {
-        assertFalse(backgroundTile1.equals(new BackgroundTile(0, 1)));
+        assertFalse(backgroundTile1.equals(new BackgroundTile(0, 1, Color.WHITE)));
+    }
+
+    @Test
+    public void tileEqualsWithDifferentColorFalse() {
+        assertFalse(backgroundTile1.equals(new BackgroundTile(0, 0, Color.BLACK)));
     }
 
     @Test
@@ -144,14 +149,14 @@ public class BackgroundTileTest {
 
     @Test
     public void hashCodeEqualsTrue() {
-        assertEquals(new BackgroundTile(1, 2).hashCode(),
-                new BackgroundTile(1, 2).hashCode());
+        assertEquals(new BackgroundTile(1, 2, Color.WHITE).hashCode(),
+                new BackgroundTile(1, 2, Color.WHITE).hashCode());
     }
 
     @Test
     public  void hashCodeEqualsFalse() {
-        assertNotEquals(new BackgroundTile(1, 2).hashCode(),
-                new BackgroundTile(2, 1).hashCode());
+        assertNotEquals(new BackgroundTile(1, 2, Color.WHITE).hashCode(),
+                new BackgroundTile(2, 1, Color.WHITE).hashCode());
     }
 
 }

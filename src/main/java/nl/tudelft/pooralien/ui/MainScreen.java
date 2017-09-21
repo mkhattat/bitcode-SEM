@@ -80,7 +80,8 @@ public class MainScreen extends JLayeredPane {
         gridBoardHolder[x][y].setBackground(null);
 
         if (Game.getGame().getBackgroundTileCatalog().contains(x, y)) {
-            gridBoardHolder[x][y].setBackground(Color.MAGENTA);
+            gridBoardHolder[x][y].setBackground(
+                    Game.getGame().getBackgroundTileCatalog().get(x,y).getColorBackgroundTile());
         }
         revalidate();
         repaint();

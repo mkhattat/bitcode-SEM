@@ -1,5 +1,7 @@
 package nl.tudelft.pooralien.Controller;
 
+import java.awt.Color;
+
 /**
  * class for controlling the flow of the game.
  */
@@ -9,13 +11,14 @@ public final class Game {
     private BackgroundTileCatalog backgroundTileCatalog;
 
     private static final int BACKGROUND_TILE_COUNT = 10;
+    private static final Color STANDARD_COLOR = Color.MAGENTA;
 
     /**
      * Initialise the singleton Game object.
      */
     private Game() {
         board = new Board();
-        backgroundTileCatalog = new BackgroundTileCatalog(BACKGROUND_TILE_COUNT);
+        backgroundTileCatalog = new BackgroundTileCatalog(BACKGROUND_TILE_COUNT, STANDARD_COLOR);
     }
 
     /**

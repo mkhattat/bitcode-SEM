@@ -1,5 +1,6 @@
 package nl.tudelft.pooralien.Controller;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Random;
@@ -30,11 +31,12 @@ public class BackgroundTileCatalog {
 
     /**
      * Pre: count is not smaller than 0 and not bigger than 100.
+     * Pre: tileColor must be an instanceof Color (otherwise game is unplayable)
      * Create an BackgroundTileCatalog that is is pre filled with white BackgroundTiles.
      * @param backgroundTileCount count of BackgroundTiles that need to be added to
      *                            the BackgroundTileCatalog object.
      */
-    public BackgroundTileCatalog(int backgroundTileCount) {
+    public BackgroundTileCatalog(int backgroundTileCount, Color tileColor) throws IllegalArgumentException {
         if (backgroundTileCount < 0) {
             throw new IllegalArgumentException(
                     "BackgroundTileCount must be bigger than 0 to be added to the catalog");
@@ -43,12 +45,15 @@ public class BackgroundTileCatalog {
             throw new IllegalArgumentException(
                     "BackgroundTileCount must be smaller than 101 to be added to the catalog");
         }
+        if (!(tileColor instanceof Color)) {
+            throw new IllegalArgumentException("colorBackgroundTile should be a Color object");
+        }
         intGen = new Random();
 
         int tilesAdded = 0;
 
         while (tilesAdded != (backgroundTileCount)) {
-            if (this.add(createRandomWhiteBackgroundTile())) {
+            if (this.add(createRandomBackgroundTile(tileColor))) {
                 tilesAdded++;
             }
         }
@@ -65,12 +70,8 @@ public class BackgroundTileCatalog {
             return false;
         }
 
-        // If the backgroundTile could not be added return false.
-        if (!(backgroundTiles.add(backgroundTile))) {
-            return false;
-        }
-
-        return true;
+        // If the backgroundTile is added return true else false.
+        return backgroundTiles.add(backgroundTile);
     }
 
     /**
@@ -112,10 +113,7 @@ public class BackgroundTileCatalog {
      * @return True if a backgroundTile exists on these X and Y coordinates.
      */
     public boolean contains(int coordinateX, int coordinateY) {
-        if (this.indexOf(coordinateX, coordinateY) > -1) {
-            return true;
-        }
-        return false;
+        return (this.indexOf(coordinateX, coordinateY) > -1);
     }
 
     /**
@@ -123,7 +121,7 @@ public class BackgroundTileCatalog {
      * @param coordinateY of the backgroundTile to be checked.
      * @return BackgroundTile at coordinatesXY, if the object is not in the list return null.
      */
-    public BackgroundTile get(int coordinateX, int coordinateY) {
+    public BackgroundTile get(int coordinateX, int coordinateY) throws IndexOutOfBoundsException, NoSuchElementException {
         if (coordinateX < MIN_WIDTH_AND_HEIGHT || coordinateX > MAX_WIDTH_AND_HEIGHT
                 || coordinateY < MIN_WIDTH_AND_HEIGHT || coordinateY > MAX_WIDTH_AND_HEIGHT) {
             throw new IndexOutOfBoundsException(
@@ -153,13 +151,18 @@ public class BackgroundTileCatalog {
     }
 
     /**
+     * Pre: tileColor must be an instanceof Color (otherwise game is unplayable)
      * @return Returns a tile with randoms coordinates to easily populate the BackgroundTileCatalog
      */
-    public BackgroundTile createRandomWhiteBackgroundTile() {
+    public BackgroundTile createRandomBackgroundTile(Color tileColor) {
+        if (tileColor == null) {
+            throw new IllegalArgumentException("colorBackgroundTile should be a Color object");
+        }
+
         int positionOnBoardX = intGen.nextInt(MAX_WIDTH_AND_HEIGHT + 1);
         int positionOnBoardY = intGen.nextInt(MAX_WIDTH_AND_HEIGHT + 1);
 
-        return new BackgroundTile(positionOnBoardX, positionOnBoardY);
+        return new BackgroundTile(positionOnBoardX, positionOnBoardY, tileColor);
     }
 
 }

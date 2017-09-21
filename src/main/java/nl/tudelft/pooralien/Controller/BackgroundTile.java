@@ -1,5 +1,7 @@
 package nl.tudelft.pooralien.Controller;
 
+import java.awt.Color;
+
 /**
  * Created by Ivo Schols on 9-9-2017.
  */
@@ -7,6 +9,7 @@ public class BackgroundTile {
 
     private int coordinateX;
     private int coordinateY;
+    private Color colorBackgroundTile;
 
     private static final int MAX_WIDTH_AND_HEIGHT = 10;
     private static final int MIN_WIDTH_AND_HEIGHT = 0;
@@ -14,17 +17,24 @@ public class BackgroundTile {
     /**
      * @param coordinateX must be [0,10]
      * @param coordinateY must be [0,10]
+     * @param colorBackgroundTile colorBackgroundTile;
      */
-    public BackgroundTile(int coordinateX, int coordinateY) {
+    public BackgroundTile(int coordinateX, int coordinateY, Color colorBackgroundTile) {
         if (!(coordinateX >= MIN_WIDTH_AND_HEIGHT && coordinateX <= MAX_WIDTH_AND_HEIGHT)) {
             throw new IllegalArgumentException("Coordinate X must be between -1 and 11");
         }
         if (!(coordinateY >= MIN_WIDTH_AND_HEIGHT && coordinateY <= MAX_WIDTH_AND_HEIGHT)) {
             throw new IllegalArgumentException("Coordinate Y must be between -1 and 11");
         }
+        // instance check is needed because a null would make the backgroundTiles hidden,
+        // and as a result the game would be unplayable
+        if (!(colorBackgroundTile instanceof Color)) {
+            throw new IllegalArgumentException("colorBackgroundTile should be a Color object");
+        }
 
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY;
+        this.colorBackgroundTile = colorBackgroundTile;
     }
 
     /**
@@ -63,6 +73,23 @@ public class BackgroundTile {
     }
 
     /**
+     * Pre: must be a Color object (null would make the game unplayable)
+     * @param colorBackgroundTile change the color of the backgroundTile
+     */
+    public void setColorBackgroundTile(Color colorBackgroundTile) {
+        if (colorBackgroundTile instanceof Color) {
+            this.colorBackgroundTile = colorBackgroundTile;
+        }
+    }
+
+    /**
+     * @return colorBackgroundTile for drawing the tile background.
+     */
+    public Color getColorBackgroundTile() {
+        return colorBackgroundTile;
+    }
+
+    /**
      * @param object to which this tile must be compared.
      * @return Return true, if Xcoordinate, Ycoordinate and color values are the same else false.
      */
@@ -79,6 +106,10 @@ public class BackgroundTile {
             return false;
         }
 
+        if (!(backgroundTile.getColorBackgroundTile().equals(this.getColorBackgroundTile()))) {
+            return false;
+        }
+
         return true;
     }
 
@@ -87,6 +118,7 @@ public class BackgroundTile {
         int result = coordinateX;
         final int primeNumber = 31;
         result = primeNumber * result + coordinateY;
+        result = primeNumber * result + colorBackgroundTile.hashCode();
         return result;
     }
 
