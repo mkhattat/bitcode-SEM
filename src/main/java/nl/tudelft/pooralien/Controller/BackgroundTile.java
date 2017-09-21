@@ -73,8 +73,8 @@ public class BackgroundTile {
     }
 
     /**
-     * Pre: must be a Color object (null would make the game unplayable)
-     * @param colorBackgroundTile change the color of the backgroundTile
+     * Pre: must be a Color object (null would make the game unplayable).
+     * @param colorBackgroundTile change the color of the backgroundTile.
      */
     public void setColorBackgroundTile(Color colorBackgroundTile) {
         if (colorBackgroundTile instanceof Color) {

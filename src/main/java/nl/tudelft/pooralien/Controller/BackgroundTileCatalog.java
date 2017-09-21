@@ -35,8 +35,11 @@ public class BackgroundTileCatalog {
      * Create an BackgroundTileCatalog that is is pre filled with white BackgroundTiles.
      * @param backgroundTileCount count of BackgroundTiles that need to be added to
      *                            the BackgroundTileCatalog object.
+     * @param tileColor background color of the tile to be added to the catalog.
+     * @throws IllegalArgumentException if the pre conditions are not met.
      */
-    public BackgroundTileCatalog(int backgroundTileCount, Color tileColor) throws IllegalArgumentException {
+    public BackgroundTileCatalog(int backgroundTileCount, Color tileColor)
+            throws IllegalArgumentException {
         if (backgroundTileCount < 0) {
             throw new IllegalArgumentException(
                     "BackgroundTileCount must be bigger than 0 to be added to the catalog");
@@ -53,7 +56,7 @@ public class BackgroundTileCatalog {
         int tilesAdded = 0;
 
         while (tilesAdded != (backgroundTileCount)) {
-            if (this.add(createRandomBackgroundTile(tileColor))) {
+            if (this.addRandomBackgroundTile(tileColor)) {
                 tilesAdded++;
             }
         }
@@ -120,8 +123,11 @@ public class BackgroundTileCatalog {
      * @param coordinateX of the backgroundTile to be checked.
      * @param coordinateY of the backgroundTile to be checked.
      * @return BackgroundTile at coordinatesXY, if the object is not in the list return null.
+     * @throws IndexOutOfBoundsException if the coordinates are not between 1 and 11.
+     * @throws NoSuchElementException if there is no tile at these coordinates.
      */
-    public BackgroundTile get(int coordinateX, int coordinateY) throws IndexOutOfBoundsException, NoSuchElementException {
+    public BackgroundTile get(int coordinateX, int coordinateY)
+            throws IndexOutOfBoundsException, NoSuchElementException {
         if (coordinateX < MIN_WIDTH_AND_HEIGHT || coordinateX > MAX_WIDTH_AND_HEIGHT
                 || coordinateY < MIN_WIDTH_AND_HEIGHT || coordinateY > MAX_WIDTH_AND_HEIGHT) {
             throw new IndexOutOfBoundsException(
@@ -151,10 +157,11 @@ public class BackgroundTileCatalog {
     }
 
     /**
-     * Pre: tileColor must be an instanceof Color (otherwise game is unplayable)
-     * @return Returns a tile with randoms coordinates to easily populate the BackgroundTileCatalog
+     * Pre: tileColor must be an instanceof Color (otherwise game is unplayable).
+     * @param tileColor background color of the tile to be added to the catalog.
+     * @return Returns true if the tile has been added to the catalog.
      */
-    public BackgroundTile createRandomBackgroundTile(Color tileColor) {
+    public boolean addRandomBackgroundTile(Color tileColor) {
         if (tileColor == null) {
             throw new IllegalArgumentException("colorBackgroundTile should be a Color object");
         }
@@ -162,7 +169,7 @@ public class BackgroundTileCatalog {
         int positionOnBoardX = intGen.nextInt(MAX_WIDTH_AND_HEIGHT + 1);
         int positionOnBoardY = intGen.nextInt(MAX_WIDTH_AND_HEIGHT + 1);
 
-        return new BackgroundTile(positionOnBoardX, positionOnBoardY, tileColor);
+        return (this.add(new BackgroundTile(positionOnBoardX, positionOnBoardY, tileColor)));
     }
 
 }

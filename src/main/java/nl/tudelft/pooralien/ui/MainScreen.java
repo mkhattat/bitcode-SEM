@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -81,7 +80,7 @@ public class MainScreen extends JLayeredPane {
 
         if (Game.getGame().getBackgroundTileCatalog().contains(x, y)) {
             gridBoardHolder[x][y].setBackground(
-                    Game.getGame().getBackgroundTileCatalog().get(x,y).getColorBackgroundTile());
+                    Game.getGame().getBackgroundTileCatalog().get(x, y).getColorBackgroundTile());
         }
         revalidate();
         repaint();
