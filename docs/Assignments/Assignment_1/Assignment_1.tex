@@ -13,6 +13,7 @@
 
 \definecolor{Gray}{gray}{0.9}
 
+\usepackage{pgf-umlsd}
 \newcommand{\sectionbreak}{\clearpage}
 \newcommand\minput[1]{%
   \input{#1}%
@@ -30,7 +31,7 @@
 \section{The Core}
 
 \subsection{Derive Classes}
-For deriving the the right classes that we can implement in the software we firstly look for noun phrases in the requirements document\footnote{https://github.com/mkhattat/bitcode-SEM/blob/master/docs/requirements.pdf}. Secondly we try to refine the list of phrases and group them by using given guidelines. 
+For deriving the the right classes that we can implement in the software we firstly look for noun phrases in the requirements document\footnote{https://github.com/mkhattat/bitcode-SEM/blob/master/docs/requirements.pdf}. Secondly we try to refine the list of phrases and group them by using given guidelines.
 
 \paragraph{Noun phrases}
 In table \ref{table:ListDerivedNouns} a list of noun phrases is presented that was derived from the functional requirements in the requirements document.
@@ -59,13 +60,13 @@ In table \ref{table:ListDerivedNouns} a list of noun phrases is presented that w
 	... & The player wins when all white outlined cells are cleared. \\ \hline
 	level, difficulty system & The game could have a level or difficulty based system. \\ \hline
 	scoring system & The game could have a scoring system based on the level or difficulty system. \\ \hline
-	score & The players score could be shown during the game. \\ \hline	
+	score & The players score could be shown during the game. \\ \hline
 	\caption{list of derived nouns}\label{table:ListDerivedNouns}
     \end{longtable}
 \end{center}
 
 
-\paragraph{Refine Candidates} We can refine the list of nouns by sorting them based on the groups of obvious, uncertain or nonsense class candidates. We also define the type of candidate classes such that it can be a physical object, conceptual entity, categories of classes an interface or values. In table \ref{table:ListCandidateClasses} a list of candidate classes is shown. 
+\paragraph{Refine Candidates} We can refine the list of nouns by sorting them based on the groups of obvious, uncertain or nonsense class candidates. We also define the type of candidate classes such that it can be a physical object, conceptual entity, categories of classes an interface or values. In table \ref{table:ListCandidateClasses} a list of candidate classes is shown.
 
 \begin{center}
     \begin{longtable}{ | p{1in} | p{1in} | p{2in} |}
@@ -87,7 +88,7 @@ In table \ref{table:ListDerivedNouns} a list of noun phrases is presented that w
 	Row, Column & nonsense & conceptual entity \\ \hline
 	Turn & nonsense & conceptual entity \\ \hline
 	WhiteOutline & nonsense & conceptual entity \\ \hline
-	
+
 	\caption{list of candidate classes}\label{table:ListCandidateClasses}
     \end{longtable}
 \end{center}
@@ -110,8 +111,25 @@ text
 text
 
 \subsection{The Sequence Diagram}
-text
-
+	\begin{figure}
+		\centering
+		\begin{sequencediagram}
+			\newthread{A}{User}{}
+			\newthread{B}{Window/EventHandler}{}
+			\newthread{C}{Game}{}
+			\newthread{D}{Board}{}
+			\begin{call}{A}{Drag Item}{B}{}
+				\begin{call}{B}{Check for triples}{C}{}
+					\begin{call}{C}{Check for triples}{D}{}
+						\begin{sdblock}{Recursion}{}
+							\begin{call}{D}{Check for triples}{D}{}
+							\end{call}
+						\end{sdblock}
+					\end{call}
+				\end{call}
+			\end{call}
+		\end{sequencediagram}
+	\end{figure}
 
 
 
