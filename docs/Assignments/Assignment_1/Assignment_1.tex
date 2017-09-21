@@ -1,6 +1,7 @@
 \documentclass{article}
 
 \usepackage{titlesec}
+\usepackage{pgf-umlsd}
 \newcommand{\sectionbreak}{\clearpage}
 
 \begin{document}
@@ -27,8 +28,25 @@ text
 text
 
 \subsection{The Sequence Diagram}
-text
-
+	\begin{figure}
+		\centering
+		\begin{sequencediagram}
+			\newthread{A}{User}{}
+			\newthread{B}{Window/EventHandler}{}
+			\newthread{C}{Game}{}
+			\newthread{D}{Board}{}
+			\begin{call}{A}{Drag Item}{B}{}
+				\begin{call}{B}{Check for triples}{C}{}
+					\begin{call}{C}{Check for triples}{D}{}
+						\begin{sdblock}{Recursion}{}
+							\begin{call}{D}{Check for triples}{D}{}
+							\end{call}
+						\end{sdblock}
+					\end{call}
+				\end{call}
+			\end{call}
+		\end{sequencediagram}
+	\end{figure}
 
 
 
