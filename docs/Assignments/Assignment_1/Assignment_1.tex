@@ -1,6 +1,7 @@
 \documentclass{article}
 
 \usepackage{titlesec}
+\usepackage{pgf-umlcd}
 \newcommand{\sectionbreak}{\clearpage}
 
 \begin{document}
@@ -42,7 +43,44 @@ text
 text
 
 \subsection{Hierarchy Class Diagrams}
-text
+\centering
+\begin{tikzpicture}
+\begin{interface}{Item}{0,0}
+\operation[0]{getSprite() : String}
+\end{interface}
+\begin{class}[text width = 3cm]{Axe}{-6,-2}
+\implement{Item}
+\operation{getSprite() : String}
+\end{class}
+\begin{class}[text width = 3cm]{Bone}{-4,-4}
+\implement{Item}
+\operation{getSprite() : String}
+\end{class}
+\begin{class}[text width = 3cm]{Eye}{-2,-6}
+\implement{Item}
+\operation{getSprite() : String}
+\end{class}
+\begin{class}[text width = 3cm]{Leaf}{0,-8}
+\implement{Item}
+\operation{getSprite() : String}
+\end{class}
+\begin{class}[text width = 3cm]{Mask}{2,-6}
+\implement{Item}
+\operation{getSprite() : String}
+\end{class}
+\begin{class}[text width = 3cm]{Mouth}{4,-4}
+\implement{Item}
+\operation{getSprite() : String}
+\end{class}
+\begin{class}[text width = 3cm]{Sun}{6,-2}
+\implement{Item}
+\operation{getSprite() : String}
+\end{class}
+\end{tikzpicture}
+
+Items are produced by an item factory, which can create each of the seven types of items.
+Each item implements the item interface, as a result the board can contain every type of item and request its sprite.
+A similar functionality could be implemented using an item class with an id attribute, however such an implementation would make further expanding each item individually much more complicated and inconvenient.
 
 
 
