@@ -22,7 +22,7 @@
 \newcolumntype{M}{>{\begin{varwidth}{4cm}}l<{\end{varwidth}}} %M is for Maximal column
 
 \begin{titlepage}
-	\Huge{Assignment 1}
+	\Huge{Bitcode Assignment 1}
 \end{titlepage}
 
 
@@ -100,87 +100,86 @@ In table \ref{table:ListDerivedNouns} a list of noun phrases is presented that w
 
 
 \subsection{Main Classes}
-text
+tbd
 
 \subsection{Reflect on main class decisions}
-text
+tbd
 
 \subsection{The Class diagram}
-text
+tbd
 
 \subsection{The Sequence Diagram}
-	\begin{figure}[H]
-		\centering
-		\begin{sequencediagram}
-			\newthread{A}{User}{}
-			\newthread{B}{Window/EventHandler}{}
-			\newthread{C}{Game}{}
-			\newthread{D}{Board}{}
-			\begin{call}{A}{Drag Item}{B}{}
-				\begin{call}{B}{Check for triples}{C}{}
-					\begin{call}{C}{Check for triples}{D}{}
-						\begin{sdblock}{Recursion}{}
-							\begin{call}{D}{Check for triples}{D}{}
-							\end{call}
-						\end{sdblock}
-					\end{call}
+\begin{figure}[H]
+	\centering
+	\begin{sequencediagram}
+		\newthread{A}{User}{}
+		\newthread{B}{Window/EventHandler}{}
+		\newthread{C}{Game}{}
+		\newthread{D}{Board}{}
+		\begin{call}{A}{Drag Item}{B}{}
+			\begin{call}{B}{Check for triples}{C}{}
+				\begin{call}{C}{Check for triples}{D}{}
+					\begin{sdblock}{Recursion}{}
+						\begin{call}{D}{Check for triples}{D}{}
+						\end{call}
+					\end{sdblock}
 				\end{call}
 			\end{call}
-		\end{sequencediagram}
-	\end{figure}
+		\end{call}
+	\end{sequencediagram}
+\end{figure}
 
-
-
+\newpage
 \section{UML in Practice}
-text
+tbd
 
 \subsection{Composition and Aggregation}
-text
+tbd
 
 \subsection{Parametrized Classes}
-text
+tbd
 
 \subsection{Hierarchy Class Diagrams}
-\centering
-\begin{tikzpicture}
-\begin{interface}{Item}{0,0}
-\operation[0]{getSprite() : String}
-\end{interface}
-\begin{class}[text width = 3cm]{Axe}{-6,-2}
-\implement{Item}
-\operation{getSprite() : String}
-\end{class}
-\begin{class}[text width = 3cm]{Bone}{-4,-4}
-\implement{Item}
-\operation{getSprite() : String}
-\end{class}
-\begin{class}[text width = 3cm]{Eye}{-2,-6}
-\implement{Item}
-\operation{getSprite() : String}
-\end{class}
-\begin{class}[text width = 3cm]{Leaf}{0,-8}
-\implement{Item}
-\operation{getSprite() : String}
-\end{class}
-\begin{class}[text width = 3cm]{Mask}{2,-6}
-\implement{Item}
-\operation{getSprite() : String}
-\end{class}
-\begin{class}[text width = 3cm]{Mouth}{4,-4}
-\implement{Item}
-\operation{getSprite() : String}
-\end{class}
-\begin{class}[text width = 3cm]{Sun}{6,-2}
-\implement{Item}
-\operation{getSprite() : String}
-\end{class}
-\end{tikzpicture}
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+	\begin{interface}{Item}{0,0}
+	\operation[0]{getSprite() : String}
+	\end{interface}
+	\begin{class}[text width = 3cm]{Axe}{-6,-2}
+	\implement{Item}
+	\operation{getSprite() : String}
+	\end{class}
+	\begin{class}[text width = 3cm]{Bone}{-4,-4}
+	\implement{Item}
+	\operation{getSprite() : String}
+	\end{class}
+	\begin{class}[text width = 3cm]{Eye}{-2,-6}
+	\implement{Item}
+	\operation{getSprite() : String}
+	\end{class}
+	\begin{class}[text width = 3cm]{Leaf}{0,-8}
+	\implement{Item}
+	\operation{getSprite() : String}
+	\end{class}
+	\begin{class}[text width = 3cm]{Mask}{2,-6}
+	\implement{Item}
+	\operation{getSprite() : String}
+	\end{class}
+	\begin{class}[text width = 3cm]{Mouth}{4,-4}
+	\implement{Item}
+	\operation{getSprite() : String}
+	\end{class}
+	\begin{class}[text width = 3cm]{Sun}{6,-2}
+	\implement{Item}
+	\operation{getSprite() : String}
+	\end{class}
+	\end{tikzpicture}
+\end{figure}
 
 Items are produced by an item factory, which can create each of the seven types of items.
 Each item implements the item interface, as a result the board can contain every type of item and request its sprite.
 A similar functionality could be implemented using an item class with an id attribute, however such an implementation would make further expanding each item individually much more complicated and inconvenient.
-
-
 
 
 \end{document}
