@@ -105,6 +105,19 @@ public class RTLDragAnimation implements Animation {
             if (foundedItems.size() > 0) {
                 founded = true;
             }
+
+            // Find amount of backgroundTiles destroyed
+            int backgroundTilesDestroyed = 0;
+            for (Integer index : foundedItems) {
+                if (Game.getGame().getBackgroundTileCatalog().contains(index, y)) {
+                    backgroundTilesDestroyed++;
+                }
+            }
+            // Update the score
+            Game.getGame().getScoreCounter().updateScore(
+                    foundedItems.size(), backgroundTilesDestroyed);
+
+
             Collections.sort(foundedItems);
             for (Integer index : foundedItems) { // remove founden items and add new random ones.
                 board.remove(index, y);

@@ -21,14 +21,14 @@ public class ScoreCounterTest {
     @Test
     public void negativeScoreUpdateNoChange() {
         int currentScore = scoreCounter.getScore();
-        scoreCounter.updateScore(-10);
+        scoreCounter.updateScore(-10,0);
         assertEquals(currentScore, scoreCounter.getScore());
     }
 
     @Test
     public void positiveScoreUpdateChange() {
         int currentScore = scoreCounter.getScore() + (scoreCounter.getScorePerTile() * 10);
-        scoreCounter.updateScore(10);
+        scoreCounter.updateScore(10,0);
         assertEquals(currentScore, scoreCounter.getScore());
     }
 

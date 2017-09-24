@@ -109,6 +109,17 @@ public class TTBDragAnimation implements Animation {
             if (foundedItems.size() > 0) {
                 founded = true;
             }
+            // Find amount of backgroundTiles destroyed
+            int backgroundTilesDestroyed = 0;
+            for (Integer index : foundedItems) {
+                if (Game.getGame().getBackgroundTileCatalog().contains(x, index)) {
+                    backgroundTilesDestroyed++;
+                }
+            }
+            // Update the score
+            Game.getGame().getScoreCounter().updateScore(
+                    foundedItems.size(), backgroundTilesDestroyed);
+
             Collections.sort(foundedItems);
             for (Integer index : foundedItems) { //remove founded items and add random ones.
                 board.remove(x, index);
