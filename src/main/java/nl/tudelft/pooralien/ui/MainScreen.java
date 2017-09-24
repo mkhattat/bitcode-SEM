@@ -155,7 +155,7 @@ public class MainScreen extends JLayeredPane {
     }
 
     /**
-     * update the header label with the score
+     * update the header label with the score.
      */
     private void updateHeaderLabel() {
         mainFrame.remove(headerLabel);

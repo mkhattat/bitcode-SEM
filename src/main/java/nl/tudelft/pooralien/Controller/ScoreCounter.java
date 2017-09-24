@@ -23,15 +23,17 @@ public class ScoreCounter {
      * up rounded square root of scorePerTile.
      * And gives a bonus for destroying background tiles.
      * @param tilesDestroyed is the amount of tiles the player has destroyed, in one single move.
+     * @param backgroundTilesDestroyed is the amount of backgroundTiles the player has destroyed,
+     *                                 in a single move.
      */
     public void updateScore(int tilesDestroyed, int backgroundTilesDestroyed) {
         if (tilesDestroyed > 0) {
-            this.score = this.score +
-                    (tilesDestroyed * (int) (Math.round(Math.sqrt((double) scorePerTile))));
+            this.score = this.score
+                    + (tilesDestroyed * (int) (Math.round(Math.sqrt((double) scorePerTile))));
         }
         if (backgroundTilesDestroyed > 0) {
-            this.score = this.score +
-                    (backgroundTilesDestroyed * scorePerTile*(2+2+2+2));
+            this.score = this.score
+                    + (backgroundTilesDestroyed * scorePerTile * (2 + 2 + 2 + 2));
         }
     }
 
