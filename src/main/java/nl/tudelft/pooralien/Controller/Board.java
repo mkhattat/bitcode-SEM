@@ -168,6 +168,8 @@ public class Board {
     /**
      * Remove an item from data structure, shift other items in the same column down and
      * add a new random item to the top.
+     * If this position has the same coordinates of that of a item in the BackgroundTileCatalog,
+     * than that item is also removed.
      * @param x the X position of the item
      * @param y the Y position of the item
      */
@@ -179,6 +181,9 @@ public class Board {
             } else {
                 setItem(getItem(i - 1, y), i, y);
             }
+        }
+        if (Game.getGame().getBackgroundTileCatalog().contains(x, y)) {
+            Game.getGame().getBackgroundTileCatalog().remove(x, y);
         }
     }
 
