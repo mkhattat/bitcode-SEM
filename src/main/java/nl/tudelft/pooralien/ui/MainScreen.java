@@ -113,6 +113,7 @@ public class MainScreen extends JLayeredPane {
             for (int y = 0; y < Board.HEIGHT; y++) {
                 replaceItem(x, y, Game.getGame().getBoard().getItem(x, y).getSprite());
                 replaceBorder(x, y);
+                updateHeaderLabel();
             }
         }
     }
@@ -149,7 +150,17 @@ public class MainScreen extends JLayeredPane {
      * create the header label.
      */
     private void createHeaderLabel() {
-        headerLabel = new JLabel("Score goes here!");
+        headerLabel = new JLabel("Initialization of the board");
+        mainFrame.add(headerLabel, gbc);
+    }
+
+    /**
+     * update the header label with the score.
+     */
+    private void updateHeaderLabel() {
+        mainFrame.remove(headerLabel);
+
+        headerLabel = new JLabel("Score: " + Game.getGame().getScoreCounter().getScore());
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1;

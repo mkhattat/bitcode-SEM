@@ -9,9 +9,11 @@ public final class Game {
     private static Game game;
     private Board board;
     private BackgroundTileCatalog backgroundTileCatalog;
+    private ScoreCounter scoreCounter;
 
     private static final int BACKGROUND_TILE_COUNT = 10;
     private static final Color STANDARD_COLOR = Color.MAGENTA;
+    private static final int STARTING_SCORE = 0;
 
     /**
      * Initialise the singleton Game object.
@@ -19,6 +21,7 @@ public final class Game {
     private Game() {
         board = new Board();
         backgroundTileCatalog = new BackgroundTileCatalog(BACKGROUND_TILE_COUNT, STANDARD_COLOR);
+        scoreCounter = new ScoreCounter(STARTING_SCORE);
     }
 
     /**
@@ -46,5 +49,13 @@ public final class Game {
      */
     public BackgroundTileCatalog getBackgroundTileCatalog() {
         return backgroundTileCatalog;
+    }
+
+    /**
+     * Returns the scoreCounter.
+     * @return the scoreCounter being used.
+     */
+    public ScoreCounter getScoreCounter() {
+        return scoreCounter;
     }
 }
