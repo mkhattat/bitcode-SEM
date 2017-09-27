@@ -3,12 +3,11 @@ package nl.tudelft.pooralien.ui;
 import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.Controller.Game;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -32,6 +31,7 @@ public class MainScreen extends JLayeredPane {
      */
     public MainScreen() {
         prepareGUI();
+        refreshBoard();
     }
 
     /**
@@ -71,6 +71,22 @@ public class MainScreen extends JLayeredPane {
     }
 
     /**
+     * Add border or remove border depending on if they are in the global catalog.
+     * @param x coordinate of the item where the border should be added/removed.
+     * @param y coordinated of the item where the border should be added/removed.
+     */
+    public void replaceBorder(int x, int y) {
+        gridBoardHolder[x][y].setBackground(null);
+
+        if (Game.getGame().getBackgroundTileCatalog().contains(x, y)) {
+            gridBoardHolder[x][y].setBackground(
+                    Game.getGame().getBackgroundTileCatalog().get(x, y).getColorBackgroundTile());
+        }
+        revalidate();
+        repaint();
+    }
+
+    /**
      * Get the item on the grid board at a specific position.
      * @param x the X position on the grid board.
      * @param y the Y position on the grid board.
@@ -96,6 +112,7 @@ public class MainScreen extends JLayeredPane {
         for (int x = 0; x < Board.WIDTH; x++) {
             for (int y = 0; y < Board.HEIGHT; y++) {
                 replaceItem(x, y, Game.getGame().getBoard().getItem(x, y).getSprite());
+                replaceBorder(x, y);
             }
         }
     }
@@ -153,7 +170,6 @@ public class MainScreen extends JLayeredPane {
 
         GridLayout gridLayout = new GridLayout(Board.WIDTH, Board.HEIGHT);
         gridBoard = new JPanel();
-        gridBoard.setBackground(Color.darkGray);
         gridBoard.setLayout(gridLayout);
 
         BufferedImage image = null;

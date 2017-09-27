@@ -1,6 +1,5 @@
 package nl.tudelft.pooralien.Controller;
 
-
 import java.awt.Color;
 
 /**
@@ -18,7 +17,7 @@ public class BackgroundTile {
     /**
      * @param coordinateX must be [0,10]
      * @param coordinateY must be [0,10]
-     * @param colorBackgroundTile may be any Color
+     * @param colorBackgroundTile colorBackgroundTile;
      */
     public BackgroundTile(int coordinateX, int coordinateY, Color colorBackgroundTile) {
         if (!(coordinateX >= MIN_WIDTH_AND_HEIGHT && coordinateX <= MAX_WIDTH_AND_HEIGHT)) {
@@ -27,9 +26,12 @@ public class BackgroundTile {
         if (!(coordinateY >= MIN_WIDTH_AND_HEIGHT && coordinateY <= MAX_WIDTH_AND_HEIGHT)) {
             throw new IllegalArgumentException("Coordinate Y must be between -1 and 11");
         }
+        // instance check is needed because a null would make the backgroundTiles hidden,
+        // and as a result the game would be unplayable
         if (!(colorBackgroundTile instanceof Color)) {
             throw new IllegalArgumentException("colorBackgroundTile should be a Color object");
         }
+
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY;
         this.colorBackgroundTile = colorBackgroundTile;
@@ -71,6 +73,7 @@ public class BackgroundTile {
     }
 
     /**
+     * Pre: must be a Color object (null would make the game unplayable).
      * @param colorBackgroundTile change the color of the backgroundTile.
      */
     public void setColorBackgroundTile(Color colorBackgroundTile) {
@@ -102,7 +105,8 @@ public class BackgroundTile {
         if (!(backgroundTile.getCoordinateY() == this.getCoordinateY())) {
             return false;
         }
-        if (!(backgroundTile.getColorBackgroundTile()).equals(this.getColorBackgroundTile())) {
+
+        if (!(backgroundTile.getColorBackgroundTile().equals(this.getColorBackgroundTile()))) {
             return false;
         }
 
@@ -117,4 +121,5 @@ public class BackgroundTile {
         result = primeNumber * result + colorBackgroundTile.hashCode();
         return result;
     }
+
 }
