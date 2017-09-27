@@ -83,6 +83,31 @@ Each item implements the item interface, as a result the board can contain every
 A similar functionality could be implemented using an item class with an id attribute, however such an implementation would make further expanding each item individually much more complicated and inconvenient.
 
 
+\centering
+\begin{tikzpicture}
+\begin{interface}{Animation}{0,0}
+\operation[0]{start()}
+\operation[0]{update()}
+\operation[0]{end()}
+\end{interface}
+\begin{class}[text width = 3cm]{RTLDragAnimation}{-5,-2}
+\implement{Animation}
+\operation{start()}
+\operation{update()}
+\operation{end()}
+\operation{restoreScreen()}
+\operation{drawItems()}
+\end{class}
+\begin{class}[text width = 3cm]{TTBDragAnimation}{5,-2}
+\implement{Animation}
+\operation{start()}
+\operation{update()}
+\operation{end()}
+\operation{restoreScreen()}
+\operation{drawItems()}
+\end{class}
+\end{tikzpicture}
+
 
 
 \end{document}
