@@ -151,10 +151,58 @@ tbd
 tbd
 
 \subsection{Composition and Aggregation}
-tbd
+\begin{figure}[H]
+\includegraphics[scale=0.95]{Images/BackgroundTileCatalog.jpg}
+An instance of BackgroundTileCatalog contains a reference to the BackgroundTiles class but they are independent and they have their own lifetime, So BackgroundTileCatalog aggregates BackgroundTiles.
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[scale=1]{Images/MainScreen.jpg} 
+An instance of MainScreen class has a strong relation, or in other words owns, the JPanel, JLabel, GridBagConstrains classes. There is no reason for these classes to exist without MainScreen class. So it's composition.
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[scale=0.95]{Images/RTLDragAnimation.jpg} 
+An instance of RTLDragAnimation class has a relationship with MainScreen and it's aggregation because MainScreen can exist without RTLDragAnimation but at the same time this class owns a Point which cannot exist without RTLDragAnimation, so it's composition.
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[scale=0.95]{Images/TTBDragAnimation.jpg} 
+An instance of TTBDragAnimation class has a relationship with MainScreen and it's aggregation because MainScreen can exist without TTBDragAnimation but at the same time this class owns a Point which cannot exist without TTBDragAnimation, so it's composition.
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[scale=0.95]{Images/JPanelTile.jpg} 
+An instance of JPanelTile class has a relationship with JLabel and Point. It's aggregation because these two classes can exist without JPanelTile.
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[scale=0.95]{Images/Launcher.jpg} 
+A Launcher class owns a MainScreen class because if the Launcher class is killed the MainScreen class will also be killed, so a composition.
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[scale=0.97]{Images/MouseEventHandler.jpg} 
+MouseEventHandler aggregates MainScreen and Animation classes. It has a relation with these two classes but they are independent of each other, or in other words an aggregation. But it has a stronger relation with MouseAction, means when MouseEventHandler goes out of scope, then MouseAction also goes out of scope, so in this case a composition.
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[scale=0.95]{Images/StartupScreen.jpg} 
+StartupScreen class owns some classes namely: JFrame, JLabel, JPanel and GridBagConstraints. These classes are dependent on the StartupScreen, means if it dies these classes will also die. So it is a composition.
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[scale=0.95]{Images/Board.jpg} 
+Board class owns an Item class. This is a composition.
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[scale=0.95]{Images/Game.jpg} 
+Game class owns a Board class. This is a composition.
+\end{figure}
 
 \subsection{Parametrized Classes}
-tbd
+We didn't create any parametrized class in our source code but we use some parametrized classes from standard java library namely ArrayList and LinkedList. Java is a typed language and the concept of parametrized classes is mainly useful for working with collections. Parametrized classes allow us to derive the type of a class. We write the body of a parametrized class, we may invoke some operation on the parameter. Later when the class is bounded with a parameter the compiler tries to ensure this parameter supports operations required by the template.
 
 \subsection{Hierarchy Class Diagrams}
 \begin{figure}[H]
