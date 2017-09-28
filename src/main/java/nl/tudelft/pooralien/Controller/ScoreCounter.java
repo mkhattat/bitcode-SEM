@@ -1,5 +1,8 @@
 package nl.tudelft.pooralien.Controller;
 
+import nl.tu.delft.defpro.exception.NotExistingVariableException;
+import nl.tudelft.pooralien.Launcher;
+
 /**
  * ScoreCounter keeps track of the score of the player.
  * The score should be reset every level.
@@ -7,7 +10,7 @@ package nl.tudelft.pooralien.Controller;
 public class ScoreCounter {
 
     private int score;
-    private int scorePerTile = 1;
+    private int scorePerTile;
 
     /**
      * Standard initialization of the class.
@@ -15,6 +18,12 @@ public class ScoreCounter {
      */
     ScoreCounter(int score) {
         this.score = score;
+        try {
+            this.scorePerTile = Launcher.gameCfg.getIntegerValueOf("scorePerTile");
+        } catch (NotExistingVariableException e) {
+            e.printStackTrace();
+            this.scorePerTile = 1;
+        }
     }
 
     /**

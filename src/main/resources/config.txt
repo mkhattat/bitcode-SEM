@@ -14,26 +14,22 @@
 ## default RGB color of the background tile on the board
 int colorBackgroundTile = [255,0,255]
 ## max width of board in term of cells on the grid board
-int max_width  = 10
-## min width of board in term of cells on the grid board
-int min_width = 10
+int boardWidth  = 10
 ## max height of board in term of cells on the grid board
-int max_height = 10
-## min height of board in term of cells on the grid board
-int min_height = 10
+int boardHeight = 10
 ## min number of items in a row needed to remove tiles from screen
-int min_items_in_row = 3
+int minItemsInRow = 3
 ## default number of background tiles on screen
-int background_tile_count = 10
+int backgroundTileCount = 10
 ## margin for right to left (horizontal) items when draging on screen
-int margin_hDrag = 10
+int marginHDrag = 10
 ## margin for top to botton (vertical) items when draging on screen
-int margin_vDrag = 5
+int marginVDrag = 5
 ## Score per tile
-int score_per_tile = 1
+int scorePerTile = 1
 ## the gap between items when dragging them on the screen
 real gap = 1.22
 ## title of the main window
-string game = "Poor Alien"
+string gameTitle = Poor Alien
 ## is multi level activated?
-bool multi_level = false
+bool multiLevel = false

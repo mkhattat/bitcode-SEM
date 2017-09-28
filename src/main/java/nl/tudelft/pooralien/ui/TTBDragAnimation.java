@@ -1,8 +1,10 @@
 package nl.tudelft.pooralien.ui;
 
+import nl.tu.delft.defpro.exception.NotExistingVariableException;
 import nl.tudelft.item.ItemFactory;
 import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.Controller.Game;
+import nl.tudelft.pooralien.Launcher;
 
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -26,8 +28,8 @@ public class TTBDragAnimation implements Animation {
     private LinkedList<JLabel> selectedItems = new LinkedList<>();
     private LinkedList<JLabel> originalItems = new LinkedList<>();
 
-    private static final int MARGIN = 5;
-    private static final double GAP = 1.22;
+    private int margin;
+    private double gap;
 
     /**
      * Constructor of the class.
@@ -38,6 +40,14 @@ public class TTBDragAnimation implements Animation {
         previousCoordinate = new Point(0, 0);
         originalYGridPosition = 0;
         originalXScreenPosition = 0;
+        try {
+            this.margin = Launcher.gameCfg.getIntegerValueOf("marginVDrag");
+            this.gap = Launcher.gameCfg.getRealValueOf("gap");
+        } catch (NotExistingVariableException e) {
+            e.printStackTrace();
+            this.margin = 0;
+            this.gap = 0;
+        }
     }
 
     @Override
@@ -52,9 +62,9 @@ public class TTBDragAnimation implements Animation {
             return;
         }
         originalYGridPosition = tile.getGridPosition().y;
-        originalXScreenPosition = tile.getX() +  MARGIN;
+        originalXScreenPosition = tile.getX() + margin;
 
-        for (int i = 0; i < Board.HEIGHT; i++) {
+        for (int i = 0; i < Board.getHeight(); i++) {
             JLabel label;
             String name;
 
@@ -145,7 +155,7 @@ public class TTBDragAnimation implements Animation {
     private void drawItems(LinkedList<JLabel> list) {
         int i = 0;
         for (JLabel label : list) {
-            int yCoordinate = (int) ((i * label.getHeight() * GAP)
+            int yCoordinate = (int) ((i * label.getHeight() * gap)
                     + (mainScreen.getGridBoard().getY()));
             label.setLocation(originalXScreenPosition, yCoordinate);
             mainScreen.revalidate();

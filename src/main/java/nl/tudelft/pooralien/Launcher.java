@@ -2,6 +2,7 @@ package nl.tudelft.pooralien;
 
 
 import nl.tu.delft.defpro.api.IDefProAPI;
+import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.ui.MainScreen;
 
 import javax.swing.JFrame;
@@ -14,16 +15,17 @@ import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 public class Launcher {
 
     private MainScreen mainScreen;
-    private String cfgPath = this.getClass().getResource("/config_poor_alien.txt")
-            .getPath().replaceFirst("/", "");
+    private String cfgPath = this.getClass().getResource("/config.txt")
+            .getPath();
 
+    public static IDefProAPI gameCfg;
     /**
      * Launch the game GUI.
      */
     public void launch() {
         try {
-            IDefProAPI gameCfg = getAPI(cfgPath);
-            JFrame mainWindow = new JFrame("");
+            gameCfg = getAPI(cfgPath);
+            JFrame mainWindow = new JFrame(gameCfg.getStringValueOf("gameTitle"));
             MainScreen mainScreen = new MainScreen();
             mainWindow.setSize(0, 0);
             mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
