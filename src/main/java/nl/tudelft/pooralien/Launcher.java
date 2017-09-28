@@ -2,7 +2,6 @@ package nl.tudelft.pooralien;
 
 
 import nl.tu.delft.defpro.api.IDefProAPI;
-import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.ui.MainScreen;
 
 import javax.swing.JFrame;
@@ -18,13 +17,21 @@ public class Launcher {
     private String cfgPath = this.getClass().getResource("/config.txt")
             .getPath();
 
-    public static IDefProAPI gameCfg;
+    private static IDefProAPI gameCfg;
+
+    /**
+     * the Constructor of Launcher.
+     * @throws Exception if the config file doesn't exist throws and Exception.
+     */
+    public Launcher() throws Exception {
+        gameCfg = getAPI(cfgPath);
+    }
+
     /**
      * Launch the game GUI.
      */
     public void launch() {
         try {
-            gameCfg = getAPI(cfgPath);
             JFrame mainWindow = new JFrame(gameCfg.getStringValueOf("gameTitle"));
             MainScreen mainScreen = new MainScreen();
             mainWindow.setSize(0, 0);
@@ -41,12 +48,24 @@ public class Launcher {
     }
 
     /**
+     * Game config file object.
+     * @return an IDefProAPI object.
+     */
+    public static IDefProAPI getGameCfg() {
+        return getGameCfg();
+    }
+
+    /**
      * Entry point of the game.
      * @param args The program arguments.
      */
     public static void main(String[] args) {
         //StartupScreen startupScreen = new StartupScreen();
         //startupScreen.show();
-        new Launcher().launch();
+        try {
+            new Launcher().launch();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
