@@ -23,8 +23,8 @@ public final class Game {
         int backgroundTileCount;
         Color standardColor;
         try {
-            backgroundTileCount = Launcher.gameCfg.getIntegerValueOf("backgroundTileCount");
-            List<Integer> rgb = Launcher.gameCfg.getListIntValueOf("colorBackgroundTile");
+            backgroundTileCount = Launcher.getGameCfg().getIntegerValueOf("backgroundTileCount");
+            List<Integer> rgb = Launcher.getGameCfg().getListIntValueOf("colorBackgroundTile");
             standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
         } catch (NotExistingVariableException e) {
             e.printStackTrace();

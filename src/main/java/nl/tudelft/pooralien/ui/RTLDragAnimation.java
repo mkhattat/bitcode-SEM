@@ -41,8 +41,8 @@ public class RTLDragAnimation implements Animation {
         originalXGridPosition = 0;
         originalYScreenPosition = 0;
         try {
-            this.margin = Launcher.gameCfg.getIntegerValueOf("marginHDrag");
-            this.gap = Launcher.gameCfg.getRealValueOf("gap");
+            this.margin = Launcher.getGameCfg().getIntegerValueOf("marginHDrag");
+            this.gap = Launcher.getGameCfg().getRealValueOf("gap");
         } catch (NotExistingVariableException e) {
             e.printStackTrace();
             this.margin = 0;

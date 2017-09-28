@@ -52,7 +52,7 @@ public class Launcher {
      * @return an IDefProAPI object.
      */
     public static IDefProAPI getGameCfg() {
-        return getGameCfg();
+        return gameCfg;
     }
 
     /**

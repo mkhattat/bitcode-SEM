@@ -38,7 +38,7 @@ public class Board {
      */
     public static int getWidth() {
         try {
-            return Launcher.gameCfg.getIntegerValueOf("boardWidth");
+            return Launcher.getGameCfg().getIntegerValueOf("boardWidth");
         } catch (NotExistingVariableException e) {
             e.printStackTrace();
             return -1;
@@ -51,7 +51,7 @@ public class Board {
      */
     public static int getHeight() {
         try {
-            return Launcher.gameCfg.getIntegerValueOf("boardHeight");
+            return Launcher.getGameCfg().getIntegerValueOf("boardHeight");
         } catch (NotExistingVariableException e) {
             e.printStackTrace();
             return -1;
@@ -64,7 +64,7 @@ public class Board {
      */
     private int getMinRequiredItems() {
         try {
-            return Launcher.gameCfg.getIntegerValueOf("minItemsInRow");
+            return Launcher.getGameCfg().getIntegerValueOf("minItemsInRow");
         } catch (NotExistingVariableException e) {
             e.printStackTrace();
             return 0;
