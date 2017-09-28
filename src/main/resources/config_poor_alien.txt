@@ -34,6 +34,6 @@ int score_per_tile = 1
 ## the gap between items when dragging them on the screen
 real gap = 1.22
 ## title of the main window
-game = "Poor Alien"
+string game = "Poor Alien"
 ## is multi level activated?
-multi_level = false
+bool multi_level = false
