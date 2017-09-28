@@ -10,6 +10,7 @@
 \usepackage{filecontents}
 \usepackage[section]{placeins}
 \usepackage{float}
+\usepackage{lscape}
 
 \definecolor{Gray}{gray}{0.9}
 
@@ -121,9 +122,10 @@ Items, Board, backgorundTileCatalog and the MainScreen. These are the followings
 We consider the other classes as less important since they’re not required for the main function of the game; ScoreCounter makes the game more intersecting (if you reach a certain score you can  update or upgrade to be able to remove more tiles at the same time), but even without the ScoreCounter you should be able to play the game without any problems.
 While these functions could likely be handled by the MainScreen class, making them into different classes allows the MainScreen class to be more focused solely on handling rendering tasks, prevents it from becoming bloated, and allows for easier expansion of the functions of ScoreCounting and other functions.
 
-
 \subsection{The Class diagram}
-tbd
+\begin{figure}[H]
+\includegraphics[scale=0.30]{Images/ClassDiagram.png} 
+\end{figure}
 
 \subsection{The Sequence Diagram}
 \begin{figure}[H]
@@ -148,7 +150,6 @@ tbd
 
 \newpage
 \section{UML in Practice}
-tbd
 
 \subsection{Composition and Aggregation}
 \begin{figure}[H]
