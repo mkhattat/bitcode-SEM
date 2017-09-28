@@ -1,9 +1,12 @@
 package nl.tudelft.pooralien;
 
 
+import nl.tu.delft.defpro.api.IDefProAPI;
 import nl.tudelft.pooralien.ui.MainScreen;
 
 import javax.swing.JFrame;
+
+import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 
 /**
  * The Launcher of the game.
@@ -11,20 +14,28 @@ import javax.swing.JFrame;
 public class Launcher {
 
     private MainScreen mainScreen;
+    private String cfgPath = this.getClass().getResource("/config_poor_alien.txt")
+            .getPath().replaceFirst("/", "");
 
     /**
      * Launch the game GUI.
      */
     public void launch() {
-        JFrame mainWindow = new JFrame("Poor Alien");
-        MainScreen mainScreen = new MainScreen();
-        mainWindow.setSize(0, 0);
-        mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainWindow.getContentPane().add(mainScreen);
+        try {
+            IDefProAPI gameCfg = getAPI(cfgPath);
+            JFrame mainWindow = new JFrame("");
+            MainScreen mainScreen = new MainScreen();
+            mainWindow.setSize(0, 0);
+            mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            mainWindow.getContentPane().add(mainScreen);
 
-        new MouseEventHandler(mainScreen);
-        mainWindow.pack();
-        mainWindow.setVisible(true);
+            new MouseEventHandler(mainScreen);
+            mainWindow.pack();
+            mainWindow.setVisible(true);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**
