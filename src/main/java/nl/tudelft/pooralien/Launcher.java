@@ -14,7 +14,8 @@ import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 public class Launcher {
 
     private MainScreen mainScreen;
-    private String cfgPath = this.getClass().getResource("/config_poor_alien.txt").getPath().replaceFirst("/","");
+    private String cfgPath = this.getClass().getResource("/config_poor_alien.txt")
+            .getPath().replaceFirst("/", "");
 
     /**
      * Launch the game GUI.
