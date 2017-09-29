@@ -1,19 +1,22 @@
 package nl.tudelft.pooralien.Controller;
+import nl.tu.delft.defpro.exception.NotExistingVariableException;
 import nl.tudelft.item.Item;
 import nl.tudelft.item.ItemFactory;
 
 import java.util.ArrayList;
+import nl.tudelft.pooralien.Launcher;
+
 
 
 /**
  * The Board class.
  */
 public class Board {
-    public static final int WIDTH = 10;
-    public static final int HEIGHT = 10;
-    private static final int MIN_REQUIRED_ITEMS = 3;
+    private int width;
+    private int height;
+    private int minRequiredItems;
 
-    private Item[][] items = new Item[WIDTH][HEIGHT];
+    private Item[][] items;
 
 
     /**
@@ -21,8 +24,79 @@ public class Board {
      */
     public Board() {
         // initialise the board with random items.
+        width = getMaxWidth();
+        height = getMaxHeight();
+        minRequiredItems = getMinRequiredItems();
+        items = new Item[width][height];
+
         createRandom();
     }
+
+    /**
+     * Get the width of the board from config file.
+     * @return width of the board.
+     */
+    public static int getMaxWidth() {
+        try {
+            return Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth");
+        } catch (NotExistingVariableException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    /**
+     * Get the height of the board from config file.
+     * @return height of the board.
+     */
+    public static int getMaxHeight() {
+        try {
+            return Launcher.getGameCfg().getIntegerValueOf("maxBoardHeight");
+        } catch (NotExistingVariableException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    /**
+     * Get the height of the board from config file.
+     * @return height of the board.
+     */
+    public static int getMinWidth() {
+        try {
+            return Launcher.getGameCfg().getIntegerValueOf("minBoardWidth");
+        } catch (NotExistingVariableException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    /**
+     * Get the height of the board from config file.
+     * @return height of the board.
+     */
+    public static int getMinHeight() {
+        try {
+            return Launcher.getGameCfg().getIntegerValueOf("minBoardHeight");
+        } catch (NotExistingVariableException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    /**
+     * Min required items to be in on row (or column) to score.
+     * @return min required item in a row from config file.
+     */
+    private int getMinRequiredItems() {
+        try {
+            return Launcher.getGameCfg().getIntegerValueOf("minItemsInRow");
+        } catch (NotExistingVariableException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 
     /**
      * Constructor which builds the data structure with the given file.
@@ -56,7 +130,7 @@ public class Board {
      * @return true if it was successful
      */
     public boolean setItem(Item cell, int x, int y) {
-        if (x < WIDTH && x >= 0 && y < HEIGHT && y >= 0) {
+        if (x < width && x >= 0 && y < height && y >= 0) {
             this.items[x][y] = cell;
             return true;
         }
@@ -72,16 +146,16 @@ public class Board {
      * @throws IllegalArgumentException if the x and y are out of the board raneg.
      */
     public Item getItem(int x, int y) throws IllegalArgumentException {
-        if (x >= WIDTH || x < 0) {
+        if (x >= width || x < 0) {
             throw new IllegalArgumentException(
                     "The x should be greater or equal than 0 and less than "
-                    + WIDTH + "."
+                    + width + "."
             );
         }
-        if (y >= HEIGHT || y < 0) {
+        if (y >= height || y < 0) {
             throw new IllegalArgumentException(
                     "The y should be greater or equal than 0 and less than "
-                    + HEIGHT + "."
+                    + height + "."
             );
         }
 
@@ -102,7 +176,7 @@ public class Board {
         boolean flag = true;
         int i = 1;
         while (flag) { // checking the right side
-            if (y + i < HEIGHT && items[x][y].getSprite().equals(items[x][y + i].getSprite())) {
+            if (y + i < height && items[x][y].getSprite().equals(items[x][y + i].getSprite())) {
                 founded.add(y + i);
             } else {
                 flag = false;
@@ -121,7 +195,7 @@ public class Board {
         }
         // if nothing has been founded or the number of founded items is less than
         // minimum required for the game return an empty array list.
-        if (founded.size() < MIN_REQUIRED_ITEMS) {
+        if (founded.size() < minRequiredItems) {
             return new ArrayList<Integer>();
         }
         return founded;
@@ -140,7 +214,7 @@ public class Board {
         boolean flag = true;
         int i = 1;
         while (flag) { // checking the bottom side
-            if (i + x < WIDTH && items[x][y].getSprite().equals(items[x + i][y].getSprite())) {
+            if (i + x < width && items[x][y].getSprite().equals(items[x + i][y].getSprite())) {
                 founded.add(x + i);
             } else {
                 flag = false;
@@ -159,7 +233,7 @@ public class Board {
         }
         // if nothing has been founded or the number of founded items is less than
         // minimum required for the game return an empty array list.
-        if (founded.size() < MIN_REQUIRED_ITEMS) {
+        if (founded.size() < minRequiredItems) {
             return new ArrayList<Integer>();
         }
         return founded;
@@ -189,8 +263,8 @@ public class Board {
 
     private void createRandom() {
         ItemFactory itemFactory = new ItemFactory();
-        for (int x = 0; x < WIDTH; x++) {
-            for (int y = 0; y < HEIGHT; y++) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
                 items[x][y] = itemFactory.createRandomItem();
             }
         }

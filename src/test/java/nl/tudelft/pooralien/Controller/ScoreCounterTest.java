@@ -1,5 +1,6 @@
 package nl.tudelft.pooralien.Controller;
 
+import nl.tudelft.pooralien.Launcher;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,10 +12,12 @@ import static org.junit.Assert.assertEquals;
  */
 public class ScoreCounterTest {
 
-    ScoreCounter scoreCounter;
+    private Launcher launcher;
+    private ScoreCounter scoreCounter;
 
     @Before
-    public void setup() {
+    public void setup() throws Exception {
+        launcher = new Launcher();
         scoreCounter = new ScoreCounter(0);
     }
 

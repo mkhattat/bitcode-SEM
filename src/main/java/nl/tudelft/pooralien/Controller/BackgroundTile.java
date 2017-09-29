@@ -11,8 +11,8 @@ public class BackgroundTile {
     private int coordinateY;
     private Color colorBackgroundTile;
 
-    private static final int MAX_WIDTH_AND_HEIGHT = 10;
-    private static final int MIN_WIDTH_AND_HEIGHT = 0;
+    private static final int MAX_WIDTH_AND_HEIGHT = Board.getMaxWidth();
+    private static final int MIN_WIDTH_AND_HEIGHT = Board.getMinWidth();
 
     /**
      * @param coordinateX must be [0,10]

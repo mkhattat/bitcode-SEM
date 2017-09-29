@@ -1,4 +1,5 @@
 package nl.tudelft.pooralien.Controller;
+import nl.tudelft.pooralien.Launcher;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,10 +10,12 @@ import static org.junit.Assert.*;
  */
 public class BoardTest {
 
-    Board board;
+    private Launcher launcher;
+    private Board board;
 
     @Before
-    public void setup() {
+    public void setup() throws Exception {
+        launcher = new Launcher();
         board = new Board();
     }
     @Test

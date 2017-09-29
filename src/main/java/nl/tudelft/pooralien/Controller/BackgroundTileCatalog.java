@@ -12,9 +12,8 @@ public class BackgroundTileCatalog {
 
     private ArrayList<BackgroundTile> backgroundTiles = new ArrayList<>();
 
-    private static final int MAX_WIDTH_AND_HEIGHT = 10;
-    private static final int MIN_WIDTH_AND_HEIGHT = 0;
-    private static final int MAX_TILE_COUNT = 100;
+    private static final int MAX_WIDTH_AND_HEIGHT = Board.getMaxWidth();
+    private static final int MAX_TILE_COUNT = Board.getMaxWidth() * Board.getMaxHeight();
 
     /**
      * Random used to generate random items by generating random ints.
@@ -128,8 +127,8 @@ public class BackgroundTileCatalog {
      */
     public BackgroundTile get(int coordinateX, int coordinateY)
             throws IndexOutOfBoundsException, NoSuchElementException {
-        if (coordinateX < MIN_WIDTH_AND_HEIGHT || coordinateX > MAX_WIDTH_AND_HEIGHT
-                || coordinateY < MIN_WIDTH_AND_HEIGHT || coordinateY > MAX_WIDTH_AND_HEIGHT) {
+        if (coordinateX < 0 || coordinateX > MAX_WIDTH_AND_HEIGHT
+                || coordinateY < 0 || coordinateY > MAX_WIDTH_AND_HEIGHT) {
             throw new IndexOutOfBoundsException(
                     "X and Y coordinates must always be between -1 and 11."
                     + "\ncurrent X: " + coordinateX + "."
