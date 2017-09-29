@@ -1,0 +1,94 @@
+%\documentclass{article}\usepackage{subfigure}\usepackage{float}\begin{document}
+
+\begin{figure}[H]
+\begin{subfigure}{}
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{Game}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): ...} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: ...} \\ \hline
+			Create game window	& ... \\ \hline
+			Create board & Board \\ \hline
+			Create player & Player \\ \hline
+		\end{tabular}
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{Board}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): ...} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: ...} \\ \hline
+			Read level & Level \\ \hline
+			Create grid & Grid \\ \hline
+			Draw board & Tile \\ \hline
+			Move Tiles & Move \\ \hline
+		\end{tabular}
+\end{subfigure}
+\begin{subfigure}{}
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{Tile}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): ...} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: ...} \\ \hline
+			Load Image & ... \\ \hline
+			Draw Tile & ... \\ \hline
+		\end{tabular}
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{Move}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): ...} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: ...} \\ \hline
+			Check for movements & EventHandler \\ \hline
+			Move animation & Tile, Grid \\ \hline
+		\end{tabular}
+\end{subfigure}
+\begin{subfigure}{}
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{EventHandler}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): ...} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: ...} \\ \hline
+			Check for mouse events & MouseEvent Handler \\ \hline
+			Check for button events & ButtonEvent Handler \\ \hline
+		\end{tabular}
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{Player}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): ...} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: ...} \\ \hline
+			keep track of score & ScoringSystem \\ \hline
+		\end{tabular}
+\end{subfigure}
+\begin{subfigure}{}
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{MouseEventHandler}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): ...} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: ...} \\ \hline
+			Capture and handle mouse events & ... \\ \hline
+		\end{tabular}
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{ButtonEventHandler}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): ...} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: ...} \\ \hline
+			Capture and handle button events & ... \\ \hline
+		\end{tabular}
+\end{subfigure}
+\begin{subfigure}{}		
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{ScoringSystem}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): ...} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: ...} \\ \hline
+			Keep track of scoring & Move \\ \hline
+		\end{tabular}
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{Level}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): ...} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: ...} \\ \hline
+			Read Level from file & ... \\ \hline
+		\end{tabular}
+\end{subfigure}
+
+\end{figure}
+%\end{document}
