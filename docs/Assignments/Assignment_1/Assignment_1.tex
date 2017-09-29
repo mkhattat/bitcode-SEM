@@ -251,9 +251,34 @@ A similar functionality could be implemented using an item class with an id attr
 \section{Traceability}
 
 \subsection{Traceability Strategy}
-We have chosen to use a combination of knowledge based and structural based traceability links. We want to use structural based traceability links as much as possible because we think that the code should speak for itself. This means that the links between components in the code should be clear and well defined, also the naming of the artefacts should be consistent. We also think that we also need knowledge based link that are less obvious and need human interaction to surface.
+We have chosen to use a combination of knowledge based and structural based traceability links. We want to use structural based traceability links as much as possible because we think that the code should speak for itself. This means that the links between components in the code should be clear and well defined, also the naming of the artefacts should be consistent. A solution to that is to use tags throughout the documentation:
+\begin{itemize}
+    \item REQ1: The first requirement
+    \item CL1.1-CL1.n: The classes that implement the first requirement
+    \item CD1.1-CD1.n: The class diagrams that defines the relations between the classes.
+    \item SD1.1-SD1.n: The sequence diagrams that define the sequence of the first requirement
+    \item TC1.1-TC1.n: The test cases that test the implementation of the first requirement 
+\end{itemize}
 
-\paragraph{Our Strategy} test
+\paragraph{} To keep track of traceability links between our code, tests and requirements we have chosen to use a tool called concordion. Concordion can link requirements, unit tests and class implementations by using tags inside de java code. For every requirement there must be a text file that explains the requirement and what should be tested (acceptance testing). To link the requirements and the unit tests a so called fixture java class is created that will be executed when a maven job is ran. After the job is finished a html page is created with the requirements and the test results.
+
+\newpage
+\subsection{Traceability Matrix}
+
+\begin{center}
+    \begin{longtable}{|p{0.4in}|p{0.4in}|p{0.4in}|p{0.4in}|p{0.4in}|p{0.4in}|p{0.4in}|}
+    \hline
+             & REQ1 CD1 & REQ1 SD1 & REQ1 CL1.1 & REQ1 CL1.2 & REQ1 TC1.1 & REQ1 TC1.2 \\ \hline
+    REQ1 CD1 &    x    &    x     &     x      &     x      &            &            \\ \hline
+    REQ1 SD1 &    x    &    x     &     x      &     x      &            &            \\ \hline
+    REQ1 CL1.1 &   x     &   x      &    x       &            &      x      &            \\ \hline
+    REQ1 CL1.2 &   x     &   x      &            &     x      &            &     x     \\ \hline
+    REQ1 TC1.1 &         &          &    x       &            &      x     &            \\ \hline
+    REQ1 TC1.2 &         &          &            &     x      &            &     x      \\ \hline
+	
+	\end{longtable}	
+\end{center}
+
 
 \end{document}
 
