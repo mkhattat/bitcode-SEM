@@ -91,6 +91,7 @@ local.properties
 
 # Package Files #
 *.jar
+!DefProAPI-1.0.jar
 *.war
 *.ear
 *.zip

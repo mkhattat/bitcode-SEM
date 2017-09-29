@@ -1,6 +1,11 @@
 package nl.tudelft.pooralien.Controller;
 
+import nl.tu.delft.defpro.exception.NotExistingVariableException;
+
 import java.awt.Color;
+import java.util.List;
+import nl.tudelft.pooralien.Launcher;
+
 
 /**
  * class for controlling the flow of the game.
@@ -10,15 +15,23 @@ public final class Game {
     private Board board;
     private BackgroundTileCatalog backgroundTileCatalog;
 
-    private static final int BACKGROUND_TILE_COUNT = 10;
-    private static final Color STANDARD_COLOR = Color.MAGENTA;
-
     /**
      * Initialise the singleton Game object.
      */
     private Game() {
         board = new Board();
-        backgroundTileCatalog = new BackgroundTileCatalog(BACKGROUND_TILE_COUNT, STANDARD_COLOR);
+        int backgroundTileCount;
+        Color standardColor;
+        try {
+            backgroundTileCount = Launcher.getGameCfg().getIntegerValueOf("backgroundTileCount");
+            List<Integer> rgb = Launcher.getGameCfg().getListIntValueOf("colorBackgroundTile");
+            standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
+        } catch (NotExistingVariableException e) {
+            e.printStackTrace();
+            backgroundTileCount = -1;
+            standardColor = Color.MAGENTA;
+        }
+        backgroundTileCatalog = new BackgroundTileCatalog(backgroundTileCount, standardColor);
     }
 
     /**

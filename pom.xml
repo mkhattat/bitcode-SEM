@@ -7,7 +7,7 @@
     <groupId>groupId</groupId>
     <artifactId>pooralien</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+    
     <properties>
         <checkstyle.version>7.2</checkstyle.version>
         <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
@@ -16,7 +16,21 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>in-project</id>
+            <name>In Project Repo</name>
+            <url>file:///${project.basedir}/libs</url>
+        </repository>    
+    </repositories>
+    
     <dependencies>
+        <dependency>
+            <groupId>DefProAPI</groupId>
+            <artifactId>DefProAPI</artifactId>
+            <version>1.0</version>
+        </dependency>
+        
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -52,6 +66,25 @@
 
     <reporting>
         <plugins>
+
+        <!-- Make this jar executable -->
+        <plugin>
+                <groupId>groupId</groupId>
+                <artifactId>pooralien</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/log4j.properties</exclude>
+                    </excludes>
+                    <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <mainClass>nl.tudelft.pooralien.Launcher</mainClass>
+                        <classpathPrefix>libs/</classpathPrefix>
+                    </manifest>
+                    </archive>
+                </configuration>
+        </plugin>        
+        
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
