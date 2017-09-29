@@ -1,0 +1,89 @@
+ %\documentclass{article}\usepackage{subfigure}\usepackage{float}\begin{document}
+
+\begin{figure}[H]
+\begin{subfigure}{}
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{Game}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): ...} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: ...} \\ \hline
+			Create board & Board \\ \hline
+			Create background catalog & BackgroundTile Catalog \\ \hline
+		\end{tabular}
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{Board}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): ...} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: ...} \\ \hline
+			Read level & String \\ \hline
+			Create random board & Board \\ \hline
+			Find similar items & ... \\ \hline
+			Remove Tiles & ... \\ \hline
+		\end{tabular}
+\end{subfigure}
+\begin{subfigure}{}
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{Item}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): ...} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: Axe, Bone, Eye, Leaf, Mask, Mouth, Sun} \\ \hline
+			Get Sprite Name & ... \\ \hline
+		\end{tabular}
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{Animation}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): ...} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: RTLDragAnimation, TTBDragAnimation} \\ \hline
+			Start Animation & EventHandler \\ \hline
+			Update Animation & EventHandler, MainScreen \\ \hline
+			End Animation & Board, MainScreen \\ \hline
+		\end{tabular}
+\end{subfigure}
+\begin{subfigure}{}
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{EventHandler}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): ...} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: ...} \\ \hline
+			Check for mouse events & MouseEvent Handler \\ \hline
+			Check for button events & ButtonEvent Handler \\ \hline
+		\end{tabular}
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{MainScreen}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): JLayeredPane} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: ...} \\ \hline
+			Draw Grid Board & Board \\ \hline
+			Refresh Board & Board \\ \hline
+			Print and Update Score &  \\ \hline
+		\end{tabular}
+\end{subfigure}
+\begin{subfigure}{}
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{MouseEventHandler}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): ...} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: ...} \\ \hline
+			Capture and handle mouse events & ... \\ \hline
+		\end{tabular}
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{ButtonEventHandler}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): ...} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: ...} \\ \hline
+			Capture and handle button events & ... \\ \hline
+		\end{tabular}
+\end{subfigure}
+\begin{subfigure}{}		
+		\begin{tabular}{|p{1in}|p{1in}|}
+			\hline
+			\multicolumn{2}{|p{2in}|}{\textbf{ScoreCounter}} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Supperclass(es): ...} \\ \hline
+			\multicolumn{2}{|p{2in}|}{Subclasses: ...} \\ \hline
+			Keep track of scoring & Animation \\ \hline
+		\end{tabular}
+
+\end{subfigure}
+
+\end{figure}
+%\end{document}
