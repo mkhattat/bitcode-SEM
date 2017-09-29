@@ -14,8 +14,10 @@ import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 public class Launcher {
 
     private MainScreen mainScreen;
-    private String cfgPath = this.getClass().getResource("/config.txt")
-            .getPath();
+    private String cfgPath = this.getClass().getResource("/config.txt").toURI()
+            .getPath().replaceFirst("^/(.:/)", "$1");;
+
+
 
     private static IDefProAPI gameCfg;
 

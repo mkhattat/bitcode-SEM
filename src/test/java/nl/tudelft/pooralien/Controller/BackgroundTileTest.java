@@ -1,5 +1,6 @@
 package nl.tudelft.pooralien.Controller;
 
+import nl.tudelft.pooralien.Launcher;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,6 +13,7 @@ import static org.junit.Assert.*;
  */
 public class BackgroundTileTest {
 
+    private Launcher launcher;
     private BackgroundTile backgroundTile1;
 
     private static final int MAX_WIDTH_AND_HEIGHT = 10;
@@ -19,7 +21,9 @@ public class BackgroundTileTest {
 
 
     @Before
-    public void setup() {
+    public void setup() throws Exception {
+        launcher = new Launcher();
+
         backgroundTile1 = new BackgroundTile(0,0, Color.WHITE);
     }
 

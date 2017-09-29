@@ -1,5 +1,6 @@
 package nl.tudelft.pooralien.Controller;
 
+import nl.tudelft.pooralien.Launcher;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +16,8 @@ import java.util.NoSuchElementException;
  */
 public class BackgroundTileCatalogTest {
 
-    BackgroundTileCatalog backgroundTileCatalog;
+    private Launcher launcher;
+    private BackgroundTileCatalog backgroundTileCatalog;
 
     private BackgroundTile backgroundTile1;
     private BackgroundTile backgroundTile2;
@@ -31,7 +33,8 @@ public class BackgroundTileCatalogTest {
     private static final int MAX_TILE_COUNT = 100;
 
     @Before
-    public void setup() {
+    public void setup() throws Exception {
+        launcher = new Launcher();
         backgroundTileCatalog = new BackgroundTileCatalog();
 
         backgroundTile1 = new BackgroundTile(0,0, Color.WHITE);
