@@ -12,8 +12,8 @@ public class BackgroundTileCatalog {
 
     private ArrayList<BackgroundTile> backgroundTiles = new ArrayList<>();
 
-    private static final int MAX_WIDTH_AND_HEIGHT = Board.getWidth();
-    private static final int MAX_TILE_COUNT = Board.getWidth() * Board.getHeight();
+    private static final int MAX_WIDTH_AND_HEIGHT = Board.getMaxWidth();
+    private static final int MAX_TILE_COUNT = Board.getMaxWidth() * Board.getMaxHeight();
 
     /**
      * Random used to generate random items by generating random ints.

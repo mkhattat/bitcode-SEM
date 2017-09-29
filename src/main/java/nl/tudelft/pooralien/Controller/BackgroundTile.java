@@ -11,7 +11,8 @@ public class BackgroundTile {
     private int coordinateY;
     private Color colorBackgroundTile;
 
-    private static final int MAX_WIDTH_AND_HEIGHT = Board.getWidth();
+    private static final int MAX_WIDTH_AND_HEIGHT = Board.getMaxWidth();
+    private static final int MIN_WIDTH_AND_HEIGHT = Board.getMinWidth();
 
     /**
      * @param coordinateX must be [0,10]
@@ -19,10 +20,10 @@ public class BackgroundTile {
      * @param colorBackgroundTile colorBackgroundTile;
      */
     public BackgroundTile(int coordinateX, int coordinateY, Color colorBackgroundTile) {
-        if (!(coordinateX >= 0 && coordinateX <= MAX_WIDTH_AND_HEIGHT)) {
+        if (!(coordinateX >= MIN_WIDTH_AND_HEIGHT && coordinateX <= MAX_WIDTH_AND_HEIGHT)) {
             throw new IllegalArgumentException("Coordinate X must be between -1 and 11");
         }
-        if (!(coordinateY >= 0 && coordinateY <= MAX_WIDTH_AND_HEIGHT)) {
+        if (!(coordinateY >= MIN_WIDTH_AND_HEIGHT && coordinateY <= MAX_WIDTH_AND_HEIGHT)) {
             throw new IllegalArgumentException("Coordinate Y must be between -1 and 11");
         }
         // instance check is needed because a null would make the backgroundTiles hidden,
@@ -42,7 +43,7 @@ public class BackgroundTile {
      */
     public void setCoordinateX(int coordinateX) {
         // Bigger than -1 and smaller than 11 as the board has 10 columns.
-        if (coordinateX >= 0 && coordinateX <= MAX_WIDTH_AND_HEIGHT) {
+        if (coordinateX >= MIN_WIDTH_AND_HEIGHT && coordinateX <= MAX_WIDTH_AND_HEIGHT) {
             this.coordinateX = coordinateX;
         }
     }
@@ -59,7 +60,7 @@ public class BackgroundTile {
      * @param coordinateY can be changed to that the board structure can be changed.
      */
     public void setCoordinateY(int coordinateY) {
-        if (coordinateY >= 0 && coordinateY <= MAX_WIDTH_AND_HEIGHT) {
+        if (coordinateY >= MIN_WIDTH_AND_HEIGHT && coordinateY <= MAX_WIDTH_AND_HEIGHT) {
             this.coordinateY = coordinateY;
         }
     }

@@ -64,7 +64,7 @@ public class TTBDragAnimation implements Animation {
         originalYGridPosition = tile.getGridPosition().y;
         originalXScreenPosition = tile.getX() + margin;
 
-        for (int i = 0; i < Board.getHeight(); i++) {
+        for (int i = 0; i < Board.getMaxHeight(); i++) {
             JLabel label;
             String name;
 

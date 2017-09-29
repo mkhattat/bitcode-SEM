@@ -109,8 +109,8 @@ public class MainScreen extends JLayeredPane {
      * Sync the board on the screen with the board data structure.
      */
     public void refreshBoard() {
-        for (int x = 0; x < Board.getWidth(); x++) {
-            for (int y = 0; y < Board.getWidth(); y++) {
+        for (int x = 0; x < Board.getMaxWidth(); x++) {
+            for (int y = 0; y < Board.getMaxHeight(); y++) {
                 replaceItem(x, y, Game.getGame().getBoard().getItem(x, y).getSprite());
                 replaceBorder(x, y);
             }
@@ -162,21 +162,21 @@ public class MainScreen extends JLayeredPane {
      */
     private void createGridBoard() {
         // initial gridBoardHolder
-        gridBoardHolder = new JPanelTile[Board.getWidth()][Board.getHeight()];
+        gridBoardHolder = new JPanelTile[Board.getMaxWidth()][Board.getMaxHeight()];
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.weightx = 1;
         gbc.anchor = GridBagConstraints.CENTER;
 
-        GridLayout gridLayout = new GridLayout(Board.getWidth(), Board.getHeight());
+        GridLayout gridLayout = new GridLayout(Board.getMaxWidth(), Board.getMaxHeight());
         gridBoard = new JPanel();
         gridBoard.setLayout(gridLayout);
 
         BufferedImage image = null;
         Game game = Game.getGame();
         try {
-            for (int x = 0; x < Board.getWidth(); x++) {
-                for (int y = 0; y < Board.getHeight(); y++) {
+            for (int x = 0; x < Board.getMaxWidth(); x++) {
+                for (int y = 0; y < Board.getMaxHeight(); y++) {
                     image = loadImage(game.getBoard().getItem(x, y).getSprite());
                     gridBoardHolder[x][y] = new JPanelTile(new Point(x, y));
                     gridBoardHolder[x][y].add(new JLabel(new ImageIcon(image)));

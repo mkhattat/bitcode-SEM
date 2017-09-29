@@ -24,8 +24,8 @@ public class Board {
      */
     public Board() {
         // initialise the board with random items.
-        width = getWidth();
-        height = getHeight();
+        width = getMaxWidth();
+        height = getMaxHeight();
         minRequiredItems = getMinRequiredItems();
         items = new Item[width][height];
 
@@ -36,9 +36,9 @@ public class Board {
      * Get the width of the board from config file.
      * @return width of the board.
      */
-    public static int getWidth() {
+    public static int getMaxWidth() {
         try {
-            return Launcher.getGameCfg().getIntegerValueOf("boardWidth");
+            return Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth");
         } catch (NotExistingVariableException e) {
             e.printStackTrace();
             return -1;
@@ -49,9 +49,35 @@ public class Board {
      * Get the height of the board from config file.
      * @return height of the board.
      */
-    public static int getHeight() {
+    public static int getMaxHeight() {
         try {
-            return Launcher.getGameCfg().getIntegerValueOf("boardHeight");
+            return Launcher.getGameCfg().getIntegerValueOf("maxBoardHeight");
+        } catch (NotExistingVariableException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    /**
+     * Get the height of the board from config file.
+     * @return height of the board.
+     */
+    public static int getMinWidth() {
+        try {
+            return Launcher.getGameCfg().getIntegerValueOf("minBoardWidth");
+        } catch (NotExistingVariableException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    /**
+     * Get the height of the board from config file.
+     * @return height of the board.
+     */
+    public static int getMinHeight() {
+        try {
+            return Launcher.getGameCfg().getIntegerValueOf("minBoardHeight");
         } catch (NotExistingVariableException e) {
             e.printStackTrace();
             return -1;

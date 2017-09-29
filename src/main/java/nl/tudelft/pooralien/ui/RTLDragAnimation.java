@@ -64,7 +64,7 @@ public class RTLDragAnimation implements Animation {
 
         originalXGridPosition = tile.getGridPosition().x;
         originalYScreenPosition = tile.getY() + 2 * margin;
-        for (int i = 0; i < Board.getWidth(); i++) {
+        for (int i = 0; i < Board.getMaxWidth(); i++) {
             JLabel label = mainScreen.getItem(originalXGridPosition, i).getImageIcon();
             String name = Game.getGame().getBoard().getItem(originalXGridPosition, i).getSprite();
 

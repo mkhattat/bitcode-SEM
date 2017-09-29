@@ -14,9 +14,13 @@
 ## default RGB color of the background tile on the board
 int colorBackgroundTile = [255,0,255]
 ## max width of board in term of cells on the grid board
-int boardWidth  = 10
+int maxBoardWidth  = 10
 ## max height of board in term of cells on the grid board
-int boardHeight = 10
+int maxBoardHeight = 10
+## min width of board in term of cells on the grid board
+int minBoardWidth  = 0
+## min height of board in term of cells on the grid board
+int minBoardHeight = 0
 ## min number of items in a row needed to remove tiles from screen
 int minItemsInRow = 3
 ## default number of background tiles on screen
