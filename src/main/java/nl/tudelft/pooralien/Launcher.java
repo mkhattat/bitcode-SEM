@@ -13,10 +13,8 @@ import static nl.tu.delft.defpro.api.APIProvider.getAPI;
  */
 public class Launcher {
 
-    private MainScreen mainScreen;
-    private String cfgPath = this.getClass().getResource("/config.txt").toURI()
-            .getPath().replaceFirst("^/(.:/)", "$1");;
-
+    private String cfgPath = this.getClass().getResource("/config.txt")
+            .getPath().replaceFirst("^/(.:/)", "$1");
 
 
     private static IDefProAPI gameCfg;
@@ -42,7 +40,9 @@ public class Launcher {
 
             new MouseEventHandler(mainScreen);
             mainWindow.pack();
-            mainWindow.setVisible(true);
+            if (!gameCfg.getBooleanValueOf("multiLevel")) {
+                mainWindow.setVisible(true);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

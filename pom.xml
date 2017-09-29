@@ -66,6 +66,25 @@
 
     <reporting>
         <plugins>
+
+        <!-- Make this jar executable -->
+        <plugin>
+                <groupId>groupId</groupId>
+                <artifactId>pooralien</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/log4j.properties</exclude>
+                    </excludes>
+                    <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <mainClass>nl.tudelft.pooralien.Launcher</mainClass>
+                        <classpathPrefix>libs/</classpathPrefix>
+                    </manifest>
+                    </archive>
+                </configuration>
+        </plugin>        
+        
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
