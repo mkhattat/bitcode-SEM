@@ -4,10 +4,10 @@ import nl.tudelft.pooralien.Controller.HighScore.ScoreCounter;
 import nl.tudelft.pooralien.Launcher;
 import nl.tudelft.pooralien.Observer;
 import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreTableTopX;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 public class GameTest {
 
     private Launcher launcher;
-    private static Game game , game1;
+    private static Game game ;
     private BoardFactory bFactory;
     private Board board;
     private BackgroundTileCatalog backgroundTileCatalog;
@@ -44,67 +44,85 @@ public class GameTest {
         Board oldBoard = game.getBoard();
         game.setBoard(new StandardBoard());
         assertFalse(game.getBoard().equals(oldBoard));
-
     }
 
     @Test
     public void getHighScoreTableTopX() throws Exception {
+       JTable oldHs = game.getHighScoreTableTopX();
+       assertNotNull(oldHs);
     }
 
     @Test
     public void getMoves() throws Exception {
+        game.useMove();
+        int mov = game.getMoves();
+        assertTrue("move is not zero.", mov>0);
     }
 
     @Test
     public void useMove() throws Exception {
+        int move1 = game.getMoves();
+        game.useMove();
+        int move2 = game.getMoves();
+        assertTrue(move1 == (move2+1));
     }
 
     @Test
     public void getBackgroundTileCatalog() throws Exception {
+       BackgroundTileCatalog oldBc = game.getBackgroundTileCatalog();
+       game.setBackgroundTileCatalog(new BackgroundTileCatalog());
+       assertFalse(game.getBackgroundTileCatalog().equals(oldBc));
     }
 
     @Test
     public void getScoreCounter() throws Exception {
+        ScoreCounter sc1 = game.getScoreCounter();
+        game.getScoreCounter().setScore(10);
+        ScoreCounter sc2 = game.getScoreCounter();
+        assertTrue(sc1.equals(sc2));
     }
 
     @Test
     public void multiplayerMode() throws Exception {
+        game.setMultiplayer(true);
+        assertTrue(game.multiplayerMode());
     }
 
     @Test
     public void gameIsRunning() throws Exception {
+        assertTrue(game.gameIsRunning());
     }
 
     @Test
     public void setMultiplayer() throws Exception {
+        game.setMultiplayer(false);
+        assertFalse(game.multiplayerMode());
     }
 
     @Test
     public void pauseGame() throws Exception {
+        game.pauseGame();
+        assertFalse(game.gameIsRunning());
     }
 
     @Test
     public void resumeGame() throws Exception {
+        game.pauseGame();
+        game.resumeGame();
+        assertTrue(game.gameIsRunning());
     }
 
     @Test
     public void setBoard() throws Exception {
+        Board oldBoard = game.getBoard();
+        game.setBoard(new StandardBoard());
+        assertFalse(game.getBoard().equals(oldBoard));
     }
 
     @Test
     public void setBackgroundTileCatalog() throws Exception {
+        BackgroundTileCatalog oldBc = game.getBackgroundTileCatalog();
+        game.setBackgroundTileCatalog(new BackgroundTileCatalog());
+        assertFalse(game.getBackgroundTileCatalog().equals(oldBc));
     }
-
-    @Test
-    public void registerObserver() throws Exception {
-    }
-
-    @Test
-    public void removeObserver() throws Exception {
-    }
-
-    @Test
-    public void notifyObservers() throws Exception {
-    }
-
 }
