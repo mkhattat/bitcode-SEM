@@ -15,26 +15,33 @@ import static org.junit.Assert.*;
  */
 public class ClientTest {
 
-    private volatile boolean running;
+    private volatile boolean running = false;
     private Socket socket;
     private DataOutputStream out;
     private DataInputStream in;
     private MouseEventHandler subject;
     private boolean updateAnimation;
-    private String host = "sam";
-    private int port = 12;
+    private String host = "localhost";
+    private int port = 9090;
+    Client clt;
 
     @Before
     public void setUp() throws Exception {
-        Client clt = new Client(host ,port, subject);
+        clt = new Client(host ,port, subject);
         socket = new Socket(host, port);
         in = new DataInputStream(socket.getInputStream());
         out  = new DataOutputStream(socket.getOutputStream());
-        running = true;
     }
 
     @Test
     public void start() throws Exception {
+       // host = host.trim();
+
+        /*start();
+        assertTrue(running);*/
+
+        boolean started  = clt.start();
+        assertTrue(started);
 
     }
 
