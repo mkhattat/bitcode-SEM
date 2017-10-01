@@ -76,10 +76,12 @@ public class GameTest {
 
     @Test
     public void getScoreCounter() throws Exception {
-        ScoreCounter sc1 = game.getScoreCounter();
+        int sc1 = game.getScoreCounter().getScore();
         game.getScoreCounter().setScore(10);
-        ScoreCounter sc2 = game.getScoreCounter();
-        assertTrue(sc1.equals(sc2));
+        int sc2 = game.getScoreCounter().getScore();
+        System.out.println(sc1);
+        System.out.println(sc2);
+        assertNotEquals(sc1 , sc2);
     }
 
     @Test
