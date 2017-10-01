@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 public class GameTest {
 
     private Launcher launcher;
-    private static Game game ;
+    private static Game game;
     private BoardFactory bFactory;
     private Board board;
     private BackgroundTileCatalog backgroundTileCatalog;
@@ -31,7 +31,7 @@ public class GameTest {
 
     @Before
     public void setUp() throws Exception {
-        game =  Game.getGame();
+        game = Game.getGame();
     }
 
     @Test
@@ -48,15 +48,15 @@ public class GameTest {
 
     @Test
     public void getHighScoreTableTopX() throws Exception {
-       JTable oldHs = game.getHighScoreTableTopX();
-       assertNotNull(oldHs);
+        JTable oldHs = game.getHighScoreTableTopX();
+        assertNotNull(oldHs);
     }
 
     @Test
     public void getMoves() throws Exception {
         game.useMove();
         int mov = game.getMoves();
-        assertTrue("move is not zero.", mov>0);
+        assertTrue("move is not zero.", mov > 0);
     }
 
     @Test
@@ -64,24 +64,30 @@ public class GameTest {
         int move1 = game.getMoves();
         game.useMove();
         int move2 = game.getMoves();
-        assertTrue(move1 == (move2+1));
+        assertTrue(move1 == (move2 + 1));
     }
 
     @Test
     public void getBackgroundTileCatalog() throws Exception {
-       BackgroundTileCatalog oldBc = game.getBackgroundTileCatalog();
-       game.setBackgroundTileCatalog(new BackgroundTileCatalog());
-       assertFalse(game.getBackgroundTileCatalog().equals(oldBc));
+        BackgroundTileCatalog oldBc = game.getBackgroundTileCatalog();
+        game.setBackgroundTileCatalog(new BackgroundTileCatalog());
+        assertFalse(game.getBackgroundTileCatalog().equals(oldBc));
     }
 
     @Test
     public void getScoreCounter() throws Exception {
-        int sc1 = game.getScoreCounter().getScore();
         game.getScoreCounter().setScore(10);
+        int sc1 = game.getScoreCounter().getScore();
+
+        game.setBoard(new StandardBoard());
+        game.getScoreCounter().setScore(20);
         int sc2 = game.getScoreCounter().getScore();
         System.out.println(sc1);
         System.out.println(sc2);
-        assertNotEquals(sc1 , sc2);
+        assertFalse(sc1 == sc2);
+        /*game.getScoreCounter().setScore(10);
+        int sc2 = game.getScoreCounter().getScore();
+        assertFalse(sc1 == sc2);*/
     }
 
     @Test
@@ -92,7 +98,8 @@ public class GameTest {
 
     @Test
     public void gameIsRunning() throws Exception {
-        assertTrue(game.gameIsRunning());
+        Game.getGame().pauseGame();
+        assertFalse(game.gameIsRunning());
     }
 
     @Test
