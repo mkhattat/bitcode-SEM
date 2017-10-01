@@ -1,6 +1,7 @@
 package nl.tudelft.pooralien.Controller;
 
 import nl.tudelft.pooralien.MouseEventHandler;
+import nl.tudelft.pooralien.ui.MainScreen;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +15,7 @@ import static org.junit.Assert.*;
  * Created by Sam on 10/1/2017.
  */
 public class ClientTest {
-
+    private Server server;
     private volatile boolean running = false;
     private Socket socket;
     private DataOutputStream out;
@@ -27,22 +28,19 @@ public class ClientTest {
 
     @Before
     public void setUp() throws Exception {
-        clt = new Client(host ,port, subject);
+        server = Server.getServer();
+
+        clt = new Client(host ,port, new MouseEventHandler(new MainScreen()));
         socket = new Socket(host, port);
         in = new DataInputStream(socket.getInputStream());
         out  = new DataOutputStream(socket.getOutputStream());
+        clt.start();
     }
 
     @Test
     public void start() throws Exception {
-       // host = host.trim();
-
-        /*start();
-        assertTrue(running);*/
-
         boolean started  = clt.start();
         assertTrue(started);
-
     }
 
     @Test
