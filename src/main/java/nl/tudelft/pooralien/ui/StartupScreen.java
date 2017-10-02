@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
 import nl.tudelft.pooralien.Launcher;
+import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreFrame;
 
 /**
  * A simple startup screen.
@@ -117,6 +118,7 @@ public class StartupScreen {
         gbc.weightx = 1;
 
         JButton highScoreBtn = new JButton("Highest Score");
+        highScoreBtn.addActionListener(new HighScoreListener());
         highScorePanel.add(highScoreBtn);
         mainFrame.add(highScorePanel, gbc);
     }
@@ -179,6 +181,12 @@ public class StartupScreen {
             MainScreen mainScreen = new MainScreen();
             mainScreen.launch();
             close();
+        }
+    }
+
+    private class HighScoreListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            new HighScoreFrame();
         }
     }
 

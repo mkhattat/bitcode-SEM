@@ -22,7 +22,7 @@ public class HighScoreFrame {
 
 
         //Custom button text
-        Object[] buttonText = {"New Game", "Exit To Main Menu", "Exit To Desktop"};
+        Object[] buttonText = {"Exit To Main Menu"};
 
         int optionSelected = JOptionPane.showOptionDialog(null,
                 pane,
