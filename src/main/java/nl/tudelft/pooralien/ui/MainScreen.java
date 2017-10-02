@@ -37,7 +37,6 @@ public class MainScreen implements Observer {
     private JFrame mainFrame;
     private JLabel headerLabel;
     private JPanel gridBoard;
-    private JPanel highScoreBoard;
     private JPanelTile[][] gridBoardHolder;
     private JPanel controlPanel;
     private GridBagConstraints gbc;
@@ -50,6 +49,7 @@ public class MainScreen implements Observer {
      * Constructor of the MainScreen prepare the GUI.
      */
     public MainScreen() {
+        Game.getGame().reset();
         this.layerdPane = new JLayeredPane();
         prepareGUI();
         refreshBoard();

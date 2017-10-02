@@ -4,15 +4,17 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
-import nl.tudelft.pooralien.Controller.HighScore.ScoreCounter;
 import nl.tudelft.pooralien.Launcher;
 import nl.tudelft.pooralien.Observer;
 import nl.tudelft.pooralien.Subject;
+import nl.tudelft.pooralien.Controller.HighScore.ScoreCounter;
 import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreEnterNameDialog;
 import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreTableTopX;
-
-import javax.swing.JTable;
 
 
 /**
@@ -130,7 +132,11 @@ public final class Game implements Subject {
                     //game state functionality is in place.
                     System.out.println("Game over!");
                     System.out.println("Your score is: " + scoreCounter.getScore());
-                    System.exit(0);
+                    JOptionPane.showMessageDialog(new JFrame(),
+                            "Your score is: " + scoreCounter.getScore(),
+                            "GAME OVER",
+                            JOptionPane.ERROR_MESSAGE);
+                    Game.getGame().reset();
                 }
             }
         }
@@ -244,5 +250,13 @@ public final class Game implements Subject {
         for (Observer item : observers) {
             item.update(this);
         }
+    }
+
+    /**
+     * Reset the game.
+     *
+     */
+    public void reset() {
+        game = null;
     }
 }
