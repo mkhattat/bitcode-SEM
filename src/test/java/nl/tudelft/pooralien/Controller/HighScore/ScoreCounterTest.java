@@ -1,4 +1,4 @@
-package nl.tudelft.pooralien.Controller;
+package nl.tudelft.pooralien.Controller.HighScore;
 
 import nl.tudelft.pooralien.Launcher;
 import org.junit.Before;
@@ -12,12 +12,11 @@ import static org.junit.Assert.assertEquals;
  */
 public class ScoreCounterTest {
 
-    private Launcher launcher;
     private ScoreCounter scoreCounter;
 
     @Before
     public void setup() throws Exception {
-        launcher = new Launcher();
+        new Launcher();
         scoreCounter = new ScoreCounter(0);
     }
 

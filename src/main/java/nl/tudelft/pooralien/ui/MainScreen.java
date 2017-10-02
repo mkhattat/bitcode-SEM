@@ -37,6 +37,7 @@ public class MainScreen implements Observer {
     private JFrame mainFrame;
     private JLabel headerLabel;
     private JPanel gridBoard;
+    private JPanel highScoreBoard;
     private JPanelTile[][] gridBoardHolder;
     private JPanel controlPanel;
     private GridBagConstraints gbc;
