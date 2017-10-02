@@ -34,7 +34,10 @@ public class ConnectionScreen extends JDialog implements Observer {
     /**
      * constructor used to create this GUI.
      *
-     * @param listener is the listener class.
+     * @param listener
+     *            is the listener class.
+     * @param mainScreen
+     *          is the main screen of the game.
      */
     public ConnectionScreen(Listener listener, MainScreen mainScreen) {
         this.listener = listener;
@@ -42,17 +45,25 @@ public class ConnectionScreen extends JDialog implements Observer {
         prepareGUI();
     }
 
+    /**
+     * Close this screen.
+     *
+     */
     private void closeFrame() {
         Server.getServer().removeObserver(this);
         super.dispose();
     }
 
+    /**
+     * Prepare GUI.
+     *
+     */
     private void prepareGUI() {
         this.setTitle("Creating a network");
         this.setSize(WIDTH, HEIGHT);
         this.setLayout(new GridLayout(2 + 1, 1));
         try {
-            this.headerLabel = new JLabel("The server is listening on " 
+            this.headerLabel = new JLabel("The server is listening on "
                     + InetAddress.getLocalHost().getHostAddress());
         } catch (UnknownHostException e) {
             this.headerLabel = new JLabel("I can not get the server address!");

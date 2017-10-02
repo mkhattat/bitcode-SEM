@@ -97,6 +97,10 @@ public class StartupScreen {
         mainFrame.add(newGame, gbc);
     }
 
+    /**
+     * Create a panel containing multiplayer buttons.
+     *
+     */
     private void createMultiPlayerPanel() {
         multiPlayerPanel = new JPanel();
         gbc.gridx = 0;
@@ -111,6 +115,10 @@ public class StartupScreen {
         mainFrame.add(multiPlayerPanel, gbc);
     }
 
+    /**
+     * Add high score button to the screen.
+     *
+     */
     private void createHighScorePanel() {
         highScorePanel = new JPanel();
         gbc.gridx = 0;
@@ -123,6 +131,10 @@ public class StartupScreen {
         mainFrame.add(highScorePanel, gbc);
     }
 
+    /**
+     * Add an Exit button to the screen.
+     *
+     */
     private void createExitPanel() {
         JButton exitBtn = new JButton("EXIT");
         exitBtn.addActionListener(new ExitListener());
@@ -169,6 +181,9 @@ public class StartupScreen {
         }
     }
 
+    /**
+     * Action listener for exit button.
+     */
     private class ExitListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             System.exit(0);
@@ -176,6 +191,9 @@ public class StartupScreen {
     }
 
 
+    /**
+     * Action listener for new game button.
+     */
     private class NewGameListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             MainScreen mainScreen = new MainScreen();
@@ -184,6 +202,9 @@ public class StartupScreen {
         }
     }
 
+    /**
+     * Action listener for highscore button.
+     */
     private class HighScoreListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             new HighScoreFrame();

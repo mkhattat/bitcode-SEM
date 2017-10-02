@@ -60,6 +60,10 @@ public class MainScreen implements Observer {
         layerdPane.addMouseMotionListener(mouseEventHandler);
     }
 
+    /**
+     * Launch the main screen.
+     *
+     */
     public void launch() {
         try {
             mainFrame = new JFrame(Launcher.getGameCfg().getStringValueOf("gameTitle"));
@@ -79,12 +83,23 @@ public class MainScreen implements Observer {
         }
     }
 
+    /**
+     * Close the main screen.
+     *
+     */
     public void close() {
         if (mainFrame != null) {
             mainFrame.dispose();
         }
     }
 
+    /**
+     * Connect to a network.
+     *
+     * @param serverAddress is ip address of the server.
+     * @param port is the port the server running on.
+     * @return true if we can start a connection to the server.
+     */
     public boolean connectToNetwork(String serverAddress, int port) {
         client = new Client(serverAddress, port, mouseEventHandler);
         mouseEventHandler.registerObserver(client);
@@ -96,6 +111,11 @@ public class MainScreen implements Observer {
         return false;
     }
 
+    /**
+     * Create a Host (Network).
+     *
+     * @param port the port which the server is going to be created on.
+     */
     public void createHost(int port) {
         // show a new network window
         Listener listener = new Listener(port);
@@ -107,18 +127,37 @@ public class MainScreen implements Observer {
         mouseEventHandler.registerObserver(thisPlayer);
     }
 
+    /**
+     * Add a component to the main screen.
+     *
+     * @param comp component which is going to be added to the mainscreen.
+     * @param constraints the constraints related to the component.
+     */
     public void add(Component comp, Object constraints) {
         layerdPane.add(comp, constraints);
     }
 
+    /**
+     * Revalidate the main screen.
+     *
+     */
     public void revalidate() {
         layerdPane.revalidate();
     }
 
+    /**
+     * Repaint the main screen.
+     *
+     */
     public void repaint() {
         layerdPane.repaint();
     }
 
+    /**
+     * Remove a component from the main screen.
+     *
+     * @param comp is the component which is going to be removed from main screen.
+     */
     public void remove(Component comp) {
         layerdPane.remove(comp);
     }
@@ -329,6 +368,9 @@ public class MainScreen implements Observer {
         }
     }
 
+    /**
+     * An listener for Exit button.
+     */
     private class ExitListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (Game.getGame().multiplayerMode()) {
