@@ -13,7 +13,7 @@ public class HighScoreEnterNameDialog {
 
     //SHOULD BE ADDDED TO CONFIG?
     private static final int MAX_INPUT_CHARACTERS = 20;
-
+    private ScoreManager scoreManager;
 
     /**
      * Shows an input dialog if the user has scored in the top ten.
@@ -21,32 +21,13 @@ public class HighScoreEnterNameDialog {
      * @param score is the user's score after finishing a game.
      */
     public HighScoreEnterNameDialog(boolean firstTry, int score) {
-        ScoreManager scoreManager = new ScoreManager();
+        scoreManager = new ScoreManager();
 
-        // IF THE USER HAS NOT SCORED IN THE TOP TEN THEN RETURN BUT
-        // IF THERE ARE LESS THEN TEN SCORES CONTINUE.
-        if (score < scoreManager.getLowestScoreInTopX()
-                && scoreManager.getSCORE_COUNT() < scoreManager.getTopXScoreCount()) {
-            return;
+        if (checkScoreEligibleForHighScore(score)) {
+            String userInput = constructDialog(firstTry);
+
+            handleUserInput(userInput, score);
         }
-
-        String userInput = checkFirstTry(firstTry);
-
-        //USER PRESSED CANCEL
-        if (userInput == null) {
-            userPressedCancel();
-            return;
-        }
-
-        //USER DID NOT ENTER ANYTHING OR SURPASSED 20 CHARACTERS
-        if (userInput.isEmpty() || userInput.length() > MAX_INPUT_CHARACTERS) {
-            incorrectUserInput(score);
-            return;
-        }
-        scoreManager.addScore(userInput, score);
-        Game.getGame().getHighScoreTableTopX().repaint();
-
-        System.out.printf("The player's name is '%s'.%n", userInput);
     }
 
     /**
@@ -57,12 +38,22 @@ public class HighScoreEnterNameDialog {
      * @return Returns a normal dialog or another one with instructions if
      *          the user has entered wrong input.
      */
-    private String checkFirstTry(boolean firstTry) {
+    private String constructDialog(boolean firstTry) {
         if (firstTry) {
             return constructNormalDialog();
         } else {
             return constructRetryDialog();
         }
+    }
+
+    /**
+     * @param score to be checked.
+     * @return True , if the amount of scores saved is smaller than the highScore count configured,
+     * or if the score is higher than the lowest score in the topX.
+     */
+    private boolean checkScoreEligibleForHighScore(int score) {
+        return scoreManager.getSCORE_COUNT() < scoreManager.getTopXScoreCount()
+                || score >= scoreManager.getLowestScoreInTopX();
     }
 
     /**
@@ -93,10 +84,40 @@ public class HighScoreEnterNameDialog {
         );
     }
 
+    /**
+     * Handles the dialog return values. Creates new dialogs if needed or saves the score.
+     * @param userInput is the name that the user entered for the highscore.
+     * @param score is the score that the user scored in the game.
+     */
+    private void handleUserInput(String userInput, int score) {
+        //USER PRESSED CANCEL
+        if (userInput == null) {
+            userPressedCancel();
+            return;
+        }
+
+        //USER DID NOT ENTER ANYTHING OR SURPASSED 20 CHARACTERS
+        if (userInput.isEmpty() || userInput.length() > MAX_INPUT_CHARACTERS) {
+            incorrectUserInput(score);
+            return;
+        }
+        scoreManager.addScore(userInput, score);
+        Game.getGame().getHighScoreTableTopX().repaint();
+    }
+
+
+    /**
+     * If the user pressed cancel on the dialog, print message to console.
+     */
     private void userPressedCancel() {
         System.out.println("Player pressed cancel -> return to main menu / high score.");
     }
 
+    /**
+     * If the user has provided no input or input that is longer than 20 characters,
+     * then construct a new and other dialog.
+     * @param score that the user has scored in the game.
+     */
     private void incorrectUserInput(int score) {
         new HighScoreEnterNameDialog(false, score);
     }
