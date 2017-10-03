@@ -32,13 +32,15 @@ public class GamePlayState implements State {
 
     @Override
     public void startGame() {
-        Game.getGame().resumeGame();
+        Game.getGame().notifyObservers();
     }
 
     @Override
     public void pauseGame() {
-        Game.getGame().pauseGame();
         gameControllerMachine.setState(gameControllerMachine.getGamePausedState());
+
+        //Needed to notify observers.
+        Game.getGame().notifyObservers();
     }
 
     @Override

@@ -27,7 +27,7 @@ public class InitGameState implements State {
     @Override
     public void initGame() {
         //Disables user input
-        Game.getGame().pauseGame();
+        Game.getGame().notifyObservers();
         //Reset score
         Game.getGame().getScoreCounter().setScore(0);
         //Makes a new board and refresh the GUI.

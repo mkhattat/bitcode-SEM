@@ -1,6 +1,5 @@
 package nl.tudelft.pooralien.Controller.GameStates;
 
-import nl.tudelft.pooralien.Controller.GameStates.States.DragAnimationState;
 import nl.tudelft.pooralien.Controller.GameStates.States.GameEndedState;
 import nl.tudelft.pooralien.Controller.GameStates.States.GamePlayState;
 import nl.tudelft.pooralien.Controller.GameStates.States.GamePausedState;
@@ -39,8 +38,6 @@ public class GameControllerMachine {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     /**
@@ -53,7 +50,17 @@ public class GameControllerMachine {
         }
     }
 
-    public boolean equals(State )
+    /**
+     * Checks if the state is equal to the current state.
+     * @param otherState state to be checked against.
+     * @return true if the otherState is equal to the current state.
+     */
+    public boolean equalsCurrentState(State otherState) {
+        if (otherState == null) {
+            return false;
+        }
+        return otherState.equals(this.state);
+    }
 
     /**
      * Execute the current states goToMainMenu method.
@@ -116,6 +123,13 @@ public class GameControllerMachine {
      */
     public void exitGame() {
         state.exit();
+    }
+
+    /**
+     * @return the current state of the GameControllerMachine.
+     */
+    public State getCurrentState() {
+        return this.state;
     }
 
     /**

@@ -26,7 +26,6 @@ public final class Game implements Subject {
     private BackgroundTileCatalog backgroundTileCatalog;
     private ScoreCounter scoreCounter;
     private boolean multiplayer;
-    private boolean gameIsRunning;
     private ArrayList<Observer> observers;
     private int moves;
     private GameControllerMachine gameControllerMachine;
@@ -36,7 +35,6 @@ public final class Game implements Subject {
      * Initialise the singleton Game object.
      */
     private Game() {
-        gameIsRunning = true;
         observers = new ArrayList<>();
         bFactory = new StandardBoardFactory();
         board = bFactory.createRandomBoard();
@@ -176,7 +174,7 @@ public final class Game implements Subject {
      * @return true if the game is playable.
      */
     public boolean gameIsRunning() {
-        return gameIsRunning;
+        return gameControllerMachine.equalsCurrentState(gameControllerMachine.getGamePlayState());
     }
 
     /**
@@ -186,24 +184,6 @@ public final class Game implements Subject {
      */
     public void setMultiplayer(boolean b) {
         multiplayer = b;
-        notifyObservers();
-    }
-
-    /**
-     * Pause the game.
-     *
-     */
-    public void pauseGame() {
-        gameIsRunning = false;
-        notifyObservers();
-    }
-
-    /**
-     * Resume the game.
-     *
-     */
-    public void resumeGame() {
-        gameIsRunning = true;
         notifyObservers();
     }
 

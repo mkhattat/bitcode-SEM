@@ -293,6 +293,7 @@ public class MainScreen extends JLayeredPane implements Observer {
                 pauseGame.setText("Pause Game");
                 buttonTextIsPaused = true;
             }
+
         }
     }
 
@@ -303,7 +304,7 @@ public class MainScreen extends JLayeredPane implements Observer {
         public void actionPerformed(ActionEvent e) {
             // show a new network window
             Listener listener = new Listener(port);
-            Game.getGame().pauseGame();
+            Game.getGame().notifyObservers();
             ConnectionScreen connectionScreen = new ConnectionScreen(listener);
             Server.getServer().registerObserver(connectionScreen);
             Client thisPlayer = new Client("localhost", port, mouseEventHandler);
@@ -329,7 +330,7 @@ public class MainScreen extends JLayeredPane implements Observer {
             client = new Client(serverAddress, port, mouseEventHandler);
             // TODO: show a error message if it fails to connect
             if (client.start()) {
-                Game.getGame().pauseGame();
+                Game.getGame().notifyObservers();
                 mouseEventHandler.registerObserver(client);
                 createNetwrok.setVisible(false);
                 connectNetwork.setVisible(false);

@@ -41,8 +41,10 @@ public class GamePausedState implements State {
 
     @Override
     public void resumeGame() {
-        Game.getGame().resumeGame();
         gameControllerMachine.setState(gameControllerMachine.getGamePlayState());
+
+        //Needed to notify observers.
+        Game.getGame().notifyObservers();
     }
 
     @Override
