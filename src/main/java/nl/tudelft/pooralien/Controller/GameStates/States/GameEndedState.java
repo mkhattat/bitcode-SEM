@@ -68,11 +68,4 @@ public class GameEndedState implements State {
         //NOT YET IMPLEMENTED / NOT SURE IF POSSIBLE FROM THIS STATE.
     }
 
-    @Override
-    public void exit() {
-        System.out.println("Game over!");
-        System.out.println("Your score is: " + Game.getGame().getScoreCounter().getScore());
-        System.exit(0);
-    }
-
 }

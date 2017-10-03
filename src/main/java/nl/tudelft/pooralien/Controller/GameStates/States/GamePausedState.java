@@ -49,7 +49,7 @@ public class GamePausedState implements State {
 
     @Override
     public void endGame() {
-
+        throw new IllegalStateException("GameState: GamePausedState, endGame() is not possible.");
     }
 
     @Override
@@ -60,11 +60,6 @@ public class GamePausedState implements State {
     @Override
     public void saveGame() {
         //NOT YET IMPLEMENTED.
-    }
-
-    @Override
-    public void exit() {
-
     }
 
 }

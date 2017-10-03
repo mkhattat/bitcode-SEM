@@ -21,7 +21,7 @@ public class InitGameState implements State {
 
     @Override
     public void mainMenu() {
-        //Not possible.
+        throw new IllegalStateException("GameState: InitGameState, mainMenu() is not possible.");
     }
 
     @Override
@@ -39,36 +39,32 @@ public class InitGameState implements State {
 
     @Override
     public void startGame() {
-        //Not possible.
+        throw new IllegalStateException("GameState: InitGameState, startGame() is not possible.");
     }
 
     @Override
     public void pauseGame() {
-        //Not possible.
+        throw new IllegalStateException("GameState: InitGameState, pauseGame() is not possible.");
     }
 
     @Override
     public void resumeGame() {
-        //Not possible.
+        throw new IllegalStateException("GameState: InitGameState, resumeGame() is not possible.");
     }
 
     @Override
     public void endGame() {
-        //Not possible.
+        throw new IllegalStateException("GameState: InitGameState, endGame() is not possible.");
     }
 
     @Override
     public void loadGame() {
-        //Not possible.
+        throw new IllegalStateException("GameState: InitGameState, loadGame() is not possible.");
     }
 
     @Override
     public void saveGame() {
-        //Not possible.
+        throw new IllegalStateException("GameState: InitGameState, saveGame() is not possible.");
     }
 
-    @Override
-    public void exit() {
-
-    }
 }

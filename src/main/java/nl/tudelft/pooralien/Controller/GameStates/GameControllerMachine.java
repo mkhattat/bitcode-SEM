@@ -122,7 +122,9 @@ public class GameControllerMachine {
      * Execute the current states exitGame method.
      */
     public void exitGame() {
-        state.exit();
+        // 0 means program exited normally, without errors.
+        System.out.println("Exiting game...");
+        System.exit(0);
     }
 
     /**

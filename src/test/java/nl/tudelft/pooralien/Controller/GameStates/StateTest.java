@@ -1,47 +1,47 @@
 package nl.tudelft.pooralien.Controller.GameStates;
 
 /**
- * State Interface. Used to define a contract.
+ * State Test Interface. Used to define a contract.
  */
-public interface State {
-
+public interface StateTest {
     /**
      * When the player boots the game or returns to the main screen.
      */
-    void mainMenu();
+    void mainMenuTest();
 
     /**
      * When the player presses play, initialize the game.
      */
-    void initGame();
+    void initGameTest();
 
     /**
      * When the game is loaded by the player.
      */
-    void startGame();
+    void startGameTest();
 
     /**
      * When the game is paused by the player.
      */
-    void pauseGame();
+    void pauseGameTest();
 
     /**
      * When the game is resumed by the player.
      */
-    void resumeGame();
+    void resumeGameTest();
 
     /**
      * When the game has ended by winning/losing condition.
      */
-    void endGame();
+    void endGameTest();
 
     /**
      * When the game is loaded.
      */
-    void loadGame();
+    void loadGameTest();
 
     /**
      * When the game is saved.
      */
-    void saveGame();
+    void saveGameTest();
+
 }

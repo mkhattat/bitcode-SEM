@@ -66,10 +66,4 @@ public class GamePlayState implements State {
         throw new IllegalStateException("GameState: GamePlayState, saveGame() is not possible.");
     }
 
-
-    @Override
-    public void exit() {
-
-    }
-
 }
