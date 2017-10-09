@@ -14,6 +14,7 @@ public final class Game {
     private static Game game;
     private Board board;
     private BackgroundTileCatalog backgroundTileCatalog;
+    private ScoreCounter scoreCounter;
 
     /**
      * Initialise the singleton Game object.
@@ -21,17 +22,21 @@ public final class Game {
     private Game() {
         board = new Board();
         int backgroundTileCount;
+        int startingScore;
         Color standardColor;
         try {
             backgroundTileCount = Launcher.getGameCfg().getIntegerValueOf("backgroundTileCount");
+            startingScore = Launcher.getGameCfg().getIntegerValueOf("startingScore");
             List<Integer> rgb = Launcher.getGameCfg().getListIntValueOf("colorBackgroundTile");
             standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
         } catch (NotExistingVariableException e) {
             e.printStackTrace();
             backgroundTileCount = -1;
+            startingScore = 0;
             standardColor = Color.MAGENTA;
         }
         backgroundTileCatalog = new BackgroundTileCatalog(backgroundTileCount, standardColor);
+        scoreCounter = new ScoreCounter(startingScore);
     }
 
     /**
@@ -59,5 +64,13 @@ public final class Game {
      */
     public BackgroundTileCatalog getBackgroundTileCatalog() {
         return backgroundTileCatalog;
+    }
+
+    /**
+     * Returns the scoreCounter.
+     * @return the scoreCounter being used.
+     */
+    public ScoreCounter getScoreCounter() {
+        return scoreCounter;
     }
 }

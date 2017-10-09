@@ -25,6 +25,8 @@ int minBoardHeight = 0
 int minItemsInRow = 3
 ## default number of background tiles on screen
 int backgroundTileCount = 10
+## the score the player starts with
+int startingScore = 0
 ## margin for right to left (horizontal) items when draging on screen
 int marginHDrag = 10
 ## margin for top to botton (vertical) items when draging on screen
