@@ -1,5 +1,8 @@
 package nl.tudelft.pooralien.Controller;
 
+import nl.tu.delft.defpro.exception.NotExistingVariableException;
+import nl.tudelft.pooralien.Launcher;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -12,8 +15,8 @@ public class BackgroundTileCatalog {
 
     private ArrayList<BackgroundTile> backgroundTiles = new ArrayList<>();
 
-    private static final int MAX_WIDTH_AND_HEIGHT = Board.getMaxWidth();
-    private static final int MAX_TILE_COUNT = Board.getMaxWidth() * Board.getMaxHeight();
+    private int MAX_WIDTH_AND_HEIGHT;
+    private int MAX_TILE_COUNT;
 
     /**
      * Random used to generate random items by generating random ints.
@@ -26,6 +29,33 @@ public class BackgroundTileCatalog {
      */
     public BackgroundTileCatalog() {
         intGen = new Random();
+        initWidthHeight();
+        initMaxTileCount();
+    }
+
+    /**
+     * Initiliazes the max width and height using the config file.
+     */
+    private void initWidthHeight() {
+        try {
+            MAX_WIDTH_AND_HEIGHT = Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth");
+        } catch (NotExistingVariableException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Initializes the max tile count using the config file.
+     */
+    private void initMaxTileCount() {
+        try {
+            MAX_TILE_COUNT = Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth")
+                    * Launcher.getGameCfg().getIntegerValueOf("maxBoardHeight");
+        } catch (NotExistingVariableException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -39,6 +69,8 @@ public class BackgroundTileCatalog {
      */
     public BackgroundTileCatalog(int backgroundTileCount, Color tileColor)
             throws IllegalArgumentException {
+        initWidthHeight();
+        initMaxTileCount();
         if (backgroundTileCount < 0) {
             throw new IllegalArgumentException(
                     "BackgroundTileCount must be bigger than 0 to be added to the catalog");

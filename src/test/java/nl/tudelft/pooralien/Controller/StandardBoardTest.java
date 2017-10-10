@@ -3,20 +3,18 @@ import nl.tudelft.pooralien.Launcher;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by Sam on 9/13/2017.
  */
-public class BoardTest {
+public class StandardBoardTest {
 
     private Launcher launcher;
-    private Board board;
+    private StandardBoard board;
 
     @Before
     public void setup() throws Exception {
         launcher = new Launcher();
-        board = new Board();
+        board = new StandardBoard();
     }
     @Test
     public void newBoard() throws Exception {
