@@ -147,6 +147,7 @@ public abstract class Board {
         }
         if (Game.getGame().getBackgroundTileCatalog().contains(x, y)) {
             Game.getGame().getBackgroundTileCatalog().remove(x, y);
+            Game.getGame().getScoreCounter().updateScoreBackgroundTileRemoved();
         }
     }
 

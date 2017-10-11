@@ -30,7 +30,7 @@ public class BackgroundTile {
         }
         // instance check is needed because a null would make the backgroundTiles hidden,
         // and as a result the game would be unplayable
-        if (!(colorBackgroundTile instanceof Color)) {
+        if ((colorBackgroundTile == null)) {
             throw new IllegalArgumentException("colorBackgroundTile should be a Color object");
         }
 
@@ -88,7 +88,7 @@ public class BackgroundTile {
      * @param colorBackgroundTile change the color of the backgroundTile.
      */
     public void setColorBackgroundTile(Color colorBackgroundTile) {
-        if (colorBackgroundTile instanceof Color) {
+        if (colorBackgroundTile != null) {
             this.colorBackgroundTile = colorBackgroundTile;
         }
     }
