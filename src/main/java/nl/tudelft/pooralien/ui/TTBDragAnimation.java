@@ -2,7 +2,7 @@ package nl.tudelft.pooralien.ui;
 
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
 import nl.tudelft.item.ItemFactory;
-import nl.tudelft.pooralien.Controller.StandardBoard;
+import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Launcher;
 
@@ -11,8 +11,6 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import java.awt.Component;
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 
 /**
@@ -106,7 +104,7 @@ public class TTBDragAnimation implements Animation {
             mainScreen.remove(label);
         }
         int x = 0;
-        StandardBoard board = Game.getGame().getBoard();
+        Board board = Game.getGame().getBoard();
         for (JLabel image : selectedItems) {
             ItemFactory itemFactory = new ItemFactory();
             board.setItem(itemFactory.createItem(image.getName()), x, originalYGridPosition);

@@ -3,7 +3,6 @@ package nl.tudelft.pooralien.ui;
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
 import nl.tudelft.item.ItemFactory;
 import nl.tudelft.pooralien.Controller.Board;
-import nl.tudelft.pooralien.Controller.StandardBoard;
 import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Launcher;
 
@@ -12,8 +11,6 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import java.awt.Component;
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 
 /**

@@ -1,7 +1,6 @@
 package nl.tudelft.pooralien.ui;
 
 import nl.tudelft.pooralien.Controller.Board;
-import nl.tudelft.pooralien.Controller.StandardBoard;
 import nl.tudelft.pooralien.Controller.Game;
 
 import javax.imageio.ImageIO;
