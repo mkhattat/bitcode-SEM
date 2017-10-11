@@ -13,7 +13,7 @@ public class BackgroundTile {
     private int coordinateX;
     private int coordinateY;
     private Color colorBackgroundTile;
-    private int MAX_WIDTH_AND_HEIGHT;
+    private int maxWidthAndHeight;
 
     /**
      * @param coordinateX must be [0,10]
@@ -22,10 +22,10 @@ public class BackgroundTile {
      */
     public BackgroundTile(int coordinateX, int coordinateY, Color colorBackgroundTile) {
         initWidthHeight();
-        if (!(coordinateX >= 0 && coordinateX <= MAX_WIDTH_AND_HEIGHT)) {
+        if (!(coordinateX >= 0 && coordinateX <= maxWidthAndHeight)) {
             throw new IllegalArgumentException("Coordinate X must be between -1 and 11");
         }
-        if (!(coordinateY >= 0 && coordinateY <= MAX_WIDTH_AND_HEIGHT)) {
+        if (!(coordinateY >= 0 && coordinateY <= maxWidthAndHeight)) {
             throw new IllegalArgumentException("Coordinate Y must be between -1 and 11");
         }
         // instance check is needed because a null would make the backgroundTiles hidden,
@@ -41,7 +41,7 @@ public class BackgroundTile {
 
     private void initWidthHeight() {
         try {
-            MAX_WIDTH_AND_HEIGHT = Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth");
+            maxWidthAndHeight = Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth");
         } catch (NotExistingVariableException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -54,7 +54,7 @@ public class BackgroundTile {
      */
     public void setCoordinateX(int coordinateX) {
         // Bigger than -1 and smaller than 11 as the board has 10 columns.
-        if (coordinateX >= 0 && coordinateX <= MAX_WIDTH_AND_HEIGHT) {
+        if (coordinateX >= 0 && coordinateX <= maxWidthAndHeight) {
             this.coordinateX = coordinateX;
         }
     }
@@ -71,7 +71,7 @@ public class BackgroundTile {
      * @param coordinateY can be changed to that the board structure can be changed.
      */
     public void setCoordinateY(int coordinateY) {
-        if (coordinateY >= 0 && coordinateY <= MAX_WIDTH_AND_HEIGHT) {
+        if (coordinateY >= 0 && coordinateY <= maxWidthAndHeight) {
             this.coordinateY = coordinateY;
         }
     }
