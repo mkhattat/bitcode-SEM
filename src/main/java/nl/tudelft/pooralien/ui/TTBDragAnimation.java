@@ -108,16 +108,17 @@ public class TTBDragAnimation implements Animation {
         for (JLabel image : selectedItems) {
             ItemFactory itemFactory = new ItemFactory();
             board.setItem(itemFactory.createItem(image.getName()), x, originalYGridPosition);
-            //Update Score
-            Game.getGame().getScoreCounter().updateScoreTilesRemoved(foundedItems.size());
 
             x++;
         }
         if (!board.removeGroups()) {
             restoreScreen(); return;
         } else {
+            //Update Score
+            Game.getGame().getScoreCounter().updateScoreTilesRemoved(x);
             mainScreen.refreshBoard();
         }
+
     }
 
     /**

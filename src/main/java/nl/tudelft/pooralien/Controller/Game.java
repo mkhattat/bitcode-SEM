@@ -53,6 +53,9 @@ public final class Game {
      * @return the board being used.
      */
     public StandardBoard getBoard() {
+        if (board == null) {
+            board = new StandardBoard();
+        }
         return board;
     }
 

@@ -105,16 +105,17 @@ public class RTLDragAnimation implements Animation {
         for (JLabel image : selectedItems) {
             ItemFactory itemFactory = new ItemFactory();
             board.setItem(itemFactory.createItem(image.getName()), originalXGridPosition, y);
-            //Update score
-            Game.getGame().getScoreCounter().updateScoreTilesRemoved(foundedItems.size());
 
             y++;
         }
         if (!board.removeGroups()) {
             restoreScreen(); return;
         } else {
+            //Update score
+            Game.getGame().getScoreCounter().updateScoreTilesRemoved(y);
             mainScreen.refreshBoard();
         }
+
     }
 
     /**

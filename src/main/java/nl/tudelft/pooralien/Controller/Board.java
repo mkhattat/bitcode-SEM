@@ -147,6 +147,7 @@ public abstract class Board {
         }
         if (Game.getGame().getBackgroundTileCatalog().contains(x, y)) {
             Game.getGame().getBackgroundTileCatalog().remove(x, y);
+            Game.getGame().getScoreCounter().updateScoreBackgroundTileRemoved();
         }
     }
 
@@ -236,7 +237,6 @@ public abstract class Board {
                 if (currentP.y < height - 1) {
                     pQueue.offer(new Point(currentP.x, currentP.y + 1));
                 }
-            Game.getGame().getScoreCounter().updateScoreBackgroundTileRemoved();
             }
         }
         return group;
