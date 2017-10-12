@@ -61,7 +61,6 @@ public class BoardTest {
 
     @Test
     public void setItem() throws Exception {
-        //items = board.getItem(0,1)
         boardAuto.setItem(items, 0, 1);
         assertTrue(items.equals(boardAuto.getItem(0, 1)));
         assertFalse(items1.equals(boardAuto.getItem(0,1)));
@@ -76,7 +75,6 @@ public class BoardTest {
     @Test
     public void getItem() throws Exception {
         assertTrue(boardAuto.getItem(0,0).equals(items));
-        //assertFalse(board.getItem(0,0).equals(items1));
     }
 
     @Test
@@ -88,7 +86,6 @@ public class BoardTest {
         }
         else{
             assertTrue(boardAuto.getItem(5,4).equals(boardAuto.getItem(5,5)));
-            //assertTrue(board.getItem(5,5).equals(board.getItem(6,5)));
         }
     }
 
@@ -101,17 +98,13 @@ public class BoardTest {
         }
         else{
             assertTrue(boardAuto.getItem(4,5).equals(boardAuto.getItem(5,5)));
-            //assertTrue(board.getItem(5,5).equals(board.getItem(6,5)));
         }
     }
 
     @Test
     public void remove() throws Exception {
-        //can they ever be equal?
         Item removedItem = boardAuto.getItem(5,5);
         boardAuto.remove(5,5);
         assertFalse(removedItem.equals(boardAuto.getItem(5,5)));
-
     }
-
 }
