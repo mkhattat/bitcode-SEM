@@ -120,8 +120,8 @@ public class ScoreManager {
     }
 
 
-    public String topTenScoresToString() {
-        String topTenScores = "";
+    public ArrayList<Score> getTopTenScores() {
+        ArrayList<Score> topTenScores = new ArrayList<>();
         int scoreCount = 10;
 
         if(LINE_COUNT < scoreCount) {
@@ -137,10 +137,7 @@ public class ScoreManager {
         }
 
         for(int i = 0; i < scoreCount; i++) {
-            topTenScores = topTenScores
-                    + (i+1) + ". "
-                    + scores.get(i).getName() + " "
-                    + scores.get(i).getScore() + " ";
+            topTenScores.add(scores.get(i));
         }
         return topTenScores;
     }
