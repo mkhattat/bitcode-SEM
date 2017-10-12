@@ -115,7 +115,8 @@ public class RTLDragAnimation implements Animation {
             if (foundedItems.size() > 0) {
                 founded = true;
             }
-            updateScore(foundedItems, y);
+            //Update score
+            Game.getGame().getScoreCounter().calculateTilesRemovedY(foundedItems, y);
 
             Collections.sort(foundedItems);
             for (Integer index : foundedItems) { // remove founden items and add new random ones.
@@ -127,24 +128,6 @@ public class RTLDragAnimation implements Animation {
             restoreScreen(); return;
         }
         mainScreen.refreshBoard();
-    }
-
-    /**
-     * Update the scoreCounter object with the amount of tiles & background tiles that are removed.
-     * @param foundedItems ArrayList containing the x coordinate of the tiles.
-     * @param y the int of the column where items were removed.
-     */
-    private void updateScore(ArrayList<Integer> foundedItems, int y) {
-        // Find amount of backgroundTiles destroyed
-        int backgroundTilesDestroyed = 0;
-        for (Integer index : foundedItems) {
-            if (Game.getGame().getBackgroundTileCatalog().contains(index, y)) {
-                backgroundTilesDestroyed++;
-            }
-        }
-        // Update the score
-        Game.getGame().getScoreCounter().updateScore(
-                foundedItems.size(), backgroundTilesDestroyed);
     }
 
     /**

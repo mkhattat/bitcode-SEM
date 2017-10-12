@@ -3,6 +3,8 @@ package nl.tudelft.pooralien.Controller;
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
 import nl.tudelft.pooralien.Launcher;
 
+import java.util.ArrayList;
+
 /**
  * ScoreCounter keeps track of the score of the player.
  * The score should be reset every level.
@@ -11,6 +13,7 @@ public class ScoreCounter {
 
     private int score;
     private int scorePerTile;
+    private int scorePerBackgroundTile;
 
     /**
      * Standard initialization of the class.
@@ -20,12 +23,46 @@ public class ScoreCounter {
         this.score = score;
         try {
             this.scorePerTile = Launcher.getGameCfg().getIntegerValueOf("scorePerTile");
+            this.scorePerBackgroundTile = Launcher.getGameCfg().getIntegerValueOf("scorePerBackgroundTile");
         } catch (NotExistingVariableException e) {
             e.printStackTrace();
             this.scorePerTile = 1;
+            this.scorePerBackgroundTile = 2+2+2+2;
         }
     }
+    /**
+     * Update the scoreCounter object with the amount of tiles & background tiles that are removed.
+     * @param foundedItems ArrayList containing the x coordinate of the tiles.
+     * @param x the int of the column where items were removed.
+     */
+    public void calculateTilesRemovedX(ArrayList<Integer> foundedItems, int x) {
+        // Find amount of backgroundTiles destroyed
+        int backgroundTilesDestroyed = 0;
+        for (Integer index : foundedItems) {
+            if (Game.getGame().getBackgroundTileCatalog().contains(x, index)) {
+                backgroundTilesDestroyed++;
+            }
+        }
+        // Update the score
+        this.updateScore(foundedItems.size(), backgroundTilesDestroyed);
+    }
 
+    /**
+     * Update the scoreCounter object with the amount of tiles & background tiles that are removed.
+     * @param foundedItems ArrayList containing the x coordinate of the tiles.
+     * @param y the int of the column where items were removed.
+     */
+    public void calculateTilesRemovedY(ArrayList<Integer> foundedItems, int y) {
+        // Find amount of backgroundTiles destroyed
+        int backgroundTilesDestroyed = 0;
+        for (Integer index : foundedItems) {
+            if (Game.getGame().getBackgroundTileCatalog().contains(index, y)) {
+                backgroundTilesDestroyed++;
+            }
+        }
+        // Update the score
+        updateScore(foundedItems.size(), backgroundTilesDestroyed);
+    }
     /**
      * Pre: tilesDestroyed is bigger than zero.
      * Updates the score by multiplying the tilesDestroyed by,
@@ -42,7 +79,7 @@ public class ScoreCounter {
         }
         if (backgroundTilesDestroyed > 0) {
             this.score = this.score
-                    + (backgroundTilesDestroyed * scorePerTile * (2 + 2 + 2 + 2));
+                    + (backgroundTilesDestroyed * scorePerTile * scorePerBackgroundTile);
         }
     }
 

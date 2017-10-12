@@ -118,7 +118,8 @@ public class TTBDragAnimation implements Animation {
             if (foundedItems.size() > 0) {
                 founded = true;
             }
-            updateScore(foundedItems, x);
+            //Update Score
+            Game.getGame().getScoreCounter().calculateTilesRemovedX(foundedItems, x);
 
             Collections.sort(foundedItems);
             for (Integer index : foundedItems) { //remove founded items and add random ones.
@@ -130,24 +131,6 @@ public class TTBDragAnimation implements Animation {
             restoreScreen(); return;
         }
         mainScreen.refreshBoard();
-    }
-
-    /**
-     * Update the scoreCounter object with the amount of tiles & background tiles that are removed.
-     * @param foundedItems ArrayList containing the x coordinate of the tiles.
-     * @param x the int of the column where items were removed.
-     */
-    private void updateScore(ArrayList<Integer> foundedItems, int x) {
-        // Find amount of backgroundTiles destroyed
-        int backgroundTilesDestroyed = 0;
-        for (Integer index : foundedItems) {
-            if (Game.getGame().getBackgroundTileCatalog().contains(x, index)) {
-                backgroundTilesDestroyed++;
-            }
-        }
-        // Update the score
-        Game.getGame().getScoreCounter().updateScore(
-                foundedItems.size(), backgroundTilesDestroyed);
     }
 
     /**
