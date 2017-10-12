@@ -120,7 +120,7 @@ public abstract class Board {
         }
         if (y >= height || y < 0) {
             throw new IllegalArgumentException(
-                    "The provided Y-coordinate " + x
+                    "The provided Y-coordinate " + y
                             + " is outside of the board's bounds [0-"
                             + height + "]."
             );

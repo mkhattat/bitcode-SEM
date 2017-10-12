@@ -2,6 +2,7 @@ package nl.tudelft.pooralien.Controller;
 
 import nl.tudelft.item.Item;
 import nl.tudelft.pooralien.Launcher;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.Point;
@@ -15,6 +16,9 @@ import static org.junit.Assert.assertFalse;
 public abstract class BoardTest {
     protected Board board;
     protected Launcher launcher;
+
+    @Before
+    public abstract void setUp() throws Exception;
 
     @Test
     public abstract void getWidth();
