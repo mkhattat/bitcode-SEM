@@ -11,8 +11,6 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import java.awt.Component;
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 
 /**
@@ -64,7 +62,7 @@ public class RTLDragAnimation implements Animation {
 
         originalXGridPosition = tile.getGridPosition().x;
         originalYScreenPosition = tile.getY() + 2 * margin;
-        for (int i = 0; i < Board.getMaxWidth(); i++) {
+        for (int i = 0; i < Game.getGame().getBoard().getWidth(); i++) {
             JLabel label = mainScreen.getItem(originalXGridPosition, i).getImageIcon();
             String name = Game.getGame().getBoard().getItem(originalXGridPosition, i).getSprite();
 
@@ -102,31 +100,18 @@ public class RTLDragAnimation implements Animation {
         for (JLabel label : selectedItems) {
             mainScreen.remove(label);
         }
-        boolean founded = false;
-        // check for similar items
         int y = 0;
+        Board board = Game.getGame().getBoard();
         for (JLabel image : selectedItems) {
-            Board board = Game.getGame().getBoard();
-            ArrayList<Integer> foundedItems = new ArrayList<>();
-            //update the board with changed data (by mouse drag)
             ItemFactory itemFactory = new ItemFactory();
             board.setItem(itemFactory.createItem(image.getName()), originalXGridPosition, y);
-            //search the board
-            foundedItems.addAll(board.findVSimilaresAt(originalXGridPosition, y));
-            if (foundedItems.size() > 0) {
-                founded = true;
-            }
-            Collections.sort(foundedItems);
-            for (Integer index : foundedItems) { // remove founden items and add new random ones.
-                board.remove(index, y);
-            }
             y++;
         }
-        if (!founded) {
+        if (!board.removeGroups()) {
             restoreScreen();
-            return;
+        } else {
+            mainScreen.refreshBoard();
         }
-        mainScreen.refreshBoard();
     }
 
     /**

@@ -1,50 +1,116 @@
 package nl.tudelft.pooralien.Controller;
+
+import nl.tudelft.item.Item;
 import nl.tudelft.pooralien.Launcher;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.awt.Point;
+import java.util.ArrayList;
 
-/**
- * Created by Sam on 9/13/2017.
- */
-public class BoardTest {
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
 
-    private Launcher launcher;
-    private Board board;
+public abstract class BoardTest {
+    protected Board board;
+    protected Launcher launcher;
 
     @Before
-    public void setup() throws Exception {
-        launcher = new Launcher();
-        board = new Board();
-    }
-    @Test
-    public void newBoard() throws Exception {
-
-    }
+    public abstract void setUp() throws Exception;
 
     @Test
-    public void newBoard1() throws Exception {
-    }
+    public abstract void getWidth();
 
     @Test
-    public void setItem() throws Exception {
-    }
+    public abstract void getHeight();
 
     @Test
-    public void getItem() throws Exception {
-    }
+    public abstract void getMinGroupSize();
 
     @Test
-    public void findHSimilaresAt() throws Exception {
+    public abstract void getItemFactory();
+
+    @Test
+    public void setItem() {
+        Item i = board.getItemFactory().createRandomItem();
+        assertTrue(board.setItem(i, 0, 0));
+        assertEquals(i.getSprite(), board.getItem(0,0).getSprite());
     }
 
     @Test
-    public void findVSimilaresAt() throws Exception {
+    public void getItem() {
+        assertNotNull(board.getItem(0,0));
     }
 
     @Test
-    public void remove() throws Exception {
+    public void getItemXOOBPos() {
+        try {
+            board.getItem(board.getWidth(), 0);
+        } catch (IllegalArgumentException e) {
+            assertEquals("The provided X-coordinate " + board.getWidth()
+                    + " is outside of the board's bounds [0-"
+                    + board.getWidth() + "].", e.getMessage());
+        }
     }
 
+    @Test
+    public void getItemXOOBNeg() {
+        try {
+            board.getItem(-1, 0);
+        } catch (IllegalArgumentException e) {
+            assertEquals("The provided X-coordinate " + -1
+                    + " is outside of the board's bounds [0-"
+                    + board.getWidth() + "].", e.getMessage());
+        }
+    }
+
+    @Test
+    public void getItemYOOBPos() {
+        try {
+            board.getItem(0, board.getHeight());
+        } catch (IllegalArgumentException e) {
+            assertEquals("The provided Y-coordinate " + board.getHeight()
+                    + " is outside of the board's bounds [0-"
+                    + board.getHeight() + "].", e.getMessage());
+        }
+    }
+
+    @Test
+    public void getItemYOOBNeg() {
+        try {
+            board.getItem(0, -1);
+        } catch (IllegalArgumentException e) {
+            assertEquals("The provided Y-coordinate " + -1
+                    + " is outside of the board's bounds [0-"
+                    + board.getHeight() + "].", e.getMessage());
+        }
+    }
+
+
+    @Test
+    public void remove() {
+        board.remove(0, 0);
+        assertNotNull(board.getItem(0, 0));
+    }
+
+    @Test
+    public void removeGroups() {
+        assertFalse(board.removeGroups());
+    }
+
+    @Test
+    public void findGroup() {
+        ArrayList<Point> l = board.findGroup(0,0);
+        assertTrue(l.size() < board.getMinGroupSize());
+    }
+
+    @Test
+    public void removeGroup() {
+        ArrayList<Point> l = new ArrayList<>();
+        l.add(new Point(0,0));
+        board.removeGroup(l);
+        assertNotNull(board.getItem(0,0));
+    }
 }

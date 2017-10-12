@@ -12,14 +12,14 @@ import nl.tudelft.pooralien.Launcher;
  */
 public final class Game {
     private static Game game;
-    private Board board;
+    private StandardBoard board;
     private BackgroundTileCatalog backgroundTileCatalog;
 
     /**
      * Initialise the singleton Game object.
      */
     private Game() {
-        board = new Board();
+        board = new StandardBoard();
         int backgroundTileCount;
         Color standardColor;
         try {
@@ -49,7 +49,7 @@ public final class Game {
      * Returns the board.
      * @return the board being used.
      */
-    public Board getBoard() {
+    public StandardBoard getBoard() {
         return board;
     }
 

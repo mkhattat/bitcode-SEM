@@ -1,5 +1,8 @@
 package nl.tudelft.pooralien.Controller;
 
+import nl.tu.delft.defpro.exception.NotExistingVariableException;
+import nl.tudelft.pooralien.Launcher;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -12,8 +15,8 @@ public class BackgroundTileCatalog {
 
     private ArrayList<BackgroundTile> backgroundTiles = new ArrayList<>();
 
-    private static final int MAX_WIDTH_AND_HEIGHT = Board.getMaxWidth();
-    private static final int MAX_TILE_COUNT = Board.getMaxWidth() * Board.getMaxHeight();
+    private int maxWidthAndHeight;
+    private int maxTileCount;
 
     /**
      * Random used to generate random items by generating random ints.
@@ -26,6 +29,33 @@ public class BackgroundTileCatalog {
      */
     public BackgroundTileCatalog() {
         intGen = new Random();
+        initWidthHeight();
+        initMaxTileCount();
+    }
+
+    /**
+     * Initiliazes the max width and height using the config file.
+     */
+    private void initWidthHeight() {
+        try {
+            maxWidthAndHeight = Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth");
+        } catch (NotExistingVariableException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Initializes the max tile count using the config file.
+     */
+    private void initMaxTileCount() {
+        try {
+            maxTileCount = Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth")
+                    * Launcher.getGameCfg().getIntegerValueOf("maxBoardHeight");
+        } catch (NotExistingVariableException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -39,11 +69,13 @@ public class BackgroundTileCatalog {
      */
     public BackgroundTileCatalog(int backgroundTileCount, Color tileColor)
             throws IllegalArgumentException {
+        initWidthHeight();
+        initMaxTileCount();
         if (backgroundTileCount < 0) {
             throw new IllegalArgumentException(
                     "BackgroundTileCount must be bigger than 0 to be added to the catalog");
         }
-        if (backgroundTileCount > MAX_TILE_COUNT) {
+        if (backgroundTileCount > maxTileCount) {
             throw new IllegalArgumentException(
                     "BackgroundTileCount must be smaller than 101 to be added to the catalog");
         }
@@ -127,8 +159,8 @@ public class BackgroundTileCatalog {
      */
     public BackgroundTile get(int coordinateX, int coordinateY)
             throws IndexOutOfBoundsException, NoSuchElementException {
-        if (coordinateX < 0 || coordinateX > MAX_WIDTH_AND_HEIGHT
-                || coordinateY < 0 || coordinateY > MAX_WIDTH_AND_HEIGHT) {
+        if (coordinateX < 0 || coordinateX > maxWidthAndHeight
+                || coordinateY < 0 || coordinateY > maxWidthAndHeight) {
             throw new IndexOutOfBoundsException(
                     "X and Y coordinates must always be between -1 and 11."
                     + "\ncurrent X: " + coordinateX + "."
@@ -165,8 +197,8 @@ public class BackgroundTileCatalog {
             throw new IllegalArgumentException("colorBackgroundTile should be a Color object");
         }
 
-        int positionOnBoardX = intGen.nextInt(MAX_WIDTH_AND_HEIGHT + 1);
-        int positionOnBoardY = intGen.nextInt(MAX_WIDTH_AND_HEIGHT + 1);
+        int positionOnBoardX = intGen.nextInt(maxWidthAndHeight + 1);
+        int positionOnBoardY = intGen.nextInt(maxWidthAndHeight + 1);
 
         return (this.add(new BackgroundTile(positionOnBoardX, positionOnBoardY, tileColor)));
     }
