@@ -3,8 +3,6 @@ package nl.tudelft.pooralien.Controller;
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
 import nl.tudelft.pooralien.Launcher;
 
-import java.util.ArrayList;
-
 /**
  * ScoreCounter keeps track of the score of the player.
  * The score should be reset every level.
@@ -23,11 +21,12 @@ public class ScoreCounter {
         this.score = score;
         try {
             this.scorePerTile = Launcher.getGameCfg().getIntegerValueOf("scorePerTile");
-            this.scorePerBackgroundTile = Launcher.getGameCfg().getIntegerValueOf("scorePerBackgroundTile");
+            this.scorePerBackgroundTile =
+                    Launcher.getGameCfg().getIntegerValueOf("scorePerBackgroundTile");
         } catch (NotExistingVariableException e) {
             e.printStackTrace();
             this.scorePerTile = 1;
-            this.scorePerBackgroundTile = 2+2+2+2;
+            this.scorePerBackgroundTile = 2 + 2 + 2 + 2;
         }
     }
 
@@ -44,6 +43,9 @@ public class ScoreCounter {
         }
     }
 
+    /**
+     * Updates score with one backgroundTile removed.
+     */
     public void updateScoreBackgroundTileRemoved() {
         this.score = this.score + (scorePerTile * scorePerBackgroundTile);
     }
@@ -87,5 +89,7 @@ public class ScoreCounter {
     /**
      * @return scorePerBackgroundTile which is used to calculate the score.
      */
-    public int getScorePerBackgroundTile() { return scorePerBackgroundTile; }
+    public int getScorePerBackgroundTile() {
+        return scorePerBackgroundTile;
+    }
 }
