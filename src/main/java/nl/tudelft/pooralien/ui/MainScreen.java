@@ -176,7 +176,6 @@ public class MainScreen extends JLayeredPane {
         gridBoard.setLayout(gridLayout);
 
         BufferedImage image = null;
-        Game game = Game.getGame();
         try {
             for (int x = 0; x < board.getWidth(); x++) {
                 for (int y = 0; y < board.getHeight(); y++) {
