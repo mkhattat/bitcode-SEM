@@ -1,242 +1,132 @@
 package nl.tudelft.pooralien.Controller;
-import nl.tu.delft.defpro.exception.NotExistingVariableException;
+
 import nl.tudelft.item.Item;
 import nl.tudelft.item.ItemFactory;
 
+import java.awt.Point;
 import java.util.ArrayList;
-import nl.tudelft.pooralien.Launcher;
-
-
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
- * The Board class.
+ * Abstract board class which implements standard board functionality.
  */
-public class Board {
+public abstract class Board {
     private int width;
     private int height;
-    private int minRequiredItems;
-
+    private int minGroupSize;
+    private ItemFactory iFactory;
     private Item[][] items;
 
-
     /**
-     * Constructor which builds the data structure with the random data.
+     * Board constructor.
      */
     public Board() {
-        // initialise the board with random items.
-        width = getMaxWidth();
-        height = getMaxHeight();
-        minRequiredItems = getMinRequiredItems();
+        width = initWidth();
+        height = initHeight();
+        minGroupSize = initMinGroupSize();
+        iFactory = initItemFactory();
         items = new Item[width][height];
-
-        createRandom();
     }
 
     /**
-     * Get the width of the board from config file.
-     * @return width of the board.
+     * Initializes the width of the board.
+     * @return The initial width of the board.
      */
-    public static int getMaxWidth() {
-        try {
-            return Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth");
-        } catch (NotExistingVariableException e) {
-            e.printStackTrace();
-            return -1;
-        }
+    protected abstract int initWidth();
+
+    /**
+     * Initializes the height of the board.
+     * @return The initial height of the board.
+     */
+    protected abstract int initHeight();
+
+    /**
+     * Initializes the minimum group size.
+     * @return The initial minimum group size.
+     */
+    protected abstract int initMinGroupSize();
+
+    /**
+     * Initializes the ItemFactory.
+     * @return The initial ItemFactory.
+     */
+    protected abstract ItemFactory initItemFactory();
+
+    /**
+     * Retrieves the width of the board.
+     * @return The width of the board.
+     */
+    public int getWidth() {
+        return width;
     }
 
     /**
-     * Get the height of the board from config file.
-     * @return height of the board.
+     * Retrieves the height of the board.
+     * @return The height of the board.
      */
-    public static int getMaxHeight() {
-        try {
-            return Launcher.getGameCfg().getIntegerValueOf("maxBoardHeight");
-        } catch (NotExistingVariableException e) {
-            e.printStackTrace();
-            return -1;
-        }
+    public int getHeight() {
+        return height;
     }
 
     /**
-     * Get the height of the board from config file.
-     * @return height of the board.
+     * Retrieves the minimum amount of items required in a group
+     * for that group to be removed.
+     * @return The minimum group size.
      */
-    public static int getMinWidth() {
-        try {
-            return Launcher.getGameCfg().getIntegerValueOf("minBoardWidth");
-        } catch (NotExistingVariableException e) {
-            e.printStackTrace();
-            return -1;
-        }
+    public int getMinGroupSize() {
+        return minGroupSize;
     }
 
     /**
-     * Get the height of the board from config file.
-     * @return height of the board.
+     * Retrieves the Item Factory of the board.
+     * @return The Item Factory of the board.
      */
-    public static int getMinHeight() {
-        try {
-            return Launcher.getGameCfg().getIntegerValueOf("minBoardHeight");
-        } catch (NotExistingVariableException e) {
-            e.printStackTrace();
-            return -1;
-        }
+    public ItemFactory getItemFactory() {
+        return iFactory;
     }
 
     /**
-     * Min required items to be in on row (or column) to score.
-     * @return min required item in a row from config file.
+     * Set the item at the specified position to the provided item.
+     * @param newItem The new item.
+     * @param x The X-Coordinate on the board.
+     * @param y The Y-Coordinate on the board.
+     * @return True iff the set succeeded.
      */
-    private int getMinRequiredItems() {
-        try {
-            return Launcher.getGameCfg().getIntegerValueOf("minItemsInRow");
-        } catch (NotExistingVariableException e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-
-    /**
-     * Constructor which builds the data structure with the given file.
-     * @param fileName path of the file containing the preset data.
-     */
-    public Board(String fileName) {
-        // initialise the board by reading from file
-        createFromFile(fileName);
-    }
-
-    /**
-     * Replace the current board structure with new random data.
-     */
-    public void newBoard() {
-        createRandom();
-    }
-
-    /**
-     * replace the current board structure by reading from file.
-     * @param fileName path of the file containing the preset data.
-     */
-    public void newBoard(String fileName) {
-        createFromFile(fileName);
-    }
-
-    /**
-     * set a particular item on the board with the given item.
-     * @param cell is the new item to be replaced on the board.
-     * @param x is the X position on the board.
-     * @param y is the Y position on the board.
-     * @return true if it was successful
-     */
-    public boolean setItem(Item cell, int x, int y) {
+    public boolean setItem(Item newItem, int x, int y) {
         if (x < width && x >= 0 && y < height && y >= 0) {
-            this.items[x][y] = cell;
+            this.items[x][y] = newItem;
             return true;
         }
         return false;
     }
 
     /**
-     *
-     * get a particular item at the given position.
-     * @param x is the X coordinate on the board.
-     * @param y is the Y coordinate on the board.
-     * @return the item if the given position is valid otherwise return null.
-     * @throws IllegalArgumentException if the x and y are out of the board raneg.
+     * Retrieve the item at the specified position on the board.
+     * @param x The X-Coordinate on the board.
+     * @param y The Y-Coordinate on the board.
+     * @return The item at the provided position.
+     * @throws IllegalArgumentException Iff the position is outside the board's bounds.
      */
     public Item getItem(int x, int y) throws IllegalArgumentException {
         if (x >= width || x < 0) {
             throw new IllegalArgumentException(
-                    "The x should be greater or equal than 0 and less than "
-                    + width + "."
+                    "The provided X-coordinate " + x
+                            + " is outside of the board's bounds [0-"
+                            + width + "]."
             );
         }
         if (y >= height || y < 0) {
             throw new IllegalArgumentException(
-                    "The y should be greater or equal than 0 and less than "
-                    + height + "."
+                    "The provided Y-coordinate " + y
+                            + " is outside of the board's bounds [0-"
+                            + height + "]."
             );
         }
 
         return items[x][y];
-    }
-
-
-    /**
-     * check the row X if there are 3 or more of the same items
-     * at the neighbor of the given coordinate.
-     * @param x the X coordinate of the item on the board
-     * @param y the Y coordinate of the item on the board
-     * @return returns an array of Y position of items on the board.
-     */
-    public ArrayList<Integer> findHSimilaresAt(int x, int y) {
-        ArrayList<Integer> founded = new ArrayList<>();
-        founded.add(y);
-        boolean flag = true;
-        int i = 1;
-        while (flag) { // checking the right side
-            if (y + i < height && items[x][y].getSprite().equals(items[x][y + i].getSprite())) {
-                founded.add(y + i);
-            } else {
-                flag = false;
-            }
-            i++;
-        }
-        i = 1;
-        flag = true;
-        while (flag) { //checking the left side
-            if (y - i >= 0 && items[x][y].getSprite().equals(items[x][y - i].getSprite())) {
-                founded.add(y - i);
-            } else {
-                flag = false;
-            }
-            i++;
-        }
-        // if nothing has been founded or the number of founded items is less than
-        // minimum required for the game return an empty array list.
-        if (founded.size() < minRequiredItems) {
-            return new ArrayList<Integer>();
-        }
-        return founded;
-    }
-
-    /**
-     * check the column Y if there are 3 or more of the same items
-     * at the neighbor of the given coordinate.
-     * @param x the X coordinate of the item on the board
-     * @param y the Y coordinate of the item on the board
-     * @return returns an array of X position of items on the board.
-     */
-    public ArrayList<Integer> findVSimilaresAt(int x, int y) {
-        ArrayList<Integer> founded = new ArrayList<>();
-        founded.add(x);
-        boolean flag = true;
-        int i = 1;
-        while (flag) { // checking the bottom side
-            if (i + x < width && items[x][y].getSprite().equals(items[x + i][y].getSprite())) {
-                founded.add(x + i);
-            } else {
-                flag = false;
-            }
-            i++;
-        }
-        flag = true;
-        i = 1;
-        while (flag) { //checking the top side
-            if (x - i >= 0 && items[x][y].getSprite().equals(items[x - i][y].getSprite())) {
-                founded.add(x - i);
-            } else {
-                flag = false;
-            }
-            i++;
-        }
-        // if nothing has been founded or the number of founded items is less than
-        // minimum required for the game return an empty array list.
-        if (founded.size() < minRequiredItems) {
-            return new ArrayList<Integer>();
-        }
-        return founded;
     }
 
     /**
@@ -244,34 +134,139 @@ public class Board {
      * add a new random item to the top.
      * If this position has the same coordinates of that of a item in the BackgroundTileCatalog,
      * than that item is also removed.
-     * @param x the X position of the item
-     * @param y the Y position of the item
+     * @param x the X-Coordinate of the item
+     * @param y the Y-Coordinate of the item
      */
     public void remove(int x, int y) {
         for (int i = x; i >= 0; i--) {
             if (i == 0) {
-                ItemFactory itemFactory = new ItemFactory();
-                setItem(itemFactory.createRandomItem(), i, y);
+                setItem(iFactory.createRandomItem(), i, y);
             } else {
                 setItem(getItem(i - 1, y), i, y);
             }
         }
         if (Game.getGame().getBackgroundTileCatalog().contains(x, y)) {
             Game.getGame().getBackgroundTileCatalog().remove(x, y);
-            Game.getGame().getScoreCounter().updateScoreBackgroundTileRemoved();
         }
     }
 
-    private void createRandom() {
-        ItemFactory itemFactory = new ItemFactory();
+    /**
+     * Fills the board with randomly generated items.
+     */
+    protected void createRandom() {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                items[x][y] = itemFactory.createRandomItem();
+                items[x][y] = iFactory.createRandomItem();
             }
+        }
+        removeGroups(true);
+    }
+
+    /**
+     * Checks the board for any groups that should be removed,
+     * and removed those groups iff they exist.
+     * @return True iff the board has changed.
+     */
+    public boolean removeGroups() {
+        return removeGroups(false);
+    }
+
+    /**
+     * Checks the board for any groups that should be removed,
+     * and removed those groups iff they exist.
+     * @param init Specifies whether the call to the removeGroups
+     *             method was made during initialization or not.
+     * @return True iff the board has changed.
+     */
+    private boolean removeGroups(Boolean init) {
+        boolean changedBoard = false;
+
+        boolean removed = true;
+        while (removed) {
+            removed = false;
+            for (int i = 0; i < height; i++) {
+                for (int j = i % 2; j < width; j += 2) {
+                    ArrayList<Point> group = findGroup(j, i);
+                    if (group.size() >= minGroupSize) {
+                        removed = true;
+                        changedBoard = true;
+                        if (init) {
+                            removeInit(group);
+                        } else {
+                            removeGroup(group);
+                        }
+                        break;
+                    }
+                }
+                if (removed) {
+                    break;
+                }
+            }
+        }
+
+        return changedBoard;
+    }
+
+    /**
+     * Finds the largest possible group of identical items,
+     * containing the item at the provided location.
+     * @param x The X-coordinate of the group's origin.
+     * @param y The Y-coordinate of the group's origin.
+     * @return  group.
+     */
+    public ArrayList<Point> findGroup(int x, int y) {
+        ArrayList<Point> group = new ArrayList<>();
+
+        Queue<Point> pQueue = new LinkedList<>();
+        pQueue.offer(new Point(x, y));
+        while (!pQueue.isEmpty()) {
+            Point currentP = pQueue.poll();
+            if (!group.contains(currentP) && items[x][y].getSprite()
+                    .equals(items[currentP.x][currentP.y].getSprite())) {
+                group.add(currentP);
+                if (currentP.x > 0) {
+                    pQueue.offer(new Point(currentP.x - 1, currentP.y));
+                }
+                if (currentP.x < width - 1) {
+                    pQueue.offer(new Point(currentP.x + 1, currentP.y));
+                }
+                if (currentP.y > 0) {
+                    pQueue.offer(new Point(currentP.x, currentP.y - 1));
+                }
+                if (currentP.y < height - 1) {
+                    pQueue.offer(new Point(currentP.x, currentP.y + 1));
+                }
+            Game.getGame().getScoreCounter().updateScoreBackgroundTileRemoved();
+            }
+        }
+        return group;
+    }
+
+    /**
+     * Removes the items at the provided locations.
+     * @param group The locations of the items.
+     */
+    public void removeGroup(ArrayList<Point> group) {
+        Collections.sort(group, new Comparator<Point>() {
+            public int compare(Point p1, Point p2) {
+                return Integer.compare(p1.x, p2.x);
+            }
+        });
+
+        for (Point p : group) {
+            remove(p.x, p.y);
         }
     }
 
-    private void createFromFile(String fileName) {
-        //TODO: create a new board from file
+    /**
+     * Remove method used specifically when initializing a randomly filled board.
+     * This makes sure none of the background tiles are removed when removing any
+     * groups during initialization.
+     * @param group The coordinates of the items that need to be removed.
+     */
+    private void removeInit(ArrayList<Point> group) {
+        for (Point p : group) {
+            setItem(iFactory.createRandomItem(), p.x, p.y);
+        }
     }
 }
