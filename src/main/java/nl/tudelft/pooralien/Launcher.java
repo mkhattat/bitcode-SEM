@@ -2,9 +2,14 @@ package nl.tudelft.pooralien;
 
 
 import nl.tu.delft.defpro.api.IDefProAPI;
+import nl.tudelft.pooralien.Controller.HighScore.Score;
+import nl.tudelft.pooralien.Controller.HighScore.ScoreManager;
 import nl.tudelft.pooralien.ui.MainScreen;
 
 import javax.swing.JFrame;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 

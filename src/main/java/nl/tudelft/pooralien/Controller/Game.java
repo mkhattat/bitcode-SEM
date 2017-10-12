@@ -4,6 +4,8 @@ import nl.tu.delft.defpro.exception.NotExistingVariableException;
 
 import java.awt.Color;
 import java.util.List;
+
+import nl.tudelft.pooralien.Controller.HighScore.ScoreCounter;
 import nl.tudelft.pooralien.Launcher;
 
 
