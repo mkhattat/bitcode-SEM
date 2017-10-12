@@ -119,7 +119,7 @@ public class TTBDragAnimation implements Animation {
                 founded = true;
             }
             //Update Score
-            Game.getGame().getScoreCounter().calculateTilesRemovedX(foundedItems, x);
+            Game.getGame().getScoreCounter().updateScoreTilesRemoved(foundedItems.size());
 
             Collections.sort(foundedItems);
             for (Integer index : foundedItems) { //remove founded items and add random ones.

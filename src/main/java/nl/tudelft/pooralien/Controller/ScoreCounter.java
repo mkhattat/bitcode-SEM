@@ -30,57 +30,22 @@ public class ScoreCounter {
             this.scorePerBackgroundTile = 2+2+2+2;
         }
     }
-    /**
-     * Update the scoreCounter object with the amount of tiles & background tiles that are removed.
-     * @param foundedItems ArrayList containing the x coordinate of the tiles.
-     * @param x the int of the column where items were removed.
-     */
-    public void calculateTilesRemovedX(ArrayList<Integer> foundedItems, int x) {
-        // Find amount of backgroundTiles destroyed
-        int backgroundTilesDestroyed = 0;
-        for (Integer index : foundedItems) {
-            if (Game.getGame().getBackgroundTileCatalog().contains(x, index)) {
-                backgroundTilesDestroyed++;
-            }
-        }
-        // Update the score
-        this.updateScore(foundedItems.size(), backgroundTilesDestroyed);
-    }
 
-    /**
-     * Update the scoreCounter object with the amount of tiles & background tiles that are removed.
-     * @param foundedItems ArrayList containing the x coordinate of the tiles.
-     * @param y the int of the column where items were removed.
-     */
-    public void calculateTilesRemovedY(ArrayList<Integer> foundedItems, int y) {
-        // Find amount of backgroundTiles destroyed
-        int backgroundTilesDestroyed = 0;
-        for (Integer index : foundedItems) {
-            if (Game.getGame().getBackgroundTileCatalog().contains(index, y)) {
-                backgroundTilesDestroyed++;
-            }
-        }
-        // Update the score
-        updateScore(foundedItems.size(), backgroundTilesDestroyed);
-    }
     /**
      * Pre: tilesDestroyed is bigger than zero.
      * Updates the score by multiplying the tilesDestroyed by,
      * up rounded square root of scorePerTile.
-     * And gives a bonus for destroying background tiles.
-     * @param tilesDestroyed is the amount of tiles the player has destroyed, in one single move.
-     * @param backgroundTilesDestroyed is the amount of backgroundTiles the player has destroyed,
-     *                                 in a single move.
+     * @param tilesRemoved is the amount of tiles the player has destroyed, in one single move.
      */
-    public void updateScore(int tilesDestroyed, int backgroundTilesDestroyed) {
-        if (tilesDestroyed > 0) {
+    public void updateScoreTilesRemoved(int tilesRemoved) {
+        if (tilesRemoved > 0) {
             this.score = this.score
-                    + (tilesDestroyed * (int) (Math.round(Math.sqrt((double) scorePerTile))));
+                    + (tilesRemoved * (int) (Math.round(Math.sqrt((double) scorePerTile))));
         }
-        if (backgroundTilesDestroyed > 0) {
-            this.score = this.score
-                    + (backgroundTilesDestroyed * scorePerTile * scorePerBackgroundTile);
-        }
+    }
+
+    public void updateScoreBackgroundTileRemoved() {
+        this.score = this.score + (scorePerTile * scorePerBackgroundTile);
     }
 
     /**
@@ -118,4 +83,9 @@ public class ScoreCounter {
     public int getScorePerTile() {
         return scorePerTile;
     }
+
+    /**
+     * @return scorePerBackgroundTile which is used to calculate the score.
+     */
+    public int getScorePerBackgroundTile() { return scorePerBackgroundTile; }
 }

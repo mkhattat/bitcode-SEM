@@ -116,7 +116,7 @@ public class RTLDragAnimation implements Animation {
                 founded = true;
             }
             //Update score
-            Game.getGame().getScoreCounter().calculateTilesRemovedY(foundedItems, y);
+            Game.getGame().getScoreCounter().updateScoreTilesRemoved(foundedItems.size());
 
             Collections.sort(foundedItems);
             for (Integer index : foundedItems) { // remove founden items and add new random ones.
