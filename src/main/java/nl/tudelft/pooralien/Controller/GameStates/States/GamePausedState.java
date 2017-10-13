@@ -14,17 +14,17 @@ public class GamePausedState implements State {
 
     @Override
     public void MainMenu() {
-
+        //NOT YET IMPLEMENTED.
     }
 
     @Override
     public void startGame() {
-
+        throw new IllegalStateException("GameState: GamePausedState, startGame() is not possible.");
     }
 
     @Override
     public void pauseGame() {
-        Game.getGame().pauseGame();
+        throw new IllegalStateException("GameState: GamePausedState, pauseGame() is not possible.");
     }
 
     @Override

@@ -19,11 +19,12 @@ public class GamePlayState implements State {
 
     @Override
     public void MainMenu() {
-        //NOT POSSIBLE FIRST END THE GAME
+        //NOT POSSIBLE FIRST END/PAUSE THE GAME
     }
 
     @Override
     public void startGame() {
+        //Makes a new board.
         Game.getGame().nextBoard();
     }
 
@@ -35,7 +36,7 @@ public class GamePlayState implements State {
 
     @Override
     public void resumeGame() {
-        throw new IllegalStateException("GameState: GamePlayState, Game already resumed/running");
+        throw new IllegalStateException("GameState: GamePlayState, resumeGame() is not possible.");
     }
 
     @Override

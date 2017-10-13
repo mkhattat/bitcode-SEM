@@ -88,6 +88,13 @@ public class GameControllerMachine {
     }
 
     /**
+     * Execute the current states resumeGame method.
+     */
+    public void resumeGame() {
+        state.resumeGame();
+    }
+
+    /**
      * Execute the current states endGame method.
      */
     public void endGame() {

@@ -53,31 +53,29 @@ public class MainMenuState implements State {
 
     @Override
     public void pauseGame() {
-        // Not possible.
-        System.out.println("CurrentState: MainMenuState, Game has not yet been started.");
+        throw new IllegalStateException("CurrentState: MainMenuState, "
+                + "pauseGame() is not possible");
     }
 
     @Override
     public void resumeGame() {
-        // Not possible.
-        System.out.println("CurrentState: MainMenuState, Game has not yet been started.");
+        throw new IllegalStateException("CurrentState: MainMenuState, "
+                + "resumeGame() is not possible");
     }
 
     @Override
     public void endGame() {
-        // Not possible.
-        System.out.println("CurrentState: MainMenuState, " +
-                "Cannot end a game that has not yet been started.");
+        throw new IllegalStateException("CurrentState: MainMenuState, endGame() is not possible");
     }
 
     @Override
     public void loadGame() {
-
+        //NOT YET IMPLEMENTED.
     }
 
     @Override
     public void saveGame() {
-
+        //NOT YET IMPLEMENTED.
     }
 
     @Override
@@ -89,9 +87,8 @@ public class MainMenuState implements State {
 
     @Override
     public void dragAnimation() {
-        // Not possible.
-        System.out.println("CurrentState: MainMenuState, " +
-                "Not possible, first initialize the game.");
+        throw new IllegalStateException("CurrentState: MainMenuState, "
+                + "dragAnimation() is not possible");
     }
 
 }
