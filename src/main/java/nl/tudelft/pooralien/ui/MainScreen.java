@@ -35,13 +35,13 @@ public class MainScreen extends JLayeredPane implements Observer {
     private JPanel mainFrame;
     private JLabel headerLabel;
     private JPanel gridBoard;
-    private JPanel highScoreBoard;
     private JPanelTile[][] gridBoardHolder;
     private JPanel controlPanel;
     private GridBagConstraints gbc;
     private JButton createNetwrok = new JButton("Create Network");
     private JButton connectNetwork = new JButton("Connect to a Network");
     private JButton disconnectNetwork = new JButton("Disconnect from the Network");
+    private JButton pauseGame = new JButton("Pause game");
     private MouseEventHandler mouseEventHandler;
     private JLabel gameStateLable;
     private Client client;
@@ -173,6 +173,14 @@ public class MainScreen extends JLayeredPane implements Observer {
     }
 
     /**
+     * Set the text of the pause button.
+     * @param text the text of the button.
+     */
+    public void setPauseGameButtonText(String text) {
+        pauseGame.setText(text);
+    }
+
+    /**
      * prepare the GUI on the screen.
      */
     private void prepareGUI() {
@@ -247,6 +255,7 @@ public class MainScreen extends JLayeredPane implements Observer {
         controlPanel.add(load);
         controlPanel.add(createNetwrok);
         controlPanel.add(connectNetwork);
+        controlPanel.add(pauseGame);
         disconnectNetwork.setVisible(false);
         controlPanel.add(disconnectNetwork);
 
@@ -260,8 +269,31 @@ public class MainScreen extends JLayeredPane implements Observer {
         createNetwrok.addActionListener(new CreateNetworkListener());
         connectNetwork.addActionListener(new ConnectNetworkListener());
         disconnectNetwork.addActionListener(new DisconnectListener());
+        pauseGame.addActionListener(new PauseGameListener());
         mainFrame.add(controlPanel, gbc);
 
+    }
+
+    private class PauseGameListener implements ActionListener {
+        private boolean buttonTextIsPaused = true;
+
+        public void actionPerformed(ActionEvent e) {
+            if(buttonTextIsPaused) {
+                Game.getGame().pauseGame();
+                Game.getGame().getGameControllerMachine().setState(
+                        Game.getGame().getGameControllerMachine().getGamePausedState());
+
+                buttonTextIsPaused = false;
+                pauseGame.setText("Unpause Game");
+            } else {
+                Game.getGame().resumeGame();
+                Game.getGame().getGameControllerMachine().setState(
+                        Game.getGame().getGameControllerMachine().getGamePlayState());
+
+                pauseGame.setText("Pause Game");
+                buttonTextIsPaused = true;
+            }
+        }
     }
 
     /**
