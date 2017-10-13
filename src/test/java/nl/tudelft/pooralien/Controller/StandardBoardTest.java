@@ -1,7 +1,7 @@
 package nl.tudelft.pooralien.Controller;
 
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
-import nl.tudelft.item.ItemFactory;
+import nl.tudelft.item.StandardItemFactory;
 import nl.tudelft.pooralien.Launcher;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,6 +44,6 @@ public class StandardBoardTest extends BoardTest {
 
     @Test
     public void getItemFactory() {
-        assertNotNull(board.getItemFactory());
+        assertTrue(board.getItemFactory() instanceof StandardItemFactory);
     }
 }
