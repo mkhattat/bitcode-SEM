@@ -172,11 +172,6 @@ public class BackgroundTileTest {
     }
 
     @Test
-    public void tileEqualsNullFalse() {
-        assertNull(backgroundTile1);
-    }
-
-    @Test
     public void hashCodeEqualsTrue() {
         assertEquals(new BackgroundTile(1, 2, Color.WHITE).hashCode(),
                 new BackgroundTile(1, 2, Color.WHITE).hashCode());
