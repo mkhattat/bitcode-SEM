@@ -34,7 +34,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>RELEASE</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
@@ -67,23 +67,6 @@
     <reporting>
         <plugins>
 
-        <!-- Make this jar executable -->
-        <plugin>
-                <groupId>groupId</groupId>
-                <artifactId>pooralien</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>**/log4j.properties</exclude>
-                    </excludes>
-                    <archive>
-                    <manifest>
-                        <addClasspath>true</addClasspath>
-                        <mainClass>nl.tudelft.pooralien.Launcher</mainClass>
-                        <classpathPrefix>libs/</classpathPrefix>
-                    </manifest>
-                    </archive>
-                </configuration>
-        </plugin>        
         
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -129,46 +112,6 @@
                             <version>6.11.2</version>
                         </dependency>
                     </dependencies>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>exec-maven-plugin</artifactId>
-                    <version>1.5.0</version>
-                    <executions>
-                        <execution>
-                            <id>run</id>
-                            <goals>
-                                <goal>java</goal>
-                            </goals>
-                            <configuration>
-                                <mainClass>nl.tudelft.ewi.f1manager.Main</mainClass>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>run--no-gui</id>
-                            <goals>
-                                <goal>java</goal>
-                            </goals>
-                            <configuration>
-                                <mainClass>nl.tudelft.ewi.f1manager.Main</mainClass>
-                                <arguments>
-                                    <argument>--no-gui</argument>
-                                </arguments>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>run--no-database</id>
-                            <goals>
-                                <goal>java</goal>
-                            </goals>
-                            <configuration>
-                                <mainClass>nl.tudelft.ewi.f1manager.Main</mainClass>
-                                <arguments>
-                                    <argument>--no-database</argument>
-                                </arguments>
-                            </configuration>
-                        </execution>
-                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
