@@ -5,12 +5,8 @@ import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 import java.net.URISyntaxException;
 import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import nl.tu.delft.defpro.api.IDefProAPI;
 import nl.tudelft.pooralien.Controller.Game;
-import nl.tudelft.pooralien.ui.MainScreen;
 
 /**
  * The Launcher of the game.
@@ -41,7 +37,7 @@ public class Launcher {
     public void launch() {
         GameControllerMachine gameControllerMachine = Game.getGame().getGameControllerMachine();
         gameControllerMachine.setState(gameControllerMachine.getMainMenuState());
-        gameControllerMachine.MainMenu();
+        gameControllerMachine.mainMenu();
     }
 
     /**

@@ -34,21 +34,17 @@ public class HighScoreEnterNameDialog {
 
         String userInput = checkFirstTry(firstTry);
 
-        //USER PRESSED CANCEL
         if (userInput == null) {
-            userPressedCancel();
-            return;
+            userPressedCancel(); return;
         }
-
-        //USER DID NOT ENTER ANYTHING OR SURPASSED 20 CHARACTERS
         if (userInput.isEmpty() || userInput.length() > MAX_INPUT_CHARACTERS) {
             incorrectUserInput(score);
             return;
         }
-        scoreManager.addScore(userInput, score);
-        Game.getGame().getHighScoreTableTopX().getTable().repaint();
 
-        System.out.printf("The player's name is '%s'.\n", userInput);
+        scoreManager.addScore(userInput, score);
+        //Sometimes works some times doesnt? Strange..
+        Game.getGame().getHighScoreTableTopX().getTable().repaint();
 
         Game.getGame().getGameControllerMachine().setState(
                 Game.getGame().getGameControllerMachine().getGameEndedState());

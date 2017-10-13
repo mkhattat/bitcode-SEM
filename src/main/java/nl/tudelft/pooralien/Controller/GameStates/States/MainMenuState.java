@@ -6,18 +6,26 @@ import nl.tudelft.pooralien.Controller.GameStates.State;
 import nl.tudelft.pooralien.Launcher;
 import nl.tudelft.pooralien.ui.MainScreen;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
+/**
+ * The MainMenuState class.
+ */
 public class MainMenuState implements State {
 
-    GameControllerMachine gameControllerMachine;
+    private GameControllerMachine gameControllerMachine;
 
+    /**
+     * The Main Menu state of the state machine.
+     * @param gameControllerMachine object, used to alter behavior.
+     */
     public MainMenuState(GameControllerMachine gameControllerMachine) {
         this.gameControllerMachine = gameControllerMachine;
     }
 
     @Override
-    public void MainMenu() {
+    public void mainMenu() {
         // Already in main menu. -> OR should this method be called in the MainMenuState constructor
         System.out.println("CurrentState: MainMenuState, ");
 

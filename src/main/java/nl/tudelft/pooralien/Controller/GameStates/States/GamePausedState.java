@@ -4,16 +4,23 @@ import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.GameStates.State;
 
+/**
+ * The GamePausedState Class.
+ */
 public class GamePausedState implements State {
 
-    GameControllerMachine gameControllerMachine;
+    private GameControllerMachine gameControllerMachine;
 
+    /**
+     * The state where the game is paused of the state machine.
+     * @param gameControllerMachine object, used to alter behavior.
+     */
     public GamePausedState(GameControllerMachine gameControllerMachine) {
         this.gameControllerMachine = gameControllerMachine;
     }
 
     @Override
-    public void MainMenu() {
+    public void mainMenu() {
         //NOT YET IMPLEMENTED.
     }
 

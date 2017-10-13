@@ -5,16 +5,23 @@ import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.GameStates.State;
 import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreEnterNameDialog;
 
+/**
+ * The GameEndedState Class.
+ */
 public class GameEndedState implements State {
 
-    GameControllerMachine gameControllerMachine;
+    private GameControllerMachine gameControllerMachine;
 
+    /**
+     * The end game state of the state machine.
+     * @param gameControllerMachine object, used to alter behavior.
+     */
     public GameEndedState(GameControllerMachine gameControllerMachine) {
         this.gameControllerMachine = gameControllerMachine;
     }
 
     @Override
-    public void MainMenu() {
+    public void mainMenu() {
 
     }
 

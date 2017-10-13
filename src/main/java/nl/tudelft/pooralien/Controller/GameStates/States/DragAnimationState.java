@@ -3,16 +3,23 @@ package nl.tudelft.pooralien.Controller.GameStates.States;
 import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.GameStates.State;
 
+/**
+ * The DragAnimationState Class.
+ */
 public class DragAnimationState implements State {
 
-    GameControllerMachine gameControllerMachine;
+    private GameControllerMachine gameControllerMachine;
 
+    /**
+     * The state of the state machine when an animation is being played.
+     * @param gameControllerMachine object, used to alter behavior.
+     */
     public DragAnimationState(GameControllerMachine gameControllerMachine) {
         this.gameControllerMachine = gameControllerMachine;
     }
 
     @Override
-    public void MainMenu() {
+    public void mainMenu() {
         //NOT POSSIBLE.
     }
 

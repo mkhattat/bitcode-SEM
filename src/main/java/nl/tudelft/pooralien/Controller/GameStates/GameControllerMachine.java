@@ -1,18 +1,22 @@
 package nl.tudelft.pooralien.Controller.GameStates;
 
-import nl.tudelft.pooralien.Controller.GameStates.States.*;
+import nl.tudelft.pooralien.Controller.GameStates.States.DragAnimationState;
+import nl.tudelft.pooralien.Controller.GameStates.States.GameEndedState;
+import nl.tudelft.pooralien.Controller.GameStates.States.GamePlayState;
+import nl.tudelft.pooralien.Controller.GameStates.States.GamePausedState;
+import nl.tudelft.pooralien.Controller.GameStates.States.MainMenuState;
 
 /**
- * GameControllerMachine
+ * The GameControllerMachine Class.
  */
 public class GameControllerMachine {
 
     private State state;
-    private State DragAnimationState;
-    private State GameEndedState;
-    private State GamePlayState;
-    private State GamePausedState;
-    private State MainMenuState;
+    private State dragAnimationState;
+    private State gameEndedState;
+    private State gamePlayState;
+    private State gamePausedState;
+    private State mainMenuState;
 
 
 
@@ -20,11 +24,11 @@ public class GameControllerMachine {
      * Allows GameControllerMachine to be constructed in different gameStates.
      */
     public GameControllerMachine() {
-        DragAnimationState = new DragAnimationState(this);
-        GameEndedState = new GameEndedState(this);
-        GamePlayState = new GamePlayState(this);
-        GamePausedState = new GamePausedState(this);
-        MainMenuState = new MainMenuState(this);
+        dragAnimationState = new DragAnimationState(this);
+        gameEndedState = new GameEndedState(this);
+        gamePlayState = new GamePlayState(this);
+        gamePausedState = new GamePausedState(this);
+        mainMenuState = new MainMenuState(this);
 
 
         // If no valid State is passed then assume that the game has just been launched.
@@ -38,22 +42,12 @@ public class GameControllerMachine {
 
     }
 
-    public boolean equalsCurrentState(Object O) {
-        if(!(O instanceof State)) {
-            return false;
-        }
-        State otherState = (State) O;
-
-        return this.state.equals(otherState);
-
-    }
-
     /**
      * Allows this object to be changed to different gameStates.
-     * @param newState, new game state.
+     * @param newState new game state.
      */
     public void setState(State newState) {
-        if(newState != null) {
+        if (newState != null) {
             this.state = newState;
         }
     }
@@ -69,8 +63,8 @@ public class GameControllerMachine {
     /**
      * Execute the current states goToMainMenu method.
      */
-    public void MainMenu() {
-        state.MainMenu();
+    public void mainMenu() {
+        state.mainMenu();
     }
 
     /**
@@ -130,37 +124,37 @@ public class GameControllerMachine {
     }
 
     /**
-     * @return DragAnimationState, state object.
+     * @return dragAnimationState, state object.
      */
-    public State DragAnimationState() {
-        return DragAnimationState;
+    public State getDragAnimationState() {
+        return dragAnimationState;
     }
 
     /**
-     * @return GameEndedState, state object.
+     * @return gameEndedState, state object.
      */
     public State getGameEndedState() {
-        return GameEndedState;
+        return gameEndedState;
     }
 
     /**
      * @return GameInProgress, state object.
      */
     public State getGamePlayState() {
-        return GamePlayState;
+        return gamePlayState;
     }
 
     /**
-     * @return GamePausedState, state object.
+     * @return gamePausedState, state object.
      */
     public State getGamePausedState() {
-        return GamePausedState;
+        return gamePausedState;
     }
 
     /**
-     * @return MainMenuState, state object.
+     * @return mainMenuState, state object.
      */
     public State getMainMenuState() {
-        return MainMenuState;
+        return mainMenuState;
     }
 }

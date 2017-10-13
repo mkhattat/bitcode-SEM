@@ -3,22 +3,24 @@ package nl.tudelft.pooralien.Controller.GameStates.States;
 import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.GameStates.State;
-import nl.tudelft.pooralien.Launcher;
-import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreEnterNameDialog;
-import nl.tudelft.pooralien.ui.MainScreen;
 
-import javax.swing.*;
-
+/**
+ * The GamePlayState class.
+ */
 public class GamePlayState implements State {
 
-    GameControllerMachine gameControllerMachine;
+    private GameControllerMachine gameControllerMachine;
 
+    /**
+     * The state of the state machine where the game is in play.
+     * @param gameControllerMachine object, used to alter behavior.
+     */
     public GamePlayState(GameControllerMachine gameControllerMachine) {
         this.gameControllerMachine = gameControllerMachine;
     }
 
     @Override
-    public void MainMenu() {
+    public void mainMenu() {
         //NOT POSSIBLE FIRST END/PAUSE THE GAME
     }
 

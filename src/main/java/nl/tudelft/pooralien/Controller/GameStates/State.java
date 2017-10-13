@@ -8,47 +8,47 @@ public interface State {
     /**
      * When the player boots the game or returns to the main screen.
      */
-    public void MainMenu();
+    void mainMenu();
 
     /**
      * When the game is loaded by the player.
      */
-    public void startGame();
+    void startGame();
 
     /**
      * When the game is paused by the player.
      */
-    public void pauseGame();
+    void pauseGame();
 
     /**
      * When the game is resumed by the player.
      */
-    public void resumeGame();
+    void resumeGame();
 
     /**
      * When the game has ended by winning/losing condition.
      */
-    public void endGame();
+    void endGame();
 
     /**
      * When the game is loaded.
      */
-    public void loadGame();
+    void loadGame();
 
     /**
      * When the game is saved.
      */
-    public void saveGame();
+    void saveGame();
 
     /**
      * When the game is exited.
      */
-    public void exit();
+    void exit();
 
     /**
      * When the player has removed tiles from the board.
      */
-    public void dragAnimation();
+    void dragAnimation();
 
 
 }

@@ -274,11 +274,14 @@ public class MainScreen extends JLayeredPane implements Observer {
 
     }
 
+    /**
+     * An listener for the pause game button.
+     */
     private class PauseGameListener implements ActionListener {
         private boolean buttonTextIsPaused = true;
 
         public void actionPerformed(ActionEvent e) {
-            if(buttonTextIsPaused) {
+            if (buttonTextIsPaused) {
                 Game.getGame().getGameControllerMachine().pauseGame();
                 buttonTextIsPaused = false;
                 pauseGame.setText("Unpause Game");
