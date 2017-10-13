@@ -30,6 +30,8 @@ public class InitGameState implements State {
         Game.getGame().pauseGame();
         //Makes a new board.
         Game.getGame().nextBoard();
+        //Reset score
+        Game.getGame().getScoreCounter().setScore(0);
         gameControllerMachine.setState(gameControllerMachine.getGamePlayState());
         gameControllerMachine.startGame();
     }

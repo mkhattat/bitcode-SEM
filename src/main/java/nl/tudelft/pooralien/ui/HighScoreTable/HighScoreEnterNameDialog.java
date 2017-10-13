@@ -1,6 +1,7 @@
 package nl.tudelft.pooralien.ui.HighScoreTable;
 
 import nl.tudelft.pooralien.Controller.Game;
+import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.HighScore.ScoreManager;
 
 import javax.swing.JFrame;
@@ -22,14 +23,15 @@ public class HighScoreEnterNameDialog {
      */
     public HighScoreEnterNameDialog(boolean firstTry, int score) {
         ScoreManager scoreManager = new ScoreManager();
-
+        GameControllerMachine gameControllerMachine = Game.getGame().getGameControllerMachine();
         // IF THE USER HAS NOT SCORED IN THE TOP TEN THEN RETURN BUT
         // IF THERE ARE LESS THEN TEN SCORES CONTINUE.
-        if (score < scoreManager.getLowestScoreInTopX()
-                && scoreManager.getSCORE_COUNT() < scoreManager.getTopXScoreCount()) {
-            Game.getGame().getGameControllerMachine().setState(
-                    Game.getGame().getGameControllerMachine().getGameEndedState());
-            return;
+        if (score < scoreManager.getLowestScoreInTopX()) {
+           gameControllerMachine.setState(gameControllerMachine.getGameEndedState());
+           return;
+        } else if (scoreManager.getSCORE_COUNT() < scoreManager.getTopXScoreCount()) {
+           gameControllerMachine.setState(gameControllerMachine.getGameEndedState());
+           return;
         }
 
         String userInput = checkFirstTry(firstTry);
