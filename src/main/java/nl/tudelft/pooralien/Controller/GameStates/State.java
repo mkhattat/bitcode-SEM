@@ -11,6 +11,11 @@ public interface State {
     void mainMenu();
 
     /**
+     * When the player presses play, initialize the game.
+     */
+    void initGame();
+
+    /**
      * When the game is loaded by the player.
      */
     void startGame();

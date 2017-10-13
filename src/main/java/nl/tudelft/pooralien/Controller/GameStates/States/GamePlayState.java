@@ -21,13 +21,18 @@ public class GamePlayState implements State {
 
     @Override
     public void mainMenu() {
-        //NOT POSSIBLE FIRST END/PAUSE THE GAME
+        //FIRST PAUSE/END THE GAME.
+        throw new IllegalStateException("GameState: GamePlayState, mainMenu() is not possible.");
+    }
+
+    @Override
+    public void initGame() {
+        throw new IllegalStateException("GameState: GamePlayState, initGame() is not possible.");
     }
 
     @Override
     public void startGame() {
-        //Makes a new board.
-        Game.getGame().nextBoard();
+        Game.getGame().resumeGame();
     }
 
     @Override
@@ -49,12 +54,14 @@ public class GamePlayState implements State {
 
     @Override
     public void loadGame() {
-
+        //FIRST PAUSE/END THE GAME.
+        throw new IllegalStateException("GameState: GamePlayState, loadGame() is not possible.");
     }
 
     @Override
     public void saveGame() {
-
+        //FIRST PAUSE/END THE GAME.
+        throw new IllegalStateException("GameState: GamePlayState, saveGame() is not possible.");
     }
 
 
@@ -65,7 +72,8 @@ public class GamePlayState implements State {
 
     @Override
     public void dragAnimation() {
-
+        throw new IllegalStateException("GameState: GamePlayState, "
+                + "dragAnimation() is not possible.");
     }
 
 }

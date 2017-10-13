@@ -20,47 +20,63 @@ public class DragAnimationState implements State {
 
     @Override
     public void mainMenu() {
-        //NOT POSSIBLE.
+        throw new IllegalStateException("GameState: DragAnimationState, "
+                + "mainMenu() is not possible.");
+    }
+
+    @Override
+    public void initGame() {
+        throw new IllegalStateException("GameState: DragAnimationState, "
+                + "initGame() is not possible.");
     }
 
     @Override
     public void startGame() {
-        //NOT POSSIBLE.
+        throw new IllegalStateException("GameState: DragAnimationState, "
+                + "startGame() is not possible.");
     }
 
     @Override
     public void pauseGame() {
-        //NOT POSSIBLE.
+        //NOT YET IMPLEMENTED. (User input for the board is already disabled in this state).
     }
 
     @Override
     public void resumeGame() {
-
+        //FIRST PAUSE THE GAME.
+        throw new IllegalStateException("GameState: DragAnimationState, "
+                + "resumeGame() is not possible.");
     }
 
     @Override
     public void endGame() {
-        //NOT POSSIBLE.
+        throw new IllegalStateException("GameState: DragAnimationState, "
+                + "endGame() is not possible.");
     }
 
     @Override
     public void loadGame() {
-        //POSSIBLE.
+        //FIRST PAUSE THE GAME.
+        throw new IllegalStateException("GameState: DragAnimationState, "
+                + "loadGame() is not possible.");
     }
 
     @Override
     public void saveGame() {
-        //NOT POSSIBLE.
+        //FIRST PAUSE THE GAME.
+        throw new IllegalStateException("GameState: DragAnimationState, "
+                + "saveGame() is not possible.");
     }
 
     @Override
     public void exit() {
-
+        //NOT YET IMPLEMENTED -> Pop up warning screen if the player is sure he wants to leave
+        //                          without saving?
     }
 
     @Override
     public void dragAnimation() {
-
+        //NOT YET IMPLEMENTED.
     }
 
 }

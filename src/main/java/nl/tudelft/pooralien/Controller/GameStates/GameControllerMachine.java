@@ -1,10 +1,6 @@
 package nl.tudelft.pooralien.Controller.GameStates;
 
-import nl.tudelft.pooralien.Controller.GameStates.States.DragAnimationState;
-import nl.tudelft.pooralien.Controller.GameStates.States.GameEndedState;
-import nl.tudelft.pooralien.Controller.GameStates.States.GamePlayState;
-import nl.tudelft.pooralien.Controller.GameStates.States.GamePausedState;
-import nl.tudelft.pooralien.Controller.GameStates.States.MainMenuState;
+import nl.tudelft.pooralien.Controller.GameStates.States.*;
 
 /**
  * The GameControllerMachine Class.
@@ -16,6 +12,7 @@ public class GameControllerMachine {
     private State gameEndedState;
     private State gamePlayState;
     private State gamePausedState;
+    private State gameInitState;
     private State mainMenuState;
 
 
@@ -28,6 +25,7 @@ public class GameControllerMachine {
         gameEndedState = new GameEndedState(this);
         gamePlayState = new GamePlayState(this);
         gamePausedState = new GamePausedState(this);
+        gameInitState = new InitGameState(this);
         mainMenuState = new MainMenuState(this);
 
 
@@ -65,6 +63,13 @@ public class GameControllerMachine {
      */
     public void mainMenu() {
         state.mainMenu();
+    }
+
+    /**
+     * Execute the current states initGame method.
+     */
+    public void initGame() {
+        state.initGame();
     }
 
     /**
@@ -138,7 +143,7 @@ public class GameControllerMachine {
     }
 
     /**
-     * @return GameInProgress, state object.
+     * @return gameInProgress, state object.
      */
     public State getGamePlayState() {
         return gamePlayState;
@@ -149,6 +154,13 @@ public class GameControllerMachine {
      */
     public State getGamePausedState() {
         return gamePausedState;
+    }
+
+    /**
+     * @return gameInitState, state object.
+     */
+    public State getGameInitState() {
+        return gameInitState;
     }
 
     /**

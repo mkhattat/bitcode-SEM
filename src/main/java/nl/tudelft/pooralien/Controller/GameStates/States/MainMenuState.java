@@ -51,12 +51,18 @@ public class MainMenuState implements State {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        startGame();
+        gameControllerMachine.setState(gameControllerMachine.getGameInitState());
+        gameControllerMachine.initGame();
+    }
+
+    @Override
+    public void initGame() {
+
     }
 
     @Override
     public void startGame() {
-        gameControllerMachine.setState(gameControllerMachine.getGamePlayState());
+
     }
 
     @Override

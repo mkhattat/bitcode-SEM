@@ -22,23 +22,28 @@ public class GameEndedState implements State {
 
     @Override
     public void mainMenu() {
+        //NOT YET IMPLEMENTED.
+    }
 
+    @Override
+    public void initGame() {
+        throw new IllegalStateException("GameState: GameEndedState, initGame() is not possible.");
     }
 
     @Override
     public void startGame() {
-        gameControllerMachine.setState(gameControllerMachine.getGamePlayState());
-        gameControllerMachine.startGame();
+        gameControllerMachine.setState(gameControllerMachine.getGameInitState());
+        gameControllerMachine.initGame();
     }
 
     @Override
     public void pauseGame() {
-        // NOT POSSIBLE
+        throw new IllegalStateException("GameState: GameEndedState, pauseGame() is not possible.");
     }
 
     @Override
     public void resumeGame() {
-
+        throw new IllegalStateException("GameState: GameEndedState, resumeGame() is not possible.");
     }
 
     @Override
@@ -61,12 +66,12 @@ public class GameEndedState implements State {
 
     @Override
     public void loadGame() {
-
+        //NOT YET IMPLEMENTED.
     }
 
     @Override
     public void saveGame() {
-
+        //NOT YET IMPLEMENTED / NOT SURE IF POSSIBLE FROM THIS STATE.
     }
 
     @Override
@@ -76,7 +81,8 @@ public class GameEndedState implements State {
 
     @Override
     public void dragAnimation() {
-
+        throw new IllegalStateException("GameState: GameEndedState,"
+                + " dragAnimation() is not possible.");
     }
 
 }

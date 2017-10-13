@@ -4,60 +4,61 @@ import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.GameStates.State;
 
-/**
- * The GamePausedState Class.
- */
-public class GamePausedState implements State {
+public class InitGameState implements State {
 
-    private GameControllerMachine gameControllerMachine;
+    GameControllerMachine gameControllerMachine;
 
     /**
      * The state where the game is paused of the state machine.
      * @param gameControllerMachine object, used to alter behavior.
      */
-    public GamePausedState(GameControllerMachine gameControllerMachine) {
+    public InitGameState(GameControllerMachine gameControllerMachine) {
         this.gameControllerMachine = gameControllerMachine;
     }
 
     @Override
     public void mainMenu() {
-        //NOT YET IMPLEMENTED.
+        //Not possible.
     }
 
     @Override
     public void initGame() {
-        throw new IllegalStateException("GameState: GamePausedState, initGame() is not possible.");
+        //Disables user input
+        Game.getGame().pauseGame();
+        //Makes a new board.
+        Game.getGame().nextBoard();
+        gameControllerMachine.setState(gameControllerMachine.getGamePlayState());
+        gameControllerMachine.startGame();
     }
 
     @Override
     public void startGame() {
-        throw new IllegalStateException("GameState: GamePausedState, startGame() is not possible.");
+        //Not possible.
     }
 
     @Override
     public void pauseGame() {
-        throw new IllegalStateException("GameState: GamePausedState, pauseGame() is not possible.");
+        //Not possible.
     }
 
     @Override
     public void resumeGame() {
-        Game.getGame().resumeGame();
-        gameControllerMachine.setState(gameControllerMachine.getGamePlayState());
+        //Not possible.
     }
 
     @Override
     public void endGame() {
-
+        //Not possible.
     }
 
     @Override
     public void loadGame() {
-        //NOT YET IMPLEMENTED.
+        //Not possible.
     }
 
     @Override
     public void saveGame() {
-        //NOT YET IMPLEMENTED.
+        //Not possible.
     }
 
     @Override
@@ -67,8 +68,6 @@ public class GamePausedState implements State {
 
     @Override
     public void dragAnimation() {
-        throw new IllegalStateException("GameState: GamePausedState, "
-                + "dragAnimation() is not possible.");
+        //Not possible.
     }
-
 }
