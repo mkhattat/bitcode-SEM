@@ -6,8 +6,7 @@ import nl.tudelft.pooralien.Controller.GameStates.State;
 import nl.tudelft.pooralien.Launcher;
 import nl.tudelft.pooralien.ui.MainScreen;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  * The MainMenuState class.
@@ -33,7 +32,7 @@ public class MainMenuState implements State {
             JFrame mainWindow = new JFrame(Launcher.getGameCfg().getStringValueOf("gameTitle"));
             MainScreen mainScreen = new MainScreen();
             mainWindow.setSize(0, 0);
-            mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
             JPanel gameHolder = new JPanel();
             gameHolder.add(mainScreen);

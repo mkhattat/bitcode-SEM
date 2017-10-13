@@ -5,6 +5,7 @@ import nl.tudelft.pooralien.Controller.GameStates.State;
 
 /**
  * The DragAnimationState Class.
+ * TODO: ANIMATIONS ARE NOT YET IMPLEMENTED.
  */
 public class DragAnimationState implements State {
 

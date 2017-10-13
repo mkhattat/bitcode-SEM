@@ -231,7 +231,7 @@ public class MainScreen extends JLayeredPane implements Observer {
         gridBoard = new JPanel();
         gridBoard.setLayout(gridLayout);
 
-        BufferedImage image = null;
+        BufferedImage image;
         try {
             for (int x = 0; x < board.getWidth(); x++) {
                 for (int y = 0; y < board.getHeight(); y++) {

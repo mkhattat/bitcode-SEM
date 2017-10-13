@@ -27,11 +27,11 @@ public class HighScoreEnterNameDialog {
         // IF THE USER HAS NOT SCORED IN THE TOP TEN THEN RETURN BUT
         // IF THERE ARE LESS THEN TEN SCORES CONTINUE.
         if (score < scoreManager.getLowestScoreInTopX()) {
-           gameControllerMachine.setState(gameControllerMachine.getGameEndedState());
-           return;
+            gameControllerMachine.setState(gameControllerMachine.getGameEndedState());
+            return;
         } else if (scoreManager.getSCORE_COUNT() < scoreManager.getTopXScoreCount()) {
-           gameControllerMachine.setState(gameControllerMachine.getGameEndedState());
-           return;
+            gameControllerMachine.setState(gameControllerMachine.getGameEndedState());
+            return;
         }
 
         String userInput = checkFirstTry(firstTry);

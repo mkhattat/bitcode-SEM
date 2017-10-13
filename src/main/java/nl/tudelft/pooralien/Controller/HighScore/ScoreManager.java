@@ -36,7 +36,7 @@ public class ScoreManager {
             //CONFIG FILE
             topXScores = Launcher.getGameCfg().getIntegerValueOf("topXScores");
 
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } catch (NotExistingVariableException e) {
             topXScores = 2 + 2 + 2 + 2 + 2;
@@ -48,9 +48,8 @@ public class ScoreManager {
     /**
      * @return ArrayList of sorted scores (highest first).
      * @throws IOException Input/Output exception.
-     * @throws ClassNotFoundException Class not found exception.
      */
-    private ArrayList<Score> getScores() throws IOException, ClassNotFoundException {
+    private ArrayList<Score> getScores() throws IOException {
         loadScores();
         sortScores();
         return scores;
@@ -140,7 +139,7 @@ public class ScoreManager {
 
         try {
             scores = getScores();
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         for (int i = 0; i < topXScores; i++) {

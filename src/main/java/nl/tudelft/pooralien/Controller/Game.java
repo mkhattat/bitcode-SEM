@@ -252,7 +252,7 @@ public final class Game implements Subject {
 
     /**
      * Used to pass the MainScreen object to the Game object.
-     * @param mainScreen, sets the mainScreen object variable.
+     * @param mainScreen sets the mainScreen object variable.
      */
     public void setMainScreen(MainScreen mainScreen) {
         this.mainScreen = mainScreen;

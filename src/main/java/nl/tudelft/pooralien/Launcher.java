@@ -4,11 +4,9 @@ import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 
 import java.net.URISyntaxException;
 import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
-import javax.swing.WindowConstants;
 
 import nl.tu.delft.defpro.api.IDefProAPI;
 import nl.tudelft.pooralien.Controller.Game;
-import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreFrame;
 
 /**
  * The Launcher of the game.

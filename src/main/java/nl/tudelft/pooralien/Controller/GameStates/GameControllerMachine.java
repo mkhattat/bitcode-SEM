@@ -56,14 +56,6 @@ public class GameControllerMachine {
     }
 
     /**
-     * Get the current state the GameControllerMachine is in.
-     * @return State, which is currently used.
-     */
-    public State getState() {
-        return this.state;
-    }
-
-    /**
      * Execute the current states goToMainMenu method.
      */
     public void mainMenu() {
