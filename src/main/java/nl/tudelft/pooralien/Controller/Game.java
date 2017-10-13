@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
+import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.HighScore.ScoreCounter;
 import nl.tudelft.pooralien.Launcher;
 import nl.tudelft.pooralien.Observer;
@@ -27,6 +28,7 @@ public final class Game implements Subject {
     private ArrayList<Observer> observers;
     private int moves;
     private HighScoreTableTopX highScoreTableTopX;
+    private GameControllerMachine gameControllerMachine;
 
     /**
      * Initialise the singleton Game object.
@@ -61,6 +63,16 @@ public final class Game implements Subject {
             board = bFactory.createRandomBoard();
         }
         return board;
+    }
+
+    /**
+     * @return gameControllerMachine, used to alter states of the state machine.
+     */
+    public GameControllerMachine getGameControllerMachine() {
+        if (gameControllerMachine == null) {
+            gameControllerMachine = new GameControllerMachine();
+        }
+        return gameControllerMachine;
     }
 
     /**
@@ -117,20 +129,7 @@ public final class Game implements Subject {
         if (moves > 0) {
             moves--;
             if (moves == 0) {
-                //Enter user input into
-                HighScoreEnterNameDialog highScoreEnterNameDialog =
-                        new HighScoreEnterNameDialog(true, game.scoreCounter.getScore());
-
-                if (backgroundTileCatalog.size() == 0) {
-
-                    nextBoard();
-                } else {
-                    //Placeholder until the required
-                    //game state functionality is in place.
-                    System.out.println("Game over!");
-                    System.out.println("Your score is: " + scoreCounter.getScore());
-                    System.exit(0);
-                }
+                Game.getGame().gameControllerMachine.endGame();
             }
         }
     }
@@ -138,7 +137,7 @@ public final class Game implements Subject {
     /**
      * Continues to the next board.
      */
-    private void nextBoard() {
+    public void nextBoard() {
         board = bFactory.createRandomBoard();
         initMoves();
         initBTCatalog();

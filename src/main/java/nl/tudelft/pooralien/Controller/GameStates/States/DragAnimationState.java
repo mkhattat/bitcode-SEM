@@ -12,12 +12,7 @@ public class DragAnimationState implements State {
     }
 
     @Override
-    public void goToMainMenu() {
-        //NOT POSSIBLE.
-    }
-
-    @Override
-    public void initGame() {
+    public void MainMenu() {
         //NOT POSSIBLE.
     }
 

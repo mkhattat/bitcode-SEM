@@ -8,20 +8,15 @@ public interface State {
     /**
      * When the player boots the game or returns to the main screen.
      */
-    public void goToMainMenu();
+    public void MainMenu();
 
     /**
-     * When the player starts a game. (FROM MAIN_MENU/GAME_ENDED TO INIT_GAME).
-     */
-    public void initGame();
-
-    /**
-     * When the game is loaded/resumed by the player.
+     * When the game is loaded by the player.
      */
     public void startGame();
 
     /**
-     * When the game is paused by the player.
+     * When the game is paused/resumed by the player.
      */
     public void pauseGame();
 

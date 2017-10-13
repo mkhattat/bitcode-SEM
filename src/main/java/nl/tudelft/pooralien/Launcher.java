@@ -39,28 +39,9 @@ public class Launcher {
      * Launch the game GUI.
      */
     public void launch() {
-        try {
-            JFrame mainWindow = new JFrame(gameCfg.getStringValueOf("gameTitle"));
-            MainScreen mainScreen = new MainScreen();
-            mainWindow.setSize(0, 0);
-            mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            JPanel gameAndScoreHolder = new JPanel();
-            gameAndScoreHolder.add(mainScreen);
-            gameAndScoreHolder.add(Game.getGame().getHighScoreTableTopX());
-
-            mainWindow.getContentPane().add(gameAndScoreHolder);
-
-            mainWindow.pack();
-            Game.getGame().registerObserver(mainScreen);
-            Game.getGame().setMultiplayer(false);
-            if (!gameCfg.getBooleanValueOf("multiLevel")) {
-                mainWindow.setVisible(true);
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
+        GameControllerMachine gameControllerMachine = Game.getGame().getGameControllerMachine();
+        gameControllerMachine.setState(gameControllerMachine.getMainMenuState());
+        gameControllerMachine.MainMenu();
     }
 
     /**
@@ -80,7 +61,6 @@ public class Launcher {
         //startupScreen.show();
         try {
             new Launcher().launch();
-            new GameControllerMachine();
         } catch (Exception e) {
             e.printStackTrace();
         }

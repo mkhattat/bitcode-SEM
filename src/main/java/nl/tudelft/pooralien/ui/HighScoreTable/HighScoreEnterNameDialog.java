@@ -27,6 +27,8 @@ public class HighScoreEnterNameDialog {
         // IF THERE ARE LESS THEN TEN SCORES CONTINUE.
         if (score < scoreManager.getLowestScoreInTopX()
                 && scoreManager.getSCORE_COUNT() < scoreManager.getTopXScoreCount()) {
+            Game.getGame().getGameControllerMachine().setState(
+                    Game.getGame().getGameControllerMachine().getGameEndedState());
             return;
         }
 
@@ -47,6 +49,9 @@ public class HighScoreEnterNameDialog {
         Game.getGame().getHighScoreTableTopX().getTable().repaint();
 
         System.out.printf("The player's name is '%s'.\n", userInput);
+
+        Game.getGame().getGameControllerMachine().setState(
+                Game.getGame().getGameControllerMachine().getGameEndedState());
     }
 
     /**

@@ -1,7 +1,9 @@
 package nl.tudelft.pooralien.Controller.GameStates.States;
 
+import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.GameStates.State;
+import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreEnterNameDialog;
 
 public class GameEndedState implements State {
 
@@ -12,28 +14,37 @@ public class GameEndedState implements State {
     }
 
     @Override
-    public void goToMainMenu() {
-
-    }
-
-    @Override
-    public void initGame() {
+    public void MainMenu() {
 
     }
 
     @Override
     public void startGame() {
-
+        gameControllerMachine.setState(gameControllerMachine.getGamePlayState());
+        gameControllerMachine.startGame();
     }
 
     @Override
     public void pauseGame() {
-
+        // NOT POSSIBLE
     }
 
     @Override
     public void endGame() {
+        //Enter user input into
+        HighScoreEnterNameDialog highScoreEnterNameDialog =
+                new HighScoreEnterNameDialog(true, Game.getGame().getScoreCounter().getScore());
 
+        if (Game.getGame().getBackgroundTileCatalog().size() == 0) {
+            startGame();
+
+        } else {
+            //Placeholder until the required
+            //game state functionality is in place.
+            System.out.println("Game over!");
+            System.out.println("Your score is: " + Game.getGame().getScoreCounter().getScore());
+            System.exit(0);
+        }
     }
 
     @Override

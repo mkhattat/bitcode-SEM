@@ -1,7 +1,12 @@
 package nl.tudelft.pooralien.Controller.GameStates.States;
 
+import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.GameStates.State;
+import nl.tudelft.pooralien.Launcher;
+import nl.tudelft.pooralien.ui.MainScreen;
+
+import javax.swing.*;
 
 public class MainMenuState implements State {
 
@@ -12,21 +17,38 @@ public class MainMenuState implements State {
     }
 
     @Override
-    public void goToMainMenu() {
+    public void MainMenu() {
         // Already in main menu. -> OR should this method be called in the MainMenuState constructor
         System.out.println("CurrentState: MainMenuState, ");
-    }
 
-    @Override
-    public void initGame() {
-        System.out.println("CurrentState: MainMenuState, Initializing the game");
+        try {
+            JFrame mainWindow = new JFrame(Launcher.getGameCfg().getStringValueOf("gameTitle"));
+            MainScreen mainScreen = new MainScreen();
+            mainWindow.setSize(0, 0);
+            mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            JPanel gameAndScoreHolder = new JPanel();
+            gameAndScoreHolder.add(mainScreen);
+            gameAndScoreHolder.add(Game.getGame().getHighScoreTableTopX());
+
+            mainWindow.getContentPane().add(gameAndScoreHolder);
+
+            mainWindow.pack();
+            Game.getGame().registerObserver(mainScreen);
+            Game.getGame().setMultiplayer(false);
+            if (!Launcher.getGameCfg().getBooleanValueOf("multiLevel")) {
+                mainWindow.setVisible(true);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        startGame();
     }
 
     @Override
     public void startGame() {
-        // Not possible.
-        System.out.println("CurrentState: MainMenuState, " +
-                "Not a possible move, first initialize the game.");
+        gameControllerMachine.setState(gameControllerMachine.getGamePlayState());
     }
 
     @Override
@@ -61,7 +83,9 @@ public class MainMenuState implements State {
 
     @Override
     public void dragAnimation() {
-
+        // Not possible.
+        System.out.println("CurrentState: MainMenuState, " +
+                "Not possible, first initialize the game.");
     }
 
 }

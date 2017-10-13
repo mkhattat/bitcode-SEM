@@ -10,9 +10,8 @@ public class GameControllerMachine {
     private State state;
     private State DragAnimationState;
     private State GameEndedState;
-    private State GameInProgressState;
+    private State GamePlayState;
     private State GamePausedState;
-    private State InitState;
     private State MainMenuState;
 
 
@@ -20,19 +19,18 @@ public class GameControllerMachine {
     /**
      * Allows GameControllerMachine to be constructed in different gameStates.
      */
-    public GameControllerMachine() throws Exception {
+    public GameControllerMachine() {
         DragAnimationState = new DragAnimationState(this);
         GameEndedState = new GameEndedState(this);
-        GameInProgressState = new GameInProgressState(this);
+        GamePlayState = new GamePlayState(this);
         GamePausedState = new GamePausedState(this);
-        InitState = new InitState(this);
         MainMenuState = new MainMenuState(this);
 
 
         // If no valid State is passed then assume that the game has just been launched.
         // RIGHT NOW NO MAIN MENU EXISTS SO STRAIGHT TO GAME (WITH BOARD).
         try {
-            this.state = InitState;
+            this.state = null;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,15 +69,8 @@ public class GameControllerMachine {
     /**
      * Execute the current states goToMainMenu method.
      */
-    public void goToMainMenu() {
-        state.goToMainMenu();
-    }
-
-    /**
-     * Execute the current states initGame method.
-     */
-    public void initGame() {
-        state.initGame();
+    public void MainMenu() {
+        state.MainMenu();
     }
 
     /**
@@ -148,8 +139,8 @@ public class GameControllerMachine {
     /**
      * @return GameInProgress, state object.
      */
-    public State getGameInProgressState() {
-        return GameInProgressState;
+    public State getGamePlayState() {
+        return GamePlayState;
     }
 
     /**
@@ -157,13 +148,6 @@ public class GameControllerMachine {
      */
     public State getGamePausedState() {
         return GamePausedState;
-    }
-
-    /**
-     * @return InitState, state object.
-     */
-    public State getInitState() {
-        return InitState;
     }
 
     /**

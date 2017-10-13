@@ -12,12 +12,7 @@ public class GamePausedState implements State {
     }
 
     @Override
-    public void goToMainMenu() {
-
-    }
-
-    @Override
-    public void initGame() {
+    public void MainMenu() {
 
     }
 
