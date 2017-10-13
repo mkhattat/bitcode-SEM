@@ -44,7 +44,7 @@ public class HighScoreEnterNameDialog {
             return;
         }
         scoreManager.addScore(userInput, score);
-        Game.getGame().getHighScoreTableTopX().getTable().repaint();
+        Game.getGame().getHighScoreTableTopX().repaint();
 
         System.out.printf("The player's name is '%s'.\n", userInput);
     }

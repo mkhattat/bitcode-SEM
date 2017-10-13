@@ -5,8 +5,8 @@ import nl.tudelft.pooralien.Controller.HighScore.TopXTableModel;
 import javax.swing.JTable;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import java.awt.GridLayout;
-import java.awt.Dimension;
+import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.*;
 
 /**
  * High Score Table based on the Top10 Table Model.
@@ -26,10 +26,13 @@ public class HighScoreTableTopX extends JPanel {
         super(new GridLayout(1, 0));
 
         table = new JTable(new TopXTableModel());
-        table.setCellSelectionEnabled(false);
+        table.setShowGrid(false);
         // Disable column header repositioning.
         table.getTableHeader().setReorderingAllowed(false);
-
+        //Disable the row selection background, grid & focus border
+        table.setRowSelectionAllowed(false);
+        table.setShowGrid(false);
+        table.setDefaultRenderer(Object.class, new HighScoreTableRenderer());
         //Resize columns
         table.getColumnModel().getColumn(0).setMaxWidth(columnIndexWidth);
         //Disable column resizing
@@ -37,16 +40,9 @@ public class HighScoreTableTopX extends JPanel {
             table.getColumnModel().getColumn(i).setResizable(false);
 
         }
-
         table.setPreferredScrollableViewportSize(new Dimension(tableViewportWidth,
                 tableViewportHeight));
         table.setFillsViewportHeight(true);
-
-        //Create the scroll pane and add the table to it.
-        JScrollPane scrollPane = new JScrollPane(table);
-
-        //Add the scroll pane to this panel.
-        add(scrollPane);
     }
 
     /**
@@ -56,8 +52,15 @@ public class HighScoreTableTopX extends JPanel {
         return table;
     }
 
+    public class HighScoreTableRenderer extends DefaultTableCellRenderer {
 
-
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            setBorder(noFocusBorder);
+            return this;
+        }
+    }
 
 
 }
