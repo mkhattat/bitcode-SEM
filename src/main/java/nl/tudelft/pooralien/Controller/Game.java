@@ -12,6 +12,8 @@ import nl.tudelft.pooralien.Observer;
 import nl.tudelft.pooralien.Subject;
 import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreTableTopX;
 
+import javax.swing.JTable;
+
 
 /**
  * class for controlling the flow of the game.
@@ -77,11 +79,11 @@ public final class Game implements Subject {
     /**
      * @return the topX score table being used.
      */
-    public HighScoreTableTopX getHighScoreTableTopX() {
+    public JTable getHighScoreTableTopX() {
         if (highScoreTableTopX == null) {
             highScoreTableTopX = new HighScoreTableTopX();
         }
-        return highScoreTableTopX;
+        return highScoreTableTopX.getTable();
     }
 
     /**

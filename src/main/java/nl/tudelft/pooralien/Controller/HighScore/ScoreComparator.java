@@ -1,11 +1,12 @@
 package nl.tudelft.pooralien.Controller.HighScore;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
  * ScoreComparator, which allows easy use of the Comparator object/class.
  */
-public class ScoreComparator implements Comparator<Score> {
+class ScoreComparator implements Comparator<Score>, Serializable {
 
     @Override
     public int compare(Score o1, Score o2) {

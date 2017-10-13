@@ -173,7 +173,7 @@ public class BackgroundTileTest {
 
     @Test
     public void tileEqualsNullFalse() {
-        assertFalse(backgroundTile1.equals(null));
+        assertNull(backgroundTile1);
     }
 
     @Test

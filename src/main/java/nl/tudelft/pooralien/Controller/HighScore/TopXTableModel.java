@@ -7,14 +7,14 @@ import javax.swing.table.AbstractTableModel;
  */
 public class TopXTableModel extends AbstractTableModel {
 
-    private String[] columnNames = {
+    private final String[] columnNames = {
         "No.",
         "Name",
         "Score"
     };
 
     private int topXScores;
-    private ScoreManager scoreManager;
+    private final ScoreManager scoreManager;
 
     /**
      * Initialize the TopXTableModel with the scoreManager and topXScores.
@@ -76,4 +76,6 @@ public class TopXTableModel extends AbstractTableModel {
             default: return null;
         }
     }
+
+
 }

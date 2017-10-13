@@ -43,8 +43,6 @@ public class HighScoreEnterNameDialog {
         }
 
         scoreManager.addScore(userInput, score);
-        //Sometimes works some times doesnt? Strange..
-        Game.getGame().getHighScoreTableTopX().getTable().repaint();
 
         Game.getGame().getGameControllerMachine().setState(
                 Game.getGame().getGameControllerMachine().getGameEndedState());
@@ -52,8 +50,11 @@ public class HighScoreEnterNameDialog {
 
     /**
      *
-     * @param firstTry
-     * @return
+     * @param firstTry After the user has not entered a name or the name was longer than
+     *                 20 characters this becomes false (automatically),
+     *                 so that a different dialog gets returned.
+     * @return Returns a normal dialog or another one with instructions if
+     *          the user has entered wrong input.
      */
     private String checkFirstTry(boolean firstTry) {
         if (firstTry) {
@@ -69,13 +70,12 @@ public class HighScoreEnterNameDialog {
      */
     private String constructNormalDialog() {
         JFrame frame = new JFrame("inputDialog");
-        String input = JOptionPane.showInputDialog(
+        return JOptionPane.showInputDialog(
                 frame,
                 "Enter the name to be added to the highscore",
                 "You have beat the top 10 players",
                 JOptionPane.INFORMATION_MESSAGE
         );
-        return input;
     }
 
     /**
@@ -84,13 +84,12 @@ public class HighScoreEnterNameDialog {
      */
     private String constructRetryDialog() {
         JFrame frame = new JFrame("inputRetryDialog");
-        String input = JOptionPane.showInputDialog(
+        return JOptionPane.showInputDialog(
                 frame,
                 "Please enter a different name (must be under 20 characters).",
                 "Please retry...",
                 JOptionPane.INFORMATION_MESSAGE
         );
-        return input;
     }
 
     private void userPressedCancel() {
@@ -98,6 +97,6 @@ public class HighScoreEnterNameDialog {
     }
 
     private void incorrectUserInput(int score) {
-        HighScoreEnterNameDialog hSEND = new HighScoreEnterNameDialog(false, score);
+        new HighScoreEnterNameDialog(false, score);
     }
 }
