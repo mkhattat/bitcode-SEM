@@ -110,14 +110,9 @@ public class BackgroundTile {
         }
         BackgroundTile backgroundTile = (BackgroundTile) object;
 
-        if (!(backgroundTile.getCoordinateX() == this.getCoordinateX())) {
-            return false;
-        }
-        if (!(backgroundTile.getCoordinateY() == this.getCoordinateY())) {
-            return false;
-        }
-
-        return backgroundTile.getColorBackgroundTile().equals(this.getColorBackgroundTile());
+        return backgroundTile.getCoordinateX() == this.getCoordinateX()
+                && backgroundTile.getCoordinateY() == this.getCoordinateY()
+                && backgroundTile.getColorBackgroundTile().equals(this.getColorBackgroundTile());
     }
 
     @Override
