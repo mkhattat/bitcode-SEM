@@ -49,24 +49,13 @@ public class GameEndedState implements State {
 
     @Override
     public void endGame() {
-        //Needs to be saved as count changes when dialogs are opened, yielding a different result.
-        int backgroundCatalogSize = Game.getGame().getBackgroundTileCatalog().size();
         //Enter user input into
         new HighScoreEnterNameDialog(true, Game.getGame().getScoreCounter().getScore());
 
         //Show the highscores in a dialog
         new HighScoreFrame();
 
-        if (backgroundCatalogSize == 0) {
-            startGame();
 
-        } else {
-            //Placeholder until the required
-            //game state functionality is in place.
-            System.out.println("Game over!");
-            System.out.println("Your score is: " + Game.getGame().getScoreCounter().getScore());
-            System.exit(0);
-        }
     }
 
     @Override
@@ -81,7 +70,9 @@ public class GameEndedState implements State {
 
     @Override
     public void exit() {
-
+        System.out.println("Game over!");
+        System.out.println("Your score is: " + Game.getGame().getScoreCounter().getScore());
+        System.exit(0);
     }
 
     @Override
