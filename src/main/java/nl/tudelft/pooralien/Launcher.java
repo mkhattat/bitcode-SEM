@@ -3,6 +3,8 @@ package nl.tudelft.pooralien;
 import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 
 import java.net.URISyntaxException;
+
+import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreEnterNameDialog;
 import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreTableTop10;
 
 import javax.swing.JFrame;
@@ -50,6 +52,8 @@ public class Launcher {
             HighScoreTableTop10 highScoreTableTop10 = new HighScoreTableTop10();
             gameAndScoreHolder.add(highScoreTableTop10);
 
+            //Code needed to read input with dialog.
+            //HighScoreEnterNameDialog highScoreEnterNameDialog = new HighScoreEnterNameDialog();
 
             mainWindow.getContentPane().add(gameAndScoreHolder);
 
