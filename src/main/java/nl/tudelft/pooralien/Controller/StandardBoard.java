@@ -1,6 +1,6 @@
 package nl.tudelft.pooralien.Controller;
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
-import nl.tudelft.item.ItemFactory;
+import nl.tudelft.item.StandardItemFactory;
 import nl.tudelft.pooralien.Launcher;
 
 
@@ -9,13 +9,6 @@ import nl.tudelft.pooralien.Launcher;
  * The StandardBoard class.
  */
 public class StandardBoard extends Board {
-    /**
-     * Constructor which builds the data structure with the random data.
-     */
-    public StandardBoard() {
-        super();
-        createRandom();
-    }
 
     /**
      * Initializes the width of the board using the config file.
@@ -60,10 +53,10 @@ public class StandardBoard extends Board {
     }
 
     /**
-     * Initializes the ItemFactory.
-     * @return The initial ItemFactory.
+     * Initializes the StandardItemFactory.
+     * @return The initial StandardItemFactory.
      */
-    protected ItemFactory initItemFactory() {
-        return new ItemFactory();
+    protected StandardItemFactory initItemFactory() {
+        return new StandardItemFactory();
     }
 }

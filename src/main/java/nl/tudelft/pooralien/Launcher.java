@@ -1,50 +1,60 @@
 package nl.tudelft.pooralien;
 
+import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 
-import nl.tu.delft.defpro.api.IDefProAPI;
+import java.net.URISyntaxException;
 import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
-import nl.tudelft.pooralien.ui.MainScreen;
 
 import javax.swing.*;
 
-import static nl.tu.delft.defpro.api.APIProvider.getAPI;
+import nl.tu.delft.defpro.api.IDefProAPI;
+import nl.tudelft.pooralien.Controller.Game;
+import nl.tudelft.pooralien.ui.MainScreen;
 
 /**
  * The Launcher of the game.
  */
 public class Launcher {
 
-    private String cfgPath = this.getClass().getResource("/config.txt").toURI()
-            .getPath().replaceFirst("^/(.:/)", "$1");
-
-
+    private static String cfgPath;
     private static IDefProAPI gameCfg;
 
+    static {
+        try {
+            cfgPath = Launcher.class.getResource("/config.txt").toURI()
+                    .getPath().replaceFirst("^/(.:/)", "$1");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        try {
+            gameCfg = getAPI(cfgPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Launch the game GUI.
+     */
     public void launch() {
         try {
-            JFrame mainWindow = new JFrame(Launcher.getGameCfg().getStringValueOf("gameTitle"));
+            JFrame mainWindow = new JFrame(gameCfg.getStringValueOf("gameTitle"));
             MainScreen mainScreen = new MainScreen();
             mainWindow.setSize(0, 0);
             mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             mainWindow.getContentPane().add(mainScreen);
 
-            new MouseEventHandler(mainScreen);
             mainWindow.pack();
-            if (!Launcher.getGameCfg().getBooleanValueOf("multiLevel")) {
+            Game.getGame().registerObserver(mainScreen);
+            Game.getGame().setMultiplayer(false);
+            if (!gameCfg.getBooleanValueOf("multiLevel")) {
                 mainWindow.setVisible(true);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-    }
-
-    /**
-     * the Constructor of Launcher.
-     * @throws Exception if the config file doesn't exist throws and Exception.
-     */
-    public Launcher() throws Exception {
-        gameCfg = getAPI(cfgPath);
     }
 
     /**
@@ -60,6 +70,8 @@ public class Launcher {
      * @param args The program arguments.
      */
     public static void main(String[] args) {
+        //StartupScreen startupScreen = new StartupScreen();
+        //startupScreen.show();
         try {
             new Launcher().launch();
             new GameControllerMachine();
