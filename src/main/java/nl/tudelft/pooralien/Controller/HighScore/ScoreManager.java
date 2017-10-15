@@ -7,7 +7,7 @@ import java.util.Collections;
 public class ScoreManager {
 
     private ArrayList<Score> scores;
-    private int LINE_COUNT;
+    private int SCORE_COUNT;
     private final static String SCORE_FILE = "scores.bin";
 
 
@@ -48,7 +48,7 @@ public class ScoreManager {
         try {
             loadScores();
             scores.add(new Score(name, score));
-            LINE_COUNT++;
+            SCORE_COUNT++;
             saveScores();
         } catch (IOException e) {
             e.printStackTrace();
@@ -71,14 +71,14 @@ public class ScoreManager {
         try {
             FileInputStream scoreFile = new FileInputStream(SCORE_FILE);
             DataInputStream scoreStream = new DataInputStream(scoreFile);
-            LINE_COUNT = 0;
+            SCORE_COUNT = 0;
 
             while(!endOfFile) {
                 try {
                     tempName = scoreStream.readUTF();
                     tempScore = scoreStream.readInt();
                     scores.add(new Score(tempName, tempScore));
-                    LINE_COUNT++;
+                    SCORE_COUNT++;
                 } catch (EOFException e) {
                     endOfFile = true;
                 }
@@ -119,13 +119,12 @@ public class ScoreManager {
         }
     }
 
-
     public ArrayList<Score> getTopTenScores() {
         ArrayList<Score> topTenScores = new ArrayList<>();
         int scoreCount = 10;
 
-        if(LINE_COUNT < scoreCount) {
-            scoreCount = LINE_COUNT;
+        if(SCORE_COUNT < scoreCount) {
+            scoreCount = SCORE_COUNT;
         }
 
         try {
@@ -135,11 +134,16 @@ public class ScoreManager {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
         for(int i = 0; i < scoreCount; i++) {
             topTenScores.add(scores.get(i));
         }
         return topTenScores;
     }
 
+    /**
+     * @return LINE_COUNT, amount of scores saved.
+     */
+    public int getSCORE_COUNT() {
+        return SCORE_COUNT;
+    }
 }
