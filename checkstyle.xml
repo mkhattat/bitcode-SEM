@@ -20,6 +20,7 @@
     </module>
     <module name="JavadocType"/>
     <module name="JavadocVariable">
+      <property name="scope" value="package"/>
       <property name="severity" value="ignore"/>
       <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
