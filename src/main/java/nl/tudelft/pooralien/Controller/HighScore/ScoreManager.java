@@ -159,6 +159,18 @@ public class ScoreManager {
     }
 
     /**
+     * @return the lowest score in the top ten or zero if there are no highscores in the save file.
+     */
+    public int getLowestScoreInTopTen() {
+        ArrayList<Score> topTenScores = getTopTenScores();
+
+        if (topTenScores.size() < 1) {
+            return 0;
+        }
+        return topTenScores.get(topTenScores.size() - 1).getScore();
+    }
+
+    /**
      * @return LINE_COUNT, amount of scores saved.
      */
     public int getSCORE_COUNT() {

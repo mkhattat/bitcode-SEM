@@ -4,9 +4,6 @@ import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 
 import java.net.URISyntaxException;
 
-import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreEnterNameDialog;
-import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreTableTop10;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -49,11 +46,7 @@ public class Launcher {
 
             JPanel gameAndScoreHolder = new JPanel();
             gameAndScoreHolder.add(mainScreen);
-            HighScoreTableTop10 highScoreTableTop10 = new HighScoreTableTop10();
-            gameAndScoreHolder.add(highScoreTableTop10);
-
-            //Code needed to read input with dialog.
-            //HighScoreEnterNameDialog highScoreEnterNameDialog = new HighScoreEnterNameDialog();
+            gameAndScoreHolder.add(Game.getGame().getHighScoreTableTop10());
 
             mainWindow.getContentPane().add(gameAndScoreHolder);
 

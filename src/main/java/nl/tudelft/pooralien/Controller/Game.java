@@ -9,6 +9,8 @@ import nl.tudelft.pooralien.Controller.HighScore.ScoreCounter;
 import nl.tudelft.pooralien.Launcher;
 import nl.tudelft.pooralien.Observer;
 import nl.tudelft.pooralien.Subject;
+import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreEnterNameDialog;
+import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreTableTop10;
 
 
 /**
@@ -24,6 +26,7 @@ public final class Game implements Subject {
     private boolean gameIsRunning;
     private ArrayList<Observer> observers;
     private int moves;
+    private HighScoreTableTop10 highScoreTableTop10;
 
     /**
      * Initialise the singleton Game object.
@@ -58,6 +61,16 @@ public final class Game implements Subject {
             board = bFactory.createRandomBoard();
         }
         return board;
+    }
+
+    /**
+     * @return the top10 score table being used.
+     */
+    public HighScoreTableTop10 getHighScoreTableTop10() {
+        if (highScoreTableTop10 == null) {
+            highScoreTableTop10 = new HighScoreTableTop10();
+        }
+        return highScoreTableTop10;
     }
 
     /**
@@ -104,7 +117,12 @@ public final class Game implements Subject {
         if (moves > 0) {
             moves--;
             if (moves == 0) {
+                //Enter user input into
+                HighScoreEnterNameDialog highScoreEnterNameDialog =
+                        new HighScoreEnterNameDialog(true, game.scoreCounter.getScore());
+
                 if (backgroundTileCatalog.size() == 0) {
+
                     nextBoard();
                 } else {
                     //Placeholder until the required
