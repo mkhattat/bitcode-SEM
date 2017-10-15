@@ -1,6 +1,7 @@
 package nl.tudelft.pooralien.Controller.HighScore;
 
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
+import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Launcher;
 
 /**

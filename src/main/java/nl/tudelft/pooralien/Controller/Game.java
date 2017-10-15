@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
+import nl.tudelft.pooralien.Controller.HighScore.ScoreCounter;
 import nl.tudelft.pooralien.Launcher;
 import nl.tudelft.pooralien.Observer;
 import nl.tudelft.pooralien.Subject;
