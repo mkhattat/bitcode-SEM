@@ -2,16 +2,25 @@ package nl.tudelft.pooralien.Controller.HighScore;
 
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * Top10TableModel which gives structure and adds rules to the table.
+ */
 public class Top10TableModel extends AbstractTableModel {
 
-    String[] columnNames = {
-            "No.",
-            "Name",
-            "Score"
+    private String[] columnNames = {
+        "No.",
+        "Name",
+        "Score"
     };
 
-    ScoreManager scoreManager;
+    //CONFIG FILE
+    private final  int top10 = 10;
 
+    private ScoreManager scoreManager;
+
+    /**
+     * Initialize the Top10TableModel with the scoreManager.
+     */
     public Top10TableModel() {
         scoreManager = new ScoreManager();
     }
@@ -33,10 +42,10 @@ public class Top10TableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        if(scoreManager.getSCORE_COUNT() < 10) {
+        if (scoreManager.getSCORE_COUNT() < top10) {
             return scoreManager.getSCORE_COUNT();
         }
-        return 10;
+        return top10;
     }
 
     @Override
@@ -46,28 +55,26 @@ public class Top10TableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        if(rowIndex < 0 || columnIndex < 0) {
+        if (rowIndex < 0 || columnIndex < 0) {
             return null;
         }
-        if(columnIndex > getColumnCount()) {
+        if (columnIndex > getColumnCount()) {
             return null;
         }
         // -1 Because index != line count
-        if(rowIndex > getRowCount()-1) {
+        if (rowIndex > getRowCount() - 1) {
             return null;
         }
 
-        for(int i = 0; i < getRowCount(); i++) {
-            switch (columnIndex) {
-                case(0):
-                    //Index starts at 0, score No. does not.
-                    return rowIndex+1;
-                case(1):
-                    return scoreManager.getTopTenScores().get(rowIndex).getName();
-                case(2):
-                    return scoreManager.getTopTenScores().get(rowIndex).getScore();
-            }
+        switch (columnIndex) {
+            case(0):
+                //Index starts at 0, score No. does not.
+                return rowIndex + 1;
+            case(1):
+                return scoreManager.getTopTenScores().get(rowIndex).getName();
+            case(2):
+                return scoreManager.getTopTenScores().get(rowIndex).getScore();
+            default: return null;
         }
-        return null;
     }
 }

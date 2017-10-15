@@ -3,9 +3,10 @@ package nl.tudelft.pooralien;
 import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 
 import java.net.URISyntaxException;
-import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreTable;
+import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreTableTop10;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import nl.tu.delft.defpro.api.IDefProAPI;
 import nl.tudelft.pooralien.Controller.Game;
@@ -46,8 +47,8 @@ public class Launcher {
 
             JPanel gameAndScoreHolder = new JPanel();
             gameAndScoreHolder.add(mainScreen);
-            HighScoreTable highScoreTable = new HighScoreTable();
-            gameAndScoreHolder.add(highScoreTable);
+            HighScoreTableTop10 highScoreTableTop10 = new HighScoreTableTop10();
+            gameAndScoreHolder.add(highScoreTableTop10);
 
 
             mainWindow.getContentPane().add(gameAndScoreHolder);

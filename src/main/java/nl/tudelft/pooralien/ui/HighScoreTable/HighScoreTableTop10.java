@@ -1,18 +1,28 @@
 package nl.tudelft.pooralien.ui.HighScoreTable;
 
-import nl.tudelft.pooralien.Controller.HighScore.Score;
-import nl.tudelft.pooralien.Controller.HighScore.ScoreManager;
 import nl.tudelft.pooralien.Controller.HighScore.Top10TableModel;
 
-import javax.swing.*;
-import javax.swing.table.TableColumnModel;
-import java.awt.*;
-import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import java.awt.GridLayout;
+import java.awt.Dimension;
 
-public class HighScoreTable extends  JPanel{
+/**
+ * High Score Table based on the Top10 Table Model.
+ */
+public class HighScoreTableTop10 extends JPanel {
 
-    public HighScoreTable() {
-        super(new GridLayout(1,0));
+    // CONFIG FILE
+    private final int tableViewportWidth = 500;
+    private final int tableViewportHeight = 160;
+    private final int columnIndexWidth = 30;
+
+    /**
+     * Initializing the top 10 high score table.
+     */
+    public HighScoreTableTop10() {
+        super(new GridLayout(1, 0));
 
         final JTable table = new JTable(new Top10TableModel());
         table.setCellSelectionEnabled(false);
@@ -20,14 +30,15 @@ public class HighScoreTable extends  JPanel{
         table.getTableHeader().setReorderingAllowed(false);
 
         //Resize columns
-        table.getColumnModel().getColumn(0).setMaxWidth(30);
+        table.getColumnModel().getColumn(0).setMaxWidth(columnIndexWidth);
         //Disable column resizing
         for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setResizable(false);
 
         }
 
-        table.setPreferredScrollableViewportSize(new Dimension(500, 400));
+        table.setPreferredScrollableViewportSize(new Dimension(tableViewportWidth,
+                tableViewportHeight));
         table.setFillsViewportHeight(true);
 
         //Create the scroll pane and add the table to it.

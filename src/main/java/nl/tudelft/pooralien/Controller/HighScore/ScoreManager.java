@@ -1,16 +1,28 @@
 package nl.tudelft.pooralien.Controller.HighScore;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.DataInputStream;
+import java.io.EOFException;
+import java.io.FileOutputStream;
+import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * ScoreManager class, handles adding/retrieving/saving/loading of scores.
+ */
 public class ScoreManager {
 
     private ArrayList<Score> scores;
-    private int SCORE_COUNT;
-    private final static String SCORE_FILE = "scores.bin";
+    private static int scoreCount;
+    private static final String SCORE_FILE = "scores.bin";
 
-
+    /**
+     * Initialize the score manager, load the scores from the save file or generate a new save file.
+     */
     public ScoreManager() {
         scores = new ArrayList<>();
 
@@ -29,6 +41,8 @@ public class ScoreManager {
 
     /**
      * @return ArrayList of sorted scores (highest first).
+     * @throws IOException Input/Output exception.
+     * @throws ClassNotFoundException Class not found exception.
      */
     public ArrayList<Score> getScores() throws IOException, ClassNotFoundException {
         loadScores();
@@ -42,13 +56,15 @@ public class ScoreManager {
     }
 
     /**
-     * Add score to ArrayList and save to file.
+     * Add score to scores ArrayList and save to file.
+     * @param name String of the player's name to be added.
+     * @param score int of the player's score  to be added.
      */
     public void addScore(String name, int score) {
         try {
             loadScores();
             scores.add(new Score(name, score));
-            SCORE_COUNT++;
+            scoreCount++;
             saveScores();
         } catch (IOException e) {
             e.printStackTrace();
@@ -71,29 +87,26 @@ public class ScoreManager {
         try {
             FileInputStream scoreFile = new FileInputStream(SCORE_FILE);
             DataInputStream scoreStream = new DataInputStream(scoreFile);
-            SCORE_COUNT = 0;
+            scoreCount = 0;
 
-            while(!endOfFile) {
+            while (!endOfFile) {
                 try {
                     tempName = scoreStream.readUTF();
                     tempScore = scoreStream.readInt();
                     scores.add(new Score(tempName, tempScore));
-                    SCORE_COUNT++;
+                    scoreCount++;
                 } catch (EOFException e) {
                     endOfFile = true;
                 }
             }
             scoreStream.close();
-
         } catch (FileNotFoundException e) {
             throw new FileNotFoundException("ScoreManager, there are currently no scores saved: "
                     + e.getMessage());
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw new IOException(("ScoreManager, there was a problem reading the file: "
                     + e.getMessage()));
         }
-
-
     }
 
     /**
@@ -108,7 +121,7 @@ public class ScoreManager {
             FileOutputStream scoreFile = new FileOutputStream(SCORE_FILE);
             DataOutputStream scoreWriter = new DataOutputStream(scoreFile);
 
-            for(Score score : scores) {
+            for (Score score : scores) {
                 scoreWriter.writeUTF(score.getName());
                 scoreWriter.writeInt(score.getScore());
             }
@@ -119,12 +132,17 @@ public class ScoreManager {
         }
     }
 
+    /**
+     * Returns the top10 scores saved in the save file.
+     * @return ArrayList of Score objects.
+     */
     public ArrayList<Score> getTopTenScores() {
         ArrayList<Score> topTenScores = new ArrayList<>();
-        int scoreCount = 10;
+        // The amount of scores to be shown.
+        int scoreCount = 2 + 2 + 2 + 2 + 2;
 
-        if(SCORE_COUNT < scoreCount) {
-            scoreCount = SCORE_COUNT;
+        if (ScoreManager.scoreCount < scoreCount) {
+            scoreCount = ScoreManager.scoreCount;
         }
 
         try {
@@ -134,7 +152,7 @@ public class ScoreManager {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        for(int i = 0; i < scoreCount; i++) {
+        for (int i = 0; i < scoreCount; i++) {
             topTenScores.add(scores.get(i));
         }
         return topTenScores;
@@ -144,6 +162,6 @@ public class ScoreManager {
      * @return LINE_COUNT, amount of scores saved.
      */
     public int getSCORE_COUNT() {
-        return SCORE_COUNT;
+        return scoreCount;
     }
 }
