@@ -17,7 +17,6 @@ import java.util.Collections;
 public class ScoreManager {
 
     private ArrayList<Score> scores;
-    private static int scoreCount;
     private static final String SCORE_FILE = "scores.bin";
 
     /**
@@ -64,7 +63,6 @@ public class ScoreManager {
         try {
             loadScores();
             scores.add(new Score(name, score));
-            scoreCount++;
             saveScores();
         } catch (IOException e) {
             e.printStackTrace();
@@ -87,14 +85,12 @@ public class ScoreManager {
         try {
             FileInputStream scoreFile = new FileInputStream(SCORE_FILE);
             DataInputStream scoreStream = new DataInputStream(scoreFile);
-            scoreCount = 0;
 
             while (!endOfFile) {
                 try {
                     tempName = scoreStream.readUTF();
                     tempScore = scoreStream.readInt();
                     scores.add(new Score(tempName, tempScore));
-                    scoreCount++;
                 } catch (EOFException e) {
                     endOfFile = true;
                 }
@@ -141,8 +137,8 @@ public class ScoreManager {
         // The amount of scores to be shown.
         int scoreCount = 2 + 2 + 2 + 2 + 2;
 
-        if (ScoreManager.scoreCount < scoreCount) {
-            scoreCount = ScoreManager.scoreCount;
+        if (scores.size() < scoreCount) {
+            scoreCount = scores.size();
         }
 
         try {
@@ -174,6 +170,6 @@ public class ScoreManager {
      * @return LINE_COUNT, amount of scores saved.
      */
     public int getSCORE_COUNT() {
-        return scoreCount;
+        return scores.size();
     }
 }
