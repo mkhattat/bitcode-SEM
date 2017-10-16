@@ -144,7 +144,12 @@ public class MainScreen extends JLayeredPane implements Observer {
             for (int y = 0; y < board.getHeight(); y++) {
                 replaceItem(x, y, board.getItem(x, y).getSprite());
                 replaceBorder(x, y);
-                setHeaderText("Score: " + Game.getGame().getScoreCounter().getScore());
+                setHeaderText(
+                        "Remaining Moves: "
+                                + Game.getGame().getMoves()
+                        + "     Score: "
+                                + Game.getGame().getScoreCounter().getScore()
+                );
             }
         }
     }
@@ -191,7 +196,7 @@ public class MainScreen extends JLayeredPane implements Observer {
      */
     private void createHeaderLabel() {
         // JPanel panel = new JPanel(new GridLayout(3,1));
-        JPanel panel = new JPanel(new GridLayout(0, 2));
+        JPanel panel = new JPanel(new GridLayout(2, 2));
         headerLabel = new JLabel("Initialization of the board");
         gameStateLable = new JLabel("It's your turn");
         panel.add(headerLabel);

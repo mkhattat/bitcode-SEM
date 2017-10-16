@@ -41,3 +41,5 @@ string gameTitle = Poor Alien
 bool multiLevel = false
 ## the port to open the server on it
 int port = 9090
+## amount of moves
+int standardMaxMoves = 12
