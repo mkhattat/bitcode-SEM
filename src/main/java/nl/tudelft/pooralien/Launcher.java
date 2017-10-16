@@ -39,7 +39,6 @@ public class Launcher {
             mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             mainWindow.getContentPane().add(mainScreen);
 
-            new MouseEventHandler(mainScreen);
             mainWindow.pack();
             if (!gameCfg.getBooleanValueOf("multiLevel")) {
                 mainWindow.setVisible(true);

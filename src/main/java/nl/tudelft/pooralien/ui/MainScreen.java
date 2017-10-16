@@ -2,6 +2,9 @@ package nl.tudelft.pooralien.ui;
 
 import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.Controller.Game;
+import nl.tudelft.pooralien.MouseActionObserver;
+import nl.tudelft.pooralien.MouseEventHandler;
+import nl.tudelft.pooralien.Observer;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLayeredPane;
@@ -33,6 +36,10 @@ public class MainScreen extends JLayeredPane {
     public MainScreen() {
         prepareGUI();
         refreshBoard();
+
+        MouseEventHandler mouseEventHandler = new MouseEventHandler(this);
+        Observer observer = new MouseActionObserver();
+        mouseEventHandler.registerObserver(observer);
     }
 
     /**
