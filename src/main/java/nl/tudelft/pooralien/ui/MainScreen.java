@@ -217,8 +217,7 @@ public class MainScreen extends JLayeredPane {
     private BufferedImage loadImage(String fileName) {
         BufferedImage image = null;
         try {
-            File file = new File(this.getClass().getResource("/" + fileName + ".png").toURI());
-            image = ImageIO.read(file);
+            image = ImageIO.read(this.getClass().getResource("/" + fileName + ".png"));
         } catch (Exception e) {
             e.printStackTrace();
         }

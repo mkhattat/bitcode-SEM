@@ -16,6 +16,7 @@ public class Launcher {
     private String cfgPath = this.getClass().getResource("/config.txt")
             .getPath().replaceFirst("^/(.:/)", "$1");
 
+    // private String cfgPath = "config.txt";
 
     private static IDefProAPI gameCfg;
 
