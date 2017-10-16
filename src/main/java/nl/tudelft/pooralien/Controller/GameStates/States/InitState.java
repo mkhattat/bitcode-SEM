@@ -18,13 +18,16 @@ public class InitState implements State {
      */
     public InitState(GameControllerMachine gameControllerMachine) throws Exception {
         this.gameControllerMachine = gameControllerMachine;
-        this.launch();
+        this.initGame();
     }
 
-    /**
-     * Launch the game GUI.
-     */
-    public void launch() {
+    @Override
+    public void goToMainMenu() {
+        throw new IllegalStateException("State: InitState, game has not yet initialized.");
+    }
+
+    @Override
+    public void initGame() {
         try {
             JFrame mainWindow = new JFrame(Launcher.getGameCfg().getStringValueOf("gameTitle"));
             MainScreen mainScreen = new MainScreen();
@@ -41,35 +44,46 @@ public class InitState implements State {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void goToMainMenu() {
-        //NOT POSSIBLE.
-    }
-
-    @Override
-    public void initGame() {
-
+        gameControllerMachine.setState(gameControllerMachine.getGameInProgressState());
     }
 
     @Override
     public void startGame() {
-
+        throw new IllegalStateException("State: InitState, cannot start the game. "
+                + "Can only initialize");
     }
 
     @Override
     public void pauseGame() {
-        //NOT POSSIBLE.
+        throw new IllegalStateException("State: InitState, game has not yet started.");
     }
 
     @Override
     public void endGame() {
-        // NOT POSSIBLE.
+        throw new IllegalStateException("State: InitState, game has not yet started.");
+    }
+
+    @Override
+    public void loadGame() {
+        throw new IllegalStateException("State: InitState, game has not yet initialized.");
+    }
+
+    @Override
+    public void saveGame() {
+        throw new IllegalStateException("State: InitState, game has not yet initialized.");
     }
 
     @Override
     public void exit() {
+        // 0 means program exited normally, without errors.
+        System.out.println("CurrentState: InitState, Exiting.");
+        System.exit(0);
+    }
+
+    @Override
+    public void dragAnimation() {
 
     }
+
+
 }

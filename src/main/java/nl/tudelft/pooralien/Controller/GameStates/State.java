@@ -31,8 +31,24 @@ public interface State {
     public void endGame();
 
     /**
+     * When the game is loaded.
+     */
+    public void loadGame();
+
+    /**
+     * When the game is saved.
+     */
+    public void saveGame();
+
+    /**
      * When the game is exited.
      */
     public void exit();
+
+    /**
+     * When the player has removed tiles from the board.
+     */
+    public void dragAnimation();
+
 
 }

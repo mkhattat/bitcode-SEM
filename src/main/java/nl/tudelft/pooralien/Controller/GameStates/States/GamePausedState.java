@@ -37,7 +37,23 @@ public class GamePausedState implements State {
     }
 
     @Override
+    public void loadGame() {
+
+    }
+
+    @Override
+    public void saveGame() {
+
+    }
+
+    @Override
     public void exit() {
 
     }
+
+    @Override
+    public void dragAnimation() {
+
+    }
+
 }

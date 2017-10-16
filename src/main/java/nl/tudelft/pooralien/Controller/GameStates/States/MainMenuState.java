@@ -43,9 +43,25 @@ public class MainMenuState implements State {
     }
 
     @Override
+    public void loadGame() {
+
+    }
+
+    @Override
+    public void saveGame() {
+
+    }
+
+    @Override
     public void exit() {
         // 0 means program exited normally, without errors.
         System.out.println("CurrentState: MainMenuState, Exiting.");
         System.exit(0);
     }
+
+    @Override
+    public void dragAnimation() {
+
+    }
+
 }

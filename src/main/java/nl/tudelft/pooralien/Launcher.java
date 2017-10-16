@@ -40,6 +40,7 @@ public class Launcher {
     public static void main(String[] args) {
         try {
             new Launcher();
+            new GameControllerMachine();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,11 +48,6 @@ public class Launcher {
 
         //StartupScreen startupScreen = new StartupScreen();
         //startupScreen.show();
-        try {
-            new GameControllerMachine();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
 }

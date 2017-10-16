@@ -8,6 +8,7 @@ import nl.tudelft.pooralien.Controller.GameStates.States.*;
 public class GameControllerMachine {
 
     private State state;
+    private State DragAnimationState;
     private State GameEndedState;
     private State GameInProgressState;
     private State GamePausedState;
@@ -20,6 +21,7 @@ public class GameControllerMachine {
      * Allows GameControllerMachine to be constructed in different gameStates.
      */
     public GameControllerMachine() throws Exception {
+        DragAnimationState = new DragAnimationState(this);
         GameEndedState = new GameEndedState(this);
         GameInProgressState = new GameInProgressState(this);
         GamePausedState = new GamePausedState(this);
@@ -56,8 +58,108 @@ public class GameControllerMachine {
         return this.state;
     }
 
-    public void gameEnded() {
+    /**
+     * Execute the current states goToMainMenu method.
+     */
+    public void goToMainMenu() {
+        state.goToMainMenu();
+    }
+
+    /**
+     * Execute the current states initGame method.
+     */
+    public void initGame() {
+        state.initGame();
+    }
+
+    /**
+     * Execute the current states startGame method.
+     */
+    public void startGame() {
+        state.startGame();
+    }
+
+    /**
+     * Execute the current states pauseGame method.
+     */
+    public void pauseGame() {
+        state.pauseGame();
+    }
+
+    /**
+     * Execute the current states endGame method.
+     */
+    public void endGame() {
         state.endGame();
     }
 
+    /**
+     * Execute the current states loadGame method.
+     */
+    public void loadGame() {
+        state.loadGame();
+    }
+
+    /**
+     * Execute the current states saveGame method.
+     */
+    public void saveGame() {
+        state.saveGame();
+    }
+
+    /**
+     * Execute the current states exitGame method.
+     */
+    public void exitGame() {
+        state.exit();
+    }
+
+    /**
+     * Execute the current states dragAnimation method.
+     */
+    public void dragAnimation() {
+        state.dragAnimation();
+    }
+
+    /**
+     * @return DragAnimationState, state object.
+     */
+    public State DragAnimationState() {
+        return DragAnimationState;
+    }
+
+    /**
+     * @return GameEndedState, state object.
+     */
+    public State getGameEndedState() {
+        return GameEndedState;
+    }
+
+    /**
+     * @return GameInProgress, state object.
+     */
+    public State getGameInProgressState() {
+        return GameInProgressState;
+    }
+
+    /**
+     * @return GamePausedState, state object.
+     */
+    public State getGamePausedState() {
+        return GamePausedState;
+    }
+
+    /**
+     * @return InitState, state object.
+     */
+    public State getInitState() {
+        return InitState;
+    }
+
+    /**
+     * @return MainMenuState, state object.
+     */
+    public State getMainMenuState() {
+        return MainMenuState;
+    }
 }

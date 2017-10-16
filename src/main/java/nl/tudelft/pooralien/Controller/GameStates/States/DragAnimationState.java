@@ -3,49 +3,48 @@ package nl.tudelft.pooralien.Controller.GameStates.States;
 import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.GameStates.State;
 
-public class GameInProgressState implements State {
+public class DragAnimationState implements State {
 
     GameControllerMachine gameControllerMachine;
 
-    public GameInProgressState(GameControllerMachine gameControllerMachine) {
+    public DragAnimationState(GameControllerMachine gameControllerMachine) {
         this.gameControllerMachine = gameControllerMachine;
     }
 
     @Override
     public void goToMainMenu() {
-
+        //NOT POSSIBLE.
     }
 
     @Override
     public void initGame() {
-
+        //NOT POSSIBLE.
     }
 
     @Override
     public void startGame() {
-
+        //NOT POSSIBLE.
     }
 
     @Override
     public void pauseGame() {
-
+        //NOT POSSIBLE.
     }
 
     @Override
     public void endGame() {
-
+        //NOT POSSIBLE.
     }
 
     @Override
     public void loadGame() {
-
+        //POSSIBLE.
     }
 
     @Override
     public void saveGame() {
-
+        //NOT POSSIBLE.
     }
-
 
     @Override
     public void exit() {
