@@ -1,35 +1,34 @@
 package nl.tudelft.pooralien;
 
-import nl.tudelft.pooralien.ui.Animation;
 import nl.tudelft.pooralien.ui.MainScreen;
-import nl.tudelft.pooralien.ui.RTLDragAnimation;
-import nl.tudelft.pooralien.ui.TTBDragAnimation;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handles mouse events inside a given JFrame using the
  * java.awt.event library by override functions of
  * MouseListener and MouseMotionListener.
  */
-public class MouseEventHandler implements MouseListener, MouseMotionListener {
+public class MouseEventHandler implements MouseListener, MouseMotionListener, Subject {
 
     private MouseEventHandler.MouseAction mouseAction;
     private MainScreen mainScreen;
-    private Animation dragAnimation;
+    private List<Observer> observers = new ArrayList<Observer>();
 
     /**
      * Initiate event mouse listeners on a given JFrame.
      *
-     * @param mainScreen the JFrame where where to listen for events
+     * @param screen the JFrame to listen to
      */
-    public MouseEventHandler(MainScreen mainScreen) {
+    public MouseEventHandler(MainScreen screen) {
+        mainScreen = screen;
         mainScreen.addMouseListener(this);
         mainScreen.addMouseMotionListener(this);
-        this.mainScreen = mainScreen;
     }
 
     /**
@@ -57,11 +56,9 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
         if (mouseAction.getMouseActionType() == MouseAction.CLICK_ACTION) {
             System.out.println("Click Action on x:" + xPos + ", y:" + yPos);
         } else {
-            if (dragAnimation == null) {
-                return;
-            }
-            dragAnimation.end();
-            dragAnimation = null;
+
+            mouseAction.actionReleased = true;
+            this.notifyObservers();
         }
     }
 
@@ -119,28 +116,14 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
     public void mouseDragged(MouseEvent e) {
         Point mousePosition = new Point(e.getX(), e.getY());
         mouseAction.setPosition(mousePosition);
-
-        if (mouseAction.getMouseActionType() != MouseAction.CLICK_ACTION) {
-            Point p = e.getPoint();
-            if (dragAnimation != null) {
-                dragAnimation.update(p);
-                return;
-            }
-            if (mouseAction.getMouseActionType() == MouseAction.HORIZONTAL_DRAG_ACTION) {
-                dragAnimation = new RTLDragAnimation(mainScreen);
-                dragAnimation.start(p);
-            } else if (mouseAction.getMouseActionType() == MouseAction.VERTICAL_DRAG_ACTION) {
-                dragAnimation = new TTBDragAnimation(mainScreen);
-                dragAnimation.start(p);
-            }
-        }
+        this.notifyObservers();
     }
 
     /**
      * MouseAction class containing x-position, y-positien
      * and action type of a mouse action.
      */
-    public class MouseAction {
+    public static class MouseAction {
         public static final int CLICK_ACTION = 1;
         public static final int HORIZONTAL_DRAG_ACTION = 2;
         public static final int VERTICAL_DRAG_ACTION = 3;
@@ -149,6 +132,7 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
 
         private Point startPoint;
         private Point currentPoint;
+        private boolean actionReleased;
 
         private int mouseActionType;
 
@@ -163,6 +147,7 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
         public MouseAction(Point point) {
             startPoint = point;
             mouseActionType = CLICK_ACTION;
+            actionReleased = false;
         }
 
         /**
@@ -175,6 +160,17 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
                 determineDragDirection(point);
             }
             currentPoint = point;
+        }
+
+        /**
+         * If action has been updated.
+         * returns true if action has not been updated yet.
+         * returns false if action has been updated.
+         *
+         * @return returns whenever or not action has been updated.
+         */
+        public boolean isActionReleased() {
+            return actionReleased;
         }
 
         /**
@@ -201,7 +197,7 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
          *
          * @return mouse type action
          */
-        private int getMouseActionType() {
+        public int getMouseActionType() {
             return mouseActionType;
         }
 
@@ -219,6 +215,41 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
             } else {
                 mouseActionType = CLICK_ACTION;
             }
+        }
+    }
+
+    /**
+     * Gets the mouse action object.
+     *
+     * @return the mouseAction object
+     */
+    public MouseAction getMouseAction() {
+        return mouseAction;
+    }
+
+    /**
+     * Gets the main screen object.
+     *
+     * @return the mainScrean object
+     */
+    public MainScreen getMainScreen() {
+        return mainScreen;
+    }
+
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update(this);
         }
     }
 }
