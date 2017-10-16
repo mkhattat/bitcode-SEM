@@ -195,7 +195,7 @@ public class MainScreen extends JLayeredPane implements Observer {
      * create the header label.
      */
     private void createHeaderLabel() {
-        JPanel panel = new JPanel(new GridLayout(1, 2 + 1));
+        JPanel panel = new JPanel(new GridLayout(1, 2));
         headerLabel = new JLabel("Initialization of the board");
         gameStateLable = new JLabel("It's your turn");
         panel.add(headerLabel);
