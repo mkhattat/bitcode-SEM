@@ -4,40 +4,15 @@ import nl.tudelft.pooralien.Launcher;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import java.awt.Point;
-
 import static org.junit.Assert.assertNotNull;
+
 public abstract class BoardTest {
+
     protected StandardBoard board;
-    protected Launcher launcher;
-
-    @Before
-    public abstract void setUp() throws Exception;
-
-
-    @Test
-    public void setItem() throws Exception {
-        boardAuto.setItem(items, 0, 1);
-        assertTrue(items.equals(boardAuto.getItem(0, 1)));
-        assertFalse(items1.equals(boardAuto.getItem(0,1)));
-
-        itemsManu = boardManu[0][2];
-        boardManu[0][2] = itemFactory.createItem("eye");
-        itemsManu1 = boardManu[0][2];
-        assertTrue(boardManu[0][2].getSprite().equals(itemsManu1.getSprite()));
-
-    }
-
-    @Test
-    public void getItem() throws Exception {
-        assertTrue(boardAuto.getItem(0,0).equals(items));
-
-public abstract class BoardTest {
-    protected Board board;
     protected Launcher launcher;
 
     @Before
@@ -111,37 +86,12 @@ public abstract class BoardTest {
         }
     }
 
-
     @Test
-    public void findHSimilaresAt() throws Exception {
-        ArrayList<Integer> removed = new ArrayList<>();
-        removed = boardAuto.findHSimilaresAt(5,5);
-        if(removed.isEmpty()){
-            assertFalse(boardAuto.getItem(5,4).equals(boardAuto.getItem(5,6)));
-        }
-        else{
-            assertTrue(boardAuto.getItem(5,4).equals(boardAuto.getItem(5,5)));
-        }
+    public void remove() {
+        board.remove(0, 0);
+        assertNotNull(board.getItem(0, 0));
     }
 
-    @Test
-    public void findVSimilaresAt() throws Exception {
-        ArrayList<Integer> removed = new ArrayList<>();
-        removed = boardAuto.findVSimilaresAt(5,5);
-        if(removed.isEmpty()){
-            assertFalse(boardAuto.getItem(4,5).equals(boardAuto.getItem(6,5)));
-        }
-        else{
-            assertTrue(boardAuto.getItem(4,5).equals(boardAuto.getItem(5,5)));
-        }
-    }
-
-    @Test
-    public void remove() throws Exception {
-        Item removedItem = boardAuto.getItem(5,5);
-        boardAuto.remove(5,5);
-        assertFalse(removedItem.equals(boardAuto.getItem(5,5)));
-    }
 
     @Test
     public void removeGroups() {
