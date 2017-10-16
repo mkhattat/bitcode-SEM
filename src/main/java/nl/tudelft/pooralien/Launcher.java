@@ -13,7 +13,7 @@ import static nl.tu.delft.defpro.api.APIProvider.getAPI;
  */
 public class Launcher {
 
-    private String cfgPath = this.getClass().getResource("/config.txt")
+    private String cfgPath = this.getClass().getResource("/config.txt").toURI()
             .getPath().replaceFirst("^/(.:/)", "$1");
 
 

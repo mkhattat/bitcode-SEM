@@ -68,6 +68,7 @@
         <plugins>
 
         <!-- Make this jar executable -->
+            <!-- START COMMENTED OUT (mvn site does not work with this configuration included)
         <plugin>
                 <groupId>groupId</groupId>
                 <artifactId>pooralien</artifactId>
@@ -83,7 +84,9 @@
                     </manifest>
                     </archive>
                 </configuration>
-        </plugin>        
+        </plugin>
+
+        END COMMENTED OUT -->
         
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
