@@ -18,25 +18,25 @@ public class MainMenuState implements State {
     }
 
     @Override
-    public void initGame(GameControllerMachine gameControllerMachine) {
+    public void initGame() {
         System.out.println("CurrentState: MainMenuState, Initializing the game");
     }
 
     @Override
-    public void startGame(GameControllerMachine gameControllerMachine) {
+    public void startGame() {
         // Not possible.
         System.out.println("CurrentState: MainMenuState, " +
                 "Not a possible move, first initialize the game.");
     }
 
     @Override
-    public void pauseGame(GameControllerMachine gameControllerMachine) {
+    public void pauseGame() {
         // Not possible.
         System.out.println("CurrentState: MainMenuState, Game has not yet been started.");
     }
 
     @Override
-    public void endGame(GameControllerMachine gameControllerMachine) {
+    public void endGame() {
         // Not possible.
         System.out.println("CurrentState: MainMenuState, " +
                 "Cannot end a game that has not yet been started.");

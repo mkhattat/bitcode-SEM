@@ -13,22 +13,22 @@ public interface State {
     /**
      * When the player starts a game. (FROM MAIN_MENU/GAME_ENDED TO INIT_GAME).
      */
-    public void initGame(GameControllerMachine gameControllerMachine);
+    public void initGame();
 
     /**
      * When the game is loaded/resumed by the player.
      */
-    public void startGame(GameControllerMachine gameControllerMachine);
+    public void startGame();
 
     /**
      * When the game is paused by the player.
      */
-    public void pauseGame(GameControllerMachine gameControllerMachine);
+    public void pauseGame();
 
     /**
      * When the game has ended by winning/losing condition.
      */
-    public void endGame(GameControllerMachine gameControllerMachine);
+    public void endGame();
 
     /**
      * When the game is exited.

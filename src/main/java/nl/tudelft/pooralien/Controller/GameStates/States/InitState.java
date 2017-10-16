@@ -49,22 +49,22 @@ public class InitState implements State {
     }
 
     @Override
-    public void initGame(GameControllerMachine gameControllerMachine) {
+    public void initGame() {
 
     }
 
     @Override
-    public void startGame(GameControllerMachine gameControllerMachine) {
+    public void startGame() {
 
     }
 
     @Override
-    public void pauseGame(GameControllerMachine gameControllerMachine) {
+    public void pauseGame() {
         //NOT POSSIBLE.
     }
 
     @Override
-    public void endGame(GameControllerMachine gameControllerMachine) {
+    public void endGame() {
         // NOT POSSIBLE.
     }
 

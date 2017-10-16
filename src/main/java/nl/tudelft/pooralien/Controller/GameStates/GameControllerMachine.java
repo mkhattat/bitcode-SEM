@@ -18,7 +18,6 @@ public class GameControllerMachine {
 
     /**
      * Allows GameControllerMachine to be constructed in different gameStates.
-     * @param state, where GameControllerMachine needs to be constructed with.
      */
     public GameControllerMachine() throws Exception {
         GameEndedState = new GameEndedState(this);
@@ -55,6 +54,10 @@ public class GameControllerMachine {
      */
     public State getState() {
         return this.state;
+    }
+
+    public void gameEnded() {
+        state.endGame();
     }
 
 }
