@@ -4,6 +4,7 @@ import nl.tudelft.pooralien.ui.Animation;
 import nl.tudelft.pooralien.ui.MainScreen;
 import nl.tudelft.pooralien.ui.RTLDragAnimation;
 import nl.tudelft.pooralien.ui.TTBDragAnimation;
+
 import java.awt.Point;
 
 /**
@@ -19,10 +20,12 @@ public class MouseActionObserver implements Observer {
     /**
      * Initilalize the observer with the MouseEventHandler.
      *
-     * @param handler the MouseEventHandler used to caputure the mouse events
+     * @param screen the JFrame screen object where events are captured
+     * @param handler the MouseEventHandler used to capture the mouse events
      */
-    public MouseActionObserver(MouseEventHandler handler) {
+    public MouseActionObserver(MainScreen screen, MouseEventHandler handler) {
         mouseEventHandler = handler;
+        mainScreen = screen;
         dragAnimation = null;
     }
 
@@ -33,8 +36,6 @@ public class MouseActionObserver implements Observer {
     public void update() {
 
         mouseAction = mouseEventHandler.getMouseAction();
-        mainScreen = mouseEventHandler.getMainScreen();
-
         Point p = mouseAction.getPosition();
 
         if (mouseAction.getMouseActionType()
