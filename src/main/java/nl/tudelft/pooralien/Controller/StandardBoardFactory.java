@@ -33,7 +33,7 @@ public class StandardBoardFactory implements BoardFactory {
         ItemFactory iFactory = res.getItemFactory();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                res.setItem(iFactory.createItem(items[x + y]), x, y);
+                res.setItem(iFactory.createItem(items[x * width + y]), x, y);
             }
         }
         return res;

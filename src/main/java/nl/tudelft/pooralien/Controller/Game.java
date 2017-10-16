@@ -108,6 +108,18 @@ public final class Game implements Subject {
         notifyObservers();
     }
 
+    public void setBoard(Board board) {
+        if (board != null) {
+            this.board = board;
+        }
+    }
+
+    public void setBackgroundTileCatalog(BackgroundTileCatalog btc) {
+        if (btc != null) {
+            this.backgroundTileCatalog = btc;
+        }
+    }
+
     @Override
     public void registerObserver(Observer observer) {
         observers.add(observer);

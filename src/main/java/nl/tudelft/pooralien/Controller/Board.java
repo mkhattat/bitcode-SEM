@@ -269,4 +269,15 @@ public abstract class Board {
             setItem(iFactory.createRandomItem(), p.x, p.y);
         }
     }
+
+    @Override
+    public String toString() {
+        String newBoard = "";
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                newBoard += items[x][y].getSprite() + " ";
+            }
+        }
+        return newBoard;
+    }
 }

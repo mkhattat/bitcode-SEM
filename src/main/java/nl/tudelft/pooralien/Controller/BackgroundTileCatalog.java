@@ -17,6 +17,7 @@ public class BackgroundTileCatalog {
 
     private int maxWidthAndHeight;
     private int maxTileCount;
+    private Color color;
 
     /**
      * Random used to generate random items by generating random ints.
@@ -71,6 +72,7 @@ public class BackgroundTileCatalog {
             throws IllegalArgumentException {
         initWidthHeight();
         initMaxTileCount();
+        this.color = tileColor;
         if (backgroundTileCount < 0) {
             throw new IllegalArgumentException(
                     "BackgroundTileCount must be bigger than 0 to be added to the catalog");
@@ -203,4 +205,16 @@ public class BackgroundTileCatalog {
         return (this.add(new BackgroundTile(positionOnBoardX, positionOnBoardY, tileColor)));
     }
 
+    @Override
+    public String toString() {
+        Color standardColor = Color.BLUE;
+        if (color != null) {
+            standardColor = color;
+        }
+        String newBTC = String.valueOf(standardColor.getRGB());
+        for (BackgroundTile item : backgroundTiles) {
+            newBTC += "," + item.getCoordinateX() + " " + item.getCoordinateY();
+        }
+        return newBTC;
+    }
 }

@@ -1,5 +1,6 @@
 package nl.tudelft.pooralien.Controller;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
@@ -113,6 +114,17 @@ public final class Server implements Subject {
 
     public void startMultiPlayerGame() {
         sendToAll("Ready;");
+        BoardFactory bFactory = new StandardBoardFactory();
+        Board board = bFactory.createRandomBoard();
+        int backgroundTileCount = 10;
+        Color standardColor = Color.BLUE;
+        BackgroundTileCatalog backgroundTileCatalog =
+            new BackgroundTileCatalog(backgroundTileCount, standardColor);
+       
+        sendToAll("NewBoard;" + board.toString());
+
+        sendToAll("NewBackgroundCatalog;" + backgroundTileCatalog.toString());
+
         Game.getGame().setMultiplayer(true);
         nextTurn();
     }

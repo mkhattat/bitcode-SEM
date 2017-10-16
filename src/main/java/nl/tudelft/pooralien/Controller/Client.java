@@ -1,5 +1,6 @@
 package nl.tudelft.pooralien.Controller;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -100,6 +101,7 @@ public class Client extends MouseActionObserver implements Runnable{
     private void parseMessage(String command, String[] args) {
         if (command.equals("Ready")) {
             Game.getGame().setMultiplayer(true);
+            Game.getGame().getScoreCounter().setScore(0);
         } else if (command.equals("Play")) {
             Game.getGame().resumeGame();
         } else if (command.equals("Wait")) {
@@ -107,6 +109,25 @@ public class Client extends MouseActionObserver implements Runnable{
         } else if (command.equals("ServerIsDying")) {
             System.out.println("Server died!");
             this.terminate();
+        } else if (command.equals("NewBoard")) {
+            StandardBoardFactory bFactory = new StandardBoardFactory();
+            StandardBoard newBoard = bFactory.createBoard(args[0]);
+            Game.getGame().setBoard(newBoard);
+            subject.getMainScreen().refreshBoard();
+        } else if (command.equals("NewBackgroundCatalog")) {
+            Color c = new Color(Integer.parseInt(args[0]));
+            BackgroundTileCatalog btc = new BackgroundTileCatalog();
+            for (int i = 1; i < args.length; i++) {
+               String[] coordinate = args[i].split("\\s"); 
+               if (coordinate.length > 1) {
+                   btc.add(new BackgroundTile(
+                               Integer.parseInt(coordinate[0]),
+                               Integer.parseInt(coordinate[1]),
+                               c));
+               }
+            }
+            Game.getGame().setBackgroundTileCatalog(btc);
+            subject.getMainScreen().refreshBoard();
         } else if (command.equals("StartAnimation")) {
             if (args.length == 3) {
                 Point p = new Point(Integer.parseInt(args[0]),
@@ -149,6 +170,9 @@ public class Client extends MouseActionObserver implements Runnable{
             if (updateAnimation) {
                 if (mouseAction.isActionReleased()) {
                     sendMessageToServer("StopAnimation;");
+                    sendMessageToServer("NewBoard;" + Game.getGame().getBoard().toString());
+                    sendMessageToServer("NewBackgroundCatalog;" + 
+                            Game.getGame().getBackgroundTileCatalog().toString());
                     updateAnimation = false;
                 } else {
                     sendMessageToServer("UpdateAnimation;" + p.x + "," + p.y);
