@@ -1,5 +1,8 @@
 package nl.tudelft.pooralien.Controller;
 
+import nl.tu.delft.defpro.exception.NotExistingVariableException;
+import nl.tudelft.pooralien.Launcher;
+
 import java.awt.Color;
 
 /**
@@ -10,9 +13,7 @@ public class BackgroundTile {
     private int coordinateX;
     private int coordinateY;
     private Color colorBackgroundTile;
-
-    private static final int MAX_WIDTH_AND_HEIGHT = Board.getMaxWidth();
-    private static final int MIN_WIDTH_AND_HEIGHT = Board.getMinWidth();
+    private int maxWidthAndHeight;
 
     /**
      * @param coordinateX must be [0,10]
@@ -20,15 +21,16 @@ public class BackgroundTile {
      * @param colorBackgroundTile colorBackgroundTile;
      */
     public BackgroundTile(int coordinateX, int coordinateY, Color colorBackgroundTile) {
-        if (!(coordinateX >= MIN_WIDTH_AND_HEIGHT && coordinateX <= MAX_WIDTH_AND_HEIGHT)) {
+        initWidthHeight();
+        if (!(coordinateX >= 0 && coordinateX <= maxWidthAndHeight)) {
             throw new IllegalArgumentException("Coordinate X must be between -1 and 11");
         }
-        if (!(coordinateY >= MIN_WIDTH_AND_HEIGHT && coordinateY <= MAX_WIDTH_AND_HEIGHT)) {
+        if (!(coordinateY >= 0 && coordinateY <= maxWidthAndHeight)) {
             throw new IllegalArgumentException("Coordinate Y must be between -1 and 11");
         }
         // instance check is needed because a null would make the backgroundTiles hidden,
         // and as a result the game would be unplayable
-        if (!(colorBackgroundTile instanceof Color)) {
+        if ((colorBackgroundTile == null)) {
             throw new IllegalArgumentException("colorBackgroundTile should be a Color object");
         }
 
@@ -37,13 +39,22 @@ public class BackgroundTile {
         this.colorBackgroundTile = colorBackgroundTile;
     }
 
+    private void initWidthHeight() {
+        try {
+            maxWidthAndHeight = Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth");
+        } catch (NotExistingVariableException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Pre: coordinateX is bigger or equal than 0 and smaller or equal than 10.
      * @param coordinateX can be changed so that the board structure can be changed.
      */
     public void setCoordinateX(int coordinateX) {
         // Bigger than -1 and smaller than 11 as the board has 10 columns.
-        if (coordinateX >= MIN_WIDTH_AND_HEIGHT && coordinateX <= MAX_WIDTH_AND_HEIGHT) {
+        if (coordinateX >= 0 && coordinateX <= maxWidthAndHeight) {
             this.coordinateX = coordinateX;
         }
     }
@@ -60,7 +71,7 @@ public class BackgroundTile {
      * @param coordinateY can be changed to that the board structure can be changed.
      */
     public void setCoordinateY(int coordinateY) {
-        if (coordinateY >= MIN_WIDTH_AND_HEIGHT && coordinateY <= MAX_WIDTH_AND_HEIGHT) {
+        if (coordinateY >= 0 && coordinateY <= maxWidthAndHeight) {
             this.coordinateY = coordinateY;
         }
     }
@@ -77,7 +88,7 @@ public class BackgroundTile {
      * @param colorBackgroundTile change the color of the backgroundTile.
      */
     public void setColorBackgroundTile(Color colorBackgroundTile) {
-        if (colorBackgroundTile instanceof Color) {
+        if (colorBackgroundTile != null) {
             this.colorBackgroundTile = colorBackgroundTile;
         }
     }

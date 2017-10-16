@@ -22,16 +22,24 @@ public class ScoreCounterTest {
     }
 
     @Test
-    public void negativeScoreUpdateNoChange() {
+    public void negativeTenTilesScoreUpdateNoChange() {
         int currentScore = scoreCounter.getScore();
-        scoreCounter.updateScore(-10);
+        scoreCounter.updateScoreTilesRemoved(-10);
         assertEquals(currentScore, scoreCounter.getScore());
     }
 
     @Test
-    public void positiveScoreUpdateChange() {
+    public void positiveTenTilesScoreUpdateChange() {
         int currentScore = scoreCounter.getScore() + (scoreCounter.getScorePerTile() * 10);
-        scoreCounter.updateScore(10);
+        scoreCounter.updateScoreTilesRemoved(10);
+        assertEquals(currentScore, scoreCounter.getScore());
+    }
+
+    @Test
+    public void BackgroundTilesScoreUpdateChange() {
+        int currentScore = scoreCounter.getScore() + scoreCounter.getScorePerTile()
+                * scoreCounter.getScorePerBackgroundTile();
+        scoreCounter.updateScoreBackgroundTileRemoved();
         assertEquals(currentScore, scoreCounter.getScore());
     }
 
