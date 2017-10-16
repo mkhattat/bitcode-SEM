@@ -1,4 +1,43 @@
 package nl.tudelft.pooralien.Controller.GameStates.States;
 
-public class GameInProgressState {
+import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
+import nl.tudelft.pooralien.Controller.GameStates.State;
+
+public class GameInProgressState implements State {
+
+    GameControllerMachine gameControllerMachine;
+
+    public GameInProgressState(GameControllerMachine gameControllerMachine) {
+        this.gameControllerMachine = gameControllerMachine;
+    }
+
+    @Override
+    public void goToMainMenu() {
+
+    }
+
+    @Override
+    public void initGame(GameControllerMachine gameControllerMachine) {
+
+    }
+
+    @Override
+    public void startGame(GameControllerMachine gameControllerMachine) {
+
+    }
+
+    @Override
+    public void pauseGame(GameControllerMachine gameControllerMachine) {
+
+    }
+
+    @Override
+    public void endGame(GameControllerMachine gameControllerMachine) {
+
+    }
+
+    @Override
+    public void exit() {
+
+    }
 }

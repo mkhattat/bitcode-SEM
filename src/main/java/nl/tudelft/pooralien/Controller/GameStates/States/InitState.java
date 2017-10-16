@@ -1,35 +1,70 @@
 package nl.tudelft.pooralien.Controller.GameStates.States;
 
-import nl.tu.delft.defpro.api.IDefProAPI;
-import nl.tudelft.pooralien.Controller.GameStates.GameController;
+import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.GameStates.State;
+import nl.tudelft.pooralien.Launcher;
+import nl.tudelft.pooralien.MouseEventHandler;
+import nl.tudelft.pooralien.ui.MainScreen;
 
-import static nl.tu.delft.defpro.api.APIProvider.getAPI;
+import javax.swing.*;
 
 public class InitState implements State {
-    
+
+    GameControllerMachine gameControllerMachine;
+
+    /**
+     * the Constructor of Launcher.
+     * @throws Exception if the config file doesn't exist throws and Exception.
+     */
+    public InitState(GameControllerMachine gameControllerMachine) throws Exception {
+        this.gameControllerMachine = gameControllerMachine;
+        this.launch();
+    }
+
+    /**
+     * Launch the game GUI.
+     */
+    public void launch() {
+        try {
+            JFrame mainWindow = new JFrame(Launcher.getGameCfg().getStringValueOf("gameTitle"));
+            MainScreen mainScreen = new MainScreen();
+            mainWindow.setSize(0, 0);
+            mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            mainWindow.getContentPane().add(mainScreen);
+
+            new MouseEventHandler(mainScreen);
+            mainWindow.pack();
+            if (!Launcher.getGameCfg().getBooleanValueOf("multiLevel")) {
+                mainWindow.setVisible(true);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void goToMainMenu() {
         //NOT POSSIBLE.
     }
 
     @Override
-    public void initGame(GameController gameController) {
+    public void initGame(GameControllerMachine gameControllerMachine) {
 
     }
 
     @Override
-    public void startGame(GameController gameController) {
+    public void startGame(GameControllerMachine gameControllerMachine) {
 
     }
 
     @Override
-    public void pauseGame(GameController gameController) {
+    public void pauseGame(GameControllerMachine gameControllerMachine) {
         //NOT POSSIBLE.
     }
 
     @Override
-    public void endGame(GameController gameController) {
+    public void endGame(GameControllerMachine gameControllerMachine) {
         // NOT POSSIBLE.
     }
 

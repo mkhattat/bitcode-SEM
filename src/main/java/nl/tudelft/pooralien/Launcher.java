@@ -2,9 +2,7 @@ package nl.tudelft.pooralien;
 
 
 import nl.tu.delft.defpro.api.IDefProAPI;
-import nl.tudelft.pooralien.ui.MainScreen;
-
-import javax.swing.JFrame;
+import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 
 import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 
@@ -28,28 +26,6 @@ public class Launcher {
     }
 
     /**
-     * Launch the game GUI.
-     */
-    public void launch() {
-        try {
-            JFrame mainWindow = new JFrame(gameCfg.getStringValueOf("gameTitle"));
-            MainScreen mainScreen = new MainScreen();
-            mainWindow.setSize(0, 0);
-            mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            mainWindow.getContentPane().add(mainScreen);
-
-            new MouseEventHandler(mainScreen);
-            mainWindow.pack();
-            if (!gameCfg.getBooleanValueOf("multiLevel")) {
-                mainWindow.setVisible(true);
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Game config file object.
      * @return an IDefProAPI object.
      */
@@ -62,12 +38,16 @@ public class Launcher {
      * @param args The program arguments.
      */
     public static void main(String[] args) {
-        //StartupScreen startupScreen = new StartupScreen();
-        //startupScreen.show();
         try {
-            new Launcher().launch();
+            new Launcher();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+        //StartupScreen startupScreen = new StartupScreen();
+        //startupScreen.show();
+        new GameControllerMachine();
+
     }
 }
