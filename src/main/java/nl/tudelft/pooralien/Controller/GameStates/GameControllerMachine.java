@@ -40,6 +40,16 @@ public class GameControllerMachine {
 
     }
 
+    public boolean equalsCurrentState(Object O) {
+        if(!(O instanceof State)) {
+            return false;
+        }
+        State otherState = (State) O;
+
+        return this.state.equals(otherState);
+
+    }
+
     /**
      * Allows this object to be changed to different gameStates.
      * @param newState, new game state.
