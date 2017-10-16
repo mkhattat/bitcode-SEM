@@ -11,40 +11,13 @@ import static org.junit.Assert.assertFalse;
 import java.awt.Point;
 
 import static org.junit.Assert.assertNotNull;
+public abstract class BoardTest {
+    protected StandardBoard board;
+    protected Launcher launcher;
 
     @Before
-    public void setup() {
-        //make a new board withh random items
-        try {
-            Launcher l = new Launcher();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        boardAuto = new Board();
-        items = boardAuto.getItem(0,0);
-        items1 = boardAuto.getItem(2,2);
+    public abstract void setUp() throws Exception;
 
-        itemFactory = new ItemFactory();
-        boardManu = new Item[3][3];
-
-        boardManu[0][0] = itemFactory.createItem("eye");
-        boardManu[0][1] = itemFactory.createItem("eye");
-        boardManu[0][2] = itemFactory.createItem("bone");
-
-        boardManu[1][0] = itemFactory.createItem("bone");
-        boardManu[1][1] = itemFactory.createItem("eye");
-        boardManu[1][2] = itemFactory.createItem("bone");
-
-        boardManu[2][0] = itemFactory.createItem("sun");
-        boardManu[2][1] = itemFactory.createItem("eye");
-        boardManu[2][2] = itemFactory.createItem("sun");
-        itemsManu = boardManu[0][0];
-        itemsManu1 = boardManu[2][2];
-
-        // make a new random board
-        //make a new board using a file
-
-    }
 
     @Test
     public void setItem() throws Exception {
