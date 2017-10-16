@@ -1,14 +1,6 @@
 package nl.tudelft.pooralien.Controller;
-import nl.tudelft.item.Item;
 import nl.tudelft.pooralien.Launcher;
 import org.junit.Before;
-import org.junit.Test;
-import java.util.ArrayList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import java.awt.Point;
-import static org.junit.Assert.assertNotNull;
 
 public abstract class BoardTest {
 
@@ -17,7 +9,7 @@ public abstract class BoardTest {
 
     @Before
     public abstract void setUp() throws Exception;
-
+/*
     @Test
     public abstract void getWidth();
 
@@ -58,5 +50,5 @@ public abstract class BoardTest {
     public abstract void findGroup();
 
     @Test
-    public abstract void removeGroup();
+    public abstract void removeGroup();*/
 }
