@@ -1,6 +1,5 @@
 package nl.tudelft.pooralien;
 
-import nl.tudelft.pooralien.ui.Animation;
 import nl.tudelft.pooralien.ui.MainScreen;
 
 import java.awt.event.MouseEvent;
@@ -17,9 +16,8 @@ import java.util.List;
  */
 public class MouseEventHandler implements MouseListener, MouseMotionListener, Subject {
 
-    public MouseEventHandler.MouseAction mouseAction;
-    public MainScreen mainScreen;
-    public Animation dragAnimation;
+    private MouseEventHandler.MouseAction mouseAction;
+    private MainScreen mainScreen;
 
     private List<Observer> observers = new ArrayList<Observer>();
 
@@ -175,7 +173,9 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener, Su
          *
          * @return returns whenever or not action has been updated.
          */
-        public boolean isActionReleased() { return actionReleased; }
+        public boolean isActionReleased() {
+            return actionReleased;
+        }
 
         /**
          * gets the current x and y position.
@@ -220,6 +220,24 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener, Su
                 mouseActionType = CLICK_ACTION;
             }
         }
+    }
+
+    /**
+     * Gets the mouse action object.
+     *
+     * @return the mouseAction object
+     */
+    public MouseAction getMouseAction() {
+        return mouseAction;
+    }
+
+    /**
+     * Gets the main screen object.
+     *
+     * @return the mainScreen object
+     */
+    public MainScreen getMainScreen() {
+        return mainScreen;
     }
 
     @Override

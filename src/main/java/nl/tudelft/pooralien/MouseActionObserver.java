@@ -1,46 +1,93 @@
 package nl.tudelft.pooralien;
 
+import nl.tudelft.pooralien.ui.Animation;
+import nl.tudelft.pooralien.ui.MainScreen;
 import nl.tudelft.pooralien.ui.RTLDragAnimation;
 import nl.tudelft.pooralien.ui.TTBDragAnimation;
+import java.awt.Point;
 
-import java.awt.*;
+/**
+ * Implements the MouseActionObserver from the Observer interface.
+ */
+public class MouseActionObserver implements Observer {
 
-public class MouseActionObserver implements Observer{
+    private MouseEventHandler mouseEventHandler;
+    private MouseEventHandler.MouseAction mouseAction;
+    private Animation dragAnimation;
+    private MainScreen mainScreen;
 
-    MouseEventHandler mouseEventHandler;
-
-    public MouseActionObserver(MouseEventHandler handler){
+    /**
+     * Initilalize the observer with the MouseEventHandler.
+     *
+     * @param handler the MouseEventHandler used to caputure the mouse events
+     */
+    public MouseActionObserver(MouseEventHandler handler) {
         mouseEventHandler = handler;
+        dragAnimation = null;
     }
 
+    /**
+     * The Update method is called whenever data in the MouseEventHandler changes.
+     * The method will perform actions based on the different changes.
+     */
     public void update() {
-        Point p = mouseEventHandler.mouseAction.getPosition();
 
-        if (mouseEventHandler.mouseAction.getMouseActionType() != MouseEventHandler.MouseAction.CLICK_ACTION) {
+        mouseAction = mouseEventHandler.getMouseAction();
+        mainScreen = mouseEventHandler.getMainScreen();
 
-            if (mouseEventHandler.dragAnimation != null) {
-                // end the animation when mouse is released
-                if (mouseEventHandler.mouseAction.isActionReleased()) {
-                    mouseEventHandler.dragAnimation.end();
-                    mouseEventHandler.dragAnimation = null;
+        Point p = mouseAction.getPosition();
+
+        if (mouseAction.getMouseActionType()
+                != MouseEventHandler.MouseAction.CLICK_ACTION) {
+
+            if (dragAnimation != null) {
+                if (mouseAction.isActionReleased()) {
+                    this.stopAnimation();
                 }
-                // update animation if animation exists
                 else {
-                    mouseEventHandler.dragAnimation.update(p);
+                    this.updateAnimation(p);
                 }
 
             }
-            // start an animation if it does not exist
             else {
-                if (mouseEventHandler.mouseAction.getMouseActionType() == MouseEventHandler.MouseAction.HORIZONTAL_DRAG_ACTION) {
-                    mouseEventHandler.dragAnimation = new RTLDragAnimation(mouseEventHandler.mainScreen);
-                    mouseEventHandler.dragAnimation.start(p);
-                }
-                else if (mouseEventHandler.mouseAction.getMouseActionType() == MouseEventHandler.MouseAction.VERTICAL_DRAG_ACTION) {
-                    mouseEventHandler.dragAnimation = new TTBDragAnimation(mouseEventHandler.mainScreen);
-                    mouseEventHandler.dragAnimation.start(p);
-                }
+                this.startAnimation(p);
             }
         }
     }
+
+    /**
+     * End the animation.
+     */
+    private void stopAnimation() {
+        dragAnimation.end();
+        dragAnimation = null;
+    }
+
+    /**
+     * Update the position of the animation.
+     *
+     * @param p the updated mouse position
+     */
+    private void updateAnimation(Point p) {
+        dragAnimation.update(p);
+    }
+
+    /**
+     * Update the position of the animation.
+     *
+     * @param p the mouse position
+     */
+    private void startAnimation(Point p) {
+        if (mouseAction.getMouseActionType()
+                == MouseEventHandler.MouseAction.HORIZONTAL_DRAG_ACTION) {
+            dragAnimation = new RTLDragAnimation(mainScreen);
+            dragAnimation.start(p);
+        }
+        else if (mouseAction.getMouseActionType()
+                == MouseEventHandler.MouseAction.VERTICAL_DRAG_ACTION) {
+            dragAnimation = new TTBDragAnimation(mainScreen);
+            dragAnimation.start(p);
+        }
+    }
+
 }
