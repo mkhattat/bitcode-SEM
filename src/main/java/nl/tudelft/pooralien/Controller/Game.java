@@ -15,7 +15,8 @@ import nl.tudelft.pooralien.Subject;
  */
 public final class Game implements Subject {
     private static Game game;
-    private StandardBoard board;
+    private BoardFactory bFactory;
+    private Board board;
     private BackgroundTileCatalog backgroundTileCatalog;
     private ScoreCounter scoreCounter;
     private boolean multiplayer;
@@ -28,7 +29,8 @@ public final class Game implements Subject {
     private Game() {
         gameIsRunning = true;
         observers = new ArrayList<>();
-        board = new StandardBoard();
+        bFactory = new StandardBoardFactory();
+        board = bFactory.createRandomBoard();
         int backgroundTileCount;
         int startingScore = 0;
         Color standardColor;
@@ -60,9 +62,9 @@ public final class Game implements Subject {
      * Returns the board.
      * @return the board being used.
      */
-    public StandardBoard getBoard() {
+    public Board getBoard() {
         if (board == null) {
-            board = new StandardBoard();
+            board = bFactory.createRandomBoard();
         }
         return board;
     }
