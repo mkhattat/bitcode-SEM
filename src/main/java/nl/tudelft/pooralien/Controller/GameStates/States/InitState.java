@@ -28,23 +28,7 @@ public class InitState implements State {
 
     @Override
     public void initGame() {
-        try {
-            JFrame mainWindow = new JFrame(Launcher.getGameCfg().getStringValueOf("gameTitle"));
-            MainScreen mainScreen = new MainScreen();
-            mainWindow.setSize(0, 0);
-            mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            mainWindow.getContentPane().add(mainScreen);
-
-            new MouseEventHandler(mainScreen);
-            mainWindow.pack();
-            if (!Launcher.getGameCfg().getBooleanValueOf("multiLevel")) {
-                mainWindow.setVisible(true);
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-        gameControllerMachine.setState(gameControllerMachine.getGameInProgressState());
+        System.out.println(gameControllerMachine.getState());
     }
 
     @Override

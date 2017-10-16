@@ -3,6 +3,9 @@ package nl.tudelft.pooralien;
 
 import nl.tu.delft.defpro.api.IDefProAPI;
 import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
+import nl.tudelft.pooralien.ui.MainScreen;
+
+import javax.swing.*;
 
 import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 
@@ -16,6 +19,25 @@ public class Launcher {
 
 
     private static IDefProAPI gameCfg;
+
+    public void launch() {
+        try {
+            JFrame mainWindow = new JFrame(Launcher.getGameCfg().getStringValueOf("gameTitle"));
+            MainScreen mainScreen = new MainScreen();
+            mainWindow.setSize(0, 0);
+            mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            mainWindow.getContentPane().add(mainScreen);
+
+            new MouseEventHandler(mainScreen);
+            mainWindow.pack();
+            if (!Launcher.getGameCfg().getBooleanValueOf("multiLevel")) {
+                mainWindow.setVisible(true);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     /**
      * the Constructor of Launcher.
@@ -39,7 +61,7 @@ public class Launcher {
      */
     public static void main(String[] args) {
         try {
-            new Launcher();
+            new Launcher().launch();
             new GameControllerMachine();
         } catch (Exception e) {
             e.printStackTrace();
