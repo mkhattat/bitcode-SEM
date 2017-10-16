@@ -1,7 +1,6 @@
 package nl.tudelft.pooralien.Controller.GameStates;
 
-import nl.tudelft.pooralien.Controller.GameStates.States.InitState;
-import nl.tudelft.pooralien.Controller.GameStates.States.MainMenuState;
+import nl.tudelft.pooralien.Controller.GameStates.States.*;
 
 /**
  * GameControllerMachine
@@ -21,11 +20,18 @@ public class GameControllerMachine {
      * Allows GameControllerMachine to be constructed in different gameStates.
      * @param state, where GameControllerMachine needs to be constructed with.
      */
-    public GameControllerMachine() {
+    public GameControllerMachine() throws Exception {
+        GameEndedState = new GameEndedState(this);
+        GameInProgressState = new GameInProgressState(this);
+        GamePausedState = new GamePausedState(this);
+        InitState = new InitState(this);
+        MainMenuState = new MainMenuState(this);
+
+
         // If no valid State is passed then assume that the game has just been launched.
         // RIGHT NOW NO MAIN MENU EXISTS SO STRAIGHT TO GAME (WITH BOARD).
         try {
-            this.state = new InitState(null);
+            this.state = InitState;
         } catch (Exception e) {
             e.printStackTrace();
         }

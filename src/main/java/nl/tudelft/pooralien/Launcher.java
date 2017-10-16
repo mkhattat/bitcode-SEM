@@ -47,7 +47,11 @@ public class Launcher {
 
         //StartupScreen startupScreen = new StartupScreen();
         //startupScreen.show();
-        new GameControllerMachine();
+        try {
+            new GameControllerMachine();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 }
