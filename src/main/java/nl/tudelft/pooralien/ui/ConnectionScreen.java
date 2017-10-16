@@ -18,12 +18,23 @@ import nl.tudelft.pooralien.Subject;
 import nl.tudelft.pooralien.Controller.Listener;
 import nl.tudelft.pooralien.Controller.Server;
 
+/**
+ * A user interface to see the connections.
+ *
+ */
 public class ConnectionScreen extends JDialog implements Observer {
     private JLabel headerLabel;
     private JTextArea textArea;
     private JPanel controlPanel;
     private Listener listener;
+    private static final int WIDTH = 600;
+    private static final int HEIGHT = 600;
 
+    /**
+     * constructor used to create this GUI.
+     *
+     * @param listener is the listener class.
+     */
     public ConnectionScreen(Listener listener) {
         this.listener = listener;
         prepareGUI();
@@ -36,8 +47,8 @@ public class ConnectionScreen extends JDialog implements Observer {
 
     private void prepareGUI() {
         this.setTitle("Creating a network");
-        this.setSize(600, 600);
-        this.setLayout(new GridLayout(3, 1));
+        this.setSize(WIDTH, HEIGHT);
+        this.setLayout(new GridLayout(2 + 1, 1));
         try {
             this.headerLabel = new JLabel("The server is listening on " 
                     + InetAddress.getLocalHost().getHostAddress());
@@ -56,21 +67,32 @@ public class ConnectionScreen extends JDialog implements Observer {
         this.add(controlPanel);
         this.pack();
         this.setVisible(true);
-        cancelButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Server.getServer().sendToAll("ServerIsDying;");
-                listener.terminate();
-                Server.getServer().destroy();
-                closeFrame();
-            }
-        });
-        startButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                listener.terminate();
-                Server.getServer().startMultiPlayerGame();
-                closeFrame();
-            }
-        });
+        cancelButton.addActionListener(new CancelButtonListener());
+        startButton.addActionListener(new StartButtonListener());
+
+    }
+
+    /**
+     * An listener for cancel button.
+     */
+    private class CancelButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            Server.getServer().sendToAll("ServerIsDying;");
+            listener.terminate();
+            Server.getServer().destroy();
+            closeFrame();
+        }
+    }
+
+    /**
+     * An listener for start button.
+     */
+    private class StartButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            listener.terminate();
+            Server.getServer().startMultiPlayerGame();
+            closeFrame();
+        }
     }
 
     @Override

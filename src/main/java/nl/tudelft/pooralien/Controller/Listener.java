@@ -5,13 +5,24 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * A listener class which is listening on a specefic port
+ * to the incomming connections.
+ */
 public class Listener implements Runnable {
     private ServerSocket serverSocket;
     private int port;
     private Thread thread;
     private volatile boolean running;
 
-    public Listener(int port) throws IOException {
+    /**
+     * The constructor of the listener object.
+     *
+     * @param port is the port this object is going to listen
+     *      to the incomming connections.
+     *
+     */
+    public Listener(int port) {
         // All we have to do is listen
         this.port = port;
         thread = new Thread(this);
@@ -19,6 +30,10 @@ public class Listener implements Runnable {
         thread.start();
     }
 
+    /**
+     * Terminate this object and cleaning up.
+     *
+     */
     public void terminate() {
         try {
             serverSocket.close();

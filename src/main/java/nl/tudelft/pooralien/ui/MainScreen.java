@@ -7,7 +7,6 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -17,6 +16,8 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import nl.tu.delft.defpro.exception.NotExistingVariableException;
+import nl.tudelft.pooralien.Launcher;
 import nl.tudelft.pooralien.MouseActionObserver;
 import nl.tudelft.pooralien.MouseEventHandler;
 import nl.tudelft.pooralien.Observer;
@@ -43,6 +44,7 @@ public class MainScreen extends JLayeredPane implements Observer {
     private MouseEventHandler mouseEventHandler;
     private JLabel gameStateLable;
     private Client client;
+    private int port;
 
     /**
      * Constructor of the MainScreen prepare the GUI.
@@ -54,6 +56,12 @@ public class MainScreen extends JLayeredPane implements Observer {
         mouseEventHandler = new MouseEventHandler(this);
         Observer observer = new MouseActionObserver();
         mouseEventHandler.registerObserver(observer);
+        this.port = 0;
+        try {
+            port = Launcher.getGameCfg().getIntegerValueOf("port");
+        } catch (NotExistingVariableException error) {
+            error.printStackTrace();
+        }
     }
 
     /**
@@ -149,6 +157,11 @@ public class MainScreen extends JLayeredPane implements Observer {
         headerLabel.setText(text);
     }
 
+    /**
+     * Set the text of the game state.
+     *
+     * @param text the text of the label.
+     */
     public void setStateLabel(String text) {
         gameStateLable.setText(text);
     }
@@ -239,62 +252,68 @@ public class MainScreen extends JLayeredPane implements Observer {
         gbc.anchor = GridBagConstraints.SOUTH;
 
 
-        createNetwrok.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // show a new network window
-                Listener listener = null;
-                try {
-                    listener = new Listener(9090);
-                } catch (IOException io) {
-                    System.out.println("The connection is not possible at this moment!");
-                }
-                if (listener == null) {
-                    // TODO: show an error message
-                    return;
-                }
-                Game.getGame().pauseGame();
-                ConnectionScreen connectionScreen = new ConnectionScreen(listener);
-                Server.getServer().registerObserver(connectionScreen);
-                Client thisPlayer = new Client("localhost", 9090, mouseEventHandler);
-                thisPlayer.start();
-                createNetwrok.setVisible(false);
-                connectNetwork.setVisible(false);
-                mouseEventHandler.registerObserver(thisPlayer);
-            }
-        });
-        connectNetwork.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Ask for the host IP address.
-                String serverAddress = JOptionPane.showInputDialog(
-                        "Enter IP Address of a machine that is \n"
-                        + "running the server on port 9090:");
-                if (serverAddress == null) {
-                    return;
-                }
-                client = new Client(serverAddress, 9090, mouseEventHandler);
-                // TODO: show a error message if it fails to connect
-                if (client.start()) {
-                    Game.getGame().pauseGame();
-                    mouseEventHandler.registerObserver(client);
-                    createNetwrok.setVisible(false);
-                    connectNetwork.setVisible(false);
-                    disconnectNetwork.setVisible(true);
-                }
-            }
-        });
-        disconnectNetwork.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                connectNetwork.setVisible(true);
-                createNetwrok.setVisible(true);
-                disconnectNetwork.setVisible(false);
-                Server.getServer().destroy();
-                if (client != null) {
-                    client.terminate();
-                }
-            }
-        });
+        createNetwrok.addActionListener(new CreateNetworkListener());
+        connectNetwork.addActionListener(new ConnectNetworkListener());
+        disconnectNetwork.addActionListener(new DisconnectListener());
         mainFrame.add(controlPanel, gbc);
 
+    }
+
+    /**
+     * An listener for create network button.
+     */
+    private class CreateNetworkListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            // show a new network window
+            Listener listener = new Listener(port);
+            Game.getGame().pauseGame();
+            ConnectionScreen connectionScreen = new ConnectionScreen(listener);
+            Server.getServer().registerObserver(connectionScreen);
+            Client thisPlayer = new Client("localhost", port, mouseEventHandler);
+            thisPlayer.start();
+            createNetwrok.setVisible(false);
+            connectNetwork.setVisible(false);
+            mouseEventHandler.registerObserver(thisPlayer);
+        }
+    }
+
+    /**
+     * An listener for connect network button.
+     */
+    private class ConnectNetworkListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            // Ask for the host IP address.
+            String serverAddress = JOptionPane.showInputDialog(
+                    "Enter IP Address of a machine that is \n"
+                    + "running the server on port " + port + ":");
+            if (serverAddress == null) {
+                return;
+            }
+            client = new Client(serverAddress, port, mouseEventHandler);
+            // TODO: show a error message if it fails to connect
+            if (client.start()) {
+                Game.getGame().pauseGame();
+                mouseEventHandler.registerObserver(client);
+                createNetwrok.setVisible(false);
+                connectNetwork.setVisible(false);
+                disconnectNetwork.setVisible(true);
+            }
+        }
+    }
+
+    /**
+     * An listener for disconnect button.
+     */
+    private class DisconnectListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            connectNetwork.setVisible(true);
+            createNetwrok.setVisible(true);
+            disconnectNetwork.setVisible(false);
+            Server.getServer().destroy();
+            if (client != null) {
+                client.terminate();
+            }
+        }
     }
 
     /**

@@ -6,12 +6,20 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 
+/**
+ * Each player has it's own thread to get and send communication from.
+ */
 public class ServerThread extends Thread {
     private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
     private volatile boolean running;
 
+    /**
+     * The constructor of this class.
+     *
+     * @param socket the remote player.
+     */
     public ServerThread(Socket socket) {
         this.socket = socket;
         try {
@@ -28,6 +36,12 @@ public class ServerThread extends Thread {
         }
     }
 
+    /**
+     * send a message to the player.
+     *
+     * @param message the message which is going to be sent.
+     * @return true if the message has been succesfully sent.
+     */
     public boolean sendMessage(String message) {
         boolean result = false;
         try {
@@ -40,6 +54,9 @@ public class ServerThread extends Thread {
         return result;
     }
 
+    /**
+     * Terminate this thread and clean up.
+     */
     public void terminate() {
         try {
             socket.close();
@@ -88,6 +105,14 @@ public class ServerThread extends Thread {
             return socket.equals(other.socket);
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 1;
+        final int primeNumber = 31;
+        result = primeNumber * result + socket.hashCode();
+        return result;
     }
 
 }

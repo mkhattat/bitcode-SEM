@@ -13,7 +13,7 @@ import java.awt.Point;
  */
 public class MouseActionObserver implements Observer {
 
-    protected Animation dragAnimation;
+    private Animation dragAnimation;
 
     /**
      * Initilalize the observer with the MouseEventHandler.
@@ -29,7 +29,6 @@ public class MouseActionObserver implements Observer {
      * @param subject the observed subject MouseEventHandler
      */
     public void update(Subject subject) {
-
         if (!(subject instanceof MouseEventHandler)) {
             return;
         }
@@ -82,7 +81,10 @@ public class MouseActionObserver implements Observer {
     /**
      * Update the position of the animation.
      *
-     * @param p the mouse position
+     * @param p
+     *            the mouse position.
+     * @param type is the horizontal or vertical.
+     * @param mainScreen mainscreen to create the animation.
      */
     protected void startAnimation(Point p, int type, MainScreen mainScreen) {
         if (type

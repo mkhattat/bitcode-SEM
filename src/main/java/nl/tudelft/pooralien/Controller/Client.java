@@ -11,7 +11,10 @@ import nl.tudelft.pooralien.MouseActionObserver;
 import nl.tudelft.pooralien.MouseEventHandler;
 import nl.tudelft.pooralien.Subject;
 
-public class Client extends MouseActionObserver implements Runnable{
+/**
+ * Client class represents a player.
+ */
+public class Client extends MouseActionObserver implements Runnable {
     private volatile boolean running;
     // The socket connecting us to the server
     private Socket socket;
@@ -25,6 +28,13 @@ public class Client extends MouseActionObserver implements Runnable{
     private String host;
     private int port;
 
+    /**
+     * Constructor of the client class.
+     *
+     * @param host is the server address we want to connect to.
+     * @param port is the port which server is running on.
+     * @param subject is the class we want to observe.
+     */
     public Client(String host, int port, MouseEventHandler subject) {
         this.subject = subject;
         this.updateAnimation = false;
@@ -32,6 +42,11 @@ public class Client extends MouseActionObserver implements Runnable{
         this.port = port;
     }
 
+    /**
+     * Start the thread.
+     *
+     * @return true if success.
+     */
     public boolean start() {
         // Connect to the server
         try {
@@ -55,6 +70,10 @@ public class Client extends MouseActionObserver implements Runnable{
         return true;
     }
 
+    /**
+     * Terminate the client thread running in the background and clean up.
+     *
+     */
     public void terminate() {
         running = false;
         Game.getGame().setMultiplayer(false);
@@ -67,6 +86,11 @@ public class Client extends MouseActionObserver implements Runnable{
         }
     }
 
+    /**
+     * Send a message to the server.
+     *
+     * @param message message that is going to be send to the server.
+     */
     private void sendMessageToServer(String message) {
         try {
             // send it to the server
@@ -98,6 +122,12 @@ public class Client extends MouseActionObserver implements Runnable{
         System.out.println("Client is dead!");
     }
 
+    /**
+     * Parse the message we got from the server and decide what to do.
+     *
+     * @param command is the command.
+     * @param args is the arguments of the command.
+     */
     private void parseMessage(String command, String[] args) {
         if (command.equals("Ready")) {
             Game.getGame().setMultiplayer(true);
@@ -110,56 +140,64 @@ public class Client extends MouseActionObserver implements Runnable{
             System.out.println("Server died!");
             this.terminate();
         } else if (command.equals("NewBoard")) {
-            StandardBoardFactory bFactory = new StandardBoardFactory();
-            StandardBoard newBoard = bFactory.createBoard(args[0]);
-            Game.getGame().setBoard(newBoard);
-            subject.getMainScreen().refreshBoard();
+            createNewBoard(args);
         } else if (command.equals("NewBackgroundCatalog")) {
-            Color c = new Color(Integer.parseInt(args[0]));
-            BackgroundTileCatalog btc = new BackgroundTileCatalog();
-            for (int i = 1; i < args.length; i++) {
-               String[] coordinate = args[i].split("\\s"); 
-               if (coordinate.length > 1) {
-                   btc.add(new BackgroundTile(
-                               Integer.parseInt(coordinate[0]),
-                               Integer.parseInt(coordinate[1]),
-                               c));
-               }
-            }
-            Game.getGame().setBackgroundTileCatalog(btc);
-            subject.getMainScreen().refreshBoard();
+            createNewBackgroundCatalog(args);
         } else if (command.equals("StartAnimation")) {
-            if (args.length == 3) {
-                Point p = new Point(Integer.parseInt(args[0]),
-                        Integer.parseInt(args[1]));
-                int type = 0;
-                if (args[2].equals("HORIZONTAL")) {
-                    type = MouseEventHandler.MouseAction.HORIZONTAL_DRAG_ACTION;
-                } else if (args[2].equals("VERTICAL")) {
-                    type = MouseEventHandler.MouseAction.VERTICAL_DRAG_ACTION;
-                }
-                this.startAnimation(p, type, subject.getMainScreen());
-            }
+            startAnimationCommand(args);
         } else if (command.equals("UpdateAnimation")) {
-            if (args.length == 2) {
-                Point p = new Point(Integer.parseInt(args[0]),
-                        Integer.parseInt(args[1]));
-                this.updateAnimation(p);
-            }
+            updateAnimationCommand(args);
         } else if (command.equals("StopAnimation")) {
             this.stopAnimation();
         }
     }
 
+    private void createNewBoard(String[] args) {
+        StandardBoardFactory bFactory = new StandardBoardFactory();
+        StandardBoard newBoard = bFactory.createBoard(args[0]);
+        Game.getGame().setBoard(newBoard);
+        subject.getMainScreen().refreshBoard();
+    }
+
+    private void createNewBackgroundCatalog(String[] args) {
+        Color c = new Color(Integer.parseInt(args[0]));
+        BackgroundTileCatalog btc = new BackgroundTileCatalog();
+        for (int i = 1; i < args.length; i++) {
+            String[] coordinate = args[i].split("\\s");
+            if (coordinate.length > 1) {
+                btc.add(new BackgroundTile(
+                            Integer.parseInt(coordinate[0]),
+                            Integer.parseInt(coordinate[1]),
+                            c));
+            }
+        }
+        Game.getGame().setBackgroundTileCatalog(btc);
+        subject.getMainScreen().refreshBoard();
+    }
+
+    private void startAnimationCommand(String[] args) {
+        Point p = new Point(Integer.parseInt(args[0]),
+                Integer.parseInt(args[1]));
+        int type = 0;
+        if (args[2].equals("HORIZONTAL")) {
+            type = MouseEventHandler.MouseAction.HORIZONTAL_DRAG_ACTION;
+        } else if (args[2].equals("VERTICAL")) {
+            type = MouseEventHandler.MouseAction.VERTICAL_DRAG_ACTION;
+        }
+        this.startAnimation(p, type, subject.getMainScreen());
+    }
+
+    private void updateAnimationCommand(String[] args) {
+        if (args.length == 2) {
+            Point p = new Point(Integer.parseInt(args[0]),
+                    Integer.parseInt(args[1]));
+            this.updateAnimation(p);
+        }
+    }
+
     @Override
     public void update(Subject subject) {
-        if (!(subject instanceof MouseEventHandler)) {
-            return;
-        }
-        if (!Game.getGame().multiplayerMode()) {
-            return;
-        }
-        if (!Game.getGame().gameIsRunning()) {
+        if (!checkUpdate(subject)) {
             return;
         }
         MouseEventHandler mouseEventHandler = (MouseEventHandler) subject;
@@ -169,11 +207,7 @@ public class Client extends MouseActionObserver implements Runnable{
                 != MouseEventHandler.MouseAction.CLICK_ACTION) {
             if (updateAnimation) {
                 if (mouseAction.isActionReleased()) {
-                    sendMessageToServer("StopAnimation;");
-                    sendMessageToServer("NewBoard;" + Game.getGame().getBoard().toString());
-                    sendMessageToServer("NewBackgroundCatalog;" + 
-                            Game.getGame().getBackgroundTileCatalog().toString());
-                    updateAnimation = false;
+                    stopAnimationCommand();
                 } else {
                     sendMessageToServer("UpdateAnimation;" + p.x + "," + p.y);
                 }
@@ -187,10 +221,31 @@ public class Client extends MouseActionObserver implements Runnable{
                         == MouseEventHandler.MouseAction.VERTICAL_DRAG_ACTION) {
                     direction = "VERTICAL";
                 }
-                sendMessageToServer("StartAnimation;" + p.x + "," + p.y
-                        + "," + direction);
+                sendMessageToServer("StartAnimation;" + p.x + "," + p.y + "," + direction);
                 updateAnimation = true;
             }
         }
+    }
+
+    private boolean checkUpdate(Subject subject) {
+        boolean result = true;
+        if (!(subject instanceof MouseEventHandler)) {
+            result = false;
+        }
+        if (!Game.getGame().multiplayerMode()) {
+            result = false;
+        }
+        if (!Game.getGame().gameIsRunning()) {
+            result = false;
+        }
+        return result;
+    }
+
+    private void stopAnimationCommand() {
+        sendMessageToServer("StopAnimation;");
+        sendMessageToServer("NewBoard;" + Game.getGame().getBoard().toString());
+        sendMessageToServer("NewBackgroundCatalog;"
+                + Game.getGame().getBackgroundTileCatalog().toString());
+        updateAnimation = false;
     }
 }

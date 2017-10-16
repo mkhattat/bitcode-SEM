@@ -85,35 +85,68 @@ public final class Game implements Subject {
         return scoreCounter;
     }
 
+    /**
+     * Check multiplayer mode.
+     *
+     * @return if the game is in multiplayer mode.
+     */
     public boolean multiplayerMode() {
         return multiplayer;
     }
 
+    /**
+     * Check if the game is in pause mode.
+     *
+     * @return true if the game is playable.
+     */
     public boolean gameIsRunning() {
         return gameIsRunning;
     }
 
+    /**
+     * change the multiplayer mode.
+     *
+     * @param b the state of multiplayer mode.
+     */
     public void setMultiplayer(boolean b) {
         multiplayer = b;
         notifyObservers();
     }
 
+    /**
+     * Pause the game.
+     *
+     */
     public void pauseGame() {
         gameIsRunning = false;
         notifyObservers();
     }
 
+    /**
+     * Resume the game.
+     *
+     */
     public void resumeGame() {
         gameIsRunning = true;
         notifyObservers();
     }
 
+    /**
+     * Change the board of the game.
+     *
+     * @param board the new board to replace the old one.
+     */
     public void setBoard(Board board) {
         if (board != null) {
             this.board = board;
         }
     }
 
+    /**
+     * Change the background tile catalog.
+     *
+     * @param btc is the new backgroundTileCatalog object.
+     */
     public void setBackgroundTileCatalog(BackgroundTileCatalog btc) {
         if (btc != null) {
             this.backgroundTileCatalog = btc;
