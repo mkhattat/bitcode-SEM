@@ -1,23 +1,27 @@
 package nl.tudelft.pooralien.ui;
 
-import nl.tudelft.pooralien.Controller.Board;
-import nl.tudelft.pooralien.Controller.Game;
-import nl.tudelft.pooralien.MouseActionObserver;
-import nl.tudelft.pooralien.MouseEventHandler;
-import nl.tudelft.pooralien.Observer;
-
-import javax.imageio.ImageIO;
-import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+import nl.tudelft.pooralien.MouseActionObserver;
+import nl.tudelft.pooralien.MouseEventHandler;
+import nl.tudelft.pooralien.Observer;
+import nl.tudelft.pooralien.Controller.Board;
+import nl.tudelft.pooralien.Controller.Client;
+import nl.tudelft.pooralien.Controller.Game;
 
 /**
  * MainScreen class is the GUI of the game screen.
@@ -29,6 +33,10 @@ public class MainScreen extends JLayeredPane {
     private JPanelTile[][] gridBoardHolder;
     private JPanel controlPanel;
     private GridBagConstraints gbc;
+    private JButton createNetwrok = new JButton("Create Network");
+    private JButton connectNetwork = new JButton("Connect to a Network");
+    private JButton disconnectNetwork = new JButton("Disconnect from the Network");
+    private Client client;
 
     /**
      * Constructor of the MainScreen prepare the GUI.
@@ -200,14 +208,51 @@ public class MainScreen extends JLayeredPane {
      */
     private void createControlPanel() {
         controlPanel = new JPanel();
-        controlPanel.add(new JButton("Save"));
-        controlPanel.add(new JButton("Load"));
+        JButton save = new JButton("Save");
+        controlPanel.add(save);
+        JButton load = new JButton("Load");
+        controlPanel.add(load);
+        controlPanel.add(createNetwrok);
+        controlPanel.add(connectNetwork);
+        disconnectNetwork.setVisible(false);
+        controlPanel.add(disconnectNetwork);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.weightx = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.SOUTH;
+
+
+        createNetwrok.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+            // show a new network window
+            ConnectionScreen connectionScreen = new ConnectionScreen();
+          }
+        } );
+
+        connectNetwork.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+              // Ask for the host IP address.
+              String serverAddress = JOptionPane.showInputDialog(
+                      "Enter IP Address of a machine that is \n"
+                      + "running the server on port 9090:");
+              if (serverAddress == null) {
+                  return;
+              }
+              client = new Client(serverAddress, 9090);
+              connectNetwork.setVisible(false);
+              disconnectNetwork.setVisible(true);
+          }
+        } );
+
+        disconnectNetwork.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+              connectNetwork.setVisible(true);
+              disconnectNetwork.setVisible(false);
+              client.terminate();
+          }
+        } );
 
         mainFrame.add(controlPanel, gbc);
 
