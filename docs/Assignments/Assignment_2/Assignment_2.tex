@@ -35,7 +35,7 @@ The observer pattern is implemented between the MouseActionHandler class (subjec
 \paragraph{} We have chosen this pattern on this location because it enables us to create more observers for the MouseActionHandler in the future. Therefore it will save time to implement new features that need the MouseActionHandler class.
  
 
-\subsubsection{Factory Class Diagrams}
+\subsubsection{Observer Class Diagram}
 \begin{figure}[H]
 	\centering
 	\begin{tikzpicture}
@@ -71,22 +71,31 @@ The observer pattern is implemented between the MouseActionHandler class (subjec
 	\end{tikzpicture}
 \end{figure}
 
+\newpage
 \subsubsection{Observer Sequence Diagram}
-tbd
 \begin{figure}[H]
 	\centering
 	\begin{sequencediagram}
-		\newthread{A}{foo}{}
-		\newthread{B}{bar}{}
-		\begin{call}{A}{FooBar}{B}{}
-		\end{call}{B}{BarFoo}{A}
+		\newinst[1]{C}{:DragAnimation}{}
+		\newthread{A}{:MouseActionObserver}{}
+		\newthread{B}{:MouseEventHandler}{}
+		\begin{call}{A}{registerObserver()}{B}{}
+		\end{call}
+		\begin{sdblock}{Event}{mouse dragged}
+			\begin{call}{B}{update()}{A}{}
+				\begin{call}{A}{getMouseAction()}{B}{}
+				\end{call}
+				\begin{call}{A}{start()}{C}{}
+				\end{call}
+			\end{call}
+		\end{sdblock}
 	\end{sequencediagram}
 \end{figure}
 
 \subsection{The Factory Design Pattern}
 tbd {explain why} 
 
-\subsubsection{Factory Class Diagrams}
+\subsubsection{Factory Class Diagram}
 tbd
 \begin{figure}[H]
 	\centering
