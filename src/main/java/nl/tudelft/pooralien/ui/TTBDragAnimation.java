@@ -1,7 +1,6 @@
 package nl.tudelft.pooralien.ui;
 
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
-import nl.tudelft.item.ItemFactory;
 import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Launcher;
@@ -11,8 +10,6 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import java.awt.Component;
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 
 /**
@@ -64,7 +61,7 @@ public class TTBDragAnimation implements Animation {
         originalYGridPosition = tile.getGridPosition().y;
         originalXScreenPosition = tile.getX() + margin;
 
-        for (int i = 0; i < Board.getMaxHeight(); i++) {
+        for (int i = 0; i < Game.getGame().getBoard().getHeight(); i++) {
             JLabel label;
             String name;
 
@@ -105,31 +102,24 @@ public class TTBDragAnimation implements Animation {
         for (JLabel label : selectedItems) {
             mainScreen.remove(label);
         }
-        boolean founded = false;
-        // check for similar items
         int x = 0;
+        Board board = Game.getGame().getBoard();
         for (JLabel image : selectedItems) {
-            Board board = Game.getGame().getBoard();
-            ArrayList<Integer> foundedItems = new ArrayList<>();
-            //update the board with changed data (by mouse drag)
-            ItemFactory itemFactory = new ItemFactory();
-            board.setItem(itemFactory.createItem(image.getName()), x, originalYGridPosition);
-            //search the board
-            foundedItems.addAll(board.findHSimilaresAt(x, originalYGridPosition));
-            if (foundedItems.size() > 0) {
-                founded = true;
-            }
-            Collections.sort(foundedItems);
-            for (Integer index : foundedItems) { //remove founded items and add random ones.
-                board.remove(x, index);
-            }
+            board.setItem(
+                    board.getItemFactory().createItem(image.getName()),
+                    x,
+                    originalYGridPosition
+            );
             x++;
         }
-        if (!founded) {
-            restoreScreen();
-            return;
+        if (!board.removeGroups()) {
+            restoreScreen(); return;
+        } else {
+            //Update Score
+            Game.getGame().getScoreCounter().updateScoreTilesRemoved(x);
+            Game.getGame().useMove();
+            mainScreen.refreshBoard();
         }
-        mainScreen.refreshBoard();
     }
 
     /**
@@ -138,11 +128,10 @@ public class TTBDragAnimation implements Animation {
      */
     private void restoreScreen() {
         int i = 0;
+        Board board = Game.getGame().getBoard();
         for (JLabel label : originalItems) {
-            // restore the board data structure
-            ItemFactory itemFactory = new ItemFactory();
-            Game.getGame().getBoard().setItem(
-                    itemFactory.createItem(label.getName()), i, originalYGridPosition);
+            board.setItem(
+                    board.getItemFactory().createItem(label.getName()), i, originalYGridPosition);
             i++;
         }
         mainScreen.refreshBoard();

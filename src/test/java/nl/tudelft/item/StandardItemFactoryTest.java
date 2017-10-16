@@ -10,12 +10,12 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-public class ItemFactoryTest {
-    private ItemFactory iFactory;
+public class StandardItemFactoryTest {
+    private StandardItemFactory iFactory;
 
     @Before
     public void setUp() {
-        iFactory = new ItemFactory();
+        iFactory = new StandardItemFactory();
     }
 
     @Test

@@ -31,9 +31,13 @@ int marginHDrag = 10
 int marginVDrag = 5
 ## Score per tile
 int scorePerTile = 1
+## Score per background tile
+int scorePerBackgroundTile = 6
 ## the gap between items when dragging them on the screen
 real gap = 1.22
 ## title of the main window
 string gameTitle = Poor Alien
 ## is multi level activated?
 bool multiLevel = false
+## amount of moves
+int standardMaxMoves = 12

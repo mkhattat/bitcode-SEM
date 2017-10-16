@@ -12,26 +12,21 @@ import nl.tudelft.pooralien.Launcher;
  */
 public final class Game {
     private static Game game;
+    private BoardFactory bFactory;
     private Board board;
     private BackgroundTileCatalog backgroundTileCatalog;
+    private ScoreCounter scoreCounter;
+    private int moves;
 
     /**
      * Initialise the singleton Game object.
      */
     private Game() {
-        board = new Board();
-        int backgroundTileCount;
-        Color standardColor;
-        try {
-            backgroundTileCount = Launcher.getGameCfg().getIntegerValueOf("backgroundTileCount");
-            List<Integer> rgb = Launcher.getGameCfg().getListIntValueOf("colorBackgroundTile");
-            standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
-        } catch (NotExistingVariableException e) {
-            e.printStackTrace();
-            backgroundTileCount = -1;
-            standardColor = Color.MAGENTA;
-        }
-        backgroundTileCatalog = new BackgroundTileCatalog(backgroundTileCount, standardColor);
+        bFactory = new StandardBoardFactory();
+        board = bFactory.createRandomBoard();
+        initMoves();
+        initBTCatalog();
+        scoreCounter = new ScoreCounter(0);
     }
 
     /**
@@ -50,7 +45,76 @@ public final class Game {
      * @return the board being used.
      */
     public Board getBoard() {
+        if (board == null) {
+            board = bFactory.createRandomBoard();
+        }
         return board;
+    }
+
+    /**
+     * Initializes the backgroundtilecatalog.
+     */
+    private void initBTCatalog() {
+        int backgroundTileCount = -1;
+        Color standardColor = Color.MAGENTA;
+        try {
+            moves = Launcher.getGameCfg().getIntegerValueOf("standardMaxMoves");
+            backgroundTileCount = Launcher.getGameCfg().getIntegerValueOf("backgroundTileCount");
+            List<Integer> rgb = Launcher.getGameCfg().getListIntValueOf("colorBackgroundTile");
+            standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
+        } catch (NotExistingVariableException e) {
+            e.printStackTrace();
+        }
+        backgroundTileCatalog = new BackgroundTileCatalog(backgroundTileCount, standardColor);
+    }
+
+    /**
+     * Initializes the amount of moves.
+     */
+    private void initMoves() {
+        moves = 1;
+        try {
+            moves = Launcher.getGameCfg().getIntegerValueOf("standardMaxMoves");
+        } catch (NotExistingVariableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Retrieves the amount of remaining moves.
+     * @return The amount of remaining moves.
+     */
+    public int getMoves() {
+        return moves;
+    }
+
+    /**
+     * Reduces the amount of moves by one.
+     */
+    public void useMove() {
+        if (moves > 0) {
+            moves--;
+            if (moves == 0) {
+                if (backgroundTileCatalog.size() == 0) {
+                    nextBoard();
+                } else {
+                    //Placeholder until the required
+                    //game state functionality is in place.
+                    System.out.println("Game over!");
+                    System.out.println("Your score is: " + scoreCounter.getScore());
+                    System.exit(0);
+                }
+            }
+        }
+    }
+
+    /**
+     * Continues to the next board.
+     */
+    private void nextBoard() {
+        board = bFactory.createRandomBoard();
+        initMoves();
+        initBTCatalog();
     }
 
     /**
@@ -59,5 +123,13 @@ public final class Game {
      */
     public BackgroundTileCatalog getBackgroundTileCatalog() {
         return backgroundTileCatalog;
+    }
+
+    /**
+     * Returns the scoreCounter.
+     * @return the scoreCounter being used.
+     */
+    public ScoreCounter getScoreCounter() {
+        return scoreCounter;
     }
 }
