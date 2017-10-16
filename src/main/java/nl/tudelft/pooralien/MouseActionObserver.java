@@ -1,5 +1,6 @@
 package nl.tudelft.pooralien;
 
+import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.ui.Animation;
 import nl.tudelft.pooralien.ui.MainScreen;
 import nl.tudelft.pooralien.ui.RTLDragAnimation;
@@ -12,10 +13,7 @@ import java.awt.Point;
  */
 public class MouseActionObserver implements Observer {
 
-    //private MouseEventHandler mouseEventHandler;
-    private MouseEventHandler.MouseAction mouseAction;
-    private Animation dragAnimation;
-    private MainScreen mainScreen;
+    protected Animation dragAnimation;
 
     /**
      * Initilalize the observer with the MouseEventHandler.
@@ -37,8 +35,8 @@ public class MouseActionObserver implements Observer {
         }
         MouseEventHandler mouseEventHandler = (MouseEventHandler) subject;
 
-        mainScreen = mouseEventHandler.getMainScreen();
-        mouseAction = mouseEventHandler.getMouseAction();
+        MainScreen mainScreen = mouseEventHandler.getMainScreen();
+        MouseEventHandler.MouseAction mouseAction = mouseEventHandler.getMouseAction();
 
         Point p = mouseAction.getPosition();
 
@@ -55,7 +53,9 @@ public class MouseActionObserver implements Observer {
 
             }
             else {
-                this.startAnimation(p);
+                if (Game.getGame().gameIsRunning()) {
+                    this.startAnimation(p, mouseAction.getMouseActionType(), mainScreen);
+                }
             }
         }
     }
@@ -63,7 +63,7 @@ public class MouseActionObserver implements Observer {
     /**
      * End the animation.
      */
-    private void stopAnimation() {
+    protected void stopAnimation() {
         dragAnimation.end();
         dragAnimation = null;
     }
@@ -73,8 +73,10 @@ public class MouseActionObserver implements Observer {
      *
      * @param p the updated mouse position
      */
-    private void updateAnimation(Point p) {
-        dragAnimation.update(p);
+    protected void updateAnimation(Point p) {
+        if (dragAnimation != null) {
+            dragAnimation.update(p);
+        }
     }
 
     /**
@@ -82,13 +84,13 @@ public class MouseActionObserver implements Observer {
      *
      * @param p the mouse position
      */
-    private void startAnimation(Point p) {
-        if (mouseAction.getMouseActionType()
+    protected void startAnimation(Point p, int type, MainScreen mainScreen) {
+        if (type
                 == MouseEventHandler.MouseAction.HORIZONTAL_DRAG_ACTION) {
             dragAnimation = new RTLDragAnimation(mainScreen);
             dragAnimation.start(p);
         }
-        else if (mouseAction.getMouseActionType()
+        else if (type
                 == MouseEventHandler.MouseAction.VERTICAL_DRAG_ACTION) {
             dragAnimation = new TTBDragAnimation(mainScreen);
             dragAnimation.start(p);

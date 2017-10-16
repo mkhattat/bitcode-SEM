@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -19,14 +20,17 @@ import javax.swing.JPanel;
 import nl.tudelft.pooralien.MouseActionObserver;
 import nl.tudelft.pooralien.MouseEventHandler;
 import nl.tudelft.pooralien.Observer;
+import nl.tudelft.pooralien.Subject;
 import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.Controller.Client;
 import nl.tudelft.pooralien.Controller.Game;
+import nl.tudelft.pooralien.Controller.Listener;
+import nl.tudelft.pooralien.Controller.Server;
 
 /**
  * MainScreen class is the GUI of the game screen.
  */
-public class MainScreen extends JLayeredPane {
+public class MainScreen extends JLayeredPane implements Observer {
     private JPanel mainFrame;
     private JLabel headerLabel;
     private JPanel gridBoard;
@@ -36,6 +40,8 @@ public class MainScreen extends JLayeredPane {
     private JButton createNetwrok = new JButton("Create Network");
     private JButton connectNetwork = new JButton("Connect to a Network");
     private JButton disconnectNetwork = new JButton("Disconnect from the Network");
+    private MouseEventHandler mouseEventHandler;
+    private JLabel gameStateLable;
     private Client client;
 
     /**
@@ -45,7 +51,7 @@ public class MainScreen extends JLayeredPane {
         prepareGUI();
         refreshBoard();
 
-        MouseEventHandler mouseEventHandler = new MouseEventHandler(this);
+        mouseEventHandler = new MouseEventHandler(this);
         Observer observer = new MouseActionObserver();
         mouseEventHandler.registerObserver(observer);
     }
@@ -143,6 +149,10 @@ public class MainScreen extends JLayeredPane {
         headerLabel.setText(text);
     }
 
+    public void setStateLabel(String text) {
+        gameStateLable.setText(text);
+    }
+
     /**
      * prepare the GUI on the screen.
      */
@@ -167,8 +177,13 @@ public class MainScreen extends JLayeredPane {
      * create the header label.
      */
     private void createHeaderLabel() {
+        // JPanel panel = new JPanel(new GridLayout(3,1));
+        JPanel panel = new JPanel(new GridLayout(0, 2));
         headerLabel = new JLabel("Initialization of the board");
-        mainFrame.add(headerLabel, gbc);
+        gameStateLable = new JLabel("It's your turn");
+        panel.add(headerLabel);
+        panel.add(gameStateLable);
+        mainFrame.add(panel, gbc);
     }
 
     /**
@@ -225,35 +240,59 @@ public class MainScreen extends JLayeredPane {
 
 
         createNetwrok.addActionListener(new ActionListener() {
-          public void actionPerformed(ActionEvent e) {
-            // show a new network window
-            ConnectionScreen connectionScreen = new ConnectionScreen();
-          }
-        } );
-
+            public void actionPerformed(ActionEvent e) {
+                // show a new network window
+                Listener listener = null;
+                try {
+                    listener = new Listener(9090);
+                } catch (IOException io) {
+                    System.out.println("The connection is not possible at this moment!");
+                }
+                if (listener == null) {
+                    // TODO: show an error message
+                    return;
+                }
+                Game.getGame().pauseGame();
+                ConnectionScreen connectionScreen = new ConnectionScreen(listener);
+                Server.getServer().registerObserver(connectionScreen);
+                Client thisPlayer = new Client("localhost", 9090, mouseEventHandler);
+                thisPlayer.start();
+                createNetwrok.setVisible(false);
+                connectNetwork.setVisible(false);
+                mouseEventHandler.registerObserver(thisPlayer);
+            }
+        });
         connectNetwork.addActionListener(new ActionListener() {
-          public void actionPerformed(ActionEvent e) {
-              // Ask for the host IP address.
-              String serverAddress = JOptionPane.showInputDialog(
-                      "Enter IP Address of a machine that is \n"
-                      + "running the server on port 9090:");
-              if (serverAddress == null) {
-                  return;
-              }
-              client = new Client(serverAddress, 9090);
-              connectNetwork.setVisible(false);
-              disconnectNetwork.setVisible(true);
-          }
-        } );
-
+            public void actionPerformed(ActionEvent e) {
+                // Ask for the host IP address.
+                String serverAddress = JOptionPane.showInputDialog(
+                        "Enter IP Address of a machine that is \n"
+                        + "running the server on port 9090:");
+                if (serverAddress == null) {
+                    return;
+                }
+                client = new Client(serverAddress, 9090, mouseEventHandler);
+                // TODO: show a error message if it fails to connect
+                if (client.start()) {
+                    Game.getGame().pauseGame();
+                    mouseEventHandler.registerObserver(client);
+                    createNetwrok.setVisible(false);
+                    connectNetwork.setVisible(false);
+                    disconnectNetwork.setVisible(true);
+                }
+            }
+        });
         disconnectNetwork.addActionListener(new ActionListener() {
-          public void actionPerformed(ActionEvent e) {
-              connectNetwork.setVisible(true);
-              disconnectNetwork.setVisible(false);
-              client.terminate();
-          }
-        } );
-
+            public void actionPerformed(ActionEvent e) {
+                connectNetwork.setVisible(true);
+                createNetwrok.setVisible(true);
+                disconnectNetwork.setVisible(false);
+                Server.getServer().destroy();
+                if (client != null) {
+                    client.terminate();
+                }
+            }
+        });
         mainFrame.add(controlPanel, gbc);
 
     }
@@ -271,5 +310,32 @@ public class MainScreen extends JLayeredPane {
             e.printStackTrace();
         }
         return image;
+    }
+
+    @Override
+    public void update(Subject subject) {
+        if (!(subject instanceof Game)) {
+            return;
+        }
+
+        if (Game.getGame().multiplayerMode()) {
+            connectNetwork.setVisible(false);
+            createNetwrok.setVisible(false);
+            disconnectNetwork.setVisible(true);
+            if (Game.getGame().gameIsRunning()) {
+                setStateLabel("It's your turn");
+            } else {
+                setStateLabel("Waiting for the other player!");
+            }
+        } else {
+            connectNetwork.setVisible(true);
+            createNetwrok.setVisible(true);
+            disconnectNetwork.setVisible(false);
+            if (Game.getGame().gameIsRunning()) {
+                setStateLabel("Offline mode");
+            } else {
+                setStateLabel("The game is paused");
+            }
+        }
     }
 }

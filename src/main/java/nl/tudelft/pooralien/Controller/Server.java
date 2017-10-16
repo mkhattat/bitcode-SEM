@@ -1,127 +1,158 @@
 package nl.tudelft.pooralien.Controller;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Hashtable;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+import java.util.Queue;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class Server implements Runnable {
+import nl.tudelft.pooralien.Observer;
+import nl.tudelft.pooralien.Subject;
 
-  private Hashtable<Socket, DataOutputStream> outputStreams = 
-    new Hashtable<>();
-  private ServerSocket serverSocket;
-  private int port;
-  private Thread thread;
-  private Scanner scanner;
+public final class Server implements Subject {
+    private static Server server;
+    private Queue<ServerThread> players;
+    private ReadWriteLock readWriteLock;
+    private Lock readLock;
+    private Lock writeLock;
+    private ArrayList<Observer> observers;
 
-  public Server(int port) throws IOException {
-    // All we have to do is listen
-    this.port = port;
-    thread = new Thread(this);
-    thread.start();
-    // listen to input until get the stop signal
-    listen();
-  }
+    private Server() {
+        this.observers = new ArrayList<>();
+        this.players = new LinkedList<>();
+        this.readWriteLock = new ReentrantReadWriteLock();
+        this.readLock = readWriteLock.readLock();
+        this.writeLock = readWriteLock.writeLock();
+    }
 
-  public void terminate() {
-    scanner.close();
-  }
-
-  private void listen() throws IOException {
-    scanner = new Scanner(System.in);
-    try {
-      while (scanner.hasNext()) {
-        String next = scanner.next();
-        if (next.equals("stop")) {
-          serverSocket.close();
-        } else if (next.equals("exit")) {
-          serverSocket.close();
-          break;
+    public static synchronized Server getServer() {
+        if (server == null) {
+            server = new Server();
         }
-      }
-    } catch (Exception e) { }
-    scanner.close();
-    System.out.println("The server has been stopped");
-  }
+        return server;
+    }
 
-  public void sendToOthers(String message, Socket currentClient) {
-    // we synchronize on this because another thread might be calling
-    // removeConnection so then we don't mees up the outputStreams
-    synchronized(outputStreams) {
-      for (Socket key : outputStreams.keySet()) {
-        if (key.equals(currentClient)) {
-          continue;
-        }
-        DataOutputStream out = outputStreams.get(key);
+    public boolean destroy() {
+        // destroy the server here and clean up
+        sendToAll("ServerIsDying;");
+        readLock.lock();
         try {
-          out.writeUTF(message);
-        } catch (IOException io) {
-          System.out.println(io);
+            for (ServerThread player : players) {
+                player.terminate();
+            }
+        } finally {
+            readLock.unlock();
         }
-      }
-    }
-  }
-
-  /**
-   * Remove a socket, and it's corresponding output from our list.
-   *
-   * @param socket is the client
-   */
-  public void removeConnection(Socket socket) {
-    // Synchronize so we don't messup outputStreams, if another thread calls sendToAll method.
-    synchronized(outputStreams) {
-      // Tell the world
-      System.out.println("Removing connection " + socket);
-      // remove it from our hashtable
-      outputStreams.remove(socket);
-      // make sure it's closed 
-      try {
-        socket.close();
-      } catch (IOException e) {
-        System.out.println("Error closing the socket");  
-        e.printStackTrace();
-      }
+        return true;
     }
 
-  }
-
-  @Override
-  public void run() {
-    // loop until someone stops the server from listening
-    try {
-      serverSocket = new ServerSocket(port);
-      System.out.println(
-          "The server address: " + InetAddress.getLocalHost().getHostAddress());
-      // start listening on the port
-      while (true) {
-        // get a connection
-        Socket client = serverSocket.accept();
-
-        // Tell the world we got you.
-        System.out.println("Connection from " + client);
-
-        // Create a DataOutputStream for writing data to the other side
-        DataOutputStream out = new DataOutputStream(client.getOutputStream());
-
-        // Save this stream so we don't need to make it again
-        outputStreams.put(client, out);
-
-        // Create a new thread for this connection, and then forget
-        // about it.
-        new ClientThread(this, client);
-      }
-    } catch (IOException e) {
-      System.out.println("The server is not listening anymore.");
+    public void add(ServerThread player) {
+        writeLock.lock();
+        try {
+            players.add(player);
+        } finally {
+            writeLock.unlock();
+        }
+        this.notifyObservers();
     }
-  }
 
-  public static void main(String[] args) throws Exception {
-    int port = 9090;
+    public void sendToOthers(String message, ServerThread currentPlayer) {
+        // we synchronize on this because another thread might be calling
+        // removeConnection so then we don't mees up the outputStreams
+        readLock.lock();
+        try {
+            for (ServerThread player : players) {
+                if (currentPlayer.equals(player)) {
+                    continue;
+                }
+                player.sendMessage(message);
+            }
+        } finally {
+            readLock.unlock();
+        }
+    }
 
-    // create a server object which automatically accepts connections.
-    new Server(port);
-  }
+    public void sendToAll(String message) {
+        // we synchronize on this because another thread might be calling
+        // removeConnection so then we don't mees up the outputStreams
+        readLock.lock();
+        try {
+            for (ServerThread player : players) {
+                player.sendMessage(message);
+            }
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    /**
+     * Remove a socket, and it's corresponding output from our list.
+     *
+     * @param player is the client
+     */
+    public void removeConnection(ServerThread player) {
+        // Synchronize so we don't messup outputStreams,
+        // if another thread calls sendToAll method.
+        writeLock.lock();
+        try {
+            System.out.println("Removing connection " + player);
+            if (players.element().equals(player)) {
+                nextTurn();
+            }
+            // remove it from our hashtable and clients queue
+            players.remove(player);
+            // make sure it's closed
+            player.terminate();
+        } finally {
+            writeLock.unlock();
+        }
+        this.notifyObservers();
+    }
+
+    public void startMultiPlayerGame() {
+        sendToAll("Ready;");
+        Game.getGame().setMultiplayer(true);
+        nextTurn();
+    }
+
+    public int getSize() {
+        return players.size();
+    }
+
+    public void nextTurn() {
+        writeLock.lock();
+        try {
+            // who is the current player.
+            ServerThread currentPlayer = players.remove();
+            // add the current player to the back of the queue
+            players.add(currentPlayer);
+            // send a message to the next player
+            ServerThread nextPlayer = players.element();
+            currentPlayer.sendMessage("Wait;");
+            nextPlayer.sendMessage("Play;");
+        } catch (NoSuchElementException e) {
+            System.out.println(e);
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer item : observers) {
+            item.update(this);
+        }
+    }
 }
