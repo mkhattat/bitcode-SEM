@@ -272,12 +272,12 @@ public abstract class Board {
 
     @Override
     public String toString() {
-        String newBoard = "";
+        StringBuffer buffer = new StringBuffer();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                newBoard += items[x][y].getSprite() + " ";
+                buffer.append(items[x][y].getSprite() + " ");
             }
         }
-        return newBoard;
+        return buffer.toString();
     }
 }

@@ -30,7 +30,6 @@ public class ServerThread extends Thread {
             out = new DataOutputStream(socket.getOutputStream());
             // run the thread.
             running = true;
-            start();
         } catch (IOException e) {
             e.printStackTrace();
         }

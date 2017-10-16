@@ -212,9 +212,11 @@ public class BackgroundTileCatalog {
             standardColor = color;
         }
         String newBTC = String.valueOf(standardColor.getRGB());
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(newBTC);
         for (BackgroundTile item : backgroundTiles) {
-            newBTC += "," + item.getCoordinateX() + " " + item.getCoordinateY();
+            buffer.append("," + item.getCoordinateX() + " " + item.getCoordinateY());
         }
-        return newBTC;
+        return buffer.toString();
     }
 }

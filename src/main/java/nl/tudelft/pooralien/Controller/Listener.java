@@ -61,6 +61,7 @@ public class Listener implements Runnable {
                 // Create a new thread for this connection, and then forget
                 // about it.
                 ServerThread serverThread = new ServerThread(player);
+                serverThread.start();
 
                 // Save this stream so we don't need to make it again
                 Server.getServer().add(serverThread);

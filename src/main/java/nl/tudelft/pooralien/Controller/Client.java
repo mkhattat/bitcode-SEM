@@ -62,7 +62,7 @@ public class Client extends MouseActionObserver implements Runnable {
             running = true;
             new Thread(this).start();
             // setup the interface
-        } catch (Exception e) {
+        } catch (IOException e) {
             //TODO: replace this with a graphical message.
             System.out.println("Could not connect to the network!");
             return false;
