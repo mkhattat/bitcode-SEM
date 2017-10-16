@@ -12,30 +12,34 @@ import java.awt.Point;
  */
 public class MouseActionObserver implements Observer {
 
-    private MouseEventHandler mouseEventHandler;
+    //private MouseEventHandler mouseEventHandler;
     private MouseEventHandler.MouseAction mouseAction;
     private Animation dragAnimation;
     private MainScreen mainScreen;
 
     /**
      * Initilalize the observer with the MouseEventHandler.
-     *
-     * @param screen the JFrame screen object where events are captured
-     * @param handler the MouseEventHandler used to capture the mouse events
      */
-    public MouseActionObserver(MainScreen screen, MouseEventHandler handler) {
-        mouseEventHandler = handler;
-        mainScreen = screen;
+    public MouseActionObserver() {
         dragAnimation = null;
     }
 
     /**
      * The Update method is called whenever data in the MouseEventHandler changes.
      * The method will perform actions based on the different changes.
+     *
+     * @param subject the observed subject MouseEventHandler
      */
-    public void update() {
+    public void update(Subject subject) {
 
+        if (!(subject instanceof MouseEventHandler)) {
+            return;
+        }
+        MouseEventHandler mouseEventHandler = (MouseEventHandler) subject;
+
+        mainScreen = mouseEventHandler.getMainScreen();
         mouseAction = mouseEventHandler.getMouseAction();
+
         Point p = mouseAction.getPosition();
 
         if (mouseAction.getMouseActionType()

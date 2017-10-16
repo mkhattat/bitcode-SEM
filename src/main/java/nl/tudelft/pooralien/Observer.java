@@ -8,6 +8,8 @@ public interface Observer {
     /**
      * Update method of an observer is called when data is
      * changed from the Subject object.
+     *
+     * @param subject the observed subject object
      */
-    void update();
+    void update(Subject subject);
 }

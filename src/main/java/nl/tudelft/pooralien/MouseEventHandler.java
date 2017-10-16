@@ -1,5 +1,7 @@
 package nl.tudelft.pooralien;
 
+import nl.tudelft.pooralien.ui.MainScreen;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -15,14 +17,18 @@ import java.util.List;
 public class MouseEventHandler implements MouseListener, MouseMotionListener, Subject {
 
     private MouseEventHandler.MouseAction mouseAction;
+    private MainScreen mainScreen;
     private List<Observer> observers = new ArrayList<Observer>();
 
     /**
      * Initiate event mouse listeners on a given JFrame.
      *
+     * @param screen the JFrame to listen to
      */
-    public MouseEventHandler() {
-
+    public MouseEventHandler(MainScreen screen) {
+        mainScreen = screen;
+        mainScreen.addMouseListener(this);
+        mainScreen.addMouseMotionListener(this);
     }
 
     /**
@@ -221,6 +227,15 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener, Su
         return mouseAction;
     }
 
+    /**
+     * Gets the main screen object.
+     *
+     * @return the mainScrean object
+     */
+    public MainScreen getMainScreen() {
+        return mainScreen;
+    }
+
     @Override
     public void registerObserver(Observer observer) {
         observers.add(observer);
@@ -234,7 +249,7 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener, Su
     @Override
     public void notifyObservers() {
         for (Observer observer : observers) {
-            observer.update();
+            observer.update(this);
         }
     }
 }

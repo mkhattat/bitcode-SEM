@@ -37,10 +37,8 @@ public class MainScreen extends JLayeredPane {
         prepareGUI();
         refreshBoard();
 
-        MouseEventHandler mouseEventHandler = new MouseEventHandler();
-        this.addMouseListener(mouseEventHandler);
-        this.addMouseMotionListener(mouseEventHandler);
-        Observer observer = new MouseActionObserver(this, mouseEventHandler);
+        MouseEventHandler mouseEventHandler = new MouseEventHandler(this);
+        Observer observer = new MouseActionObserver();
         mouseEventHandler.registerObserver(observer);
     }
 
