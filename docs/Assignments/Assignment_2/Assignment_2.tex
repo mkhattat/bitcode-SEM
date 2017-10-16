@@ -136,14 +136,36 @@ The factory design patterns are implemented for the BoardFactory and the ItemFac
 \section{Your wish is my command}
 Our client wanted to have two new features implemented, which consist of a high score page and maximum amount of moves per level. For each each feature we have created new requirements and a software design.
 
-\subsection{High Score Page}
-tbd
+\subsection{High Score Page} 
 
 \subsubsection{Requirements}
-tbd
+The requirement that are sorted using the MoSCoW model.
+
+\paragraph{Must Have}
+\begin{itemize}
+\item At the end of the game, The player must be able to enter a name.
+
+\item At the end of the game, The score of the player must be saved in a save file if the score is among the ten highest ranking in the save file.
+
+\item At the end of the game, If the player is amongst the ten highest ranking in top ten high scores then allow the player to enter his name and add the score to the lists. Number 10, which has now become number 11 should be removed from the list and save file.
+
+\item If no save file exists on the computer the game must create one.
+\end{itemize}
+
+
 
 \subsubsection{Software Design}
-tbd {use UML}
+In order to implement the score board we have chosen to use the state design pattern. In the figure below is shown how the state pattern could be implemented.
+
+\begin{figure}[H]
+\includegraphics[scale=0.55]{Images/GameStatesBasic.jpeg}
+\end{figure}
+
+In the figure below is a more detaild diagram shown on how the states could be implemented in our existing code.
+\begin{figure}[H]
+\includegraphics[scale=0.45]{Images/GameStates.jpeg}
+\end{figure}
+
 
 \subsection{Maximum Moves per Level}
 Adding a constraint on the amount of moves in each level makes the game more immersive. The player needs to clear all items with a square background around them within a given number of moves. If the player manages to clear all these items within the maximum amount of moves the game will continue until the maximum amount of move are reached. When the player passes the amount of moves the player and the player did not manage to clear all background items the game will end. When the player passes the amount of moves and the player was able to clear all background items, the game will generate a new board and the amount of moves are reset to the default value. 
