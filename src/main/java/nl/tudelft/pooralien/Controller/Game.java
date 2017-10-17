@@ -14,6 +14,7 @@ public final class Game {
     private static Game game;
     private StandardBoard board;
     private BackgroundTileCatalog backgroundTileCatalog;
+    private ScoreCounter scoreCounter;
 
     /**
      * Initialise the singleton Game object.
@@ -21,6 +22,7 @@ public final class Game {
     private Game() {
         board = new StandardBoard();
         int backgroundTileCount;
+        int startingScore = 0;
         Color standardColor;
         try {
             backgroundTileCount = Launcher.getGameCfg().getIntegerValueOf("backgroundTileCount");
@@ -32,6 +34,7 @@ public final class Game {
             standardColor = Color.MAGENTA;
         }
         backgroundTileCatalog = new BackgroundTileCatalog(backgroundTileCount, standardColor);
+        scoreCounter = new ScoreCounter(startingScore);
     }
 
     /**
@@ -50,6 +53,9 @@ public final class Game {
      * @return the board being used.
      */
     public StandardBoard getBoard() {
+        if (board == null) {
+            board = new StandardBoard();
+        }
         return board;
     }
 
@@ -59,5 +65,13 @@ public final class Game {
      */
     public BackgroundTileCatalog getBackgroundTileCatalog() {
         return backgroundTileCatalog;
+    }
+
+    /**
+     * Returns the scoreCounter.
+     * @return the scoreCounter being used.
+     */
+    public ScoreCounter getScoreCounter() {
+        return scoreCounter;
     }
 }

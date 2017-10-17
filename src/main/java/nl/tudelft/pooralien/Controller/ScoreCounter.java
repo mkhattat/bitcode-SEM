@@ -11,6 +11,7 @@ public class ScoreCounter {
 
     private int score;
     private int scorePerTile;
+    private int scorePerBackgroundTile;
 
     /**
      * Standard initialization of the class.
@@ -20,21 +21,33 @@ public class ScoreCounter {
         this.score = score;
         try {
             this.scorePerTile = Launcher.getGameCfg().getIntegerValueOf("scorePerTile");
+            this.scorePerBackgroundTile =
+                    Launcher.getGameCfg().getIntegerValueOf("scorePerBackgroundTile");
         } catch (NotExistingVariableException e) {
             e.printStackTrace();
             this.scorePerTile = 1;
+            this.scorePerBackgroundTile = 2 + 2 + 2 + 2;
         }
     }
 
     /**
      * Pre: tilesDestroyed is bigger than zero.
-     * Updates the score by multiplying the tilesDestroyed by scorePerTile.
-     * @param tilesDestroyed is the amount of tiles the player has destroyed, in one single move.
+     * Updates the score by multiplying the tilesDestroyed by,
+     * up rounded square root of scorePerTile.
+     * @param tilesRemoved is the amount of tiles the player has destroyed, in one single move.
      */
-    public void updateScore(int tilesDestroyed) {
-        if (tilesDestroyed > 0) {
-            this.score = this.score + (tilesDestroyed * this.scorePerTile);
+    public void updateScoreTilesRemoved(int tilesRemoved) {
+        if (tilesRemoved > 0) {
+            this.score = this.score
+                    + (tilesRemoved * (int) (Math.round(Math.sqrt((double) scorePerTile))));
         }
+    }
+
+    /**
+     * Updates score with one backgroundTile removed.
+     */
+    public void updateScoreBackgroundTileRemoved() {
+        this.score = this.score + (scorePerTile * scorePerBackgroundTile);
     }
 
     /**
@@ -71,5 +84,12 @@ public class ScoreCounter {
      */
     public int getScorePerTile() {
         return scorePerTile;
+    }
+
+    /**
+     * @return scorePerBackgroundTile which is used to calculate the score.
+     */
+    public int getScorePerBackgroundTile() {
+        return scorePerBackgroundTile;
     }
 }

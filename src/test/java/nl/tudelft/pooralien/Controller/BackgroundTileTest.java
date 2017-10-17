@@ -67,6 +67,19 @@ public class BackgroundTileTest {
     }
 
     @Test
+    public void BackgroundTileColorIsNull() {
+        BackgroundTile backgroundTile;
+
+        try {
+            backgroundTile = new BackgroundTile(0, 0, null);
+        } catch (IllegalArgumentException e) {
+            assertEquals(
+                    "colorBackgroundTile should be a Color object"
+                    , e.getMessage());
+        }
+    }
+
+    @Test
     public void BackgroundTileCoordinateYTooBig() {
         BackgroundTile backgroundTile;
 
@@ -124,6 +137,18 @@ public class BackgroundTileTest {
         int oldY = backgroundTile1.getCoordinateY();
         backgroundTile1.setCoordinateY(1);
         assertNotEquals(oldY, backgroundTile1.getCoordinateY());
+    }
+
+    @Test
+    public void validColorSetChange() {
+        backgroundTile1.setColorBackgroundTile(Color.GREEN);
+        assertEquals(backgroundTile1.getColorBackgroundTile(), Color.GREEN);
+    }
+
+    @Test
+    public  void invalidColorSetChange() {
+        backgroundTile1.setColorBackgroundTile(null);
+        assertNotEquals(backgroundTile1.getColorBackgroundTile(), null);
     }
 
     @Test
