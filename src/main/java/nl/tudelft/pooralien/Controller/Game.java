@@ -12,7 +12,7 @@ import nl.tudelft.pooralien.Launcher;
  */
 public final class Game {
     private static Game game;
-    private StandardBoard board;
+    private Board board;
     private BackgroundTileCatalog backgroundTileCatalog;
 
     /**
@@ -49,7 +49,7 @@ public final class Game {
      * Returns the board.
      * @return the board being used.
      */
-    public StandardBoard getBoard() {
+    public Board getBoard() {
         return board;
     }
 
