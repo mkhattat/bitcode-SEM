@@ -12,6 +12,7 @@ import nl.tudelft.pooralien.Launcher;
  */
 public final class Game {
     private static Game game;
+    private BoardFactory bFactory;
     private Board board;
     private BackgroundTileCatalog backgroundTileCatalog;
 
@@ -19,7 +20,8 @@ public final class Game {
      * Initialise the singleton Game object.
      */
     private Game() {
-        board = new StandardBoard();
+        bFactory = new StandardBoardFactory();
+        board = bFactory.createRandomBoard();
         int backgroundTileCount;
         Color standardColor;
         try {
