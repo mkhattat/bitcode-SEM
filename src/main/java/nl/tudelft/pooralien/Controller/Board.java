@@ -153,7 +153,7 @@ public abstract class Board {
     /**
      * Fills the board with randomly generated items.
      */
-    protected void createRandom() {
+    public void createRandom() {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 items[x][y] = iFactory.createRandomItem();

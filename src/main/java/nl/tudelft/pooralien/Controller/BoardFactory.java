@@ -1,28 +1,21 @@
 package nl.tudelft.pooralien.Controller;
 
-import java.io.File;
-
 /**
  * Interface for BoardFactories.
  */
 public interface BoardFactory {
     /**
-     * Creates a board using the provided board layout.
-     * @param layout A string representation of the board layout.
+     * Creates a board using the provided layout.
+     * @param layout A string representation of the layout.
      * @return A board based on the provided layout.
+     * @throws IllegalArgumentException If the provided layout
+     * cannot be used to create a board.
      */
-    Board createBoard(String layout);
-
-    /**
-     * Creates a board using the layout in the provided file.
-     * @param boardF A file containing the board's desired layout.
-     * @return A board based on the provided layout.
-     */
-    Board createBoard(File boardF);
+    Board createBoard(String layout) throws IllegalArgumentException;
 
     /**
      * Creates a board with a random layout.
      * @return A randomly filled board.
      */
-    Board createRandom();
+    Board createRandomBoard();
 }

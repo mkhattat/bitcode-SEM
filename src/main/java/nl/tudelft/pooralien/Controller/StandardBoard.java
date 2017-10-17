@@ -15,7 +15,6 @@ public class StandardBoard extends Board {
      */
     public StandardBoard() {
         super();
-        createRandom();
     }
 
     /**
