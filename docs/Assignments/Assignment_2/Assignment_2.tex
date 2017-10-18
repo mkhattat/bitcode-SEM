@@ -31,39 +31,71 @@
 Using design patterns in software project is a good practice. It helps to make your software understandable, sustainable and expendable. We have chosen two design patterns and implemented them in our existing code, the observer pattern and the factory pattern.
 
 \subsection{The Observer Design Pattern}
-tbd {explain why}
+The observer pattern is implemented between the MouseActionHandler class (subject) and the DragAnimation class (observer). The MouseActionHandler listens for mouse input in a given window. A object of the DragAnimation class is created when a mouse drag is registered and updated when the position of the mouse pointer changes. 
+\paragraph{} We have chosen this pattern on this location because it enables us to create more observers for the MouseActionHandler in the future. Therefore it will save time to implement new features that need the MouseActionHandler class.
+ 
 
-\subsubsection{Factory Class Diagrams}
-tbd
+\subsubsection{Observer Class Diagram}
 \begin{figure}[H]
 	\centering
 	\begin{tikzpicture}
-	\begin{interface}{Foo}{0,0}
-	\operation[0]{fooBar() : String}
-	\end{interface}
-	\begin{class}[text width = 3cm]{Bar}{-6,-2}
-	\implement{Foo}
-	\operation{fooBar() : String}
-	\end{class}
+		\begin{interface}{Subject}{-3,0}
+			\operation[0]{registerObserver() : void}
+			\operation[0]{removeObserver() : void}
+			\operation[0]{notifyObservers() : void}
+		\end{interface}
+		\begin{class}{MouseActionHandler}{-3,-4}
+			\implement{Subject}
+			\attribute{ArrayList observers}
+			\operation[0]{registerObserver() : void}
+			\operation[0]{removeObserver() : void}
+			\operation[0]{notifyObservers() : void}
+			\operation[0]{mousePressed() : void}
+			\operation[0]{mouseReleased() : void}
+			\operation[0]{mouseDragged() : void}
+		\end{class}
+		
+		\begin{interface}{Observer}{4,0} 
+			\operation[0]{update() : void}
+		\end{interface}
+		\begin{class}{MouseActionObserver}{4,-4}
+			\implement{Observer}
+			\operation[0]{update() : void}
+			\operation[0]{startAnimation() : void}
+			\operation[0]{updateAnimation() : void}
+			\operation[0]{stopAnimation() : void}
+		\end{class}
+		
+		\aggregation{Observer}{}{}{Subject}
+		
 	\end{tikzpicture}
 \end{figure}
 
+\newpage
 \subsubsection{Observer Sequence Diagram}
-tbd
 \begin{figure}[H]
 	\centering
 	\begin{sequencediagram}
-		\newthread{A}{foo}{}
-		\newthread{B}{bar}{}
-		\begin{call}{A}{FooBar}{B}{}
-		\end{call}{B}{BarFoo}{A}
+		\newinst[1]{C}{:DragAnimation}{}
+		\newthread{A}{:MouseActionObserver}{}
+		\newthread{B}{:MouseEventHandler}{}
+		\begin{call}{A}{registerObserver()}{B}{}
+		\end{call}
+		\begin{sdblock}{Event}{mouse dragged}
+			\begin{call}{B}{update()}{A}{}
+				\begin{call}{A}{getMouseAction()}{B}{}
+				\end{call}
+				\begin{call}{A}{start()}{C}{}
+				\end{call}
+			\end{call}
+		\end{sdblock}
 	\end{sequencediagram}
 \end{figure}
 
 \subsection{The Factory Design Pattern}
 tbd {explain why} 
 
-\subsubsection{Factory Class Diagrams}
+\subsubsection{Factory Class Diagram}
 tbd
 \begin{figure}[H]
 	\centering
