@@ -79,7 +79,7 @@ public class BackgroundTileCatalog {
             throw new IllegalArgumentException(
                     "BackgroundTileCount must be smaller than 101 to be added to the catalog");
         }
-        if (!(tileColor instanceof Color)) {
+        if (!(tileColor != null)) {
             throw new IllegalArgumentException("colorBackgroundTile should be a Color object");
         }
         intGen = new Random();

@@ -2,6 +2,9 @@ package nl.tudelft.item;
 
 import java.util.Random;
 
+/**
+ * Interface for ItemFactories.
+ */
 public interface ItemFactory {
 
     /**

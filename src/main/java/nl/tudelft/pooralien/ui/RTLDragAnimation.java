@@ -1,8 +1,6 @@
 package nl.tudelft.pooralien.ui;
 
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
-import nl.tudelft.item.ItemFactory;
-import nl.tudelft.item.StandardItemFactory;
 import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Launcher;
@@ -104,12 +102,18 @@ public class RTLDragAnimation implements Animation {
         int y = 0;
         Board board = Game.getGame().getBoard();
         for (JLabel image : selectedItems) {
-            board.setItem(board.getItemFactory().createItem(image.getName()), originalXGridPosition, y);
+            board.setItem(
+                    board.getItemFactory().createItem(image.getName()),
+                    originalXGridPosition,
+                    y
+            );
             y++;
         }
         if (!board.removeGroups()) {
-            restoreScreen();
+            restoreScreen(); return;
         } else {
+            //Update score
+            Game.getGame().getScoreCounter().updateScoreTilesRemoved(y);
             mainScreen.refreshBoard();
         }
     }
@@ -136,7 +140,7 @@ public class RTLDragAnimation implements Animation {
     private void drawItems(LinkedList<JLabel> list) {
         int i = 0;
         for (JLabel label : list) {
-            int xCoordinate = (int) ((i * label.getWidth() * gap) + margin / 2);
+            int xCoordinate = ((i * label.getWidth() * (int) gap) + margin / 2);
             label.setLocation(xCoordinate, originalYScreenPosition);
             mainScreen.revalidate();
             mainScreen.repaint();
