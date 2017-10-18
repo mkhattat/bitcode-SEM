@@ -27,7 +27,7 @@ public class Launcher {
         }
         try {
             gameCfg = getAPI(cfgPath);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
