@@ -26,6 +26,7 @@ public class MainScreen extends JLayeredPane {
     private JPanel mainFrame;
     private JLabel headerLabel;
     private JPanel gridBoard;
+    private JPanel highScoreBoard;
     private JPanelTile[][] gridBoardHolder;
     private JPanel controlPanel;
     private GridBagConstraints gbc;

@@ -2,9 +2,10 @@ package nl.tudelft.pooralien;
 
 
 import nl.tu.delft.defpro.api.IDefProAPI;
+import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreTable;
 import nl.tudelft.pooralien.ui.MainScreen;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 
@@ -36,7 +37,14 @@ public class Launcher {
             MainScreen mainScreen = new MainScreen();
             mainWindow.setSize(0, 0);
             mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            mainWindow.getContentPane().add(mainScreen);
+
+            JPanel gameAndScoreHolder = new JPanel();
+            gameAndScoreHolder.add(mainScreen);
+            HighScoreTable highScoreTable = new HighScoreTable();
+            gameAndScoreHolder.add(highScoreTable);
+
+
+            mainWindow.getContentPane().add(gameAndScoreHolder);
 
             mainWindow.pack();
             if (!gameCfg.getBooleanValueOf("multiLevel")) {
