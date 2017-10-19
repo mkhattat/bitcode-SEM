@@ -16,8 +16,8 @@ public class StandardBoardFactory implements BoardFactory {
      * cannot be used to create a StandardBoard.
      */
     @Override
-    public Board createBoard(String layout) throws IllegalArgumentException {
-        Board res = new StandardBoard();
+    public StandardBoard createBoard(String layout) throws IllegalArgumentException {
+        StandardBoard res = new StandardBoard();
         int width = res.getWidth();
         int height = res.getHeight();
         String[] items = layout.split("\\s");
@@ -44,8 +44,8 @@ public class StandardBoardFactory implements BoardFactory {
      * @return A randomly filled StandardBoard.
      */
     @Override
-    public Board createRandomBoard() {
-        Board res = new StandardBoard();
+    public StandardBoard createRandomBoard() {
+        StandardBoard res = new StandardBoard();
         res.createRandom();
         return res;
     }

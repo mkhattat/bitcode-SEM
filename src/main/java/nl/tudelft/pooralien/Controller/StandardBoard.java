@@ -10,12 +10,6 @@ import nl.tudelft.pooralien.Launcher;
  * The StandardBoard class.
  */
 public class StandardBoard extends Board {
-    /**
-     * Constructor which builds the data structure with the random data.
-     */
-    public StandardBoard() {
-        super();
-    }
 
     /**
      * Initializes the width of the board using the config file.
@@ -63,7 +57,7 @@ public class StandardBoard extends Board {
      * Initializes the StandardItemFactory.
      * @return The initial StandardItemFactory.
      */
-    protected ItemFactory initItemFactory() {
+    protected StandardItemFactory initItemFactory() {
         return new StandardItemFactory();
     }
 }
