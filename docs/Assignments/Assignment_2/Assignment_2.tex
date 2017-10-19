@@ -106,7 +106,7 @@ The factory design patterns are implemented for the BoardFactory and the ItemFac
 \begin{figure}[H]
 	\centering
 	\begin{sequencediagram}
-		\newthread{A}{:Launcher}{}
+		\newthread{A}{:Game}{}
 		\newinst[1]{B}{:StandardBoardFactory}{}
 		\newinst[1]{C}{:StandardItemFactory}{}
 		\begin{call}{A}{createBoard()}{B}{}
@@ -132,13 +132,26 @@ tbd
 tbd {use UML}
 
 \subsection{Maximum Moves per Level}
-tbd
+Adding a constraint on the amount of moves in each level makes the game more immersive. The player needs to clear all items with a square background around them within a given number of moves. If the player manages to clear all these items within the maximum amount of moves the player will receive bonus points. When the player passes the amount of moves the player is able to continue the game to gain a higher score. 
 
 \subsubsection{Requirements}
-tbd
+The requirement that can be subtracted are sorted using the MoSCoW model.
+
+\paragraph{Must Haves}
+\begin{itemize}
+	\item There must be a maximum amount of moves per level.
+	\item The player must receives bonus points when the player manages to remove all elements with a square background within the maximum amount of moves.
+	\item The player must be able to continue the game after the amount of moves have passed. 
+\end{itemize}
+\paragraph{Should Haves}
+\begin{itemize}
+	\item The amount of moves should be configurable from the configuration file.
+	\item The player should be able to see the amount of moves left.
+\end{itemize}
+
 
 \subsubsection{Software Design}
-tbd {use UML}
+tbd {use UML} 
 
 
 \section{Turn-based Multiplayer}
