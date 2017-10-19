@@ -12,7 +12,7 @@ public class StandardBoardTest extends BoardTest {
     @Before
     public void setUp() throws Exception {
         launcher = new Launcher();
-        board = new StandardBoard();
+        board = new StandardBoardFactory().createRandomBoard();
     }
 
     @Test
