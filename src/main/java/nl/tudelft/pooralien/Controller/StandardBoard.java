@@ -1,6 +1,5 @@
 package nl.tudelft.pooralien.Controller;
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
-import nl.tudelft.item.ItemFactory;
 import nl.tudelft.item.StandardItemFactory;
 import nl.tudelft.pooralien.Launcher;
 
