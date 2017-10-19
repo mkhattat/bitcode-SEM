@@ -140,7 +140,7 @@ public class RTLDragAnimation implements Animation {
     private void drawItems(LinkedList<JLabel> list) {
         int i = 0;
         for (JLabel label : list) {
-            int xCoordinate = (int) ((i * label.getWidth() * gap) + margin / 2);
+            int xCoordinate = (int) ((i * label.getWidth() * gap) + margin / 2.0);
             label.setLocation(xCoordinate, originalYScreenPosition);
             mainScreen.revalidate();
             mainScreen.repaint();
