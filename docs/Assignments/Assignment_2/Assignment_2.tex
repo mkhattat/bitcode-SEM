@@ -93,35 +93,32 @@ The observer pattern is implemented between the MouseActionHandler class (subjec
 \end{figure}
 
 \subsection{The Factory Design Pattern}
-tbd {explain why} 
+The factory design patterns are implemented for the BoardFactory and the ItemFactory. On launch the board is created via the StandardBoardFactory which will construct a board using the StandardItemFactory.
+\paragraph{} The reason that we have implemented a factory pattern for the Board class is that we can use this pattern in the future for creating different types of board. For instance creating boards with different sizes based on difficulty. 
+\paragraph{} We have implemented the factory pattern for the Item class because that allows us to create different types of items in the board, such as special items that will remove all items from the board.
 
 \subsubsection{Factory Class Diagram}
-tbd
 \begin{figure}[H]
-	\centering
-	\begin{tikzpicture}
-	\begin{interface}{Foo}{0,0}
-	\operation[0]{fooBar() : String}
-	\end{interface}
-	\begin{class}[text width = 3cm]{Bar}{-6,-2}
-	\implement{Foo}
-	\operation{fooBar() : String}
-	\end{class}
-	\end{tikzpicture}
+\includegraphics[scale=0.43]{Images/FactoriesClassDiagram.jpg}
 \end{figure}
 
-\subsubsection{Factory Sequence Diagram}
-tbd
+\subsubsection{Factory Sequence Diagram} 
 \begin{figure}[H]
 	\centering
 	\begin{sequencediagram}
-		\newthread{A}{foo}{}
-		\newthread{B}{bar}{}
-		\begin{call}{A}{FooBar}{B}{}
-		\end{call}{B}{BarFoo}{A}
+		\newthread{A}{:Launcher}{}
+		\newinst[1]{B}{:StandardBoardFactory}{}
+		\newinst[1]{C}{:StandardItemFactory}{}
+		\begin{call}{A}{createBoard()}{B}{}
+			\begin{call}{B}{Loop}{B}{}
+				\begin{call}{B}{createItem()}{C}{}
+				\end{call}
+			\end{call}
+		\end{call}
 	\end{sequencediagram}
 \end{figure}
 
+\newpage
 \section{Your wish is my command}
 Our client wanted to have two new features implemented, which consist of a high score page and maximum amount of moves per level. For each each feature we have created new requirements and a software design.
 
