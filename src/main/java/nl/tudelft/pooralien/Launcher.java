@@ -1,32 +1,37 @@
 package nl.tudelft.pooralien;
 
+import static nl.tu.delft.defpro.api.APIProvider.getAPI;
+
+import java.net.URISyntaxException;
+
+import javax.swing.JFrame;
 
 import nl.tu.delft.defpro.api.IDefProAPI;
-import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreTable;
+import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.ui.MainScreen;
-
-import javax.swing.*;
-
-import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 
 /**
  * The Launcher of the game.
  */
 public class Launcher {
 
-    private String cfgPath = this.getClass().getResource("/config.txt").toURI()
-            .getPath().replaceFirst("^/(.:/)", "$1");
-
-
+    private static String cfgPath;
     private static IDefProAPI gameCfg;
 
-    /**
-     * the Constructor of Launcher.
-     * @throws Exception if the config file doesn't exist throws and Exception.
-     */
-    public Launcher() throws Exception {
-        gameCfg = getAPI(cfgPath);
+    static {
+        try {
+            cfgPath = Launcher.class.getResource("/config.txt").toURI()
+                    .getPath().replaceFirst("^/(.:/)", "$1");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        try {
+            gameCfg = getAPI(cfgPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     /**
      * Launch the game GUI.
@@ -37,16 +42,11 @@ public class Launcher {
             MainScreen mainScreen = new MainScreen();
             mainWindow.setSize(0, 0);
             mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            JPanel gameAndScoreHolder = new JPanel();
-            gameAndScoreHolder.add(mainScreen);
-            HighScoreTable highScoreTable = new HighScoreTable();
-            gameAndScoreHolder.add(highScoreTable);
-
-
-            mainWindow.getContentPane().add(gameAndScoreHolder);
+            mainWindow.getContentPane().add(mainScreen);
 
             mainWindow.pack();
+            Game.getGame().registerObserver(mainScreen);
+            Game.getGame().setMultiplayer(false);
             if (!gameCfg.getBooleanValueOf("multiLevel")) {
                 mainWindow.setVisible(true);
             }

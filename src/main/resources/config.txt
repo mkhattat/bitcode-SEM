@@ -39,3 +39,7 @@ real gap = 1.22
 string gameTitle = Poor Alien
 ## is multi level activated?
 bool multiLevel = false
+## the port to open the server on it
+int port = 9090
+## amount of moves
+int standardMaxMoves = 12

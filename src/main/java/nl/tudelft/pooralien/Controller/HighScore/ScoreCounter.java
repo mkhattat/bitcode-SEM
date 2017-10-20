@@ -37,6 +37,9 @@ public class ScoreCounter {
      * @param tilesRemoved is the amount of tiles the player has destroyed, in one single move.
      */
     public void updateScoreTilesRemoved(int tilesRemoved) {
+        if (!(Game.getGame().gameIsRunning())) {
+            return;
+        }
         if (tilesRemoved > 0) {
             this.score = this.score
                     + (tilesRemoved * (int) (Math.round(Math.sqrt((double) scorePerTile))));
@@ -47,6 +50,9 @@ public class ScoreCounter {
      * Updates score with one backgroundTile removed.
      */
     public void updateScoreBackgroundTileRemoved() {
+        if (!(Game.getGame().gameIsRunning())) {
+            return;
+        }
         this.score = this.score + (scorePerTile * scorePerBackgroundTile);
     }
 
