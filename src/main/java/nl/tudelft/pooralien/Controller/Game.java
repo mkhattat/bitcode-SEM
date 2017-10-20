@@ -75,12 +75,13 @@ public final class Game {
      * Reduces the amount of moves by one.
      */
     public void useMove() {
-        if (moves > 1) {
+        if (moves > 0) {
             moves--;
-        } else {
-            //Placeholder until the required
-            //game state functionality is in place.
-            System.out.println("No moves left!");
+            if (moves == 0) {
+                //Placeholder until the required
+                //game state functionality is in place.
+                System.out.println("No moves left!");
+            }
         }
     }
 
