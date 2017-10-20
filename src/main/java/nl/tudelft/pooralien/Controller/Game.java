@@ -16,6 +16,7 @@ public final class Game {
     private Board board;
     private BackgroundTileCatalog backgroundTileCatalog;
     private ScoreCounter scoreCounter;
+    private int moves;
 
     /**
      * Initialise the singleton Game object.
@@ -27,6 +28,7 @@ public final class Game {
         int startingScore = 0;
         Color standardColor;
         try {
+            moves = Launcher.getGameCfg().getIntegerValueOf("standardMaxMoves");
             backgroundTileCount = Launcher.getGameCfg().getIntegerValueOf("backgroundTileCount");
             List<Integer> rgb = Launcher.getGameCfg().getListIntValueOf("colorBackgroundTile");
             standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
@@ -59,6 +61,19 @@ public final class Game {
             board = bFactory.createRandomBoard();
         }
         return board;
+    }
+
+    /**
+     * Reduces the amount of moves by one.
+     */
+    public void useMove() {
+        if (moves > 1) {
+            moves--;
+        } else {
+            //Placeholder until the required
+            //game state functionality is in place.
+            System.out.println("No moves left!");
+        }
     }
 
     /**

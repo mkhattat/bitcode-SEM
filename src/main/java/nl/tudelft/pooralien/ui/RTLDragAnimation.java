@@ -115,6 +115,7 @@ public class RTLDragAnimation implements Animation {
             //Update score
             Game.getGame().getScoreCounter().updateScoreTilesRemoved(y);
             mainScreen.refreshBoard();
+            Game.getGame().useMove();
         }
     }
 

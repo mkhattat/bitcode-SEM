@@ -39,3 +39,5 @@ real gap = 1.22
 string gameTitle = Poor Alien
 ## is multi level activated?
 bool multiLevel = false
+## amount of moves
+int standardMaxMoves = 20
