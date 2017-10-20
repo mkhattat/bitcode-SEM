@@ -159,8 +159,8 @@ public class BackgroundTileCatalog {
      */
     public BackgroundTile get(int coordinateX, int coordinateY)
             throws IndexOutOfBoundsException, NoSuchElementException {
-        if (coordinateX < 0 || coordinateX > maxWidthAndHeight
-                || coordinateY < 0 || coordinateY > maxWidthAndHeight) {
+        if (coordinateX < 0 || coordinateX >= maxWidthAndHeight
+                || coordinateY < 0 || coordinateY >= maxWidthAndHeight) {
             throw new IndexOutOfBoundsException(
                     "X and Y coordinates must always be between -1 and 11."
                     + "\ncurrent X: " + coordinateX + "."
@@ -197,8 +197,8 @@ public class BackgroundTileCatalog {
             throw new IllegalArgumentException("colorBackgroundTile should be a Color object");
         }
 
-        int positionOnBoardX = intGen.nextInt(maxWidthAndHeight + 1);
-        int positionOnBoardY = intGen.nextInt(maxWidthAndHeight + 1);
+        int positionOnBoardX = intGen.nextInt(maxWidthAndHeight);
+        int positionOnBoardY = intGen.nextInt(maxWidthAndHeight);
 
         return (this.add(new BackgroundTile(positionOnBoardX, positionOnBoardY, tileColor)));
     }
