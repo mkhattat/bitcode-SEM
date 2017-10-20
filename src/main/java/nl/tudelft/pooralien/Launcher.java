@@ -1,14 +1,14 @@
 package nl.tudelft.pooralien;
 
-
-import nl.tu.delft.defpro.api.IDefProAPI;
-import nl.tudelft.pooralien.ui.MainScreen;
-
-import javax.swing.JFrame;
+import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 
 import java.net.URISyntaxException;
 
-import static nl.tu.delft.defpro.api.APIProvider.getAPI;
+import javax.swing.JFrame;
+
+import nl.tu.delft.defpro.api.IDefProAPI;
+import nl.tudelft.pooralien.Controller.Game;
+import nl.tudelft.pooralien.ui.MainScreen;
 
 /**
  * The Launcher of the game.
@@ -45,6 +45,8 @@ public class Launcher {
             mainWindow.getContentPane().add(mainScreen);
 
             mainWindow.pack();
+            Game.getGame().registerObserver(mainScreen);
+            Game.getGame().setMultiplayer(false);
             if (!gameCfg.getBooleanValueOf("multiLevel")) {
                 mainWindow.setVisible(true);
             }

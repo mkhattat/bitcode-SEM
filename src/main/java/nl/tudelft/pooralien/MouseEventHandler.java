@@ -1,13 +1,13 @@
 package nl.tudelft.pooralien;
 
-import nl.tudelft.pooralien.ui.MainScreen;
-
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+
+import nl.tudelft.pooralien.ui.MainScreen;
 
 /**
  * Handles mouse events inside a given JFrame using the
