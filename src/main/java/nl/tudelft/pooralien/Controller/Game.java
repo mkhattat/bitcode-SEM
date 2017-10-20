@@ -64,6 +64,14 @@ public final class Game {
     }
 
     /**
+     * Retrieves the amount of remaining moves.
+     * @return The amount of remaining moves.
+     */
+    public int getMoves() {
+        return moves;
+    }
+
+    /**
      * Reduces the amount of moves by one.
      */
     public void useMove() {

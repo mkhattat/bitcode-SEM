@@ -117,8 +117,8 @@ public class TTBDragAnimation implements Animation {
         } else {
             //Update Score
             Game.getGame().getScoreCounter().updateScoreTilesRemoved(x);
-            mainScreen.refreshBoard();
             Game.getGame().useMove();
+            mainScreen.refreshBoard();
         }
     }
 

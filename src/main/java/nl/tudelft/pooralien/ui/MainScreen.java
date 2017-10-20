@@ -122,7 +122,12 @@ public class MainScreen extends JLayeredPane {
             for (int y = 0; y < board.getHeight(); y++) {
                 replaceItem(x, y, board.getItem(x, y).getSprite());
                 replaceBorder(x, y);
-                setHeaderText("Score: " + Game.getGame().getScoreCounter().getScore());
+                setHeaderText(
+                        "Remaining Moves: "
+                                + Game.getGame().getMoves()
+                        + "     Score: "
+                                + Game.getGame().getScoreCounter().getScore()
+                );
             }
         }
     }
