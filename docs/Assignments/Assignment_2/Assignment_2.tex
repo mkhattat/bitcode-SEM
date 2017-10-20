@@ -149,16 +149,16 @@ tbd {use UML}
 Adding a constraint on the amount of moves in each level makes the game more immersive. The player needs to clear all items with a square background around them within a given number of moves. If the player manages to clear all these items within the maximum amount of moves the game will continue until the maximum amount of move are reached. When the player passes the amount of moves the player and the player did not manage to clear all background items the game will end. When the player passes the amount of moves and the player was able to clear all background items, the game will generate a new board and the amount of moves are reset to the default value. 
 
 \subsubsection{Requirements}
-The requirement that can be subtracted are sorted using the MoSCoW model.
+The requirement that are sorted using the MoSCoW model.
 
-\paragraph{Must Haves}
+\paragraph{Must Have}
 \begin{itemize}
 	\item There must be a maximum amount of moves per level.
 	\item The game must end when the maximum amount of moves are reached and not all backgound items are cleared.
 	\item The game must continue when the maximum amount of moves are reached and all backgound items are cleared.
 	\item When the game continues after the maximum amount of moves are reached the amount of moves left must be reset to the default value.
 \end{itemize}
-\paragraph{Should Haves}
+\paragraph{Should Have}
 \begin{itemize}
 	\item The game should generate a new board when the game continues after the maximum amount of moves are reached.
 	\item The default amount of moves should be configurable from the configuration file.
@@ -194,10 +194,37 @@ The requirement that can be subtracted are sorted using the MoSCoW model.
 In exercise three we have been asked to implement a feature that we wanted to implement. We have chosen to implement turn-based Multiplayer. For this feature we also created new requirements and a software design.
 
 \subsection{Requirements}
-tbd
+The requirement that are sorted using the MoSCoW model.
+
+\paragraph{Must Have}
+\begin{itemize}
+	\item There must exists a central server to handle communication between players.
+	\item There must be a open port that listening to the player who wants to connect to the network.
+	\item A player must be able to connect to a server using an address.
+	\item It must be possible to send data to all or some of the player via the server.
+	\item When a player move something on the screen all other players must be able to see it live on their screen and sync everything.
+	\item There must exists a communication protocol to exchange data between players (via server).
+	\item The server must decide who's turn it is to play the game.
+	\item When the player connects to the network their game must be put in a pause mode waiting for the server to initiate the game.
+	\item The players must be able to see on the screen if they should play the game or wait for other players.
+\end{itemize}
+
+\paragraph{Should Have}
+\begin{itemize}
+	\item The player should see the errors graphically instead of on terminal errors.
+	\item A Command design pattern should be implemented to handle the communication protocol.
+	\item The server should announce the winner.
+\end{itemize}
+\paragraph{Could Have}
+\begin{itemize}
+	\item The player could send their names and see the score of each other on their screen.
+\end{itemize}
+ 
 
 \subsection{Software Design}
-tbd {use UML}
+\begin{figure}[H]
+\includegraphics[scale=0.55]{Images/MultiplayerClassDiagram.jpeg}
+\end{figure}
 
 
 
