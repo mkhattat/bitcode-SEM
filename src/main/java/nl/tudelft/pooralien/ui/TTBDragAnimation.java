@@ -1,7 +1,6 @@
 package nl.tudelft.pooralien.ui;
 
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
-import nl.tudelft.item.ItemFactory;
 import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Launcher;
@@ -106,9 +105,11 @@ public class TTBDragAnimation implements Animation {
         int x = 0;
         Board board = Game.getGame().getBoard();
         for (JLabel image : selectedItems) {
-            ItemFactory itemFactory = new ItemFactory();
-            board.setItem(itemFactory.createItem(image.getName()), x, originalYGridPosition);
-
+            board.setItem(
+                    board.getItemFactory().createItem(image.getName()),
+                    x,
+                    originalYGridPosition
+            );
             x++;
         }
         if (!board.removeGroups()) {
@@ -118,7 +119,6 @@ public class TTBDragAnimation implements Animation {
             Game.getGame().getScoreCounter().updateScoreTilesRemoved(x);
             mainScreen.refreshBoard();
         }
-
     }
 
     /**
@@ -127,11 +127,10 @@ public class TTBDragAnimation implements Animation {
      */
     private void restoreScreen() {
         int i = 0;
+        Board board = Game.getGame().getBoard();
         for (JLabel label : originalItems) {
-            // restore the board data structure
-            ItemFactory itemFactory = new ItemFactory();
-            Game.getGame().getBoard().setItem(
-                    itemFactory.createItem(label.getName()), i, originalYGridPosition);
+            board.setItem(
+                    board.getItemFactory().createItem(label.getName()), i, originalYGridPosition);
             i++;
         }
         mainScreen.refreshBoard();

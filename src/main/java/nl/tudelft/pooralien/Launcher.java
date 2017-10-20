@@ -6,6 +6,8 @@ import nl.tudelft.pooralien.ui.MainScreen;
 
 import javax.swing.JFrame;
 
+import java.net.URISyntaxException;
+
 import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 
 /**
@@ -13,19 +15,23 @@ import static nl.tu.delft.defpro.api.APIProvider.getAPI;
  */
 public class Launcher {
 
-    private String cfgPath = this.getClass().getResource("/config.txt").toURI()
-            .getPath().replaceFirst("^/(.:/)", "$1");
-
-
+    private static String cfgPath;
     private static IDefProAPI gameCfg;
 
-    /**
-     * the Constructor of Launcher.
-     * @throws Exception if the config file doesn't exist throws and Exception.
-     */
-    public Launcher() throws Exception {
-        gameCfg = getAPI(cfgPath);
+    static {
+        try {
+            cfgPath = Launcher.class.getResource("/config.txt").toURI()
+                    .getPath().replaceFirst("^/(.:/)", "$1");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        try {
+            gameCfg = getAPI(cfgPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     /**
      * Launch the game GUI.

@@ -1,7 +1,6 @@
 package nl.tudelft.pooralien.ui;
 
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
-import nl.tudelft.item.ItemFactory;
 import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Launcher;
@@ -103,9 +102,11 @@ public class RTLDragAnimation implements Animation {
         int y = 0;
         Board board = Game.getGame().getBoard();
         for (JLabel image : selectedItems) {
-            ItemFactory itemFactory = new ItemFactory();
-            board.setItem(itemFactory.createItem(image.getName()), originalXGridPosition, y);
-
+            board.setItem(
+                    board.getItemFactory().createItem(image.getName()),
+                    originalXGridPosition,
+                    y
+            );
             y++;
         }
         if (!board.removeGroups()) {
@@ -115,7 +116,6 @@ public class RTLDragAnimation implements Animation {
             Game.getGame().getScoreCounter().updateScoreTilesRemoved(y);
             mainScreen.refreshBoard();
         }
-
     }
 
     /**
@@ -124,11 +124,10 @@ public class RTLDragAnimation implements Animation {
      */
     private void restoreScreen() {
         int i = 0;
+        Board board = Game.getGame().getBoard();
         for (JLabel label : originalItems) {
-            // restore the board data structure
-            ItemFactory itemFactory = new ItemFactory();
-            Game.getGame().getBoard().setItem(
-                    itemFactory.createItem(label.getName()), originalXGridPosition, i);
+            board.setItem(
+                    board.getItemFactory().createItem(label.getName()), originalXGridPosition, i);
             i++;
         }
         mainScreen.refreshBoard();
@@ -141,7 +140,7 @@ public class RTLDragAnimation implements Animation {
     private void drawItems(LinkedList<JLabel> list) {
         int i = 0;
         for (JLabel label : list) {
-            int xCoordinate = (int) ((i * label.getWidth() * gap) + margin / 2);
+            int xCoordinate = (int) ((i * label.getWidth() * gap) + margin / 2.0);
             label.setLocation(xCoordinate, originalYScreenPosition);
             mainScreen.revalidate();
             mainScreen.repaint();
