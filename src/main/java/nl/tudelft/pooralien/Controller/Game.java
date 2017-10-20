@@ -78,11 +78,37 @@ public final class Game {
         if (moves > 0) {
             moves--;
             if (moves == 0) {
-                //Placeholder until the required
-                //game state functionality is in place.
-                System.out.println("No moves left!");
+                if (backgroundTileCatalog.size() == 0) {
+                    nextBoard();
+                } else {
+                    //Placeholder until the required
+                    //game state functionality is in place.
+                    System.out.println("Game over!");
+                    System.out.println("Your score is: " + scoreCounter.getScore());
+                    System.exit(0);
+                }
             }
         }
+    }
+
+    /**
+     * Continues to the next board.
+     */
+    private void nextBoard() {
+        board = bFactory.createRandomBoard();
+        int backgroundTileCount;
+        Color standardColor;
+        try {
+            moves = Launcher.getGameCfg().getIntegerValueOf("standardMaxMoves");
+            backgroundTileCount = Launcher.getGameCfg().getIntegerValueOf("backgroundTileCount");
+            List<Integer> rgb = Launcher.getGameCfg().getListIntValueOf("colorBackgroundTile");
+            standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
+        } catch (NotExistingVariableException e) {
+            e.printStackTrace();
+            backgroundTileCount = -1;
+            standardColor = Color.MAGENTA;
+        }
+        backgroundTileCatalog = new BackgroundTileCatalog(backgroundTileCount, standardColor);
     }
 
     /**
