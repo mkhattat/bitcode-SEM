@@ -16,9 +16,23 @@
 
 \usepackage{pgf-umlsd}
 \usepackage{pgf-umlcd}
+
+\usepackage[latin1]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+
 \newcommand{\sectionbreak}{\clearpage}
 
 \begin{document}
+
+
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+    text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+    minimum height=2em]
 
 \newcolumntype{M}{>{\begin{varwidth}{4cm}}l<{\end{varwidth}}} %M is for Maximal column
 
@@ -132,7 +146,7 @@ tbd
 tbd {use UML}
 
 \subsection{Maximum Moves per Level}
-Adding a constraint on the amount of moves in each level makes the game more immersive. The player needs to clear all items with a square background around them within a given number of moves. If the player manages to clear all these items within the maximum amount of moves the player will receive bonus points. When the player passes the amount of moves the player is able to continue the game to gain a higher score. 
+Adding a constraint on the amount of moves in each level makes the game more immersive. The player needs to clear all items with a square background around them within a given number of moves. If the player manages to clear all these items within the maximum amount of moves the game will continue until the maximum amount of move are reached. When the player passes the amount of moves the player and the player did not manage to clear all background items the game will end. When the player passes the amount of moves and the player was able to clear all background items, the game will generate a new board and the amount of moves are reset to the default value. 
 
 \subsubsection{Requirements}
 The requirement that can be subtracted are sorted using the MoSCoW model.
@@ -140,18 +154,40 @@ The requirement that can be subtracted are sorted using the MoSCoW model.
 \paragraph{Must Haves}
 \begin{itemize}
 	\item There must be a maximum amount of moves per level.
-	\item The player must receives bonus points when the player manages to remove all elements with a square background within the maximum amount of moves.
-	\item The player must be able to continue the game after the amount of moves have passed. 
+	\item The game must end when the maximum amount of moves are reached and not all backgound items are cleared.
+	\item The game must continue when the maximum amount of moves are reached and all backgound items are cleared.
+	\item When the game continues after the maximum amount of moves are reached the amount of moves left must be reset to the default value.
 \end{itemize}
 \paragraph{Should Haves}
 \begin{itemize}
-	\item The amount of moves should be configurable from the configuration file.
+	\item The game should generate a new board when the game continues after the maximum amount of moves are reached.
+	\item The default amount of moves should be configurable from the configuration file.
 	\item The player should be able to see the amount of moves left.
+	\item The score should not be reset once the game continues after the maximum amount of moves are reached.
 \end{itemize}
 
 
 \subsubsection{Software Design}
-tbd {use UML} 
+\begin{tikzpicture}[node distance = 2cm, auto]
+    % Place nodes
+    \node [block] (nrmoves) {moves left -1};
+    \node [cloud, left of=nrmoves] (player) {player move};
+	\node [decision, below of=nrmoves] (movesleft) {is moves left 0?};
+	\node [decision, below of=movesleft] (item) {background items left?};
+	\node [block, below of=item, node distance=3cm] (end) {end game};
+	\node [block, left of=item, node distance=3cm] (new) {create new game};
+    
+    
+    \path [line,dashed] (player) -- (nrmoves);
+    \path [line] (nrmoves) -- (movesleft);
+	\path [line,dashed] (movesleft) -| node {no}(player);   
+	\path [line] (movesleft) -- node {yes}(item);
+	\path [line] (item) -- node {yes}(end);
+	\path [line] (item) -- node {no}(new);    
+    
+    
+    \path [line,dashed] (new) -- (player);
+\end{tikzpicture}
 
 
 \section{Turn-based Multiplayer}
