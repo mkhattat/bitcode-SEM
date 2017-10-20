@@ -68,6 +68,9 @@ public final class Game {
         backgroundTileCatalog = new BackgroundTileCatalog(backgroundTileCount, standardColor);
     }
 
+    /**
+     * Initializes the amount of moves.
+     */
     private void initMoves() {
         moves = 1;
         try {
