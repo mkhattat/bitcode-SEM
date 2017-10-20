@@ -24,21 +24,9 @@ public final class Game {
     private Game() {
         bFactory = new StandardBoardFactory();
         board = bFactory.createRandomBoard();
-        int backgroundTileCount;
-        int startingScore = 0;
-        Color standardColor;
-        try {
-            moves = Launcher.getGameCfg().getIntegerValueOf("standardMaxMoves");
-            backgroundTileCount = Launcher.getGameCfg().getIntegerValueOf("backgroundTileCount");
-            List<Integer> rgb = Launcher.getGameCfg().getListIntValueOf("colorBackgroundTile");
-            standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
-        } catch (NotExistingVariableException e) {
-            e.printStackTrace();
-            backgroundTileCount = -1;
-            standardColor = Color.MAGENTA;
-        }
-        backgroundTileCatalog = new BackgroundTileCatalog(backgroundTileCount, standardColor);
-        scoreCounter = new ScoreCounter(startingScore);
+        initMoves();
+        initBTCatalog();
+        scoreCounter = new ScoreCounter(0);
     }
 
     /**
@@ -61,6 +49,32 @@ public final class Game {
             board = bFactory.createRandomBoard();
         }
         return board;
+    }
+
+    /**
+     * Initializes the backgroundtilecatalog.
+     */
+    private void initBTCatalog() {
+        int backgroundTileCount = -1;
+        Color standardColor = Color.MAGENTA;
+        try {
+            moves = Launcher.getGameCfg().getIntegerValueOf("standardMaxMoves");
+            backgroundTileCount = Launcher.getGameCfg().getIntegerValueOf("backgroundTileCount");
+            List<Integer> rgb = Launcher.getGameCfg().getListIntValueOf("colorBackgroundTile");
+            standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
+        } catch (NotExistingVariableException e) {
+            e.printStackTrace();
+        }
+        backgroundTileCatalog = new BackgroundTileCatalog(backgroundTileCount, standardColor);
+    }
+
+    private void initMoves() {
+        moves = 1;
+        try {
+            moves = Launcher.getGameCfg().getIntegerValueOf("standardMaxMoves");
+        } catch (NotExistingVariableException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -96,19 +110,8 @@ public final class Game {
      */
     private void nextBoard() {
         board = bFactory.createRandomBoard();
-        int backgroundTileCount;
-        Color standardColor;
-        try {
-            moves = Launcher.getGameCfg().getIntegerValueOf("standardMaxMoves");
-            backgroundTileCount = Launcher.getGameCfg().getIntegerValueOf("backgroundTileCount");
-            List<Integer> rgb = Launcher.getGameCfg().getListIntValueOf("colorBackgroundTile");
-            standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
-        } catch (NotExistingVariableException e) {
-            e.printStackTrace();
-            backgroundTileCount = -1;
-            standardColor = Color.MAGENTA;
-        }
-        backgroundTileCatalog = new BackgroundTileCatalog(backgroundTileCount, standardColor);
+        initMoves();
+        initBTCatalog();
     }
 
     /**
