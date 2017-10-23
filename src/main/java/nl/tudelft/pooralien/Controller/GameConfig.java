@@ -1,6 +1,7 @@
 package nl.tudelft.pooralien.Controller;
 
 import nl.tu.delft.defpro.api.IDefProAPI;
+import nl.tu.delft.defpro.exception.NotExistingVariableException;
 
 import java.util.List;
 
@@ -36,10 +37,12 @@ public final class GameConfig {
     public static Boolean getBoolean(String name) {
         try {
             return cfg.getBooleanValueOf(name);
+        } catch (NotExistingVariableException e) {
+            System.out.println("Boolean " + name + " not found.");
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return null;
         }
+        return null;
     }
 
     /**
@@ -53,10 +56,12 @@ public final class GameConfig {
     public static List<Boolean> getBooleanList(String name) {
         try {
             return (List<Boolean>) cfg.getListBoolValueOf(name);
+        } catch (NotExistingVariableException e) {
+            System.out.println("Boolean List " + name + " not found.");
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return null;
         }
+        return null;
     }
 
     /**
@@ -69,10 +74,12 @@ public final class GameConfig {
     public static Integer getInteger(String name) {
         try {
             return cfg.getIntegerValueOf(name);
+        } catch (NotExistingVariableException e) {
+            System.out.println("Integer " + name + " not found.");
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return null;
         }
+        return null;
     }
 
     /**
@@ -86,10 +93,12 @@ public final class GameConfig {
     public static List<Integer> getIntegerList(String name) {
         try {
             return (List<Integer>) cfg.getListIntValueOf(name);
+        } catch (NotExistingVariableException e) {
+            System.out.println("Integer List " + name + " not found.");
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return null;
         }
+        return null;
     }
 
     /**
@@ -102,10 +111,12 @@ public final class GameConfig {
     public static Double getReal(String name) {
         try {
             return cfg.getRealValueOf(name);
+        } catch (NotExistingVariableException e) {
+            System.out.println("Real " + name + " not found.");
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return null;
         }
+        return null;
     }
 
     /**
@@ -119,10 +130,12 @@ public final class GameConfig {
     public static List<Double> getRealList(String name) {
         try {
             return (List<Double>) cfg.getListRealValueOf(name);
+        } catch (NotExistingVariableException e) {
+            System.out.println("Real List " + name + " not found.");
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return null;
         }
+        return null;
     }
 
     /**
@@ -135,10 +148,12 @@ public final class GameConfig {
     public static String getString(String name) {
         try {
             return cfg.getStringValueOf(name);
+        } catch (NotExistingVariableException e) {
+            System.out.println("String " + name + " not found.");
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return null;
         }
+        return null;
     }
 
     /**
@@ -152,10 +167,12 @@ public final class GameConfig {
     public static List<String> getStringList(String name) {
         try {
             return (List<String>) cfg.getListStringValueOf(name);
+        } catch (NotExistingVariableException e) {
+            System.out.println("String List " + name + " not found.");
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return null;
         }
+        return null;
     }
 
 
