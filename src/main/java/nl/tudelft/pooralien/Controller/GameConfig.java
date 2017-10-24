@@ -11,12 +11,14 @@ import static nl.tu.delft.defpro.api.APIProvider.getAPI;
  * GameConfig class, used to read values from the config file.
  */
 public final class GameConfig {
+    private static String cfgPath;
     private static IDefProAPI cfg;
 
     static {
         try {
-            cfg = getAPI(GameConfig.class.getResource("/config.txt").toURI()
-                    .getPath().replaceFirst("^/(.:/)", "$1"));
+            cfgPath = GameConfig.class.getResource("/config.txt").toURI()
+                    .getPath().replaceFirst("^/(.:/)", "$1");
+            cfg = getAPI(cfgPath);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -175,6 +177,25 @@ public final class GameConfig {
         return null;
     }
 
+    /**
+     * Sets the config that the values are retrieved from,
+     * iff the new config is not null.
+     * @param newConfig The new config.
+     */
+    public static void setConfig(IDefProAPI newConfig) {
+        if (newConfig != null) {
+            cfg = newConfig;
+        }
+    }
 
-
+    /**
+     * Resets the config that values are retrieved from to the default config.
+     */
+    public static void resetConfig() {
+        try {
+            cfg = getAPI(cfgPath);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
