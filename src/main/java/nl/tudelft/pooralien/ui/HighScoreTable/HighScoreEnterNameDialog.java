@@ -45,7 +45,6 @@ public class HighScoreEnterNameDialog {
             return;
         }
         scoreManager.addScore(userInput, score);
-        scoreManager.getScores();
         Game.getGame().getHighScoreTableTopX().getTable().repaint();
 
 
