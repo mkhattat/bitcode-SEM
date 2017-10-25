@@ -66,6 +66,7 @@ public final class Game implements Subject {
         int backgroundTileCount = -1;
         Color standardColor = Color.MAGENTA;
         try {
+            //TODO: Implement Config Boundries
             moves = Launcher.getGameCfg().getIntegerValueOf("standardMaxMoves");
             backgroundTileCount = Launcher.getGameCfg().getIntegerValueOf("backgroundTileCount");
             List<Integer> rgb = Launcher.getGameCfg().getListIntValueOf("colorBackgroundTile");
@@ -82,6 +83,7 @@ public final class Game implements Subject {
     private void initMoves() {
         moves = 1;
         try {
+            //TODO: Implement Config Boundries
             moves = Launcher.getGameCfg().getIntegerValueOf("standardMaxMoves");
         } catch (NotExistingVariableException e) {
             e.printStackTrace();

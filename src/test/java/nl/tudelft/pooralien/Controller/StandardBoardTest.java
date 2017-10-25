@@ -22,6 +22,7 @@ public class StandardBoardTest extends BoardTest {
     @Test
     public void getWidth() {
         try {
+            //TODO: Implement Config Boundries
             assertEquals((int) Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth"), board.getWidth());
         } catch (NotExistingVariableException e) {
             fail(e.getMessage());
@@ -31,6 +32,7 @@ public class StandardBoardTest extends BoardTest {
     @Test
     public void getHeight() {
         try {
+            //TODO: Implement Config Boundries
             assertEquals((int) Launcher.getGameCfg().getIntegerValueOf("maxBoardHeight"), board.getHeight());
         } catch (NotExistingVariableException e) {
             fail(e.getMessage());
@@ -40,6 +42,7 @@ public class StandardBoardTest extends BoardTest {
     @Test
     public void getMinGroupSize() {
         try {
+            //TODO: Implement Config Boundries
             assertEquals((int) Launcher.getGameCfg().getIntegerValueOf("minItemsInRow"), board.getMinGroupSize());
         } catch (NotExistingVariableException e) {
             fail(e.getMessage());

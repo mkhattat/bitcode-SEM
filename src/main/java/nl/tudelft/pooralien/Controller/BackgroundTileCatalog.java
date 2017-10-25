@@ -39,6 +39,7 @@ public class BackgroundTileCatalog {
      */
     private void initWidthHeight() {
         try {
+            //TODO: Implement Config Boundries
             maxWidthAndHeight = Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth");
         } catch (NotExistingVariableException e) {
             System.out.println(e.getMessage());
@@ -51,6 +52,7 @@ public class BackgroundTileCatalog {
      */
     private void initMaxTileCount() {
         try {
+            //TODO: Implement Config Boundries
             maxTileCount = Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth")
                     * Launcher.getGameCfg().getIntegerValueOf("maxBoardHeight");
         } catch (NotExistingVariableException e) {

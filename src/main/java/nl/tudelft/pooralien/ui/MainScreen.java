@@ -58,6 +58,7 @@ public class MainScreen extends JLayeredPane implements Observer {
         mouseEventHandler.registerObserver(observer);
         this.port = 0;
         try {
+            //TODO: Implement Config Boundries
             port = Launcher.getGameCfg().getIntegerValueOf("port");
         } catch (NotExistingVariableException error) {
             error.printStackTrace();

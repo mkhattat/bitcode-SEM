@@ -38,6 +38,7 @@ public class Launcher {
      */
     public void launch() {
         try {
+            //TODO: Implement Config Boundries
             JFrame mainWindow = new JFrame(gameCfg.getStringValueOf("gameTitle"));
             MainScreen mainScreen = new MainScreen();
             mainWindow.setSize(0, 0);
@@ -47,6 +48,7 @@ public class Launcher {
             mainWindow.pack();
             Game.getGame().registerObserver(mainScreen);
             Game.getGame().setMultiplayer(false);
+            //TODO: Implement Config Boundries
             if (!gameCfg.getBooleanValueOf("multiLevel")) {
                 mainWindow.setVisible(true);
             }

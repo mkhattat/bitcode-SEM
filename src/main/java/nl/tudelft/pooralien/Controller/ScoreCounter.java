@@ -20,6 +20,7 @@ public class ScoreCounter {
     ScoreCounter(int score) {
         this.score = score;
         try {
+            //TODO: Implement Config Boundries
             this.scorePerTile = Launcher.getGameCfg().getIntegerValueOf("scorePerTile");
             this.scorePerBackgroundTile =
                     Launcher.getGameCfg().getIntegerValueOf("scorePerBackgroundTile");
