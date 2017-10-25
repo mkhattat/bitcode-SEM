@@ -43,3 +43,5 @@ bool multiLevel = false
 int port = 9090
 ## amount of moves
 int standardMaxMoves = 12
+## the amount of top scores to be shown after the game
+int topXScores = 10

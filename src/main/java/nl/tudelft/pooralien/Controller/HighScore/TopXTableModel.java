@@ -3,9 +3,9 @@ package nl.tudelft.pooralien.Controller.HighScore;
 import javax.swing.table.AbstractTableModel;
 
 /**
- * Top10TableModel which gives structure and adds rules to the table.
+ * TopXTableModel which gives structure and adds rules to the table.
  */
-public class Top10TableModel extends AbstractTableModel {
+public class TopXTableModel extends AbstractTableModel {
 
     private String[] columnNames = {
         "No.",
@@ -13,16 +13,15 @@ public class Top10TableModel extends AbstractTableModel {
         "Score"
     };
 
-    //CONFIG FILE
-    private final  int top10 = 10;
-
+    private int topXScores;
     private ScoreManager scoreManager;
 
     /**
-     * Initialize the Top10TableModel with the scoreManager.
+     * Initialize the TopXTableModel with the scoreManager and topXScores.
      */
-    public Top10TableModel() {
+    public TopXTableModel() {
         scoreManager = new ScoreManager();
+        topXScores = scoreManager.getTopXScoreCount();
     }
 
 
@@ -33,7 +32,6 @@ public class Top10TableModel extends AbstractTableModel {
 
     @Override
     public String getColumnName(int column) {
-
         if (column > -1 && column < columnNames.length) {
             return columnNames[column];
         }
@@ -42,10 +40,11 @@ public class Top10TableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        if (scoreManager.getSCORE_COUNT() < top10) {
+        topXScores = scoreManager.getTopXScoreCount();
+        if (scoreManager.getSCORE_COUNT() < topXScores) {
             return scoreManager.getSCORE_COUNT();
         }
-        return top10;
+        return topXScores;
     }
 
     @Override
@@ -71,9 +70,9 @@ public class Top10TableModel extends AbstractTableModel {
                 //Index starts at 0, score No. does not.
                 return rowIndex + 1;
             case(1):
-                return scoreManager.getTopTenScores().get(rowIndex).getName();
+                return scoreManager.getTopXScores().get(rowIndex).getName();
             case(2):
-                return scoreManager.getTopTenScores().get(rowIndex).getScore();
+                return scoreManager.getTopXScores().get(rowIndex).getScore();
             default: return null;
         }
     }

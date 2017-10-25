@@ -2,6 +2,7 @@ package nl.tudelft.pooralien.ui.HighScoreTable;
 
 import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Controller.HighScore.ScoreManager;
+import nl.tudelft.pooralien.Controller.HighScore.TopXTableModel;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,8 +26,8 @@ public class HighScoreEnterNameDialog {
 
         // IF THE USER HAS NOT SCORED IN THE TOP TEN THEN RETURN BUT
         // IF THERE ARE LESS THEN TEN SCORES CONTINUE.
-        if (score < scoreManager.getLowestScoreInTopTen()
-                && scoreManager.getSCORE_COUNT() < 2 + 2 + 2 + 2 + 2) {
+        if (score < scoreManager.getLowestScoreInTopX()
+                && scoreManager.getSCORE_COUNT() < scoreManager.getTopXScoreCount()) {
             return;
         }
 
@@ -44,7 +45,10 @@ public class HighScoreEnterNameDialog {
             return;
         }
         scoreManager.addScore(userInput, score);
-        Game.getGame().getHighScoreTableTop10().repaint();
+        scoreManager.getScores();
+        Game.getGame().getHighScoreTableTopX().getTable().repaint();
+
+
 
         System.out.printf("The player's name is '%s'.\n", userInput);
     }

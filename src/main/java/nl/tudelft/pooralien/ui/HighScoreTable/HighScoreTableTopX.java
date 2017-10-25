@@ -1,6 +1,6 @@
 package nl.tudelft.pooralien.ui.HighScoreTable;
 
-import nl.tudelft.pooralien.Controller.HighScore.Top10TableModel;
+import nl.tudelft.pooralien.Controller.HighScore.TopXTableModel;
 
 import javax.swing.JTable;
 import javax.swing.JPanel;
@@ -11,20 +11,21 @@ import java.awt.Dimension;
 /**
  * High Score Table based on the Top10 Table Model.
  */
-public class HighScoreTableTop10 extends JPanel {
+public class HighScoreTableTopX extends JPanel {
 
-    // CONFIG FILE
     private final int tableViewportWidth = 500;
     private final int tableViewportHeight = 160;
     private final int columnIndexWidth = 30;
 
+    private JTable table;
+
     /**
      * Initializing the top 10 high score table.
      */
-    public HighScoreTableTop10() {
+    public HighScoreTableTopX() {
         super(new GridLayout(1, 0));
 
-        final JTable table = new JTable(new Top10TableModel());
+        table = new JTable(new TopXTableModel());
         table.setCellSelectionEnabled(false);
         // Disable column header repositioning.
         table.getTableHeader().setReorderingAllowed(false);
@@ -46,6 +47,13 @@ public class HighScoreTableTop10 extends JPanel {
 
         //Add the scroll pane to this panel.
         add(scrollPane);
+    }
+
+    /**
+     * @return JTable being used.
+     */
+    public JTable getTable() {
+        return table;
     }
 
 

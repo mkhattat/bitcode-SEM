@@ -46,7 +46,7 @@ public class Launcher {
 
             JPanel gameAndScoreHolder = new JPanel();
             gameAndScoreHolder.add(mainScreen);
-            gameAndScoreHolder.add(Game.getGame().getHighScoreTableTop10());
+            gameAndScoreHolder.add(Game.getGame().getHighScoreTableTopX());
 
             mainWindow.getContentPane().add(gameAndScoreHolder);
 

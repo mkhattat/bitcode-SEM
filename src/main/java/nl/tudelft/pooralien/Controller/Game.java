@@ -10,7 +10,7 @@ import nl.tudelft.pooralien.Launcher;
 import nl.tudelft.pooralien.Observer;
 import nl.tudelft.pooralien.Subject;
 import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreEnterNameDialog;
-import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreTableTop10;
+import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreTableTopX;
 
 
 /**
@@ -26,7 +26,7 @@ public final class Game implements Subject {
     private boolean gameIsRunning;
     private ArrayList<Observer> observers;
     private int moves;
-    private HighScoreTableTop10 highScoreTableTop10;
+    private HighScoreTableTopX highScoreTableTopX;
 
     /**
      * Initialise the singleton Game object.
@@ -64,13 +64,13 @@ public final class Game implements Subject {
     }
 
     /**
-     * @return the top10 score table being used.
+     * @return the topX score table being used.
      */
-    public HighScoreTableTop10 getHighScoreTableTop10() {
-        if (highScoreTableTop10 == null) {
-            highScoreTableTop10 = new HighScoreTableTop10();
+    public HighScoreTableTopX getHighScoreTableTopX() {
+        if (highScoreTableTopX == null) {
+            highScoreTableTopX = new HighScoreTableTopX();
         }
-        return highScoreTableTop10;
+        return highScoreTableTopX;
     }
 
     /**

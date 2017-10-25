@@ -1,5 +1,8 @@
 package nl.tudelft.pooralien.Controller.HighScore;
 
+import nl.tu.delft.defpro.exception.NotExistingVariableException;
+import nl.tudelft.pooralien.Launcher;
+
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,6 +21,7 @@ public class ScoreManager {
 
     private ArrayList<Score> scores;
     private static final String SCORE_FILE = "scores.bin";
+    private int topXScores;
 
     /**
      * Initialize the score manager, load the scores from the save file or generate a new save file.
@@ -29,10 +33,15 @@ public class ScoreManager {
             //If high score files does not exist then create one.
             new File(SCORE_FILE).createNewFile();
             scores = getScores();
+            //CONFIG FILE
+            topXScores = Launcher.getGameCfg().getIntegerValueOf("topXScores");
 
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NotExistingVariableException e) {
+            topXScores = 10;
             e.printStackTrace();
         }
 
@@ -129,17 +138,13 @@ public class ScoreManager {
     }
 
     /**
-     * Returns the top10 scores saved in the save file.
+     * Returns the @topXScores saved in the save file.
      * @return ArrayList of Score objects.
      */
-    public ArrayList<Score> getTopTenScores() {
-        ArrayList<Score> topTenScores = new ArrayList<>();
-        // The amount of scores to be shown.
-        int scoreCount = 2 + 2 + 2 + 2 + 2;
+    public ArrayList<Score> getTopXScores() {
+        ArrayList<Score> topXArrayListScores = new ArrayList<>();
 
-        if (scores.size() < scoreCount) {
-            scoreCount = scores.size();
-        }
+        topXScores = getTopXScoreCount();
 
         try {
             scores = getScores();
@@ -148,22 +153,22 @@ public class ScoreManager {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < scoreCount; i++) {
-            topTenScores.add(scores.get(i));
+        for (int i = 0; i < topXScores; i++) {
+            topXArrayListScores.add(scores.get(i));
         }
-        return topTenScores;
+        return topXArrayListScores;
     }
 
     /**
-     * @return the lowest score in the top ten or zero if there are no highscores in the save file.
+     * @return the lowest score in the top x or zero if there are no highscores in the save file.
      */
-    public int getLowestScoreInTopTen() {
-        ArrayList<Score> topTenScores = getTopTenScores();
+    public int getLowestScoreInTopX() {
+        ArrayList<Score> topXArrayListScores = getTopXScores();
 
-        if (topTenScores.size() < 1) {
+        if (topXArrayListScores.size() < 1) {
             return 0;
         }
-        return topTenScores.get(topTenScores.size() - 1).getScore();
+        return topXArrayListScores.get(topXArrayListScores.size() - 1).getScore();
     }
 
     /**
@@ -171,5 +176,15 @@ public class ScoreManager {
      */
     public int getSCORE_COUNT() {
         return scores.size();
+    }
+
+    /**
+     * @return Returns TopX config int except if there are fewer scores saved then this count is returned.
+     */
+    public int getTopXScoreCount() {
+        if (scores.size() <= topXScores) {
+            topXScores = scores.size();
+        }
+        return topXScores;
     }
 }
