@@ -2,7 +2,6 @@ package nl.tudelft.pooralien.ui.HighScoreTable;
 
 import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Controller.HighScore.ScoreManager;
-import nl.tudelft.pooralien.Controller.HighScore.TopXTableModel;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -46,8 +45,6 @@ public class HighScoreEnterNameDialog {
         }
         scoreManager.addScore(userInput, score);
         Game.getGame().getHighScoreTableTopX().getTable().repaint();
-
-
 
         System.out.printf("The player's name is '%s'.\n", userInput);
     }

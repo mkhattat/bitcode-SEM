@@ -41,7 +41,7 @@ public class ScoreManager {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (NotExistingVariableException e) {
-            topXScores = 10;
+            topXScores = 2 + 2 + 2 + 2 + 2;
             e.printStackTrace();
         }
 
@@ -179,7 +179,8 @@ public class ScoreManager {
     }
 
     /**
-     * @return Returns TopX config int except if there are fewer scores saved then this count is returned.
+     * @return Returns TopX config int except,
+     * if there are fewer scores saved then TopX then the amount of those scores is returned.
      */
     public int getTopXScoreCount() {
         if (scores.size() <= topXScores) {
