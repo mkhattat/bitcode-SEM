@@ -35,6 +35,7 @@ public class MainScreen extends JLayeredPane implements Observer {
     private JPanel mainFrame;
     private JLabel headerLabel;
     private JPanel gridBoard;
+    private JPanel highScoreBoard;
     private JPanelTile[][] gridBoardHolder;
     private JPanel controlPanel;
     private GridBagConstraints gbc;
