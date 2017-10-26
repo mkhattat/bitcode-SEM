@@ -39,6 +39,7 @@ public class Launcher {
      */
     public void launch() {
         try {
+            //TODO: Implement Config Boundries
             String gameTitle = InputDefender.string(gameCfg.getStringValueOf("gameTitle"), 50, "PoorAlien");
             JFrame mainWindow = new JFrame(gameTitle);
             MainScreen mainScreen = new MainScreen();
