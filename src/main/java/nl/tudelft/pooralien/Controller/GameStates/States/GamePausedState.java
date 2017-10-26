@@ -1,5 +1,6 @@
 package nl.tudelft.pooralien.Controller.GameStates.States;
 
+import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.GameStates.State;
 
@@ -23,7 +24,13 @@ public class GamePausedState implements State {
 
     @Override
     public void pauseGame() {
+        Game.getGame().pauseGame();
+    }
 
+    @Override
+    public void resumeGame() {
+        Game.getGame().resumeGame();
+        gameControllerMachine.setState(gameControllerMachine.getGamePlayState());
     }
 
     @Override

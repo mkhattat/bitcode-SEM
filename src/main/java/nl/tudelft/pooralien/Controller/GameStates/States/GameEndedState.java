@@ -30,6 +30,11 @@ public class GameEndedState implements State {
     }
 
     @Override
+    public void resumeGame() {
+
+    }
+
+    @Override
     public void endGame() {
         //Enter user input into
         HighScoreEnterNameDialog highScoreEnterNameDialog =

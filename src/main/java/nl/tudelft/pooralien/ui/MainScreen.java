@@ -279,9 +279,9 @@ public class MainScreen extends JLayeredPane implements Observer {
 
         public void actionPerformed(ActionEvent e) {
             if(buttonTextIsPaused) {
-                Game.getGame().pauseGame();
                 Game.getGame().getGameControllerMachine().setState(
                         Game.getGame().getGameControllerMachine().getGamePausedState());
+                Game.getGame().getGameControllerMachine().pauseGame();
 
                 buttonTextIsPaused = false;
                 pauseGame.setText("Unpause Game");

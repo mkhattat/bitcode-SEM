@@ -58,6 +58,12 @@ public class MainMenuState implements State {
     }
 
     @Override
+    public void resumeGame() {
+        // Not possible.
+        System.out.println("CurrentState: MainMenuState, Game has not yet been started.");
+    }
+
+    @Override
     public void endGame() {
         // Not possible.
         System.out.println("CurrentState: MainMenuState, " +

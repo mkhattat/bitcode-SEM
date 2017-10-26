@@ -29,7 +29,13 @@ public class GamePlayState implements State {
 
     @Override
     public void pauseGame() {
-        //SHOULD DISABLE MOUSE INPUT FOR THE BOARD
+        Game.getGame().pauseGame();
+        gameControllerMachine.setState(gameControllerMachine.getGamePausedState());
+    }
+
+    @Override
+    public void resumeGame() {
+        throw new IllegalStateException("GameState: GamePlayState, Game already resumed/running");
     }
 
     @Override

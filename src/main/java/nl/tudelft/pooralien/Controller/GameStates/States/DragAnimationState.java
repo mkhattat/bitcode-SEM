@@ -27,6 +27,11 @@ public class DragAnimationState implements State {
     }
 
     @Override
+    public void resumeGame() {
+
+    }
+
+    @Override
     public void endGame() {
         //NOT POSSIBLE.
     }

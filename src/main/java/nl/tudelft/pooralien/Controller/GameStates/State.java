@@ -16,9 +16,14 @@ public interface State {
     public void startGame();
 
     /**
-     * When the game is paused/resumed by the player.
+     * When the game is paused by the player.
      */
     public void pauseGame();
+
+    /**
+     * When the game is resumed by the player.
+     */
+    public void resumeGame();
 
     /**
      * When the game has ended by winning/losing condition.
