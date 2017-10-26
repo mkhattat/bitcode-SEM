@@ -1,6 +1,7 @@
 package nl.tudelft.pooralien;
 
 import static nl.tu.delft.defpro.api.APIProvider.getAPI;
+import static nl.tudelft.pooralien.InputDefender.*;
 
 import java.net.URISyntaxException;
 
@@ -38,8 +39,8 @@ public class Launcher {
      */
     public void launch() {
         try {
-            //TODO: Implement Config Boundries
-            JFrame mainWindow = new JFrame(gameCfg.getStringValueOf("gameTitle"));
+            String gameTitle = InputDefender.string(gameCfg.getStringValueOf("gameTitle"), 50, "PoorAlien");
+            JFrame mainWindow = new JFrame(gameTitle);
             MainScreen mainScreen = new MainScreen();
             mainWindow.setSize(0, 0);
             mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
