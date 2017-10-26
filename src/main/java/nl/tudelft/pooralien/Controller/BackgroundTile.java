@@ -41,6 +41,7 @@ public class BackgroundTile {
 
     private void initWidthHeight() {
         try {
+            //TODO: Implement Config Boundries
             maxWidthAndHeight = Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth");
         } catch (NotExistingVariableException e) {
             System.out.println(e.getMessage());

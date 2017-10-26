@@ -38,6 +38,7 @@ public class TTBDragAnimation implements Animation {
         originalYGridPosition = 0;
         originalXScreenPosition = 0;
         try {
+            //TODO: Implement Config Boundries
             this.margin = Launcher.getGameCfg().getIntegerValueOf("marginVDrag");
             this.gap = Launcher.getGameCfg().getRealValueOf("gap");
         } catch (NotExistingVariableException e) {

@@ -16,6 +16,7 @@ public class StandardBoard extends Board {
      */
     protected int initWidth() {
         try {
+            //TODO: Implement Config Boundries
             return Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth");
         } catch (NotExistingVariableException e) {
             System.out.println(e.getMessage());
@@ -30,6 +31,7 @@ public class StandardBoard extends Board {
      */
     protected int initHeight() {
         try {
+            //TODO: Implement Config Boundries
             return Launcher.getGameCfg().getIntegerValueOf("maxBoardHeight");
         } catch (NotExistingVariableException e) {
             System.out.println(e.getMessage());
@@ -44,6 +46,7 @@ public class StandardBoard extends Board {
      */
     protected int initMinGroupSize() {
         try {
+            //TODO: Implement Config Boundries
             return Launcher.getGameCfg().getIntegerValueOf("minItemsInRow");
         } catch (NotExistingVariableException e) {
             System.out.println(e.getMessage());
