@@ -120,10 +120,7 @@ public class ScoreManager {
      */
     private void saveScores() throws IOException {
         try {
-            new File(SCORE_FILE).delete();
-            new File(SCORE_FILE).createNewFile();
-
-            FileOutputStream scoreFile = new FileOutputStream(SCORE_FILE);
+            FileOutputStream scoreFile = new FileOutputStream(SCORE_FILE, false);
             DataOutputStream scoreWriter = new DataOutputStream(scoreFile);
 
             for (Score score : scores) {
