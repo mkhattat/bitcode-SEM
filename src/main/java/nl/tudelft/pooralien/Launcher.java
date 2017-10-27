@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import nl.tu.delft.defpro.api.IDefProAPI;
 import nl.tudelft.pooralien.Controller.Game;
+import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreFrame;
 import nl.tudelft.pooralien.ui.MainScreen;
 
 /**
@@ -44,11 +45,10 @@ public class Launcher {
             mainWindow.setSize(0, 0);
             mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-            JPanel gameAndScoreHolder = new JPanel();
-            gameAndScoreHolder.add(mainScreen);
-            gameAndScoreHolder.add(Game.getGame().getHighScoreTableTopX());
+            JPanel gameHolder = new JPanel();
+            gameHolder.add(mainScreen);
 
-            mainWindow.getContentPane().add(gameAndScoreHolder);
+            mainWindow.getContentPane().add(gameHolder);
 
             mainWindow.pack();
             Game.getGame().registerObserver(mainScreen);
@@ -60,6 +60,8 @@ public class Launcher {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
+        //READDED IN THE STATE BRANCH.
+        //HighScoreFrame highScoreFrame = new HighScoreFrame();
     }
 
     /**
