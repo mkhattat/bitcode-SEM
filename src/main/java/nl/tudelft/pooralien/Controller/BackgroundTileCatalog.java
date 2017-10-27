@@ -38,27 +38,15 @@ public class BackgroundTileCatalog {
      * Initiliazes the max width and height using the config file.
      */
     private void initWidthHeight() {
-        try {
-            //TODO: Implement Config Boundries
-            maxWidthAndHeight = Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth");
-        } catch (NotExistingVariableException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
+            maxWidthAndHeight = GameConfig.getInteger("maxBoardWidth", 5,20, 10);
     }
 
     /**
      * Initializes the max tile count using the config file.
      */
     private void initMaxTileCount() {
-        try {
-            //TODO: Implement Config Boundries
-            maxTileCount = Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth")
-                    * Launcher.getGameCfg().getIntegerValueOf("maxBoardHeight");
-        } catch (NotExistingVariableException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
+        maxTileCount = GameConfig.getInteger("maxBoardWidth", 5,20, 10)
+                * GameConfig.getInteger("maxBoardHeight", 5,20, 10);
     }
 
     /**

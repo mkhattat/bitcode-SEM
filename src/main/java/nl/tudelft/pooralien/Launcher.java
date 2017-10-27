@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 
 import nl.tu.delft.defpro.api.IDefProAPI;
 import nl.tudelft.pooralien.Controller.Game;
+import nl.tudelft.pooralien.Controller.GameConfig;
 import nl.tudelft.pooralien.ui.MainScreen;
 
 /**
@@ -17,8 +18,9 @@ import nl.tudelft.pooralien.ui.MainScreen;
 public class Launcher {
 
     private static String cfgPath;
-    private static IDefProAPI gameCfg;
+    private static IDefProAPI gameCfgOld;
 
+    /*
     static {
         try {
             cfgPath = Launcher.class.getResource("/config.txt").toURI()
@@ -27,20 +29,19 @@ public class Launcher {
             e.printStackTrace();
         }
         try {
-            gameCfg = getAPI(cfgPath);
+            gameCfgOld = getAPI(cfgPath);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    */
 
     /**
      * Launch the game GUI.
      */
     public void launch() {
         try {
-            //TODO: Implement Config Boundries
-            String gameTitle = InputDefender.string(gameCfg.getStringValueOf("gameTitle"), 50, "PoorAlien");
+            String gameTitle = GameConfig.getString("gameTitle", 1,50, "PoorAlien");
             JFrame mainWindow = new JFrame(gameTitle);
             MainScreen mainScreen = new MainScreen();
             mainWindow.setSize(0, 0);
@@ -50,8 +51,7 @@ public class Launcher {
             mainWindow.pack();
             Game.getGame().registerObserver(mainScreen);
             Game.getGame().setMultiplayer(false);
-            //TODO: Implement Config Boundries
-            if (!gameCfg.getBooleanValueOf("multiLevel")) {
+            if (!GameConfig.getBoolean("multiLevel", false)) {
                 mainWindow.setVisible(true);
             }
         } catch (Exception e) {
@@ -60,13 +60,16 @@ public class Launcher {
         }
     }
 
+
     /**
      * Game config file object.
      * @return an IDefProAPI object.
      */
-    public static IDefProAPI getGameCfg() {
-        return gameCfg;
+    /*
+    public static IDefProAPI getGameCfgOld() {
+        return gameCfgOld;
     }
+    */
 
     /**
      * Entry point of the game.

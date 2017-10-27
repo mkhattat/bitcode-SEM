@@ -2,6 +2,7 @@ package nl.tudelft.pooralien.Controller;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
@@ -65,15 +66,14 @@ public final class Game implements Subject {
     private void initBTCatalog() {
         int backgroundTileCount = -1;
         Color standardColor = Color.MAGENTA;
-        try {
-            //TODO: Implement Config Boundries
-            moves = Launcher.getGameCfg().getIntegerValueOf("standardMaxMoves");
-            backgroundTileCount = Launcher.getGameCfg().getIntegerValueOf("backgroundTileCount");
-            List<Integer> rgb = Launcher.getGameCfg().getListIntValueOf("colorBackgroundTile");
-            standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
-        } catch (NotExistingVariableException e) {
-            e.printStackTrace();
-        }
+
+        moves = GameConfig.getInteger("standardMaxMoves", 1, 100, 12);
+        backgroundTileCount = GameConfig.getInteger("backgroundTileCount", 0,
+                (GameConfig.getInteger("maxBoardWidth", 5,20, 10))^2, 10);
+        List<Integer> rgb = GameConfig.getIntegerList("colorBackgroundTile", 3, 3,
+                Arrays.asList(0,0,0), Arrays.asList(0,0,0), Arrays.asList(255,0,255));
+        standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
+
         backgroundTileCatalog = new BackgroundTileCatalog(backgroundTileCount, standardColor);
     }
 
@@ -81,13 +81,7 @@ public final class Game implements Subject {
      * Initializes the amount of moves.
      */
     private void initMoves() {
-        moves = 1;
-        try {
-            //TODO: Implement Config Boundries
-            moves = Launcher.getGameCfg().getIntegerValueOf("standardMaxMoves");
-        } catch (NotExistingVariableException e) {
-            e.printStackTrace();
-        }
+        moves = GameConfig.getInteger("standardMaxMoves", 1, 100, 12);
     }
 
     /**

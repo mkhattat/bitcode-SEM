@@ -19,16 +19,9 @@ public class ScoreCounter {
      */
     ScoreCounter(int score) {
         this.score = score;
-        try {
-            //TODO: Implement Config Boundries
-            this.scorePerTile = Launcher.getGameCfg().getIntegerValueOf("scorePerTile");
-            this.scorePerBackgroundTile =
-                    Launcher.getGameCfg().getIntegerValueOf("scorePerBackgroundTile");
-        } catch (NotExistingVariableException e) {
-            e.printStackTrace();
-            this.scorePerTile = 1;
-            this.scorePerBackgroundTile = 2 + 2 + 2 + 2;
-        }
+        this.scorePerTile = GameConfig.getInteger("scorePerTile", 1, Integer.MAX_VALUE, 1);
+        this.scorePerBackgroundTile = GameConfig.getInteger("scorePerBackgroundTile", 2,
+                Integer.MAX_VALUE, 6);
     }
 
     /**

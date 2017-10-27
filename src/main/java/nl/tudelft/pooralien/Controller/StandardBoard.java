@@ -15,14 +15,7 @@ public class StandardBoard extends Board {
      * @return The initial width of the board from the config file.
      */
     protected int initWidth() {
-        try {
-            //TODO: Implement Config Boundries
-            return Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth");
-        } catch (NotExistingVariableException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-        return -1;
+        return GameConfig.getInteger("maxBoardWidth", 5, 20, 10);
     }
 
     /**
@@ -30,14 +23,7 @@ public class StandardBoard extends Board {
      * @return The initial height of the board from the config file.
      */
     protected int initHeight() {
-        try {
-            //TODO: Implement Config Boundries
-            return Launcher.getGameCfg().getIntegerValueOf("maxBoardHeight");
-        } catch (NotExistingVariableException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-        return -1;
+        return GameConfig.getInteger("maxBoardHeight", 5, 20, 10);
     }
 
     /**
@@ -45,14 +31,7 @@ public class StandardBoard extends Board {
      * @return The minimum group size from the config file.
      */
     protected int initMinGroupSize() {
-        try {
-            //TODO: Implement Config Boundries
-            return Launcher.getGameCfg().getIntegerValueOf("minItemsInRow");
-        } catch (NotExistingVariableException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-        return -1;
+        return GameConfig.getInteger("minItemsInRow", 2, this.initWidth(), 3);
     }
 
     /**

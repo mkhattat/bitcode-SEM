@@ -13,7 +13,7 @@ public class BackgroundTile {
     private int coordinateX;
     private int coordinateY;
     private Color colorBackgroundTile;
-    private int maxWidthAndHeight;
+    private Integer maxWidthAndHeight;
 
     /**
      * @param coordinateX must be [0,10]
@@ -40,13 +40,7 @@ public class BackgroundTile {
     }
 
     private void initWidthHeight() {
-        try {
-            //TODO: Implement Config Boundries
-            maxWidthAndHeight = Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth");
-        } catch (NotExistingVariableException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
+        maxWidthAndHeight = GameConfig.getInteger("maxBoardWidth", 5,20, 10);
     }
 
     /**

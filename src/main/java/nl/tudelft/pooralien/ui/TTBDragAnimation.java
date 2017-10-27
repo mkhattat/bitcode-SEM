@@ -3,6 +3,7 @@ package nl.tudelft.pooralien.ui;
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
 import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.Controller.Game;
+import nl.tudelft.pooralien.Controller.GameConfig;
 import nl.tudelft.pooralien.Launcher;
 
 import javax.swing.JLabel;
@@ -37,15 +38,9 @@ public class TTBDragAnimation implements Animation {
         previousCoordinate = new Point(0, 0);
         originalYGridPosition = 0;
         originalXScreenPosition = 0;
-        try {
-            //TODO: Implement Config Boundries
-            this.margin = Launcher.getGameCfg().getIntegerValueOf("marginVDrag");
-            this.gap = Launcher.getGameCfg().getRealValueOf("gap");
-        } catch (NotExistingVariableException e) {
-            e.printStackTrace();
-            this.margin = 0;
-            this.gap = 0;
-        }
+
+        this.margin = GameConfig.getInteger("marginVDrag", 1, 20, 10);
+        this.gap = GameConfig.getReal("gap", 0.0, 5.0, 1.22);
     }
 
     @Override

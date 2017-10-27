@@ -12,13 +12,15 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+//TODO: BOUNDARIES
 public class StandardBoardTest extends BoardTest {
+
     @Before
     public void setUp() throws Exception {
         launcher = new Launcher();
         board = new StandardBoardFactory().createRandomBoard();
     }
-
+    /*
     @Test
     public void getWidth() {
         try {
@@ -135,4 +137,5 @@ public class StandardBoardTest extends BoardTest {
         board.removeGroup(l);
         assertNotNull(board.getItem(0,0));
     }
+    */
 }
