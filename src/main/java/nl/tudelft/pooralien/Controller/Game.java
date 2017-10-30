@@ -11,6 +11,7 @@ import nl.tudelft.pooralien.Launcher;
 import nl.tudelft.pooralien.Observer;
 import nl.tudelft.pooralien.Subject;
 import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreTableTopX;
+import nl.tudelft.pooralien.ui.MainScreen;
 
 import javax.swing.JTable;
 
@@ -30,6 +31,7 @@ public final class Game implements Subject {
     private int moves;
     private HighScoreTableTopX highScoreTableTopX;
     private GameControllerMachine gameControllerMachine;
+    private MainScreen mainScreen = null;
 
     /**
      * Initialise the singleton Game object.
@@ -130,6 +132,7 @@ public final class Game implements Subject {
         if (moves > 0) {
             moves--;
             if (moves == 0) {
+                getGame().gameControllerMachine.setState(gameControllerMachine.getGameEndedState());
                 Game.getGame().gameControllerMachine.endGame();
             }
         }
@@ -142,6 +145,8 @@ public final class Game implements Subject {
         board = bFactory.createRandomBoard();
         initMoves();
         initBTCatalog();
+        //Refreshes the GUI board
+        mainScreen.refreshBoard();
     }
 
     /**
@@ -243,5 +248,13 @@ public final class Game implements Subject {
         for (Observer item : observers) {
             item.update(this);
         }
+    }
+
+    /**
+     * Used to pass the MainScreen object to the Game object.
+     * @param mainScreen, sets the mainScreen object variable.
+     */
+    public void setMainScreen(MainScreen mainScreen) {
+        this.mainScreen = mainScreen;
     }
 }

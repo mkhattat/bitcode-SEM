@@ -4,6 +4,7 @@ import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.GameStates.State;
 import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreEnterNameDialog;
+import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreFrame;
 
 /**
  * The GameEndedState Class.
@@ -48,11 +49,15 @@ public class GameEndedState implements State {
 
     @Override
     public void endGame() {
+        //Needs to be saved as count changes when dialogs are opened, yielding a different result.
+        int backgroundCatalogSize = Game.getGame().getBackgroundTileCatalog().size();
         //Enter user input into
-        HighScoreEnterNameDialog highScoreEnterNameDialog =
-                new HighScoreEnterNameDialog(true, Game.getGame().getScoreCounter().getScore());
+        new HighScoreEnterNameDialog(true, Game.getGame().getScoreCounter().getScore());
 
-        if (Game.getGame().getBackgroundTileCatalog().size() == 0) {
+        //Show the highscores in a dialog
+        new HighScoreFrame();
+
+        if (backgroundCatalogSize == 0) {
             startGame();
 
         } else {

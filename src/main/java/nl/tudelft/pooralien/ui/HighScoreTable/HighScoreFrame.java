@@ -1,6 +1,7 @@
 package nl.tudelft.pooralien.ui.HighScoreTable;
 
 import nl.tudelft.pooralien.Controller.Game;
+import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -42,17 +43,22 @@ public class HighScoreFrame {
      */
     //TODO: THIS METHOD WILL BE IMPLEMENTED VIA THE GAMESTATE BRANCH
     private void selectedOption(int optionSelected) {
+        GameControllerMachine gameControllerMachine = Game.getGame().getGameControllerMachine();
         switch (optionSelected) {
             case (0):
                 //game controller new board
+                gameControllerMachine.setState(gameControllerMachine.getGameInitState());
+                gameControllerMachine.initGame();
                 break;
             case(1):
                 //game controller main menu
+                gameControllerMachine.setState(gameControllerMachine.getMainMenuState());
+                gameControllerMachine.mainMenu();
                 break;
-            case(2):
-                break;
+                // Case2 does not need to be implemented, as the default also exits.
             default:
                 //game controller exit
+                gameControllerMachine.exitGame();
                 break;
         }
     }

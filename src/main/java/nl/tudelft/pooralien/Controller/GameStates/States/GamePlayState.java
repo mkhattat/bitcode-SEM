@@ -48,8 +48,8 @@ public class GamePlayState implements State {
 
     @Override
     public void endGame() {
-        gameControllerMachine.setState(gameControllerMachine.getGameEndedState());
-        gameControllerMachine.endGame();
+        //CHANGE STATE FIRST
+        throw new IllegalStateException("GameState: GamePlayState, endGame() is not possible.");
     }
 
     @Override

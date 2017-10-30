@@ -40,8 +40,6 @@ public class Launcher {
         GameControllerMachine gameControllerMachine = Game.getGame().getGameControllerMachine();
         gameControllerMachine.setState(gameControllerMachine.getMainMenuState());
         gameControllerMachine.mainMenu();
-        //READDED IN THE STATE BRANCH.
-        new HighScoreFrame();
     }
 
     /**

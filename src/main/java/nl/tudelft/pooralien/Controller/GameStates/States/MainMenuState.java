@@ -35,11 +35,10 @@ public class MainMenuState implements State {
             mainWindow.setSize(0, 0);
             mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-            JPanel gameAndScoreHolder = new JPanel();
-            gameAndScoreHolder.add(mainScreen);
-            gameAndScoreHolder.add(Game.getGame().getHighScoreTableTopX());
+            JPanel gameHolder = new JPanel();
+            gameHolder.add(mainScreen);
 
-            mainWindow.getContentPane().add(gameAndScoreHolder);
+            mainWindow.getContentPane().add(gameHolder);
 
             mainWindow.pack();
             Game.getGame().registerObserver(mainScreen);
@@ -47,6 +46,7 @@ public class MainMenuState implements State {
             if (!Launcher.getGameCfg().getBooleanValueOf("multiLevel")) {
                 mainWindow.setVisible(true);
             }
+            mainWindow.repaint();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

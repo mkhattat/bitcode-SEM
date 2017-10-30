@@ -51,6 +51,9 @@ public class MainScreen extends JLayeredPane implements Observer {
      * Constructor of the MainScreen prepare the GUI.
      */
     public MainScreen() {
+        //Pass the MainScreen object to the Game object
+        Game.getGame().setMainScreen(this);
+
         prepareGUI();
         refreshBoard();
 
