@@ -13,26 +13,20 @@ import static org.junit.Assert.*;
  */
 public class BackgroundTileTest {
 
-    private Launcher launcher;
     private BackgroundTile backgroundTile1;
-
-    private static final int MAX_WIDTH_AND_HEIGHT = 10;
-    private static final int MIN_WIDTH_AND_HEIGHT = 0;
 
 
     @Before
     public void setup() throws Exception {
-        launcher = new Launcher();
+        new Launcher();
 
         backgroundTile1 = new BackgroundTile(0,0, Color.WHITE);
     }
 
     @Test
-    public void BackgroundTileCoordinateXTooSmall() {
-        BackgroundTile backgroundTile;
-
+    public void backgroundTileCoordinateXTooSmall() {
         try {
-            backgroundTile = new BackgroundTile(-1, 0, Color.WHITE);
+            new BackgroundTile(-1, 0, Color.WHITE);
         } catch (IllegalArgumentException e) {
             assertEquals(
                     "Coordinate X must be between -1 and 11"
@@ -41,11 +35,9 @@ public class BackgroundTileTest {
     }
 
     @Test
-    public void BackgroundTileCoordinateXTooBig() {
-        BackgroundTile backgroundTile;
-
+    public void backgroundTileCoordinateXTooBig() {
         try {
-            backgroundTile = new BackgroundTile(11, 0, Color.WHITE);
+            new BackgroundTile(11, 0, Color.WHITE);
         } catch (IllegalArgumentException e) {
             assertEquals(
                     "Coordinate X must be between -1 and 11"
@@ -54,11 +46,9 @@ public class BackgroundTileTest {
     }
 
     @Test
-    public void BackgroundTileCoordinateYTooSmall() {
-        BackgroundTile backgroundTile;
-
+    public void backgroundTileCoordinateYTooSmall() {
         try {
-            backgroundTile = new BackgroundTile(0, -1, Color.WHITE);
+            new BackgroundTile(0, -1, Color.WHITE);
         } catch (IllegalArgumentException e) {
             assertEquals(
                     "Coordinate Y must be between -1 and 11"
@@ -67,11 +57,9 @@ public class BackgroundTileTest {
     }
 
     @Test
-    public void BackgroundTileColorIsNull() {
-        BackgroundTile backgroundTile;
-
+    public void backgroundTileColorIsNull() {
         try {
-            backgroundTile = new BackgroundTile(0, 0, null);
+            new BackgroundTile(0, 0, null);
         } catch (IllegalArgumentException e) {
             assertEquals(
                     "colorBackgroundTile should be a Color object"
@@ -80,11 +68,9 @@ public class BackgroundTileTest {
     }
 
     @Test
-    public void BackgroundTileCoordinateYTooBig() {
-        BackgroundTile backgroundTile;
-
+    public void backgroundTileCoordinateYTooBig() {
         try {
-            backgroundTile = new BackgroundTile(0, 11, Color.WHITE);
+            new BackgroundTile(0, 11, Color.WHITE);
         } catch (IllegalArgumentException e) {
             assertEquals(
                     "Coordinate Y must be between -1 and 11"
@@ -94,22 +80,22 @@ public class BackgroundTileTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void constructInvalidXCoordinateTooSmall() {
-        BackgroundTile backgroundTile = new BackgroundTile(-1, 0, Color.WHITE);
+        new BackgroundTile(-1, 0, Color.WHITE);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void constructInvalidXCoordinateTooBig() {
-        BackgroundTile backgroundTile = new BackgroundTile(11, 0, Color.WHITE);
+        new BackgroundTile(11, 0, Color.WHITE);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void constructInvalidYCoordinateTooSmall() {
-        BackgroundTile backgroundTile = new BackgroundTile(0, -1, Color.WHITE);
+        new BackgroundTile(0, -1, Color.WHITE);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void constructInvalidYCoordinateTooBig() {
-        BackgroundTile backgroundTile = new BackgroundTile(0, 11, Color.WHITE);
+        new BackgroundTile(0, 11, Color.WHITE);
     }
 
     @Test
@@ -173,7 +159,7 @@ public class BackgroundTileTest {
 
     @Test
     public void tileEqualsNullFalse() {
-        assertFalse(backgroundTile1.equals(null));
+        assertNotNull(backgroundTile1);
     }
 
     @Test

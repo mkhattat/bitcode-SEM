@@ -16,7 +16,6 @@ import java.util.NoSuchElementException;
  */
 public class BackgroundTileCatalogTest {
 
-    private Launcher launcher;
     private BackgroundTileCatalog backgroundTileCatalog;
 
     private BackgroundTile backgroundTile1;
@@ -25,16 +24,12 @@ public class BackgroundTileCatalogTest {
     private BackgroundTile backgroundTile4;
     private BackgroundTile backgroundTile5;
 
-    private BackgroundTile invalidBackgroundTileX;
-    private BackgroundTile invalidBackgroundTileY;
-    private BackgroundTile invalidBackgroundTileXY;
-
     private static final int BACKGROUND_TILE_COUNT = 10;
     private static final int MAX_TILE_COUNT = 100;
 
     @Before
     public void setup() throws Exception {
-        launcher = new Launcher();
+        new Launcher();
         backgroundTileCatalog = new BackgroundTileCatalog();
 
         backgroundTile1 = new BackgroundTile(0,0, Color.WHITE);
@@ -45,12 +40,9 @@ public class BackgroundTileCatalogTest {
     }
 
     @Test
-    public void BackgroundTileCatalogTooSmall() {
-        BackgroundTileCatalog backgroundTileCatalogTenTiles;
-
+    public void backgroundTileCatalogTooSmall() {
         try {
-            backgroundTileCatalogTenTiles =
-                    new BackgroundTileCatalog(-1, Color.WHITE);
+            new BackgroundTileCatalog(-1, Color.WHITE);
         } catch (IllegalArgumentException e) {
             assertEquals(
                     "BackgroundTileCount must be bigger than 0 to be added to the catalog"
@@ -59,12 +51,9 @@ public class BackgroundTileCatalogTest {
     }
 
     @Test
-    public void BackgroundTileCatalogTooBig() {
-        BackgroundTileCatalog backgroundTileCatalogTenTiles;
-
+    public void backgroundTileCatalogTooBig() {
         try {
-            backgroundTileCatalogTenTiles =
-                    new BackgroundTileCatalog(MAX_TILE_COUNT + 1, Color.WHITE);
+             new BackgroundTileCatalog(MAX_TILE_COUNT + 1, Color.WHITE);
         } catch (IllegalArgumentException e) {
             assertEquals(
                     "BackgroundTileCount must be smaller than 101 to be added to the catalog"
@@ -73,7 +62,7 @@ public class BackgroundTileCatalogTest {
     }
 
     @Test
-    public void BackgroundTileCatalog10Tiles() {
+    public void backgroundTileCatalog10Tiles() {
         BackgroundTileCatalog backgroundTileCatalogTenTiles =
                 new BackgroundTileCatalog(BACKGROUND_TILE_COUNT, Color.WHITE);
 

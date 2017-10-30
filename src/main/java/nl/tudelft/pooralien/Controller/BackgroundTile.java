@@ -117,11 +117,7 @@ public class BackgroundTile {
             return false;
         }
 
-        if (!(backgroundTile.getColorBackgroundTile().equals(this.getColorBackgroundTile()))) {
-            return false;
-        }
-
-        return true;
+        return backgroundTile.getColorBackgroundTile().equals(this.getColorBackgroundTile());
     }
 
     @Override

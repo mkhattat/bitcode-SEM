@@ -12,12 +12,11 @@ import static org.junit.Assert.assertEquals;
  */
 public class ScoreCounterTest {
 
-    private Launcher launcher;
     private ScoreCounter scoreCounter;
 
     @Before
     public void setup() throws Exception {
-        launcher = new Launcher();
+        new Launcher();
         scoreCounter = new ScoreCounter(0);
     }
 
@@ -36,7 +35,7 @@ public class ScoreCounterTest {
     }
 
     @Test
-    public void BackgroundTilesScoreUpdateChange() {
+    public void backgroundTilesScoreUpdateChange() {
         int currentScore = scoreCounter.getScore() + scoreCounter.getScorePerTile()
                 * scoreCounter.getScorePerBackgroundTile();
         scoreCounter.updateScoreBackgroundTileRemoved();
