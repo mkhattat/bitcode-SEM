@@ -3,9 +3,6 @@ package nl.tudelft.pooralien.ui.HighScoreTable;
 import nl.tudelft.pooralien.Controller.Game;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * HighScoreFrame Class.

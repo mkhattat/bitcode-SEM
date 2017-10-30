@@ -5,7 +5,7 @@ import java.util.Comparator;
 /**
  * ScoreComparator, which allows easy use of the Comparator object/class.
  */
-public class ScoreComparator implements Comparator<Score> {
+class ScoreComparator implements Comparator<Score> {
 
     @Override
     public int compare(Score o1, Score o2) {

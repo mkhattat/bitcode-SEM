@@ -68,13 +68,12 @@ public class HighScoreEnterNameDialog {
      */
     private String constructNormalDialog() {
         JFrame frame = new JFrame("inputDialog");
-        String input = JOptionPane.showInputDialog(
+        return JOptionPane.showInputDialog(
                 frame,
                 "Enter the name to be added to the highscore",
                 "You have beat the top 10 players",
                 JOptionPane.INFORMATION_MESSAGE
         );
-        return input;
     }
 
     /**
@@ -83,13 +82,12 @@ public class HighScoreEnterNameDialog {
      */
     private String constructRetryDialog() {
         JFrame frame = new JFrame("inputRetryDialog");
-        String input = JOptionPane.showInputDialog(
+        return JOptionPane.showInputDialog(
                 frame,
                 "Please enter a different name (must be under 20 characters).",
                 "Please retry...",
                 JOptionPane.INFORMATION_MESSAGE
         );
-        return input;
     }
 
     private void userPressedCancel() {

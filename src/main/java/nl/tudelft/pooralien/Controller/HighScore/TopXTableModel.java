@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class TopXTableModel extends AbstractTableModel {
 
-    private String[] columnNames = {
+    private final String[] columnNames = {
         "No.",
         "Name",
         "Score"
@@ -76,4 +76,6 @@ public class TopXTableModel extends AbstractTableModel {
             default: return null;
         }
     }
+
+
 }

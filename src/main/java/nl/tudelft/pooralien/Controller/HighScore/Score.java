@@ -3,7 +3,7 @@ package nl.tudelft.pooralien.Controller.HighScore;
 /**
  * Score class which is used for the high score.
  */
-public class Score {
+class Score {
 
     private String name;
     private int score;

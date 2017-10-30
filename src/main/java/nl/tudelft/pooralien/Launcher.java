@@ -4,8 +4,7 @@ import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 
 import java.net.URISyntaxException;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import nl.tu.delft.defpro.api.IDefProAPI;
 import nl.tudelft.pooralien.Controller.Game;
@@ -43,7 +42,7 @@ public class Launcher {
             JFrame mainWindow = new JFrame(gameCfg.getStringValueOf("gameTitle"));
             MainScreen mainScreen = new MainScreen();
             mainWindow.setSize(0, 0);
-            mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
             JPanel gameHolder = new JPanel();
             gameHolder.add(mainScreen);

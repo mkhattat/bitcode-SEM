@@ -4,7 +4,6 @@ import nl.tudelft.pooralien.Controller.HighScore.TopXTableModel;
 
 import javax.swing.JTable;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 
@@ -13,10 +12,6 @@ import java.awt.*;
  */
 public class HighScoreTableTopX extends JPanel {
 
-    private final int tableViewportWidth = 500;
-    private final int tableViewportHeight = 160;
-    private final int columnIndexWidth = 30;
-
     private JTable table;
 
     /**
@@ -24,6 +19,9 @@ public class HighScoreTableTopX extends JPanel {
      */
     public HighScoreTableTopX() {
         super(new GridLayout(1, 0));
+        int tableViewportWidth = 500;
+        int tableViewportHeight = 160;
+        int columnIndexWidth = 30;
 
         table = new JTable(new TopXTableModel());
         table.setShowGrid(false);
@@ -52,7 +50,7 @@ public class HighScoreTableTopX extends JPanel {
         return table;
     }
 
-    public class HighScoreTableRenderer extends DefaultTableCellRenderer {
+    class HighScoreTableRenderer extends DefaultTableCellRenderer {
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {

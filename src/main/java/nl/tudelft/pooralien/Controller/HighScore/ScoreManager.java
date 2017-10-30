@@ -52,7 +52,7 @@ public class ScoreManager {
      * @throws IOException Input/Output exception.
      * @throws ClassNotFoundException Class not found exception.
      */
-    public ArrayList<Score> getScores() throws IOException, ClassNotFoundException {
+    private ArrayList<Score> getScores() throws IOException, ClassNotFoundException {
         loadScores();
         sortScores();
         return scores;
