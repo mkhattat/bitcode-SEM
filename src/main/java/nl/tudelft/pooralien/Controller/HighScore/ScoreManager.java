@@ -12,7 +12,6 @@ import java.io.FileOutputStream;
 import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * ScoreManager class, handles adding/retrieving/saving/loading of scores.

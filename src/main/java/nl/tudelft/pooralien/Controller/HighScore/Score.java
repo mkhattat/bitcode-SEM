@@ -13,7 +13,7 @@ class Score {
      * @param name of the player.
      * @param score of the player.
      */
-    public Score(String name, int score) {
+    Score(String name, int score) {
         this.name = name;
         this.score = score;
     }

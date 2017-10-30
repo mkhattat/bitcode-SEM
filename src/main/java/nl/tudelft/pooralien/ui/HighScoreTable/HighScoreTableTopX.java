@@ -5,7 +5,9 @@ import nl.tudelft.pooralien.Controller.HighScore.TopXTableModel;
 import javax.swing.JTable;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
-import java.awt.*;
+import java.awt.GridLayout;
+import java.awt.Dimension;
+import java.awt.Component;
 
 /**
  * High Score Table based on the Top10 Table Model.
@@ -19,9 +21,9 @@ public class HighScoreTableTopX extends JPanel {
      */
     public HighScoreTableTopX() {
         super(new GridLayout(1, 0));
-        int tableViewportWidth = 500;
-        int tableViewportHeight = 160;
-        int columnIndexWidth = 30;
+        final int tableViewportWidth = 500;
+        final int tableViewportHeight = 160;
+        final int columnIndexWidth = 30;
 
         table = new JTable(new TopXTableModel());
         table.setShowGrid(false);
@@ -50,10 +52,18 @@ public class HighScoreTableTopX extends JPanel {
         return table;
     }
 
+    /**
+     * HighScoreTableRenderer disables cell border on-selection.
+     */
     class HighScoreTableRenderer extends DefaultTableCellRenderer {
 
         @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        public Component getTableCellRendererComponent(JTable table,
+                                                       Object value,
+                                                       boolean isSelected,
+                                                       boolean hasFocus,
+                                                       int row,
+                                                       int column) {
             super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             setBorder(noFocusBorder);
             return this;

@@ -12,7 +12,7 @@ import nl.tudelft.pooralien.Subject;
 import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreEnterNameDialog;
 import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreTableTopX;
 
-import javax.swing.*;
+import javax.swing.JTable;
 
 
 /**

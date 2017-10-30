@@ -2,7 +2,9 @@ package nl.tudelft.pooralien.ui.HighScoreTable;
 
 import nl.tudelft.pooralien.Controller.Game;
 
-import javax.swing.*;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.JOptionPane;
 
 /**
  * HighScoreFrame Class.

@@ -4,7 +4,9 @@ import static nl.tu.delft.defpro.api.APIProvider.getAPI;
 
 import java.net.URISyntaxException;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 import nl.tu.delft.defpro.api.IDefProAPI;
 import nl.tudelft.pooralien.Controller.Game;
