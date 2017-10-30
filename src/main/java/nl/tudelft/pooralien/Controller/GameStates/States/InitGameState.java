@@ -4,9 +4,12 @@ import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.GameStates.State;
 
+/**
+ * The InitGameState Class
+ */
 public class InitGameState implements State {
 
-    GameControllerMachine gameControllerMachine;
+    private GameControllerMachine gameControllerMachine;
 
     /**
      * The state where the game is paused of the state machine.

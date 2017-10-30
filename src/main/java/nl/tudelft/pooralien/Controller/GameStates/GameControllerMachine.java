@@ -1,6 +1,11 @@
 package nl.tudelft.pooralien.Controller.GameStates;
 
-import nl.tudelft.pooralien.Controller.GameStates.States.*;
+import nl.tudelft.pooralien.Controller.GameStates.States.DragAnimationState;
+import nl.tudelft.pooralien.Controller.GameStates.States.GameEndedState;
+import nl.tudelft.pooralien.Controller.GameStates.States.GamePlayState;
+import nl.tudelft.pooralien.Controller.GameStates.States.GamePausedState;
+import nl.tudelft.pooralien.Controller.GameStates.States.InitGameState;
+import nl.tudelft.pooralien.Controller.GameStates.States.MainMenuState;
 
 /**
  * The GameControllerMachine Class.
