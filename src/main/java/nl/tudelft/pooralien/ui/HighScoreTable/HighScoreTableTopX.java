@@ -12,7 +12,7 @@ import java.awt.*;
  */
 public class HighScoreTableTopX extends JPanel {
 
-    private JTable table;
+    private final JTable table;
 
     /**
      * Initializing the top 10 high score table.

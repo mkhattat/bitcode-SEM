@@ -14,7 +14,7 @@ public class TopXTableModel extends AbstractTableModel {
     };
 
     private int topXScores;
-    private ScoreManager scoreManager;
+    private final ScoreManager scoreManager;
 
     /**
      * Initialize the TopXTableModel with the scoreManager and topXScores.

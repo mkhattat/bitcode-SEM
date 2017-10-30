@@ -26,6 +26,7 @@ public class ScoreManager {
     /**
      * Initialize the score manager, load the scores from the save file or generate a new save file.
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public ScoreManager() {
         scores = new ArrayList<>();
 
@@ -36,9 +37,7 @@ public class ScoreManager {
             //CONFIG FILE
             topXScores = Launcher.getGameCfg().getIntegerValueOf("topXScores");
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         } catch (NotExistingVariableException e) {
             topXScores = 2 + 2 + 2 + 2 + 2;
@@ -60,7 +59,7 @@ public class ScoreManager {
 
     private void sortScores() {
         ScoreComparator scoreComparator = new ScoreComparator();
-        Collections.sort(scores, scoreComparator);
+        scores.sort(scoreComparator);
     }
 
     /**
@@ -75,17 +74,14 @@ public class ScoreManager {
             saveScores();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 
     /**
      * Loads all the current highscores into the scores ArrayList.
      * @throws IOException Signals that an I/O exception of some sort has occurred.
-     * @throws ClassNotFoundException Signals that an class was not found.
      */
-    private void loadScores() throws IOException, ClassNotFoundException {
+    private void loadScores() throws IOException {
         String tempName;
         int tempScore;
         boolean endOfFile = false;
@@ -145,9 +141,7 @@ public class ScoreManager {
 
         try {
             scores = getScores();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         for (int i = 0; i < topXScores; i++) {

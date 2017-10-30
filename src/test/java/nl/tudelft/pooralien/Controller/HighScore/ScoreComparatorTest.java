@@ -67,7 +67,7 @@ public class ScoreComparatorTest {
         randomScoreArray.add(score7);
         randomScoreArray.add(score8);
         randomScoreArray.add(score9);
-        Collections.sort(randomScoreArray, scoreComparator);
+        randomScoreArray.sort(scoreComparator);
         assertEquals("Expected to be sorted the same.", randomScoreArray, orderedScoreArray);
     }
 
@@ -83,7 +83,7 @@ public class ScoreComparatorTest {
         randomScoreArray.add(score3);
         randomScoreArray.add(score6);
         randomScoreArray.add(score9);
-        Collections.sort(randomScoreArray, scoreComparator);
+        randomScoreArray.sort(scoreComparator);
         assertEquals("Expected to be equal, as the list has been sorted.",
                 randomScoreArray, orderedScoreArray);
     }
@@ -108,7 +108,7 @@ public class ScoreComparatorTest {
     public void sortEmptyList() {
         randomScoreArray.clear();
         orderedScoreArray.clear();
-        Collections.sort(randomScoreArray, scoreComparator);
+        randomScoreArray.sort(scoreComparator);
         assertEquals("Expected two empty ArrayLists, to be the same",
                 randomScoreArray, orderedScoreArray);
     }

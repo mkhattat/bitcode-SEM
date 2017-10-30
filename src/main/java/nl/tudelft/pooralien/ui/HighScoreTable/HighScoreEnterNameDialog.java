@@ -51,8 +51,11 @@ public class HighScoreEnterNameDialog {
 
     /**
      *
-     * @param firstTry
-     * @return
+     * @param firstTry After the user has not entered a name or the name was longer than
+     *                 20 characters this becomes false (automatically),
+     *                 so that a different dialog gets returned.
+     * @return Returns a normal dialog or another one with instructions if
+     *          the user has entered wrong input.
      */
     private String checkFirstTry(boolean firstTry) {
         if (firstTry) {
