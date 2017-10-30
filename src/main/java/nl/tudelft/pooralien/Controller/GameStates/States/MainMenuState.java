@@ -6,7 +6,10 @@ import nl.tudelft.pooralien.Controller.GameStates.State;
 import nl.tudelft.pooralien.Launcher;
 import nl.tudelft.pooralien.ui.MainScreen;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+
 
 /**
  * The MainMenuState class.
