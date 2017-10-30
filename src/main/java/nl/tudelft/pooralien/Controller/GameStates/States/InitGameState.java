@@ -5,7 +5,7 @@ import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.GameStates.State;
 
 /**
- * The InitGameState Class
+ * The InitGameState Class.
  */
 public class InitGameState implements State {
 
