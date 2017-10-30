@@ -18,9 +18,6 @@ public class HighScoreFrame {
     public HighScoreFrame() {
         JTable highScoreBoard = Game.getGame().getHighScoreTableTopX();
         JScrollPane pane = new JScrollPane(highScoreBoard);
-        //pane.setWheelScrollingEnabled(true);
-
-
 
         //Custom button text
         Object[] buttonText = {"New Game", "Exit To Main Menu", "Exit To Desktop"};
@@ -33,8 +30,6 @@ public class HighScoreFrame {
                 null, buttonText, 0);
 
         selectedOption(optionSelected);
-
-
     }
 
     /**

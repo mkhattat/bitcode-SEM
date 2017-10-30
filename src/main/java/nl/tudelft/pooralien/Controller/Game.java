@@ -29,7 +29,6 @@ public final class Game implements Subject {
     private boolean gameIsRunning;
     private ArrayList<Observer> observers;
     private int moves;
-    private HighScoreTableTopX highScoreTableTopX;
     private GameControllerMachine gameControllerMachine;
     private MainScreen mainScreen = null;
 
@@ -79,17 +78,14 @@ public final class Game implements Subject {
     }
 
     /**
-     * @return the topX score table being used.
+     * @return a new topX score table object with new data.
      */
     public JTable getHighScoreTableTopX() {
-        if (highScoreTableTopX == null) {
-            highScoreTableTopX = new HighScoreTableTopX();
-        }
-        return highScoreTableTopX.getTable();
+        return new HighScoreTableTopX().getTable();
     }
 
     /**
-     * Initializes the backgroundtilecatalog.
+     * Initializes the backgroundTileCatalog.
      */
     private void initBTCatalog() {
         int backgroundTileCount = -1;

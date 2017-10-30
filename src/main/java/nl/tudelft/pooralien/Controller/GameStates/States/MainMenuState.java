@@ -31,6 +31,7 @@ public class MainMenuState implements State {
         // Already in main menu. -> OR should this method be called in the MainMenuState constructor
         System.out.println("CurrentState: MainMenuState, ");
 
+
         try {
             JFrame mainWindow = new JFrame(Launcher.getGameCfg().getStringValueOf("gameTitle"));
             MainScreen mainScreen = new MainScreen();
@@ -64,7 +65,8 @@ public class MainMenuState implements State {
 
     @Override
     public void startGame() {
-
+        throw new IllegalStateException("CurrentState: MainMenuState, "
+                + "startGame() is not possible");
     }
 
     @Override
