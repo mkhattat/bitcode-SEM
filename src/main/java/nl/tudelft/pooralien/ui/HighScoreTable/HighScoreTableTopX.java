@@ -55,7 +55,7 @@ public class HighScoreTableTopX extends JPanel {
     /**
      * HighScoreTableRenderer disables cell border on-selection.
      */
-    class HighScoreTableRenderer extends DefaultTableCellRenderer {
+    static class HighScoreTableRenderer extends DefaultTableCellRenderer {
 
         @Override
         public Component getTableCellRendererComponent(JTable table,

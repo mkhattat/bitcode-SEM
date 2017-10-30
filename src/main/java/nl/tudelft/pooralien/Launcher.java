@@ -62,7 +62,7 @@ public class Launcher {
             e.printStackTrace();
         }
         //READDED IN THE STATE BRANCH.
-        HighScoreFrame highScoreFrame = new HighScoreFrame();
+        new HighScoreFrame();
     }
 
     /**

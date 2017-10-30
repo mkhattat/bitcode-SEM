@@ -120,8 +120,7 @@ public final class Game implements Subject {
             moves--;
             if (moves == 0) {
                 //Enter user input into
-                HighScoreEnterNameDialog highScoreEnterNameDialog =
-                        new HighScoreEnterNameDialog(true, game.scoreCounter.getScore());
+                new HighScoreEnterNameDialog(true, game.scoreCounter.getScore());
 
                 if (backgroundTileCatalog.size() == 0) {
 

@@ -40,6 +40,7 @@ public class HighScoreFrame {
      * Decides what to do with the selected option.
      * @param optionSelected from the buttonText array in the constructor.
      */
+    //TODO: THIS METHOD WILL BE IMPLEMENTED VIA THE GAMESTATE BRANCH
     private void selectedOption(int optionSelected) {
         switch (optionSelected) {
             case (0):

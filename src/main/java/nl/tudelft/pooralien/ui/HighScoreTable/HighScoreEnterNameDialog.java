@@ -46,7 +46,7 @@ public class HighScoreEnterNameDialog {
         scoreManager.addScore(userInput, score);
         Game.getGame().getHighScoreTableTopX().repaint();
 
-        System.out.printf("The player's name is '%s'.\n", userInput);
+        System.out.printf("The player's name is '%s'.%n", userInput);
     }
 
     /**
@@ -98,6 +98,6 @@ public class HighScoreEnterNameDialog {
     }
 
     private void incorrectUserInput(int score) {
-        HighScoreEnterNameDialog hSEND = new HighScoreEnterNameDialog(false, score);
+        new HighScoreEnterNameDialog(false, score);
     }
 }
