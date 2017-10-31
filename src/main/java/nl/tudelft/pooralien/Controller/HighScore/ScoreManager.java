@@ -47,10 +47,13 @@ public class ScoreManager {
 
     /**
      * @return ArrayList of sorted scores (highest first).
-     * @throws IOException Input/Output exception.
      */
-    private ArrayList<Score> getScores() throws IOException {
-        loadScores();
+    public ArrayList<Score> getScores() {
+        try {
+            loadScores();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         sortScores();
         return scores;
     }
@@ -69,6 +72,30 @@ public class ScoreManager {
         try {
             loadScores();
             scores.add(new Score(name, score));
+            saveScores();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * !-- SHOULD NEVER BE USED OUTSIDE OF TESTING PURPOSES,
+     * !-- AS WRONG SCORES WITH SAME NAME AND SCORE COULD BE DELETED.
+     * Delete score from the scores ArrayList and save to file.
+     * @param name String of the player's name to be added.
+     * @param score int of the player's score  to be added.
+     */
+    @Deprecated
+    public void deleteScore(String name, int score) {
+        try {
+            loadScores();
+
+            for (Score s : scores) {
+                if (s.getName().equals(name) && s.getScore() == score) {
+                    scores.remove(s);
+                    break;
+                }
+            }
             saveScores();
         } catch (IOException e) {
             e.printStackTrace();
@@ -136,15 +163,12 @@ public class ScoreManager {
         ArrayList<Score> topXArrayListScores = new ArrayList<>();
 
         topXScores = getTopXScoreCount();
+        scores = getScores();
 
-        try {
-            scores = getScores();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         for (int i = 0; i < topXScores; i++) {
             topXArrayListScores.add(scores.get(i));
         }
+
         return topXArrayListScores;
     }
 
