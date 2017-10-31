@@ -90,7 +90,7 @@ public class ScoreManager {
         try {
             loadScores();
 
-            for (Score s : scores ) {
+            for (Score s : scores) {
                 if (s.getName().equals(name) && s.getScore() == score) {
                     scores.remove(s);
                     break;
