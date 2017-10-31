@@ -14,6 +14,10 @@ class Score {
      * @param score of the player.
      */
     Score(String name, int score) {
+        if (name == null) {
+            throw new IllegalArgumentException("name should be a String");
+        }
+
         this.name = name;
         this.score = score;
     }

@@ -1,6 +1,5 @@
-package nl.tudelft.pooralien.Controller;
+package nl.tudelft.pooralien.Controller.HighScore;
 
-import nl.tudelft.pooralien.Controller.HighScore.ScoreCounter;
 import nl.tudelft.pooralien.Launcher;
 import org.junit.Before;
 import org.junit.Test;

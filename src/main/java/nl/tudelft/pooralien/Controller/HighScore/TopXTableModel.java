@@ -49,7 +49,7 @@ public class TopXTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return columnNames.length;
+        return columnNames.length + 1;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class TopXTableModel extends AbstractTableModel {
 
         switch (columnIndex) {
             case(0):
-                //Index starts at 0, score No. does not.
+                //Index starts at 0, scoreNo. (Which is returned), does not.
                 return rowIndex + 1;
             case(1):
                 return scoreManager.getTopXScores().get(rowIndex).getName();
@@ -75,6 +75,13 @@ public class TopXTableModel extends AbstractTableModel {
                 return scoreManager.getTopXScores().get(rowIndex).getScore();
             default: return null;
         }
+    }
+
+    /**
+     * @return StringArray with all the columnNames
+     */
+    public String[] getColumnNames() {
+        return columnNames;
     }
 
 
