@@ -89,6 +89,8 @@ public class TopXTableModelTest {
         //Index is smaller than count.
         int rowIndex = topXTableModel.getRowCount() - 1;
 
+        if (rowIndex < 0) rowIndex = 0;
+
         int columnIndex = 0;
 
         assertEquals("Expected to be one bigger than rowIndex",
@@ -101,6 +103,8 @@ public class TopXTableModelTest {
         //Index is smaller than count.
         int rowIndex = topXTableModel.getRowCount() - 1;
 
+        if (rowIndex < 0) rowIndex = 0;
+
         int columnIndex = 1;
 
         assertTrue("Expected to be a String",
@@ -111,6 +115,8 @@ public class TopXTableModelTest {
     public void getValueAtColumnIndexTwoExpectedInteger() {
         //Index is smaller than count.
         int rowIndex = topXTableModel.getRowCount() - 1;
+
+        if (rowIndex < 0) rowIndex = 0;
 
         int columnIndex = 2;
 
