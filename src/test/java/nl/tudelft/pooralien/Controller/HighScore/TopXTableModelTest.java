@@ -89,8 +89,9 @@ public class TopXTableModelTest {
         //Index is smaller than count.
         int rowIndex = topXTableModel.getRowCount() - 1;
 
-        if (rowIndex < 0) rowIndex = 0;
-
+        //NO SCORES SAVED, CAN'T TEST.
+        if (rowIndex < 0) return;
+        
         int columnIndex = 0;
 
         assertEquals("Expected to be one bigger than rowIndex",
@@ -103,7 +104,8 @@ public class TopXTableModelTest {
         //Index is smaller than count.
         int rowIndex = topXTableModel.getRowCount() - 1;
 
-        if (rowIndex < 0) rowIndex = 0;
+        //NO SCORES SAVED, CAN'T TEST.
+        if (rowIndex < 0) return;
 
         int columnIndex = 1;
 
@@ -116,7 +118,8 @@ public class TopXTableModelTest {
         //Index is smaller than count.
         int rowIndex = topXTableModel.getRowCount() - 1;
 
-        if (rowIndex < 0) rowIndex = 0;
+        //NO SCORES SAVED, CAN'T TEST.
+        if (rowIndex < 0) return;
 
         int columnIndex = 2;
 
