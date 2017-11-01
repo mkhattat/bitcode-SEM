@@ -149,15 +149,20 @@ public class EasyItemFactory implements ItemFactory {
     public Item createItem(final String itemName) throws IllegalArgumentException {
         if (itemName.equalsIgnoreCase("axe")) {
             return new Axe();
-        } else if (itemName.equalsIgnoreCase("bone")) {
+        }
+        if (itemName.equalsIgnoreCase("bone")) {
             return new Bone();
-        } else if (itemName.equalsIgnoreCase("eye")) {
+        }
+        if (itemName.equalsIgnoreCase("eye")) {
             return new Eye();
-        } else if (itemName.equalsIgnoreCase("leaf")) {
+        }
+        if (itemName.equalsIgnoreCase("leaf")) {
             return new Leaf();
-        } else if (itemName.equalsIgnoreCase("mask")) {
+        }
+        if (itemName.equalsIgnoreCase("mask")) {
             return new Mask();
-        } else if (itemName.equalsIgnoreCase("mouth")) {
+        }
+        if (itemName.equalsIgnoreCase("mouth")) {
             return new Mouth();
         }
         throw new IllegalArgumentException("The provided item name: " + itemName
