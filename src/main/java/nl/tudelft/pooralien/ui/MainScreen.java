@@ -1,5 +1,6 @@
 package nl.tudelft.pooralien.ui;
 
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -11,12 +12,11 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import nl.tu.delft.defpro.exception.NotExistingVariableException;
 import nl.tudelft.pooralien.Launcher;
 import nl.tudelft.pooralien.MouseActionObserver;
 import nl.tudelft.pooralien.MouseEventHandler;
@@ -31,37 +31,95 @@ import nl.tudelft.pooralien.Controller.Server;
 /**
  * MainScreen class is the GUI of the game screen.
  */
-public class MainScreen extends JLayeredPane implements Observer {
-    private JPanel mainFrame;
+public class MainScreen implements Observer {
+    private JPanel mainPanel;
+    private JLayeredPane layerdPane;
+    private JFrame mainFrame;
     private JLabel headerLabel;
     private JPanel gridBoard;
     private JPanelTile[][] gridBoardHolder;
     private JPanel controlPanel;
     private GridBagConstraints gbc;
-    private JButton createNetwrok = new JButton("Create Network");
-    private JButton connectNetwork = new JButton("Connect to a Network");
     private JButton disconnectNetwork = new JButton("Disconnect from the Network");
     private MouseEventHandler mouseEventHandler;
     private JLabel gameStateLable;
     private Client client;
-    private int port;
 
     /**
      * Constructor of the MainScreen prepare the GUI.
      */
     public MainScreen() {
+        this.layerdPane = new JLayeredPane();
         prepareGUI();
         refreshBoard();
-
         mouseEventHandler = new MouseEventHandler(this);
         Observer observer = new MouseActionObserver();
         mouseEventHandler.registerObserver(observer);
-        this.port = 0;
+        layerdPane.addMouseListener(mouseEventHandler);
+        layerdPane.addMouseMotionListener(mouseEventHandler);
+    }
+
+    public void launch() {
         try {
-            port = Launcher.getGameCfg().getIntegerValueOf("port");
-        } catch (NotExistingVariableException error) {
+            mainFrame = new JFrame(Launcher.getGameCfg().getStringValueOf("gameTitle"));
+            mainFrame.setSize(0, 0);
+            mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            mainFrame.getContentPane().add(layerdPane);
+            mainFrame.pack();
+            Game.getGame().registerObserver(this);
+            Game.getGame().setMultiplayer(false);
+            if (!Launcher.getGameCfg().getBooleanValueOf("multiLevel")) {
+                mainFrame.setVisible(true);
+            }
+        } catch (Exception error) {
+            System.out.println(error.getMessage());
             error.printStackTrace();
+            System.exit(-1);
         }
+    }
+
+    public void close() {
+        if (mainFrame != null) {
+            mainFrame.dispose();
+        }
+    }
+
+    public boolean connectToNetwork(String serverAddress, int port) {
+        client = new Client(serverAddress, port, mouseEventHandler);
+        mouseEventHandler.registerObserver(client);
+        disconnectNetwork.setVisible(true);
+        if (client.start()) {
+            Game.getGame().pauseGame();
+            return true;
+        }
+        return false;
+    }
+
+    public void createHost(int port) {
+        // show a new network window
+        Listener listener = new Listener(port);
+        Game.getGame().pauseGame();
+        ConnectionScreen connectionScreen = new ConnectionScreen(listener, this);
+        Server.getServer().registerObserver(connectionScreen);
+        Client thisPlayer = new Client("localhost", port, mouseEventHandler);
+        thisPlayer.start();
+        mouseEventHandler.registerObserver(thisPlayer);
+    }
+
+    public void add(Component comp, Object constraints) {
+        layerdPane.add(comp, constraints);
+    }
+
+    public void revalidate() {
+        layerdPane.revalidate();
+    }
+
+    public void repaint() {
+        layerdPane.repaint();
+    }
+
+    public void remove(Component comp) {
+        layerdPane.remove(comp);
     }
 
     /**
@@ -83,8 +141,8 @@ public class MainScreen extends JLayeredPane implements Observer {
         BufferedImage image = loadImage(fileName);
         gridBoardHolder[x][y].removeAll();
         gridBoardHolder[x][y].add(new JLabel(new ImageIcon(image)));
-        revalidate();
-        repaint();
+        layerdPane.revalidate();
+        layerdPane.repaint();
     }
 
     /**
@@ -96,8 +154,8 @@ public class MainScreen extends JLayeredPane implements Observer {
     public void replaceItem(int x, int y, JLabel label) {
         gridBoardHolder[x][y].removeAll();
         gridBoardHolder[x][y].add(label);
-        revalidate();
-        repaint();
+        layerdPane.revalidate();
+        layerdPane.repaint();
     }
 
     /**
@@ -112,8 +170,8 @@ public class MainScreen extends JLayeredPane implements Observer {
             gridBoardHolder[x][y].setBackground(
                     Game.getGame().getBackgroundTileCatalog().get(x, y).getColorBackgroundTile());
         }
-        revalidate();
-        repaint();
+        layerdPane.revalidate();
+        layerdPane.repaint();
     }
 
     /**
@@ -175,8 +233,8 @@ public class MainScreen extends JLayeredPane implements Observer {
      * prepare the GUI on the screen.
      */
     private void prepareGUI() {
-        mainFrame = new JPanel();
-        mainFrame.setLayout(new GridBagLayout());
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new GridBagLayout());
 
 
         gbc = new GridBagConstraints();
@@ -185,10 +243,10 @@ public class MainScreen extends JLayeredPane implements Observer {
         createGridBoard();
         createControlPanel();
 
-        mainFrame.setSize(mainFrame.getPreferredSize());
-        mainFrame.setLocation(0, 0);
-        add(mainFrame, JLayeredPane.DEFAULT_LAYER);
-        setPreferredSize(mainFrame.getPreferredSize());
+        mainPanel.setSize(mainPanel.getPreferredSize());
+        mainPanel.setLocation(0, 0);
+        layerdPane.add(mainPanel, JLayeredPane.DEFAULT_LAYER);
+        layerdPane.setPreferredSize(mainPanel.getPreferredSize());
     }
 
     /**
@@ -200,7 +258,7 @@ public class MainScreen extends JLayeredPane implements Observer {
         gameStateLable = new JLabel("It's your turn");
         panel.add(headerLabel);
         panel.add(gameStateLable);
-        mainFrame.add(panel, gbc);
+        mainPanel.add(panel, gbc);
     }
 
     /**
@@ -232,7 +290,7 @@ public class MainScreen extends JLayeredPane implements Observer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mainFrame.add(gridBoard, gbc);
+        mainPanel.add(gridBoard, gbc);
     }
 
     /**
@@ -240,12 +298,9 @@ public class MainScreen extends JLayeredPane implements Observer {
      */
     private void createControlPanel() {
         controlPanel = new JPanel();
-        JButton save = new JButton("Save");
-        controlPanel.add(save);
-        JButton load = new JButton("Load");
-        controlPanel.add(load);
-        controlPanel.add(createNetwrok);
-        controlPanel.add(connectNetwork);
+        JButton exit = new JButton("Return to main screen");
+        exit.addActionListener(new ExitListener());
+        controlPanel.add(exit);
         disconnectNetwork.setVisible(false);
         controlPanel.add(disconnectNetwork);
 
@@ -255,54 +310,9 @@ public class MainScreen extends JLayeredPane implements Observer {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.SOUTH;
 
-
-        createNetwrok.addActionListener(new CreateNetworkListener());
-        connectNetwork.addActionListener(new ConnectNetworkListener());
         disconnectNetwork.addActionListener(new DisconnectListener());
-        mainFrame.add(controlPanel, gbc);
+        mainPanel.add(controlPanel, gbc);
 
-    }
-
-    /**
-     * An listener for create network button.
-     */
-    private class CreateNetworkListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            // show a new network window
-            Listener listener = new Listener(port);
-            Game.getGame().pauseGame();
-            ConnectionScreen connectionScreen = new ConnectionScreen(listener);
-            Server.getServer().registerObserver(connectionScreen);
-            Client thisPlayer = new Client("localhost", port, mouseEventHandler);
-            thisPlayer.start();
-            createNetwrok.setVisible(false);
-            connectNetwork.setVisible(false);
-            mouseEventHandler.registerObserver(thisPlayer);
-        }
-    }
-
-    /**
-     * An listener for connect network button.
-     */
-    private class ConnectNetworkListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            // Ask for the host IP address.
-            String serverAddress = JOptionPane.showInputDialog(
-                    "Enter IP Address of a machine that is \n"
-                    + "running the server on port " + port + ":");
-            if (serverAddress == null) {
-                return;
-            }
-            client = new Client(serverAddress, port, mouseEventHandler);
-            // TODO: show a error message if it fails to connect
-            if (client.start()) {
-                Game.getGame().pauseGame();
-                mouseEventHandler.registerObserver(client);
-                createNetwrok.setVisible(false);
-                connectNetwork.setVisible(false);
-                disconnectNetwork.setVisible(true);
-            }
-        }
     }
 
     /**
@@ -310,13 +320,22 @@ public class MainScreen extends JLayeredPane implements Observer {
      */
     private class DisconnectListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            connectNetwork.setVisible(true);
-            createNetwrok.setVisible(true);
             disconnectNetwork.setVisible(false);
             Server.getServer().destroy();
             if (client != null) {
                 client.terminate();
             }
+        }
+    }
+
+    private class ExitListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (Game.getGame().multiplayerMode()) {
+                new DisconnectListener().actionPerformed(null);
+            }
+            StartupScreen startupScreen = new StartupScreen();
+            startupScreen.show();
+            close();
         }
     }
 
@@ -342,8 +361,6 @@ public class MainScreen extends JLayeredPane implements Observer {
         }
 
         if (Game.getGame().multiplayerMode()) {
-            connectNetwork.setVisible(false);
-            createNetwrok.setVisible(false);
             disconnectNetwork.setVisible(true);
             if (Game.getGame().gameIsRunning()) {
                 setStateLabel("It's your turn");
@@ -351,8 +368,6 @@ public class MainScreen extends JLayeredPane implements Observer {
                 setStateLabel("Waiting for the other player!");
             }
         } else {
-            connectNetwork.setVisible(true);
-            createNetwrok.setVisible(true);
             disconnectNetwork.setVisible(false);
             if (Game.getGame().gameIsRunning()) {
                 setStateLabel("Offline mode");

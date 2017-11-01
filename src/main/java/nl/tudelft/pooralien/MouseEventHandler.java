@@ -27,8 +27,8 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener, Su
      */
     public MouseEventHandler(MainScreen screen) {
         mainScreen = screen;
-        mainScreen.addMouseListener(this);
-        mainScreen.addMouseMotionListener(this);
+        // mainScreen.addMouseListener(this);
+        // mainScreen.addMouseMotionListener(this);
     }
 
     /**

@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import nl.tu.delft.defpro.api.IDefProAPI;
 import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.ui.MainScreen;
+import nl.tudelft.pooralien.ui.StartupScreen;
 
 /**
  * The Launcher of the game.
@@ -37,23 +38,8 @@ public class Launcher {
      * Launch the game GUI.
      */
     public void launch() {
-        try {
-            JFrame mainWindow = new JFrame(gameCfg.getStringValueOf("gameTitle"));
-            MainScreen mainScreen = new MainScreen();
-            mainWindow.setSize(0, 0);
-            mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            mainWindow.getContentPane().add(mainScreen);
-
-            mainWindow.pack();
-            Game.getGame().registerObserver(mainScreen);
-            Game.getGame().setMultiplayer(false);
-            if (!gameCfg.getBooleanValueOf("multiLevel")) {
-                mainWindow.setVisible(true);
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
+        StartupScreen startupScreen = new StartupScreen();
+        startupScreen.show();
     }
 
     /**
