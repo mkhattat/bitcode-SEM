@@ -8,11 +8,11 @@ import nl.tudelft.item.ItemFactory;
 public class EasyBoardFactory implements BoardFactory {
 
     /**
-     * Creates a StandardBoard using the provided layout.
+     * Creates an EasyBoard using the provided layout.
      * @param layout A string representation of the layout.
-     * @return A StandardBoard based on the provided layout.
+     * @return An EasyBoard based on the provided layout.
      * @throws IllegalArgumentException If the provided layout
-     * cannot be used to create a StandardBoard.
+     * cannot be used to create an EasyBoard.
      */
     @Override
     public EasyBoard createBoard(String layout) throws IllegalArgumentException {
@@ -39,8 +39,8 @@ public class EasyBoardFactory implements BoardFactory {
     }
 
     /**
-     * Creates a StandardBoard with a random layout.
-     * @return A randomly filled StandardBoard.
+     * Creates an EasyBoard with a random layout.
+     * @return A randomly filled EasyBoard.
      */
     @Override
     public EasyBoard createRandomBoard() {
