@@ -1,4 +1,4 @@
-package nl.tudelft.pooralien.Controller;
+package nl.tudelft.pooralien.Controller.HighScore;
 
 import nl.tudelft.pooralien.Launcher;
 import org.junit.Before;
