@@ -23,6 +23,8 @@ int minBoardWidth  = 0
 int minBoardHeight = 0
 ## min number of items in a row needed to remove tiles from screen
 int minItemsInRow = 3
+## min number of items in a row needed to remove tiles from screen in hard mode
+int minItemsInRowHard = 4
 ## default number of background tiles on screen
 int backgroundTileCount = 10
 ## margin for right to left (horizontal) items when draging on screen
@@ -30,9 +32,17 @@ int marginHDrag = 10
 ## margin for top to botton (vertical) items when draging on screen
 int marginVDrag = 5
 ## Score per tile
-int scorePerTile = 1
+int scorePerTile = 2
 ## Score per background tile
 int scorePerBackgroundTile = 6
+## Score per tile on easy mode
+int scorePerTileEasy = 1
+## Score per background tile on easy mode
+int scorePerBackgroundTileEasy = 4
+## Score per tile on hard mode
+int scorePerTileHard = 3
+## Score per background tile on hard mode
+int scorePerBackgroundTileHard = 8
 ## the gap between items when dragging them on the screen
 real gap = 1.22
 ## title of the main window
@@ -43,5 +53,9 @@ bool multiLevel = false
 int port = 9090
 ## amount of moves
 int standardMaxMoves = 12
+## amount of moves for hard mode
+int hardMaxMoves = 10
+## amount of moves for easy mode
+int easyMaxMoves = 14
 ## the amount of top scores to be shown after the game
 int topXScores = 10
