@@ -54,17 +54,26 @@ public class TopXTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        if (rowIndex < 0 || columnIndex < 0) {
-            return null;
-        }
-        if (columnIndex > getColumnCount()) {
-            return null;
-        }
-        // -1 Because index != line count
-        if (rowIndex > getRowCount() - 1) {
+        if (rowIndex < 0
+                || columnIndex < 0
+                || columnIndex > getColumnCount()
+                // -1 Because index != line count
+                || rowIndex > getRowCount() - 1) {
             return null;
         }
 
+        return columnObject(columnIndex, rowIndex);
+    }
+
+
+
+    /**
+     * Returns the object that corresponds with the column and row index.
+     * @param columnIndex index of the column.
+     * @param rowIndex index of the row.
+     * @return No. (int), Name (String), Score (int) or null.
+     */
+    private Object columnObject(int columnIndex, int rowIndex) {
         switch (columnIndex) {
             case(0):
                 //Index starts at 0, scoreNo. (Which is returned), does not.
