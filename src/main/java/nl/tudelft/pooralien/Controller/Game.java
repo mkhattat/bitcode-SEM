@@ -5,9 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
+import nl.tudelft.pooralien.Controller.HighScore.ScoreCounter;
 import nl.tudelft.pooralien.Launcher;
 import nl.tudelft.pooralien.Observer;
 import nl.tudelft.pooralien.Subject;
+import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreEnterNameDialog;
+import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreTableTopX;
+
+import javax.swing.JTable;
 
 
 /**
@@ -23,6 +28,7 @@ public final class Game implements Subject {
     private boolean gameIsRunning;
     private ArrayList<Observer> observers;
     private int moves;
+    private HighScoreTableTopX highScoreTableTopX;
 
     /**
      * Initialise the singleton Game object.
@@ -57,6 +63,16 @@ public final class Game implements Subject {
             board = bFactory.createRandomBoard();
         }
         return board;
+    }
+
+    /**
+     * @return the topX score table being used.
+     */
+    public JTable getHighScoreTableTopX() {
+        if (highScoreTableTopX == null) {
+            highScoreTableTopX = new HighScoreTableTopX();
+        }
+        return highScoreTableTopX.getTable();
     }
 
     /**
@@ -103,7 +119,11 @@ public final class Game implements Subject {
         if (moves > 0) {
             moves--;
             if (moves == 0) {
+                //Enter user input into
+                new HighScoreEnterNameDialog(true, game.scoreCounter.getScore());
+
                 if (backgroundTileCatalog.size() == 0) {
+
                     nextBoard();
                 } else {
                     //Placeholder until the required
