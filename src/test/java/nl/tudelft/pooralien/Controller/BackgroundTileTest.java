@@ -29,7 +29,7 @@ public class BackgroundTileTest {
             new BackgroundTile(-1, 0, Color.WHITE);
         } catch (IllegalArgumentException e) {
             assertEquals(
-                    "Coordinate X must be between -1 and 11"
+                    "Coordinate must be between -1 and 11"
                     , e.getMessage());
         }
     }
@@ -40,7 +40,7 @@ public class BackgroundTileTest {
             new BackgroundTile(11, 0, Color.WHITE);
         } catch (IllegalArgumentException e) {
             assertEquals(
-                    "Coordinate X must be between -1 and 11"
+                    "Coordinate must be between -1 and 11"
                     , e.getMessage());
         }
     }
@@ -51,7 +51,7 @@ public class BackgroundTileTest {
             new BackgroundTile(0, -1, Color.WHITE);
         } catch (IllegalArgumentException e) {
             assertEquals(
-                    "Coordinate Y must be between -1 and 11"
+                    "Coordinate must be between -1 and 11"
                     , e.getMessage());
         }
     }
@@ -73,7 +73,7 @@ public class BackgroundTileTest {
             new BackgroundTile(0, 11, Color.WHITE);
         } catch (IllegalArgumentException e) {
             assertEquals(
-                    "Coordinate Y must be between -1 and 11"
+                    "Coordinate must be between -1 and 11"
                     , e.getMessage());
         }
     }
