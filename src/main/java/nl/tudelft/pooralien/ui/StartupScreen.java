@@ -23,7 +23,6 @@ import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreFrame;
 public class StartupScreen {
     private JFrame mainFrame;
     private JLabel welcomeLabel;
-    private JPanel btnPanel;
     private JPanel multiPlayerPanel;
     private JPanel highScorePanel;
     private JButton createNetwrok = new JButton("Create Network");
@@ -196,6 +195,20 @@ public class StartupScreen {
      */
     private class NewGameListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            String[] difficulties = { "Easy", "Normal", "Hard" };
+            JFrame frame = new JFrame("New Game");
+            String difficultiesdialog = (String) JOptionPane.showInputDialog(
+                    frame,
+                    "Choose a difficulty from the list below",
+                    "New Game",
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    difficulties,
+                    difficulties[0]
+            );
+            if (difficultiesdialog == null) {
+                return;
+            }
             MainScreen mainScreen = new MainScreen();
             mainScreen.launch();
             close();
