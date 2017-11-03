@@ -39,7 +39,7 @@ public class HardBoard extends Board {
         final int max = this.initWidth() - min;
         final int standard = 4;
 
-        return GameConfig.getInteger("minItemsInRowHard", min, max, standard);
+        return GameConfig.getInteger("minItemsInRow2", min, max, standard);
     }
 
     /**

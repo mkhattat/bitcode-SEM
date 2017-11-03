@@ -19,13 +19,14 @@ import javax.swing.JTable;
  */
 public final class Game implements Subject {
     private static Game game;
-    private BoardFactory bFactory;
+    private static BoardFactory bFactory = new StandardBoardFactory();
     private Board board;
     private BackgroundTileCatalog backgroundTileCatalog;
     private ScoreCounter scoreCounter;
     private boolean multiplayer;
     private ArrayList<Observer> observers;
     private int moves;
+    private static int difficulty = 1;
     private GameControllerMachine gameControllerMachine;
     private MainScreen mainScreen = null;
 
@@ -34,10 +35,9 @@ public final class Game implements Subject {
      */
     private Game() {
         observers = new ArrayList<>();
-        bFactory = new StandardBoardFactory();
         board = bFactory.createRandomBoard();
         initMoves();
-        initBTCatalog();
+        initBackgroundTileCatalog();
         scoreCounter = new ScoreCounter(0);
     }
 
@@ -81,14 +81,6 @@ public final class Game implements Subject {
     }
 
     /**
-     * Initializes the backgroundTileCatalog.
-     */
-    private void initBTCatalog() {
-        initMoves();
-        initBackgroundTileCatalog();
-    }
-
-    /**
      * Initializes the amount of moves.
      */
     private void initMoves() {
@@ -96,20 +88,17 @@ public final class Game implements Subject {
         final int maxStandardMaxMoves = 100;
         final int defaultStandardMaxMoves = 12;
 
-        moves = GameConfig.getInteger("standardMaxMoves", minStandardMaxMoves,
+        moves = GameConfig.getInteger("maxMoves" + difficulty, minStandardMaxMoves,
                 maxStandardMaxMoves, defaultStandardMaxMoves);
     }
 
     private void initBackgroundTileCatalog() {
-        int backgroundTileCount = -1;
-        Color standardColor = Color.MAGENTA;
-
         final int minBackgroundTileCount = 0;
         final int maxBackgroundTileCount = 20;
         final int defaultBackgroundTileCount = 10;
 
-        backgroundTileCount = GameConfig.getInteger("backgroundTileCount", minBackgroundTileCount,
-                maxBackgroundTileCount, defaultBackgroundTileCount);
+        int backgroundTileCount = GameConfig.getInteger("backgroundTileCount",
+                minBackgroundTileCount, maxBackgroundTileCount, defaultBackgroundTileCount);
 
         final int minRGBLength = 3;
         final int maxRGBLength = 3;
@@ -120,7 +109,7 @@ public final class Game implements Subject {
         List<Integer> rgb = GameConfig.getIntegerList("colorBackgroundTile",
                 minRGBLength, maxRGBLength, minRGBValue, maxRGBValue, defaultRGBValue);
 
-        standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
+        Color standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
 
         backgroundTileCatalog = new BackgroundTileCatalog(backgroundTileCount, standardColor);
     }
@@ -152,7 +141,7 @@ public final class Game implements Subject {
     public void nextBoard() {
         board = bFactory.createRandomBoard();
         initMoves();
-        initBTCatalog();
+        initBackgroundTileCatalog();
         //Refreshes the GUI board
         mainScreen.refreshBoard();
     }
@@ -188,7 +177,8 @@ public final class Game implements Subject {
      * @return true if the game is playable.
      */
     public boolean gameIsRunning() {
-        return getGameControllerMachine().equalsCurrentState(gameControllerMachine.getGamePlayState());
+        return getGameControllerMachine()
+                .equalsCurrentState(gameControllerMachine.getGamePlayState());
     }
 
     /**
@@ -246,6 +236,47 @@ public final class Game implements Subject {
      */
     public void reset() {
         game = null;
+    }
+
+    /**
+     * Sets the game to hard mode.
+     */
+    public static void setHardMode() {
+        if (difficulty != 2) {
+            difficulty = 2;
+            bFactory = new HardBoardFactory();
+        }
+    }
+
+    /**
+     * Sets the game to standard mode.
+     */
+    public static void setStandardMode() {
+        if (difficulty != 1) {
+            difficulty = 1;
+            bFactory = new StandardBoardFactory();
+        }
+    }
+
+    /**
+     * Sets the game to easy mode.
+     */
+    public static void setEasyMode() {
+        if (difficulty != 0) {
+            difficulty = 0;
+            bFactory = new EasyBoardFactory();
+        }
+    }
+
+    /**
+     * Retrieves the int representation of the current difficulty.
+     * 0 - Easy
+     * 1 - Standard
+     * 2 - Hard
+     * @return An int representing the current difficulty.
+     */
+    public static int getDifficulty() {
+        return difficulty;
     }
 
     /**
