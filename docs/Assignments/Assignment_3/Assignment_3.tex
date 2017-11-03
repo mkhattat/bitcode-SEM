@@ -84,33 +84,68 @@ In the previous assignments it was required to use a game configuration file for
 
 \begin{tikzpicture}[node distance = 2cm, auto]
     % Place nodes
-    \node [block] (nrmoves) {moves left -1};
-    \node [cloud, left of=nrmoves] (start) {getString()};
-	\node [decision, below of=nrmoves] (movesleft) {is moves left 0?};
-	\node [decision, below of=movesleft] (item) {background items left?};
-	\node [block, below of=item, node distance=3cm] (end) {end game};
-	\node [block, left of=item, node distance=3cm] (new) {create new game};
+    \node [block] (defpro) {getString ValueOf()};
+    \node [cloud, left of=defpro] (start) {getString()};
+	\node [decision, below of=defpro] (exception) {no exception?};
+	\node [decision, below of=exception] (limit) {within limits?};
+	\node [decision, below of=limit] (alpha) {is alphabetic?};
+	\node [block, left of=alpha, node distance=3cm] (default) {return default value};
+    \node [block, right of=alpha, node distance=3cm] (config) {return config value};
     
-    
-    \path [line,dashed] (start) -- (nrmoves);
-    \path [line] (nrmoves) -- (movesleft);
-	\path [line] (movesleft) -- node {yes}(item);
-	\path [line] (item) -- node {yes}(end);
-	\path [line] (item) -- node {no}(new);    
-    
+    \path [line,dashed] (start) -- (defpro);
+    \path [line] (defpro) -- (exception);
+	\path [line] (exception) -- node {yes}(limit);
+	\path [line] (limit) -- node {yes}(alpha);
+	\path [line] (alpha) -- node {no}(default);
+	\path [line] (alpha) -- node {yes}(config);
+	
+	\path [line] (exception) -| node {no}(default);
+	\path [line] (limit) -| node {no}(default);
     
 \end{tikzpicture}  
 
-
+\paragraph{} In this particular example the following conditions makes the method return the defined default value.
+\begin{itemize}
+	\item If the library thorows an exception.
+	\item If the amount of characters in the sting is less or more then expected.
+	\item If the string is not alphabetic.
+\end{itemize}
 
 \section{Selectable Difficulty}
-story
+One way of making the game more competitive is to implement selectable difficulty. The idea is that the user can select a desired difficultly between easy, normal and hard before the game starts. The selected level of difficulty will noticeably influence the difficulty of the game.   
 
 \subsection{Requirements}
-tbd
+The requirements are ordered by the MoSCoW model.
 
+\paragraph{Must Have:}
+\begin{itemize}
+	\item The game must have three levels of difficulty, easy, normal and hard.
+	\item The player must be able to select the desired difficulty befor the game starts.
+	\item The game must have a start screen.
+\end{itemize}
+
+\paragraph{Should Have:}
+\begin{itemize}
+	\item The player should get more points when removing a tile or a background tile when the game is more difficult.
+\end{itemize}
+
+
+\paragraph{Could Have:}
+\begin{itemize}
+	\item Higher difficulty could mean that the player should find four of the same tiles on a row.
+	\item Higher difficulty could mean that the player has less moves to remove all background tiles.
+	\item Higher difficulty could mean that there are more background tiles. 
+	\item Lower difficulty could mean six different tiles instead of 7 tiles.
+\end{itemize}
+
+
+\newpage
 \subsection{Software Design}
-tbd
+The figure below shows the class diagram of the implementation.
+\begin{figure}[H]
+\includegraphics[scale=0.55]{Images/DifficultiesClassDiagram.jpg}
+\end{figure}
+
 
 
 
