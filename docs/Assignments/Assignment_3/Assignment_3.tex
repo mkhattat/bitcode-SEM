@@ -1,0 +1,124 @@
+\documentclass{article}
+
+\usepackage{titlesec}
+\usepackage{longtable}
+\usepackage{array} % for defining a new column type
+\usepackage{varwidth} %for the varwidth minipage environment
+\usepackage{color, colortbl}
+\usepackage{caption}
+\usepackage{subfigure}
+\usepackage{filecontents}
+\usepackage[section]{placeins}
+\usepackage{float}
+\usepackage{lscape}
+
+\definecolor{Gray}{gray}{0.9}
+
+\usepackage{pgf-umlsd}
+\usepackage{pgf-umlcd}
+
+\usepackage[latin1]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+
+\newcommand{\sectionbreak}{\clearpage}
+
+\begin{document}
+
+
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+    text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+    minimum height=2em]
+
+\newcolumntype{M}{>{\begin{varwidth}{4cm}}l<{\end{varwidth}}} %M is for Maximal column
+
+\begin{titlepage}
+	\Huge{Bitcode Assignment 3}
+\end{titlepage}
+
+
+\section{Design Patterns}
+Using design patterns in software project is a good practice. It helps to make your software understandable, sustainable and expendable. We have chosen two design patterns and implemented them in our existing code, the state pattern and the strategy pattern.
+
+\subsection{The State Design Pattern}
+why? tbd
+
+\subsubsection{State Class Diagram}
+tbd
+
+\subsubsection{State Sequence Diagram}
+tbd
+
+\subsection{The Strategy Design Pattern}
+why? tbd
+
+\subsubsection{Strategy Class Diagram}
+tbd
+
+\subsubsection{Strategy Sequence Diagram} 
+tbd
+
+\newpage
+\section{Defensive Programming}
+In the previous assignments it was required to use a game configuration file for initializing variables using a provided library. However, the provided library introduced bugs in the game. 
+\paragraph{} To solve the bugs we have created a wrapper class (CameConfig) around the library's API that catches all the bugs and checks if the variables are within limits. This means that for every different API call we created a method in the GameConfig class. In the sequence diagram below is shown how the wrapper class works.
+
+\begin{figure}[H]
+	\centering
+	\begin{sequencediagram}
+		\newthread{A}{:Launcher}{}
+		\newthread{B}{:GameConfig}{}
+		\newthread{C}{:DefProAPI}{}
+		\begin{call}{A}{getString()}{B}{}
+			\begin{call}{B}{getStringValue()}{C}{}
+			\end{call}
+		\end{call}
+	\end{sequencediagram}
+\end{figure}
+
+\paragraph{} In every method in the CameConfig class that implements the API checks are build in to verify the data that is returned by the API. Also if the API throws an exception it is catched in the method. If an exception occurs or the data returned by the API is not within the defined boundaries the method will return the defined default value. The flowchart below shows how the method getString() is implemented.
+
+\begin{tikzpicture}[node distance = 2cm, auto]
+    % Place nodes
+    \node [block] (nrmoves) {moves left -1};
+    \node [cloud, left of=nrmoves] (start) {getString()};
+	\node [decision, below of=nrmoves] (movesleft) {is moves left 0?};
+	\node [decision, below of=movesleft] (item) {background items left?};
+	\node [block, below of=item, node distance=3cm] (end) {end game};
+	\node [block, left of=item, node distance=3cm] (new) {create new game};
+    
+    
+    \path [line,dashed] (start) -- (nrmoves);
+    \path [line] (nrmoves) -- (movesleft);
+	\path [line] (movesleft) -- node {yes}(item);
+	\path [line] (item) -- node {yes}(end);
+	\path [line] (item) -- node {no}(new);    
+    
+    
+\end{tikzpicture}  
+
+
+
+\section{Selectable Difficulty}
+story
+
+\subsection{Requirements}
+tbd
+
+\subsection{Software Design}
+tbd
+
+
+
+
+\end{document}
+
+
+
+
+
+
