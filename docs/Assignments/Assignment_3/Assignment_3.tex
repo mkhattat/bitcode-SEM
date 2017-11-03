@@ -45,22 +45,35 @@
 Using design patterns in software project is a good practice. It helps to make your software understandable, sustainable and expendable. We have chosen two design patterns and implemented them in our existing code, the state pattern and the strategy pattern.
 
 \subsection{The State Design Pattern}
-why? tbd
+We chose the state design pattern for the game because the game has become very complex and various objects can and will change a lot of the games behavior and variables.
+\paragraph{} With the state design pattern we are able to dictate when certain parts of the game's logic can be executed and when not. This reduces the chances of accidentally changing the games behavior or variables when it is not wanted.
+\paragraph{} For example disabling mouse input when the user is in the main menu state makes no sense. Without the state design pattern the disable mouse input (pause game) could be called when it is unwanted. By integrating the pause and resume,into the state design pattern we can choose in which states it is allowed to execute this command. We obviously only want this to happen when the game is running. Otherwhise we throw an exception, allowing easy traceability to where the command was invalidly called, allowing for an easy fix without having to debug the whole program.
 
+\newpage
 \subsubsection{State Class Diagram}
-tbd
+The class diagram of the implemented state design mattern is shown in the figure below.
+\begin{figure}[H]
+\includegraphics[scale=0.50]{Images/StateMachineClassDiagram.jpg}
+\end{figure}
 
 \subsubsection{State Sequence Diagram}
-tbd
+In the figure below the sequence diagram of the implemented state deign pattern is shown.
+\begin{figure}[H]
+\includegraphics[scale=0.40]{Images/StateMachineSequenceDiagram.jpg}
+\end{figure}
 
 \subsection{The Strategy Design Pattern}
-why? tbd
+tbd
 
 \subsubsection{Strategy Class Diagram}
 tbd
 
 \subsubsection{Strategy Sequence Diagram} 
 tbd
+
+
+\section{Software Metrics}
+keeping track of software metrics helps to keep code clean, understandable, sustainable and expendable. 
 
 \newpage
 \section{Defensive Programming}
@@ -147,13 +160,7 @@ The figure below shows the class diagram of the implementation.
 \end{figure}
 
 
-
-
-
 \end{document}
-
-
-
 
 
 
