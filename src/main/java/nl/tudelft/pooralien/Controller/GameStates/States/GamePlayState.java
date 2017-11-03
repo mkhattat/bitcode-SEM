@@ -70,10 +70,4 @@ public class GamePlayState implements State {
 
     }
 
-    @Override
-    public void dragAnimation() {
-        throw new IllegalStateException("GameState: GamePlayState, "
-                + "dragAnimation() is not possible.");
-    }
-
 }

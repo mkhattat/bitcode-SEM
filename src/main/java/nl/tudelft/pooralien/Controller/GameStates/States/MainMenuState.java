@@ -103,10 +103,4 @@ public class MainMenuState implements State {
         System.exit(0);
     }
 
-    @Override
-    public void dragAnimation() {
-        throw new IllegalStateException("CurrentState: MainMenuState, "
-                + "dragAnimation() is not possible");
-    }
-
 }

@@ -75,10 +75,4 @@ public class GameEndedState implements State {
         System.exit(0);
     }
 
-    @Override
-    public void dragAnimation() {
-        throw new IllegalStateException("GameState: GameEndedState,"
-                + " dragAnimation() is not possible.");
-    }
-
 }

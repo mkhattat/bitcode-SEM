@@ -50,10 +50,5 @@ public interface State {
      */
     void exit();
 
-    /**
-     * When the player has removed tiles from the board.
-     */
-    void dragAnimation();
-
 
 }

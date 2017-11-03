@@ -55,6 +55,8 @@ public class GameControllerMachine {
         }
     }
 
+    public boolean equals(State )
+
     /**
      * Execute the current states goToMainMenu method.
      */

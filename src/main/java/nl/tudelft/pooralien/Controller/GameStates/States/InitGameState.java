@@ -71,9 +71,4 @@ public class InitGameState implements State {
     public void exit() {
 
     }
-
-    @Override
-    public void dragAnimation() {
-        //Not possible.
-    }
 }

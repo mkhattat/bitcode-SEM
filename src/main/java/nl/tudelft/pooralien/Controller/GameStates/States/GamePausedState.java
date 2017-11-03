@@ -65,10 +65,4 @@ public class GamePausedState implements State {
 
     }
 
-    @Override
-    public void dragAnimation() {
-        throw new IllegalStateException("GameState: GamePausedState, "
-                + "dragAnimation() is not possible.");
-    }
-
 }
