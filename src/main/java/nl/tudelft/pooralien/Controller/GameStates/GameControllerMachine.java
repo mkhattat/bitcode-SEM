@@ -13,7 +13,6 @@ import nl.tudelft.pooralien.Controller.GameStates.States.MainMenuState;
 public class GameControllerMachine {
 
     private State state;
-    private State dragAnimationState;
     private State gameEndedState;
     private State gamePlayState;
     private State gamePausedState;
@@ -26,7 +25,6 @@ public class GameControllerMachine {
      * Allows GameControllerMachine to be constructed in different gameStates.
      */
     public GameControllerMachine() {
-        dragAnimationState = new DragAnimationState(this);
         gameEndedState = new GameEndedState(this);
         gamePlayState = new GamePlayState(this);
         gamePausedState = new GamePausedState(this);
@@ -118,20 +116,6 @@ public class GameControllerMachine {
      */
     public void exitGame() {
         state.exit();
-    }
-
-    /**
-     * Execute the current states dragAnimation method.
-     */
-    public void dragAnimation() {
-        state.dragAnimation();
-    }
-
-    /**
-     * @return dragAnimationState, state object.
-     */
-    public State getDragAnimationState() {
-        return dragAnimationState;
     }
 
     /**
