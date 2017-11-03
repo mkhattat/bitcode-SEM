@@ -7,16 +7,20 @@ import nl.tudelft.pooralien.Launcher;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-public class StandardBoardTest extends BoardTest {
+public class HardBoardTest extends BoardTest {
     @Before
     public void setUp() throws Exception {
         launcher = new Launcher();
-        board = new StandardBoardFactory().createRandomBoard();
+        board = new HardBoardFactory().createRandomBoard();
     }
 
     @Test
@@ -40,7 +44,7 @@ public class StandardBoardTest extends BoardTest {
     @Test
     public void getMinGroupSize() {
         try {
-            assertEquals((int) Launcher.getGameCfg().getIntegerValueOf("minItemsInRow"), board.getMinGroupSize());
+            assertEquals((int) Launcher.getGameCfg().getIntegerValueOf("minItemsInRowHard"), board.getMinGroupSize());
         } catch (NotExistingVariableException e) {
             fail(e.getMessage());
         }
@@ -110,7 +114,6 @@ public class StandardBoardTest extends BoardTest {
 
     @Test
     public void remove() {
-        Game.getGame().getGameControllerMachine();
         board.remove(0, 0);
         assertNotNull(board.getItem(0, 0));
     }

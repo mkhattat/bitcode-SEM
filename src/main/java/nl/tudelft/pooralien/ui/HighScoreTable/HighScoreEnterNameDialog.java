@@ -1,6 +1,7 @@
 package nl.tudelft.pooralien.ui.HighScoreTable;
 
 import nl.tudelft.pooralien.Controller.Game;
+import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.HighScore.ScoreManager;
 
 import javax.swing.JFrame;
@@ -22,12 +23,17 @@ public class HighScoreEnterNameDialog {
      */
     public HighScoreEnterNameDialog(boolean firstTry, int score) {
         scoreManager = new ScoreManager();
+            return;
+        } else if (scoreManager.getSCORE_COUNT() < scoreManager.getTopXScoreCount()) {
+            gameControllerMachine.setState(gameControllerMachine.getGameEndedState());
 
         if (checkScoreEligibleForHighScore(score)) {
             String userInput = constructDialog(firstTry);
 
             handleUserInput(userInput, score);
         }
+
+                Game.getGame().getGameControllerMachine().getGameEndedState());
     }
 
     /**
