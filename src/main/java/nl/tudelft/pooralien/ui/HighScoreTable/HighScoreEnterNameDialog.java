@@ -1,7 +1,6 @@
 package nl.tudelft.pooralien.ui.HighScoreTable;
 
 import nl.tudelft.pooralien.Controller.Game;
-import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.HighScore.ScoreManager;
 
 import javax.swing.JFrame;
