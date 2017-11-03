@@ -60,8 +60,8 @@ public class MainMenuState implements State {
 
     @Override
     public void initGame() {
-        throw new IllegalStateException("CurrentState: MainMenuState, " +
-                "initGame() is not possible.");
+        throw new IllegalStateException("CurrentState: MainMenuState, "
+                + "initGame() is not possible.");
     }
 
     @Override
@@ -84,8 +84,8 @@ public class MainMenuState implements State {
 
     @Override
     public void endGame() {
-        throw new IllegalStateException("CurrentState: MainMenuState, " +
-                "endGame() is not possible.");
+        throw new IllegalStateException("CurrentState: MainMenuState, "
+                + "endGame() is not possible.");
     }
 
     @Override
@@ -95,8 +95,8 @@ public class MainMenuState implements State {
 
     @Override
     public void saveGame() {
-        throw new IllegalStateException("CurrentState: MainMenuState, " +
-                "saveGame() is not possible.");
+        throw new IllegalStateException("CurrentState: MainMenuState, "
+                + "saveGame() is not possible.");
     }
 
 }
