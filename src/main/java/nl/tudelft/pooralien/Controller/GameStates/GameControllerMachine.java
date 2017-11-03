@@ -56,9 +56,6 @@ public class GameControllerMachine {
      * @return true if the otherState is equal to the current state.
      */
     public boolean equalsCurrentState(State otherState) {
-        if (otherState == null) {
-            return false;
-        }
         return otherState.equals(this.state);
     }
 

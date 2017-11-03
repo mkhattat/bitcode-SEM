@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 public class GamePlayStateTest implements StateTest {
@@ -54,7 +55,9 @@ public class GamePlayStateTest implements StateTest {
     @Override
     @Test
     public void pauseGameTest() {
-//
+        gameControllerMachine.pauseGame();
+        assertTrue("Expected to be in the paused state.",
+                gameControllerMachine.equalsCurrentState(gameControllerMachine.getGamePausedState()));
     }
 
     @Override
