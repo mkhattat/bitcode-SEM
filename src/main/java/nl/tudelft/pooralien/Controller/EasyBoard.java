@@ -39,7 +39,7 @@ public class EasyBoard extends Board {
         final int max = this.initWidth() - min;
         final int standard = 3;
 
-        return GameConfig.getInteger("minItemsInRow", min, max, standard);
+        return GameConfig.getInteger("minItemsInRow0", min, max, standard);
     }
 
     /**

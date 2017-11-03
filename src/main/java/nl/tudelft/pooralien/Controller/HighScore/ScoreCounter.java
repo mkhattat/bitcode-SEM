@@ -18,8 +18,6 @@ public class ScoreCounter {
      * @param score will be the value that the player starts with.
      */
     public ScoreCounter(int score) {
-        this.score = score;
-
         final int minScorePerTile = 1;
         final int maxScorePerTile = Integer.MAX_VALUE - minScorePerTile;
         final int defaultScorePerTile = 1;
@@ -27,11 +25,12 @@ public class ScoreCounter {
         final int maxScorePerBackgroundTile = Integer.MAX_VALUE;
         final int defaultScorePerBackgroundTile = 6;
 
-        this.scorePerTile = GameConfig.getInteger("scorePerTile", minScorePerTile,
-                maxScorePerTile, defaultScorePerTile);
-        this.scorePerBackgroundTile = GameConfig.getInteger("scorePerBackgroundTile",
-                minScorePerBackgroundTile, maxScorePerBackgroundTile,
-                defaultScorePerBackgroundTile);
+        this.score = score;
+        this.scorePerTile = GameConfig.getInteger("scorePerTile" + Game.getDifficulty(),
+                minScorePerTile, maxScorePerTile, defaultScorePerTile);
+        this.scorePerBackgroundTile = GameConfig.getInteger("scorePerBackgroundTile"
+                        + Game.getDifficulty(), minScorePerBackgroundTile,
+                        maxScorePerBackgroundTile, defaultScorePerBackgroundTile);
     }
 
     /**

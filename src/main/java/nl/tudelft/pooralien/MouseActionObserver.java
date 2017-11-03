@@ -62,7 +62,7 @@ public class MouseActionObserver implements Observer {
     /**
      * End the animation.
      */
-    protected void stopAnimation() {
+    public void stopAnimation() {
         dragAnimation.end();
         dragAnimation = null;
     }
@@ -72,7 +72,7 @@ public class MouseActionObserver implements Observer {
      *
      * @param p the updated mouse position
      */
-    protected void updateAnimation(Point p) {
+    public void updateAnimation(Point p) {
         if (dragAnimation != null) {
             dragAnimation.update(p);
         }
@@ -86,7 +86,7 @@ public class MouseActionObserver implements Observer {
      * @param type is the horizontal or vertical.
      * @param mainScreen mainscreen to create the animation.
      */
-    protected void startAnimation(Point p, int type, MainScreen mainScreen) {
+    public void startAnimation(Point p, int type, MainScreen mainScreen) {
         if (type
                 == MouseEventHandler.MouseAction.HORIZONTAL_DRAG_ACTION) {
             dragAnimation = new RTLDragAnimation(mainScreen);

@@ -13,6 +13,7 @@ public class Launcher {
      * Launch the game GUI.
      */
     public void launch() {
+        Game.getGame().setMultiplayer(false);
         GameControllerMachine gameControllerMachine = Game.getGame().getGameControllerMachine();
         gameControllerMachine.setState(gameControllerMachine.getMainMenuState());
         gameControllerMachine.mainMenu();
@@ -38,17 +39,10 @@ public class Launcher {
      * @param args The program arguments.
      */
     public static void main(String[] args) {
-        //StartupScreen startupScreen = new StartupScreen();
-        //startupScreen.show();
         try {
             new Launcher().launch();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-        //StartupScreen startupScreen = new StartupScreen();
-        //startupScreen.show();
-
     }
 }

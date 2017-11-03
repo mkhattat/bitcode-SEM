@@ -27,6 +27,7 @@ public class ConnectionScreen implements Observer {
     private JTextArea textArea;
     private JPanel controlPanel;
     private Listener listener;
+    private MainScreen mainScreen;
     private JDialog dialog;
     private static final int WIDTH = 600;
     private static final int HEIGHT = 600;
@@ -34,19 +35,31 @@ public class ConnectionScreen implements Observer {
     /**
      * constructor used to create this GUI.
      *
-     * @param listener is the listener class.
+     * @param listener
+     *            is the listener class.
+     * @param mainScreen
+     *          is the main screen of the game.
      */
-    public ConnectionScreen(Listener listener) {
+    public ConnectionScreen(Listener listener, MainScreen mainScreen) {
         this.listener = listener;
+        this.mainScreen = mainScreen;
         this.dialog = new JDialog();
         prepareGUI();
     }
 
+    /**
+     * Close this screen.
+     *
+     */
     private void closeFrame() {
         Server.getServer().removeObserver(this);
         dialog.dispose();
     }
 
+    /**
+     * Prepare GUI.
+     *
+     */
     private void prepareGUI() {
         dialog.setTitle("Creating a network");
         dialog.setSize(WIDTH, HEIGHT);
@@ -82,6 +95,8 @@ public class ConnectionScreen implements Observer {
             Server.getServer().sendToAll("ServerIsDying;");
             listener.terminate();
             Server.getServer().destroy();
+            StartupScreen startupScreen = new StartupScreen();
+            startupScreen.show();
             closeFrame();
         }
     }
@@ -91,6 +106,7 @@ public class ConnectionScreen implements Observer {
      */
     private class StartButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            mainScreen.launch();
             listener.terminate();
             Server.getServer().startMultiPlayerGame();
             closeFrame();

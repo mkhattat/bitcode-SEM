@@ -20,7 +20,7 @@ public class HighScoreFrame {
         JScrollPane pane = new JScrollPane(highScoreBoard);
 
         //Custom button text
-        Object[] buttonText = {"New Game", "Exit To Main Menu", "Exit To Desktop"};
+        Object[] buttonText = {"Exit To Main Menu"};
 
         int optionSelected = JOptionPane.showOptionDialog(null,
                 pane,
@@ -48,14 +48,9 @@ public class HighScoreFrame {
             case(1):
                 //game controller main menu
                 gameControllerMachine.setState(gameControllerMachine.getMainMenuState());
-                //gameControllerMachine.mainMenu();
-                //NO MAIN MENU HAS BEEN IMPLEMENTED YET
-                gameControllerMachine.exitGame();
+                gameControllerMachine.mainMenu();
                 break;
-                // Case2 does not need to be implemented, as the default also exits.
             default:
-                //game controller exit
-                gameControllerMachine.exitGame();
                 break;
         }
     }

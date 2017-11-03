@@ -40,11 +40,7 @@ public class StandardBoardTest extends BoardTest {
 
     @Test
     public void getMinGroupSize() {
-        try {
-            assertEquals((int) GameConfig.getInteger("minItemsInRow", 2, 10, 3), board.getMinGroupSize());
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
+        assertEquals((int) GameConfig.getInteger("minItemsInRow", 2, 10, 3), board.getMinGroupSize());
     }
 
     @Test

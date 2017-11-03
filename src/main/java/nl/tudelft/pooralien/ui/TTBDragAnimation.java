@@ -39,8 +39,8 @@ public class TTBDragAnimation implements Animation {
 
         final int minMargin = 1;
         final int maxMargin = 20;
-        final int defaultMargin = 10;
-        this.margin = GameConfig.getInteger("marginHDrag", minMargin, maxMargin, defaultMargin);
+        final int defaultMargin = 5;
+        this.margin = GameConfig.getInteger("marginVDrag", minMargin, maxMargin, defaultMargin);
 
         final Double minGap = 0.0;
         final Double maxGap = 5.0;

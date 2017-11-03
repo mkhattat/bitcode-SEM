@@ -34,7 +34,7 @@ public class GameControllerMachine {
         // If no valid State is passed then assume that the game has just been launched.
         // RIGHT NOW NO MAIN MENU EXISTS SO STRAIGHT TO GAME (WITH BOARD).
         try {
-            this.state = null;
+            this.state = mainMenuState;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,6 +56,9 @@ public class GameControllerMachine {
      * @return true if the otherState is equal to the current state.
      */
     public boolean equalsCurrentState(State otherState) {
+        if (otherState == null) {
+            return false;
+        }
         return otherState.equals(this.state);
     }
 

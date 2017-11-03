@@ -30,9 +30,6 @@ public class InitGameState implements State {
         Game.getGame().notifyObservers();
         //Reset score
         Game.getGame().getScoreCounter().setScore(0);
-        //Makes a new board and refresh the GUI.
-        Game.getGame().nextBoard();
-
         gameControllerMachine.setState(gameControllerMachine.getGamePlayState());
         gameControllerMachine.startGame();
     }

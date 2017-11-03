@@ -2,6 +2,7 @@ package nl.tudelft.pooralien.ui.HighScoreTable;
 
 import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Controller.HighScore.ScoreManager;
+import nl.tudelft.pooralien.ui.MainScreen;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -27,6 +28,18 @@ public class HighScoreEnterNameDialog {
             String userInput = constructDialog(firstTry);
 
             handleUserInput(userInput, score);
+        }
+
+        if (Game.getGame().getBackgroundTileCatalog().size() > 0) {
+            JOptionPane.showMessageDialog(new JFrame(),
+                    "Your score is: " + Game.getGame().getScoreCounter().getScore(),
+                    "GAME OVER",
+                    JOptionPane.ERROR_MESSAGE);
+            MainScreen mainScreen = Game.getGame().getMainScreen();
+            if (mainScreen != null) {
+                mainScreen.refreshBoard();
+            }
+            Game.getGame().reset();
         }
     }
 
