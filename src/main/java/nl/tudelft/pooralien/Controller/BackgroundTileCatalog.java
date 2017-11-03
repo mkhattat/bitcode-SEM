@@ -1,8 +1,5 @@
 package nl.tudelft.pooralien.Controller;
 
-import nl.tu.delft.defpro.exception.NotExistingVariableException;
-import nl.tudelft.pooralien.Launcher;
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -38,15 +35,21 @@ public class BackgroundTileCatalog {
      * Initiliazes the max width and height using the config file.
      */
     private void initWidthHeight() {
-            maxWidthAndHeight = GameConfig.getInteger("maxBoardWidth", 5,20, 10);
+        final int min = 5;
+        final int max = 20;
+        final int standard = 10;
+        maxWidthAndHeight = GameConfig.getInteger("maxBoardWidth", min, max, standard);
     }
 
     /**
      * Initializes the max tile count using the config file.
      */
     private void initMaxTileCount() {
-        maxTileCount = GameConfig.getInteger("maxBoardWidth", 5,20, 10)
-                * GameConfig.getInteger("maxBoardHeight", 5,20, 10);
+        final int min = 5;
+        final int max = 20;
+        final int standard = 10;
+        maxTileCount = GameConfig.getInteger("maxBoardWidth", min, max, standard)
+                * GameConfig.getInteger("maxBoardHeight", min, max, standard);
     }
 
     /**
@@ -71,7 +74,7 @@ public class BackgroundTileCatalog {
             throw new IllegalArgumentException(
                     "BackgroundTileCount must be smaller than 101 to be added to the catalog");
         }
-        if (!(tileColor != null)) {
+        if (tileColor == null) {
             throw new IllegalArgumentException("colorBackgroundTile should be a Color object");
         }
         intGen = new Random();

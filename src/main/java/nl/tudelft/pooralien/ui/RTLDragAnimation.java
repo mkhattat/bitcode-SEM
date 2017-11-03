@@ -1,10 +1,8 @@
 package nl.tudelft.pooralien.ui;
 
-import nl.tu.delft.defpro.exception.NotExistingVariableException;
 import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Controller.GameConfig;
-import nl.tudelft.pooralien.Launcher;
 
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -39,8 +37,15 @@ public class RTLDragAnimation implements Animation {
         originalXGridPosition = 0;
         originalYScreenPosition = 0;
 
-        this.margin = GameConfig.getInteger("marginHDrag", 1, 20, 10);
-        this.gap = GameConfig.getReal("gap", 0.0, 5.0, 1.22);
+        final int minMargin = 1;
+        final int maxMargin = 20;
+        final int defaultMargin = 10;
+        this.margin = GameConfig.getInteger("marginHDrag", minMargin, maxMargin, defaultMargin);
+
+        final Double minGap = 0.0;
+        final Double maxGap = 5.0;
+        final Double defaultGap = 1.22;
+        this.gap = GameConfig.getReal("gap", minGap, maxGap, defaultGap);
     }
 
     @Override

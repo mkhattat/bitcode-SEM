@@ -1,8 +1,5 @@
 package nl.tudelft.pooralien.Controller;
 
-import nl.tu.delft.defpro.exception.NotExistingVariableException;
-import nl.tudelft.pooralien.Launcher;
-
 import java.awt.Color;
 
 /**
@@ -40,7 +37,10 @@ public class BackgroundTile {
     }
 
     private void initWidthHeight() {
-        maxWidthAndHeight = GameConfig.getInteger("maxBoardWidth", 5,20, 10);
+        final int min = 5;
+        final int max = 20;
+        final int standard = 10;
+        maxWidthAndHeight = GameConfig.getInteger("maxBoardWidth", min, max, standard);
     }
 
     /**
