@@ -49,13 +49,8 @@ public class HighScoreFrame {
                 //game controller main menu
                 gameControllerMachine.setState(gameControllerMachine.getMainMenuState());
                 gameControllerMachine.mainMenu();
-                //NO MAIN MENU HAS BEEN IMPLEMENTED YET
-                gameControllerMachine.exitGame();
                 break;
-                // Case2 does not need to be implemented, as the default also exits.
             default:
-                //game controller exit
-                gameControllerMachine.exitGame();
                 break;
         }
     }

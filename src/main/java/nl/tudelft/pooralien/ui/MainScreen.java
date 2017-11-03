@@ -388,7 +388,7 @@ public class MainScreen implements Observer {
         }
     }
 
-    /*
+    /**
      * An listener for disconnect button.
      */
     private class DisconnectListener implements ActionListener {

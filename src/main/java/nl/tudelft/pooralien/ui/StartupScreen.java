@@ -31,15 +31,15 @@ public class StartupScreen {
     private int port;
     private static final int WIDTH_SIZE = 600;
     private static final int HEIGHT_SIZE = 600;
-    private static final int minPort = 1000;
-    private static final int maxPort = 65000;
-    private static final int defaultPort = 9090;
+    private static final int MIN_PORT = 1000;
+    private static final int MAX_PORT = 65000;
+    private static final int DEFAULT_PORT = 9090;
 
     /**
      * Constructor for the StartupScreen.
      */
     public StartupScreen() {
-        port = GameConfig.getInteger("port", minPort, maxPort, defaultPort);
+        port = GameConfig.getInteger("port", MIN_PORT, MAX_PORT, DEFAULT_PORT);
         prepareGUI();
     }
 
