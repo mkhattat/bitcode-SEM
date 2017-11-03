@@ -1,5 +1,6 @@
 package nl.tudelft.item;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -25,6 +26,11 @@ public class StandardItemFactory implements ItemFactory {
     private Random intGen;
 
     /**
+     * Array containing the itemnames this factory can use.
+     */
+    private ArrayList<String> itemNames;
+
+    /**
      * HashMap containing the items this factory can possibly create.
      */
     private HashMap<String, Item> itemHashMap;
@@ -41,6 +47,16 @@ public class StandardItemFactory implements ItemFactory {
         itemHashMap.put("mask", new Mask());
         itemHashMap.put("mouth", new Mouth());
         itemHashMap.put("sun", new Sun());
+
+        itemNames = new ArrayList<>();
+        itemNames.add("axe");
+        itemNames.add("bone");
+        itemNames.add("eye");
+        itemNames.add("leaf");
+        itemNames.add("mask");
+        itemNames.add("mouth");
+        itemNames.add("sun");
+
         resetRandom();
     }
 
@@ -133,15 +149,7 @@ public class StandardItemFactory implements ItemFactory {
      */
     public Item createRandomItem() {
         int r = (intGen.nextInt(upperBound - lowerBound) + lowerBound) % itemHashMap.size();
-        switch (r) {
-            case 0: return new Axe();
-            case 1: return new Bone();
-            case 2: return new Eye();
-            case 2 + 1: return new Leaf();
-            case 2 + 2: return new Mask();
-            case 2 + 2 + 1: return new Mouth();
-            default: return new Sun();
-        }
+        return itemHashMap.get(itemNames.get(r));
     }
 
     /**
