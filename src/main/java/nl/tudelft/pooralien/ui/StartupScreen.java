@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
+import nl.tudelft.pooralien.Controller.GameConfig;
 import nl.tudelft.pooralien.Launcher;
 import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreFrame;
 
@@ -32,16 +33,15 @@ public class StartupScreen {
     private static final int WIDTH_SIZE = 600;
     private static final int HEIGHT_SIZE = 600;
 
+    final int minPort = 1000;
+    final int maxPort = 65000;
+    final int defaultPort = 9090;
+
     /**
      * Constructor for the StartupScreen.
      */
     public StartupScreen() {
-        port = 0;
-        try {
-            port = Launcher.getGameCfg().getIntegerValueOf("port");
-        } catch (NotExistingVariableException error) {
-            error.printStackTrace();
-        }
+        port = GameConfig.getInteger("port", minPort, maxPort, defaultPort);
         prepareGUI();
     }
 

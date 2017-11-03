@@ -17,16 +17,19 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
-import nl.tudelft.pooralien.Launcher;
+import nl.tudelft.pooralien.Controller.Board;
+import nl.tudelft.pooralien.Controller.Client;
+import nl.tudelft.pooralien.Controller.Game;
+import nl.tudelft.pooralien.Controller.GameConfig;
+import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
+import nl.tudelft.pooralien.Controller.Listener;
+import nl.tudelft.pooralien.Controller.Server;
 import nl.tudelft.pooralien.MouseActionObserver;
 import nl.tudelft.pooralien.MouseEventHandler;
 import nl.tudelft.pooralien.Observer;
 import nl.tudelft.pooralien.Subject;
-import nl.tudelft.pooralien.Controller.Board;
-import nl.tudelft.pooralien.Controller.Client;
-import nl.tudelft.pooralien.Controller.Game;
-import nl.tudelft.pooralien.Controller.Listener;
-import nl.tudelft.pooralien.Controller.Server;
+
+import static javax.swing.text.html.HTML.Tag.HEAD;
 
 /**
  * MainScreen class is the GUI of the game screen.
@@ -41,6 +44,7 @@ public class MainScreen implements Observer {
     private JPanel controlPanel;
     private GridBagConstraints gbc;
     private JButton disconnectNetwork = new JButton("Disconnect from the Network");
+    private JButton pauseGame = new JButton("Pause game");
     private MouseEventHandler mouseEventHandler;
     private JLabel gameStateLable;
     private Client client;
@@ -51,8 +55,11 @@ public class MainScreen implements Observer {
     public MainScreen() {
         Game.getGame().reset();
         this.layerdPane = new JLayeredPane();
+        //Pass the MainScreen object to the Game object
+        Game.getGame().setMainScreen(this);
         prepareGUI();
-        refreshBoard();
+        //Makes a new board and refresh the GUI.
+        Game.getGame().nextBoard();
         mouseEventHandler = new MouseEventHandler(this);
         Observer observer = new MouseActionObserver();
         mouseEventHandler.registerObserver(observer);
@@ -66,21 +73,24 @@ public class MainScreen implements Observer {
      */
     public void launch() {
         try {
-            mainFrame = new JFrame(Launcher.getGameCfg().getStringValueOf("gameTitle"));
+            mainFrame = new JFrame(GameConfig.getString("gameTitle", 0,
+                    "Poor Alien".length() * 2, "Poor Alien"));
             mainFrame.setSize(0, 0);
             mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             mainFrame.getContentPane().add(layerdPane);
             mainFrame.pack();
+            mainFrame.setVisible(true);
             Game.getGame().registerObserver(this);
             Game.getGame().setMultiplayer(false);
-            if (!Launcher.getGameCfg().getBooleanValueOf("multiLevel")) {
-                mainFrame.setVisible(true);
-            }
+            Game.getGame().getGameControllerMachine().setState(
+                    Game.getGame().getGameControllerMachine().getGamePlayState());
+            Game.getGame().getGameControllerMachine().startGame();
         } catch (Exception error) {
             System.out.println(error.getMessage());
             error.printStackTrace();
             System.exit(-1);
         }
+        System.out.println("Packed");
     }
 
     /**
@@ -105,7 +115,7 @@ public class MainScreen implements Observer {
         mouseEventHandler.registerObserver(client);
         disconnectNetwork.setVisible(true);
         if (client.start()) {
-            Game.getGame().pauseGame();
+            Game.getGame().getGameControllerMachine().pauseGame();
             return true;
         }
         return false;
@@ -119,7 +129,7 @@ public class MainScreen implements Observer {
     public void createHost(int port) {
         // show a new network window
         Listener listener = new Listener(port);
-        Game.getGame().pauseGame();
+        Game.getGame().getGameControllerMachine().pauseGame();
         ConnectionScreen connectionScreen = new ConnectionScreen(listener, this);
         Server.getServer().registerObserver(connectionScreen);
         Client thisPlayer = new Client("localhost", port, mouseEventHandler);
@@ -270,6 +280,14 @@ public class MainScreen implements Observer {
     }
 
     /**
+     * Set the text of the pause button.
+     * @param text the text of the button.
+     */
+    public void setPauseGameButtonText(String text) {
+        pauseGame.setText(text);
+    }
+
+    /**
      * prepare the GUI on the screen.
      */
     private void prepareGUI() {
@@ -317,7 +335,7 @@ public class MainScreen implements Observer {
         gridBoard = new JPanel();
         gridBoard.setLayout(gridLayout);
 
-        BufferedImage image = null;
+        BufferedImage image;
         try {
             for (int x = 0; x < board.getWidth(); x++) {
                 for (int y = 0; y < board.getHeight(); y++) {
@@ -341,6 +359,8 @@ public class MainScreen implements Observer {
         JButton exit = new JButton("Return to main screen");
         exit.addActionListener(new ExitListener());
         controlPanel.add(exit);
+        controlPanel.add(pauseGame);
+        pauseGame.addActionListener(new PauseGameListener());
         disconnectNetwork.setVisible(false);
         controlPanel.add(disconnectNetwork);
 
@@ -356,6 +376,26 @@ public class MainScreen implements Observer {
     }
 
     /**
+     * An listener for the pause game button.
+     */
+    private class PauseGameListener implements ActionListener {
+        private boolean buttonTextIsPaused = true;
+
+        public void actionPerformed(ActionEvent e) {
+            if (buttonTextIsPaused) {
+                Game.getGame().getGameControllerMachine().pauseGame();
+                buttonTextIsPaused = false;
+                pauseGame.setText("Unpause Game");
+            } else {
+                Game.getGame().getGameControllerMachine().resumeGame();
+                pauseGame.setText("Pause Game");
+                buttonTextIsPaused = true;
+            }
+
+        }
+    }
+
+    /*
      * An listener for disconnect button.
      */
     private class DisconnectListener implements ActionListener {

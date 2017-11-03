@@ -77,7 +77,7 @@ public class Client extends MouseActionObserver implements Runnable {
     public void terminate() {
         running = false;
         Game.getGame().setMultiplayer(false);
-        Game.getGame().resumeGame();
+        Game.getGame().notifyObservers();
         subject.removeObserver(this);
         try {
             inputStream.close();

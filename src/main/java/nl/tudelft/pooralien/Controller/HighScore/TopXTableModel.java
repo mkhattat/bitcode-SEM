@@ -61,7 +61,7 @@ public class TopXTableModel extends AbstractTableModel {
             return null;
         }
         // -1 Because index != line count
-        if (rowIndex > getRowCount() - 1) {
+        if  (rowIndex > getRowCount() - 1) {
             return null;
         }
 

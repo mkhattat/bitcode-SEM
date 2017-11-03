@@ -11,6 +11,6 @@ public class Play implements Strategy {
 
     @Override
     public void execute(String[] args, Client client) {
-        Game.getGame().resumeGame();
+        Game.getGame().getGameControllerMachine().resumeGame();
     }
 }

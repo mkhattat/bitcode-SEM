@@ -1,49 +1,37 @@
 package nl.tudelft.pooralien;
 
-import static nl.tu.delft.defpro.api.APIProvider.getAPI;
-
-import java.net.URISyntaxException;
-
-import nl.tu.delft.defpro.api.IDefProAPI;
-import nl.tudelft.pooralien.ui.StartupScreen;
+import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
+import nl.tudelft.pooralien.Controller.Game;
+import nl.tudelft.pooralien.Controller.GameConfig;
+import nl.tudelft.pooralien.ui.MainScreen;
 
 /**
  * The Launcher of the game.
  */
 public class Launcher {
 
-    private static String cfgPath;
-    private static IDefProAPI gameCfg;
-
-    static {
-        try {
-            cfgPath = Launcher.class.getResource("/config.txt").toURI()
-                    .getPath().replaceFirst("^/(.:/)", "$1");
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        try {
-            gameCfg = getAPI(cfgPath);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
     /**
      * Launch the game GUI.
      */
     public void launch() {
-        StartupScreen startupScreen = new StartupScreen();
-        startupScreen.show();
+        GameControllerMachine gameControllerMachine = Game.getGame().getGameControllerMachine();
+        gameControllerMachine.setState(gameControllerMachine.getMainMenuState());
+        gameControllerMachine.mainMenu();
     }
 
+
     /**
-     * Game config file object.
-     * @return an IDefProAPI object.
+     * Get gameTitle from config file.
+     *
+     * @return String The game title.
      */
-    public static IDefProAPI getGameCfg() {
-        return gameCfg;
+    private String getGameTitle() {
+        final int minLengthGameTitle = 1;
+        final int maxLengthGameTitle = 50;
+        final String defaultGameTitle = "P00rAl13n";
+
+        return GameConfig.getString("gameTitle", minLengthGameTitle,
+                maxLengthGameTitle, defaultGameTitle);
     }
 
     /**
@@ -51,8 +39,6 @@ public class Launcher {
      * @param args The program arguments.
      */
     public static void main(String[] args) {
-        //StartupScreen startupScreen = new StartupScreen();
-        //startupScreen.show();
         try {
             new Launcher().launch();
         } catch (Exception e) {

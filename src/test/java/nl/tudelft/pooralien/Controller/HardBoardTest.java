@@ -7,44 +7,35 @@ import nl.tudelft.pooralien.Launcher;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-public class StandardBoardTest extends BoardTest {
-
+public class HardBoardTest extends BoardTest {
     @Before
     public void setUp() throws Exception {
         launcher = new Launcher();
-        board = new StandardBoardFactory().createRandomBoard();
+        board = new HardBoardFactory().createRandomBoard();
     }
 
     @Test
     public void getWidth() {
-        try {
-            assertEquals((int) GameConfig.getInteger("maxBoardWidth", 5,20, 10), board.getWidth());
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
+        assertEquals(10, board.getWidth());
     }
 
     @Test
     public void getHeight() {
-        try {
-            assertEquals((int) GameConfig.getInteger("maxBoardHeight", 5,20, 10), board.getHeight());
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
+        assertEquals(10, board.getHeight());
     }
 
     @Test
     public void getMinGroupSize() {
-        try {
-            assertEquals((int) GameConfig.getInteger("minItemsInRow", 2, 10, 3), board.getMinGroupSize());
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
+        assertEquals(4, board.getMinGroupSize());
     }
 
     @Test
@@ -111,7 +102,6 @@ public class StandardBoardTest extends BoardTest {
 
     @Test
     public void remove() {
-        Game.getGame().getGameControllerMachine();
         board.remove(0, 0);
         assertNotNull(board.getItem(0, 0));
     }
@@ -134,5 +124,4 @@ public class StandardBoardTest extends BoardTest {
         board.removeGroup(l);
         assertNotNull(board.getItem(0,0));
     }
-
 }
