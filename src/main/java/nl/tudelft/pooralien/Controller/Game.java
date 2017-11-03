@@ -93,15 +93,12 @@ public final class Game implements Subject {
     }
 
     private void initBackgroundTileCatalog() {
-        int backgroundTileCount = -1;
-        Color standardColor = Color.MAGENTA;
-
         final int minBackgroundTileCount = 0;
         final int maxBackgroundTileCount = 20;
         final int defaultBackgroundTileCount = 10;
 
-        backgroundTileCount = GameConfig.getInteger("backgroundTileCount", minBackgroundTileCount,
-                maxBackgroundTileCount, defaultBackgroundTileCount);
+        int backgroundTileCount = GameConfig.getInteger("backgroundTileCount",
+                minBackgroundTileCount, maxBackgroundTileCount, defaultBackgroundTileCount);
 
         final int minRGBLength = 3;
         final int maxRGBLength = 3;
@@ -112,7 +109,7 @@ public final class Game implements Subject {
         List<Integer> rgb = GameConfig.getIntegerList("colorBackgroundTile",
                 minRGBLength, maxRGBLength, minRGBValue, maxRGBValue, defaultRGBValue);
 
-        standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
+        Color standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
 
         backgroundTileCatalog = new BackgroundTileCatalog(backgroundTileCount, standardColor);
     }
