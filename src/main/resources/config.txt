@@ -32,7 +32,7 @@ int marginHDrag = 10
 ## margin for top to botton (vertical) items when draging on screen
 int marginVDrag = 5
 ## Score per tile
-int scorePerTile = 2
+int scorePerTile = 1
 ## Score per background tile
 int scorePerBackgroundTile = 6
 ## Score per tile on easy mode
