@@ -1,7 +1,6 @@
 package nl.tudelft.pooralien.Controller.HighScore;
 
-import nl.tu.delft.defpro.exception.NotExistingVariableException;
-import nl.tudelft.pooralien.Launcher;
+import nl.tudelft.pooralien.Controller.GameConfig;
 
 import java.io.IOException;
 import java.io.File;
@@ -33,17 +32,17 @@ public class ScoreManager {
             //If high score files does not exist then create one.
             new File(SCORE_FILE).createNewFile();
             scores = getScores();
-            //CONFIG FILE
-            topXScores = Launcher.getGameCfg().getIntegerValueOf("topXScores");
-
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NotExistingVariableException e) {
-            topXScores = 2 + 2 + 2 + 2 + 2;
             e.printStackTrace();
         }
 
+        final int minTopScore = 1;
+        final int maxTopScore = 1000;
+        final int defaultTopScore = 10;
+
+        topXScores = GameConfig.getInteger("topXScores", minTopScore, maxTopScore, defaultTopScore);
     }
+
 
     /**
      * @return ArrayList of sorted scores (highest first).
