@@ -21,9 +21,10 @@ public class ScoreCounter {
     public ScoreCounter(int score) {
         this.score = score;
         try {
-            this.scorePerTile = Launcher.getGameCfg().getIntegerValueOf("scorePerTile");
-            this.scorePerBackgroundTile =
-                    Launcher.getGameCfg().getIntegerValueOf("scorePerBackgroundTile");
+            this.scorePerTile = Launcher.getGameCfg()
+                    .getIntegerValueOf("scorePerTile" + Game.getDifficulty());
+            this.scorePerBackgroundTile = Launcher.getGameCfg()
+                    .getIntegerValueOf("scorePerBackgroundTile" + Game.getDifficulty());
         } catch (NotExistingVariableException e) {
             e.printStackTrace();
             this.scorePerTile = 1;

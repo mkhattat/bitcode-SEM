@@ -44,7 +44,7 @@ public class StandardBoard extends Board {
      */
     protected int initMinGroupSize() {
         try {
-            return Launcher.getGameCfg().getIntegerValueOf("minItemsInRow");
+            return Launcher.getGameCfg().getIntegerValueOf("minItemsInRow1");
         } catch (NotExistingVariableException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

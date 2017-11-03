@@ -42,7 +42,7 @@ public class EasyBoard extends Board {
      */
     protected int initMinGroupSize() {
         try {
-            return Launcher.getGameCfg().getIntegerValueOf("minItemsInRow");
+            return Launcher.getGameCfg().getIntegerValueOf("minItemsInRow0");
         } catch (NotExistingVariableException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

@@ -43,7 +43,7 @@ public class HardBoard extends Board {
      */
     protected int initMinGroupSize() {
         try {
-            return Launcher.getGameCfg().getIntegerValueOf("minItemsInRowHard");
+            return Launcher.getGameCfg().getIntegerValueOf("minItemsInRow2");
         } catch (NotExistingVariableException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

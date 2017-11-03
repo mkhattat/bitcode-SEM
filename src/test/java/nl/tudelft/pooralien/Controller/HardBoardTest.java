@@ -44,7 +44,7 @@ public class HardBoardTest extends BoardTest {
     @Test
     public void getMinGroupSize() {
         try {
-            assertEquals((int) Launcher.getGameCfg().getIntegerValueOf("minItemsInRowHard"), board.getMinGroupSize());
+            assertEquals((int) Launcher.getGameCfg().getIntegerValueOf("minItemsInRow2"), board.getMinGroupSize());
         } catch (NotExistingVariableException e) {
             fail(e.getMessage());
         }

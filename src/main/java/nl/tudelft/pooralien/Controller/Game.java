@@ -20,7 +20,7 @@ import javax.swing.JTable;
  */
 public final class Game implements Subject {
     private static Game game;
-    private BoardFactory bFactory;
+    private static BoardFactory bFactory = new StandardBoardFactory();
     private Board board;
     private BackgroundTileCatalog backgroundTileCatalog;
     private ScoreCounter scoreCounter;
@@ -29,6 +29,8 @@ public final class Game implements Subject {
     private ArrayList<Observer> observers;
     private int moves;
     private HighScoreTableTopX highScoreTableTopX;
+    private static int difficulty = 1;
+
 
     /**
      * Initialise the singleton Game object.
@@ -36,7 +38,6 @@ public final class Game implements Subject {
     private Game() {
         gameIsRunning = true;
         observers = new ArrayList<>();
-        bFactory = new StandardBoardFactory();
         board = bFactory.createRandomBoard();
         initMoves();
         initBTCatalog();
@@ -82,7 +83,6 @@ public final class Game implements Subject {
         int backgroundTileCount = -1;
         Color standardColor = Color.MAGENTA;
         try {
-            moves = Launcher.getGameCfg().getIntegerValueOf("standardMaxMoves");
             backgroundTileCount = Launcher.getGameCfg().getIntegerValueOf("backgroundTileCount");
             List<Integer> rgb = Launcher.getGameCfg().getListIntValueOf("colorBackgroundTile");
             standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
@@ -98,7 +98,7 @@ public final class Game implements Subject {
     private void initMoves() {
         moves = 1;
         try {
-            moves = Launcher.getGameCfg().getIntegerValueOf("standardMaxMoves");
+            moves = Launcher.getGameCfg().getIntegerValueOf("maxMoves" + difficulty);
         } catch (NotExistingVariableException e) {
             e.printStackTrace();
         }
@@ -244,5 +244,46 @@ public final class Game implements Subject {
         for (Observer item : observers) {
             item.update(this);
         }
+    }
+
+    /**
+     * Sets the game to hard mode.
+     */
+    public static void setHardMode() {
+        if (difficulty != 2) {
+            difficulty = 2;
+            bFactory = new HardBoardFactory();
+        }
+    }
+
+    /**
+     * Sets the game to standard mode.
+     */
+    public static void setStandardMode() {
+        if (difficulty != 1) {
+            difficulty = 1;
+            bFactory = new StandardBoardFactory();
+        }
+    }
+
+    /**
+     * Sets the game to easy mode.
+     */
+    public static void setEasyMode() {
+        if (difficulty != 0) {
+            difficulty = 0;
+            bFactory = new EasyBoardFactory();
+        }
+    }
+
+    /**
+     * Retrieves the int representation of the current difficulty.
+     * 0 - Easy
+     * 1 - Standard
+     * 2 - Hard
+     * @return An int representing the current difficulty.
+     */
+    public static int getDifficulty() {
+        return difficulty;
     }
 }
