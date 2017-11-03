@@ -20,7 +20,7 @@ public final class GameConfig {
                     .getPath().replaceFirst("^/(.:/)", "$1");
             cfg = getAPI(cfgPath);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Exception in GameConfig: " + e.getMessage());
         }
     }
 
@@ -44,9 +44,9 @@ public final class GameConfig {
         } catch (NotExistingVariableException e) {
             System.out.println("Boolean " + name + " not found.");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Exception in GameConfig: " + e.getMessage());
         }
-        System.out.println("Warning: exception in gameConfig.getBoolean. Using default value.");
+        System.out.println("Warning: exception in gameConfig.getBoolean. Using default value for:" + name);
         return standard;
     }
 
@@ -67,7 +67,7 @@ public final class GameConfig {
         try {
             List<Boolean> booleanList = cfg.getListBoolValueOf(name);
             if (booleanList.size() < minListLength | booleanList.size() > maxListLength) {
-                System.out.println("Warning: number of elements out of bounds in gameConfig.getBooleanList. Using default value.");
+                System.out.println("Warning: number of elements out of bounds in gameConfig.getBooleanList. Using default value for:" + name);
                 return standard;
             }
             else {
@@ -76,9 +76,9 @@ public final class GameConfig {
         } catch (NotExistingVariableException e) {
             System.out.println("Boolean List " + name + " not found.");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Exception in GameConfig: " + e.getMessage());
         }
-        System.out.println("Warning: exception in gameConfig.getBooleanList. Using default value.");
+        System.out.println("Warning: exception in gameConfig.getBooleanList. Using default value for:" + name);
         return standard;
     }
 
@@ -97,7 +97,7 @@ public final class GameConfig {
         try {
             Integer integer = cfg.getIntegerValueOf(name);
             if (integer < min | integer > max) {
-                System.out.println("Warning: value out of bounds in gameConfig.getInteger. Using default value.");
+                System.out.println("Warning: value out of bounds in gameConfig.getInteger. Using default value:" + name);
                 return standard;
             }
             else {
@@ -106,9 +106,9 @@ public final class GameConfig {
         } catch (NotExistingVariableException e) {
             System.out.println("Integer " + name + " not found.");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Exception in GameConfig: " + e.getMessage());
         }
-        System.out.println("Warning: exception in gameConfig.getInteger. Using default value.");
+        System.out.println("Warning: exception in gameConfig.getInteger. Using default value for:" + name);
         return standard;
     }
 
@@ -131,12 +131,12 @@ public final class GameConfig {
         try {
             List<Integer> integerList = cfg.getListIntValueOf(name);
             if (integerList.size() < minListLength | integerList.size() > maxListLength) {
-                System.out.println("Warning: number of elements out of bounds in gameConfig.getIntegerList. Using default value.");
+                System.out.println("Warning: number of elements out of bounds in gameConfig.getIntegerList. Using default value for:" + name);
                 return standard;
             }
             for (int i = 0; i < integerList.size(); i++) {
                 if (integerList.get(i) < minValues.get(i) | integerList.get(i) > maxValues.get(i)) {
-                    System.out.println("Warning: value on index " + i + " out of bounds in gameConfig.getIntegerList. Using default value.");
+                    System.out.println("Warning: value on index " + i + " out of bounds in gameConfig.getIntegerList. Using default value for:" + name);
                     return standard;
                 }
             }
@@ -144,9 +144,9 @@ public final class GameConfig {
         } catch (NotExistingVariableException e) {
             System.out.println("Integer List " + name + " not found.");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Exception in GameConfig: " + e.getMessage());
         }
-        System.out.println("Warning: exception in gameConfig.getIntegerList. Using default value.");
+        System.out.println("Warning: exception in gameConfig.getIntegerList. Using default value for:" + name);
         return standard;
     }
 
@@ -164,16 +164,16 @@ public final class GameConfig {
         try {
             Double real = cfg.getRealValueOf(name);
             if (real < min | real > max) {
-                System.out.println("Warning: value out of bounds in gameConfig.getReal. Using default value.");
+                System.out.println("Warning: value out of bounds in gameConfig.getReal. Using default value for:" + name);
                 return standard;
             }
             return real;
         } catch (NotExistingVariableException e) {
             System.out.println("Real " + name + " not found.");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Exception in GameConfig: " + e.getMessage());
         }
-        System.out.println("Warning: exception in gameConfig.getReal. Using default value.");
+        System.out.println("Warning: exception in gameConfig.getReal. Using default value for:" + name);
         return standard;
     }
 
@@ -196,12 +196,14 @@ public final class GameConfig {
         try {
             List<Double> doubleList = cfg.getListRealValueOf(name);
             if (doubleList.size() < minListLength | doubleList.size() > maxListLength) {
-                System.out.println("Warning: number of elements out of bounds in gameConfig.getRealList. Using default value.");
+                System.out.println("Warning: number of elements out of bounds in gameConfig.getRealList. "
+                        + "Using default value for:" + name);
                 return standard;
             }
             for (int i = 0; i < doubleList.size(); i++) {
                 if (doubleList.get(i) < minValues.get(i) | doubleList.get(i) > maxValues.get(i)) {
-                    System.out.println("Warning: value on index " + i + " out of bounds in gameConfig.getRealList. Using default value.");
+                    System.out.println("Warning: value on index " + i + " out of bounds in "
+                            + "gameConfig.getRealList. Using default value for:" + name);
                     return standard;
                 }
             }
@@ -209,9 +211,9 @@ public final class GameConfig {
         } catch (NotExistingVariableException e) {
             System.out.println("Real List " + name + " not found.");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Exception in GameConfig: " + e.getMessage());
         }
-        System.out.println("Warning: exception in gameConfig.getRealList. Using default value.");
+        System.out.println("Warning: exception in gameConfig.getRealList. Using default value for:" + name);
         return standard;
     }
 
@@ -229,20 +231,20 @@ public final class GameConfig {
         try {
             String string = cfg.getStringValueOf(name);
             if (string.length() < minLength | string.length() > maxLength) {
-                System.out.println("Warning: number of characters in string out of bounds in gameConfig.getString. Using default value.");
+                System.out.println("Warning: number of characters in string out of bounds in gameConfig.getString. Using default value for:"+ name);
                 return standard;
             }
             if (!isAlpha(string)) {
-                System.out.println("Warning: string is not alphabetic in gameConfig.getString. Using default value.");
+                System.out.println("Warning: string is not alphabetic in gameConfig.getString. Using default value for:" + name);
                 return standard;
             }
             return string;
         } catch (NotExistingVariableException e) {
             System.out.println("String " + name + " not found.");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Exception in GameConfig: " + e.getMessage());
         }
-        System.out.println("Warning: exception in gameConfig.getString. Using default value.");
+        System.out.println("Warning: exception in gameConfig.getString. Using default value for:" + name);
         return standard;
     }
 
@@ -267,17 +269,17 @@ public final class GameConfig {
         try {
             List<String> stringList = cfg.getListStringValueOf(name);
             if (stringList.size() < minListLength | stringList.size() > maxListLength) {
-                System.out.println("Warning: number of elements out of bounds in gameConfig.getStringList. Using default value.");
+                System.out.println("Warning: number of elements out of bounds in gameConfig.getStringList. Using default value for:"+name);
                 return standard;
             }
             for (int i = 0; i < stringList.size(); i++) {
                 if ((stringList.get(i).length() < minStringLengths.get(i))
                         | (stringList.get(i).length() > maxStringLengths.get(i))) {
-                    System.out.println("Warning: string length on index " + i + " out of bounds in gameConfig.getRealList. Using default value.");
+                    System.out.println("Warning: string length on index " + i + " out of bounds in gameConfig.getRealList. Using default value for:" + name);
                     return standard;
                 }
                 if (!isAlpha(stringList.get(i))) {
-                    System.out.println("Warning: string on index " + i + " is not alphabetic in gameConfig.getRealList. Using default value.");
+                    System.out.println("Warning: string on index " + i + " is not alphabetic in gameConfig.getRealList. Using default value for:" +name);
                     return standard;
                 }
             }
@@ -285,9 +287,9 @@ public final class GameConfig {
         } catch (NotExistingVariableException e) {
             System.out.println("String List " + name + " not found.");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Exception in GameConfig: " + e.getMessage());
         }
-        System.out.println("Warning: exception in gameConfig.getStringList. Using default value.");
+        System.out.println("Warning: exception in gameConfig.getStringList. Using default value for:" +name);
         return standard;
     }
 
@@ -325,7 +327,7 @@ public final class GameConfig {
         try {
             cfg = getAPI(cfgPath);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Exception in GameConfig: " + e.getMessage());
         }
     }
 }

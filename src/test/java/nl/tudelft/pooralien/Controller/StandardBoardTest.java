@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-//TODO: BOUNDARIES
 public class StandardBoardTest extends BoardTest {
 
     @Before
@@ -20,13 +19,12 @@ public class StandardBoardTest extends BoardTest {
         launcher = new Launcher();
         board = new StandardBoardFactory().createRandomBoard();
     }
-    /*
+
     @Test
     public void getWidth() {
         try {
-            //TODO: Implement Config Boundries
-            assertEquals((int) Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth"), board.getWidth());
-        } catch (NotExistingVariableException e) {
+            assertEquals((int) GameConfig.getInteger("maxBoardWidth", 5,20, 10), board.getWidth());
+        } catch (Exception e) {
             fail(e.getMessage());
         }
     }
@@ -34,9 +32,8 @@ public class StandardBoardTest extends BoardTest {
     @Test
     public void getHeight() {
         try {
-            //TODO: Implement Config Boundries
-            assertEquals((int) Launcher.getGameCfg().getIntegerValueOf("maxBoardHeight"), board.getHeight());
-        } catch (NotExistingVariableException e) {
+            assertEquals((int) GameConfig.getInteger("maxBoardHeight", 5,20, 10), board.getHeight());
+        } catch (Exception e) {
             fail(e.getMessage());
         }
     }
@@ -44,9 +41,8 @@ public class StandardBoardTest extends BoardTest {
     @Test
     public void getMinGroupSize() {
         try {
-            //TODO: Implement Config Boundries
-            assertEquals((int) Launcher.getGameCfg().getIntegerValueOf("minItemsInRow"), board.getMinGroupSize());
-        } catch (NotExistingVariableException e) {
+            assertEquals((int) GameConfig.getInteger("minItemsInRow", 2, 10, 3), board.getMinGroupSize());
+        } catch (Exception e) {
             fail(e.getMessage());
         }
     }
@@ -137,5 +133,5 @@ public class StandardBoardTest extends BoardTest {
         board.removeGroup(l);
         assertNotNull(board.getItem(0,0));
     }
-    */
+
 }
