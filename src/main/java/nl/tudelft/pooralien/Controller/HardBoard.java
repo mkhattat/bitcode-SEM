@@ -1,12 +1,10 @@
 package nl.tudelft.pooralien.Controller;
+
 import nl.tudelft.item.StandardItemFactory;
-
-
-
 /**
- * The StandardBoard class.
+ * Board for hard mode.
  */
-public class StandardBoard extends Board {
+public class HardBoard extends Board {
 
     /**
      * Initializes the width of the board using the config file.
@@ -39,14 +37,14 @@ public class StandardBoard extends Board {
     protected int initMinGroupSize() {
         final int min = 2;
         final int max = this.initWidth() - min;
-        final int standard = 3;
+        final int standard = 4;
 
-        return GameConfig.getInteger("minItemsInRow", min, max, standard);
+        return GameConfig.getInteger("minItemsInRowHard", min, max, standard);
     }
 
     /**
-     * Initializes the StandardItemFactory.
-     * @return The initial StandardItemFactory.
+     * Initializes the ItemFactory.
+     * @return The initial ItemFactory.
      */
     protected StandardItemFactory initItemFactory() {
         return new StandardItemFactory();
