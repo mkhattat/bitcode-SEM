@@ -34,13 +34,13 @@ public class MainScreen extends JLayeredPane implements Observer {
     private JPanel mainFrame;
     private JLabel headerLabel;
     private JPanel gridBoard;
-    private JPanel highScoreBoard;
     private JPanelTile[][] gridBoardHolder;
     private JPanel controlPanel;
     private GridBagConstraints gbc;
     private JButton createNetwrok = new JButton("Create Network");
     private JButton connectNetwork = new JButton("Connect to a Network");
     private JButton disconnectNetwork = new JButton("Disconnect from the Network");
+    private JButton pauseGame = new JButton("Pause game");
     private MouseEventHandler mouseEventHandler;
     private JLabel gameStateLable;
     private Client client;
@@ -50,6 +50,9 @@ public class MainScreen extends JLayeredPane implements Observer {
      * Constructor of the MainScreen prepare the GUI.
      */
     public MainScreen() {
+        //Pass the MainScreen object to the Game object
+        Game.getGame().setMainScreen(this);
+
         prepareGUI();
         refreshBoard();
 
@@ -172,6 +175,14 @@ public class MainScreen extends JLayeredPane implements Observer {
     }
 
     /**
+     * Set the text of the pause button.
+     * @param text the text of the button.
+     */
+    public void setPauseGameButtonText(String text) {
+        pauseGame.setText(text);
+    }
+
+    /**
      * prepare the GUI on the screen.
      */
     private void prepareGUI() {
@@ -219,7 +230,7 @@ public class MainScreen extends JLayeredPane implements Observer {
         gridBoard = new JPanel();
         gridBoard.setLayout(gridLayout);
 
-        BufferedImage image = null;
+        BufferedImage image;
         try {
             for (int x = 0; x < board.getWidth(); x++) {
                 for (int y = 0; y < board.getHeight(); y++) {
@@ -246,6 +257,7 @@ public class MainScreen extends JLayeredPane implements Observer {
         controlPanel.add(load);
         controlPanel.add(createNetwrok);
         controlPanel.add(connectNetwork);
+        controlPanel.add(pauseGame);
         disconnectNetwork.setVisible(false);
         controlPanel.add(disconnectNetwork);
 
@@ -259,8 +271,29 @@ public class MainScreen extends JLayeredPane implements Observer {
         createNetwrok.addActionListener(new CreateNetworkListener());
         connectNetwork.addActionListener(new ConnectNetworkListener());
         disconnectNetwork.addActionListener(new DisconnectListener());
+        pauseGame.addActionListener(new PauseGameListener());
         mainFrame.add(controlPanel, gbc);
 
+    }
+
+    /**
+     * An listener for the pause game button.
+     */
+    private class PauseGameListener implements ActionListener {
+        private boolean buttonTextIsPaused = true;
+
+        public void actionPerformed(ActionEvent e) {
+            if (buttonTextIsPaused) {
+                Game.getGame().getGameControllerMachine().pauseGame();
+                buttonTextIsPaused = false;
+                pauseGame.setText("Unpause Game");
+            } else {
+                Game.getGame().getGameControllerMachine().resumeGame();
+                pauseGame.setText("Pause Game");
+                buttonTextIsPaused = true;
+            }
+
+        }
     }
 
     /**
@@ -270,7 +303,7 @@ public class MainScreen extends JLayeredPane implements Observer {
         public void actionPerformed(ActionEvent e) {
             // show a new network window
             Listener listener = new Listener(port);
-            Game.getGame().pauseGame();
+            Game.getGame().notifyObservers();
             ConnectionScreen connectionScreen = new ConnectionScreen(listener);
             Server.getServer().registerObserver(connectionScreen);
             Client thisPlayer = new Client("localhost", port, mouseEventHandler);
@@ -296,7 +329,7 @@ public class MainScreen extends JLayeredPane implements Observer {
             client = new Client(serverAddress, port, mouseEventHandler);
             // TODO: show a error message if it fails to connect
             if (client.start()) {
-                Game.getGame().pauseGame();
+                Game.getGame().notifyObservers();
                 mouseEventHandler.registerObserver(client);
                 createNetwrok.setVisible(false);
                 connectNetwork.setVisible(false);

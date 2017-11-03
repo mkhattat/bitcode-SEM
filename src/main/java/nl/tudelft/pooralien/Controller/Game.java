@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.HighScore.ScoreCounter;
 import nl.tudelft.pooralien.Observer;
 import nl.tudelft.pooralien.Subject;
-import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreEnterNameDialog;
 import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreTableTopX;
+import nl.tudelft.pooralien.ui.MainScreen;
 
 import javax.swing.JTable;
-
 
 /**
  * class for controlling the flow of the game.
@@ -24,16 +24,15 @@ public final class Game implements Subject {
     private BackgroundTileCatalog backgroundTileCatalog;
     private ScoreCounter scoreCounter;
     private boolean multiplayer;
-    private boolean gameIsRunning;
     private ArrayList<Observer> observers;
     private int moves;
-    private HighScoreTableTopX highScoreTableTopX;
+    private GameControllerMachine gameControllerMachine;
+    private MainScreen mainScreen = null;
 
     /**
      * Initialise the singleton Game object.
      */
     private Game() {
-        gameIsRunning = true;
         observers = new ArrayList<>();
         bFactory = new StandardBoardFactory();
         board = bFactory.createRandomBoard();
@@ -65,17 +64,24 @@ public final class Game implements Subject {
     }
 
     /**
-     * @return the topX score table being used.
+     * @return gameControllerMachine, used to alter states of the state machine.
      */
-    public JTable getHighScoreTableTopX() {
-        if (highScoreTableTopX == null) {
-            highScoreTableTopX = new HighScoreTableTopX();
+    public GameControllerMachine getGameControllerMachine() {
+        if (gameControllerMachine == null) {
+            gameControllerMachine = new GameControllerMachine();
         }
-        return highScoreTableTopX.getTable();
+        return gameControllerMachine;
     }
 
     /**
-     * Initializes the backgroundtilecatalog.
+     * @return a new topX score table object with new data.
+     */
+    public JTable getHighScoreTableTopX() {
+        return new HighScoreTableTopX().getTable();
+    }
+
+    /**
+     * Initializes the backgroundTileCatalog.
      */
     private void initBTCatalog() {
         initMoves();
@@ -134,19 +140,8 @@ public final class Game implements Subject {
         if (moves > 0) {
             moves--;
             if (moves == 0) {
-                //Enter user input into
-                new HighScoreEnterNameDialog(true, game.scoreCounter.getScore());
-
-                if (backgroundTileCatalog.size() == 0) {
-
-                    nextBoard();
-                } else {
-                    //Placeholder until the required
-                    //game state functionality is in place.
-                    System.out.println("Game over!");
-                    System.out.println("Your score is: " + scoreCounter.getScore());
-                    System.exit(0);
-                }
+                getGame().gameControllerMachine.setState(gameControllerMachine.getGameEndedState());
+                Game.getGame().gameControllerMachine.endGame();
             }
         }
     }
@@ -154,10 +149,12 @@ public final class Game implements Subject {
     /**
      * Continues to the next board.
      */
-    private void nextBoard() {
+    public void nextBoard() {
         board = bFactory.createRandomBoard();
         initMoves();
         initBTCatalog();
+        //Refreshes the GUI board
+        mainScreen.refreshBoard();
     }
 
     /**
@@ -191,7 +188,7 @@ public final class Game implements Subject {
      * @return true if the game is playable.
      */
     public boolean gameIsRunning() {
-        return gameIsRunning;
+        return gameControllerMachine.equalsCurrentState(gameControllerMachine.getGamePlayState());
     }
 
     /**
@@ -201,24 +198,6 @@ public final class Game implements Subject {
      */
     public void setMultiplayer(boolean b) {
         multiplayer = b;
-        notifyObservers();
-    }
-
-    /**
-     * Pause the game.
-     *
-     */
-    public void pauseGame() {
-        gameIsRunning = false;
-        notifyObservers();
-    }
-
-    /**
-     * Resume the game.
-     *
-     */
-    public void resumeGame() {
-        gameIsRunning = true;
         notifyObservers();
     }
 
@@ -259,5 +238,13 @@ public final class Game implements Subject {
         for (Observer item : observers) {
             item.update(this);
         }
+    }
+
+    /**
+     * Used to pass the MainScreen object to the Game object.
+     * @param mainScreen sets the mainScreen object variable.
+     */
+    public void setMainScreen(MainScreen mainScreen) {
+        this.mainScreen = mainScreen;
     }
 }
