@@ -1,8 +1,7 @@
 package nl.tudelft.pooralien.Controller.HighScore;
 
-import nl.tu.delft.defpro.exception.NotExistingVariableException;
 import nl.tudelft.pooralien.Controller.Game;
-import nl.tudelft.pooralien.Launcher;
+import nl.tudelft.pooralien.Controller.GameConfig;
 
 /**
  * ScoreCounter keeps track of the score of the player.
@@ -20,16 +19,19 @@ public class ScoreCounter {
      */
     public ScoreCounter(int score) {
         this.score = score;
-        try {
-            //TODO: Implement Config Boundries
-            this.scorePerTile = Launcher.getGameCfg().getIntegerValueOf("scorePerTile");
-            this.scorePerBackgroundTile =
-                    Launcher.getGameCfg().getIntegerValueOf("scorePerBackgroundTile");
-        } catch (NotExistingVariableException e) {
-            e.printStackTrace();
-            this.scorePerTile = 1;
-            this.scorePerBackgroundTile = 2 + 2 + 2 + 2;
-        }
+
+        final int minScorePerTile = 1;
+        final int maxScorePerTile = Integer.MAX_VALUE - minScorePerTile;
+        final int defaultScorePerTile = 1;
+        final int minScorePerBackgroundTile = 2;
+        final int maxScorePerBackgroundTile = Integer.MAX_VALUE;
+        final int defaultScorePerBackgroundTile = 6;
+
+        this.scorePerTile = GameConfig.getInteger("scorePerTile", minScorePerTile,
+                maxScorePerTile, defaultScorePerTile);
+        this.scorePerBackgroundTile = GameConfig.getInteger("scorePerBackgroundTile",
+                minScorePerBackgroundTile, maxScorePerBackgroundTile,
+                defaultScorePerBackgroundTile);
     }
 
     /**

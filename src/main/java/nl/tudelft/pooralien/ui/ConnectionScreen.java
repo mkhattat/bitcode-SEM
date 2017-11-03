@@ -22,11 +22,12 @@ import nl.tudelft.pooralien.Controller.Server;
  * A user interface to see the connections.
  *
  */
-public class ConnectionScreen extends JDialog implements Observer {
+public class ConnectionScreen implements Observer {
     private JLabel headerLabel;
     private JTextArea textArea;
     private JPanel controlPanel;
     private Listener listener;
+    private JDialog dialog;
     private static final int WIDTH = 600;
     private static final int HEIGHT = 600;
 
@@ -37,36 +38,37 @@ public class ConnectionScreen extends JDialog implements Observer {
      */
     public ConnectionScreen(Listener listener) {
         this.listener = listener;
+        this.dialog = new JDialog();
         prepareGUI();
     }
 
     private void closeFrame() {
         Server.getServer().removeObserver(this);
-        super.dispose();
+        dialog.dispose();
     }
 
     private void prepareGUI() {
-        this.setTitle("Creating a network");
-        this.setSize(WIDTH, HEIGHT);
-        this.setLayout(new GridLayout(2 + 1, 1));
+        dialog.setTitle("Creating a network");
+        dialog.setSize(WIDTH, HEIGHT);
+        dialog.setLayout(new GridLayout(2 + 1, 1));
         try {
-            this.headerLabel = new JLabel("The server is listening on " 
+            this.headerLabel = new JLabel("The server is listening on "
                     + InetAddress.getLocalHost().getHostAddress());
         } catch (UnknownHostException e) {
             this.headerLabel = new JLabel("I can not get the server address!");
         }
-        this.add(headerLabel);
+        dialog.add(headerLabel);
         this.textArea = new JTextArea();
         textArea.setEditable(false);
-        this.add(textArea);
+        dialog.add(textArea);
         this.controlPanel = new JPanel(new FlowLayout());
         JButton startButton = new JButton("Start");
         JButton cancelButton = new JButton("Cancel");
         controlPanel.add(startButton);
         controlPanel.add(cancelButton);
-        this.add(controlPanel);
-        this.pack();
-        this.setVisible(true);
+        dialog.add(controlPanel);
+        dialog.pack();
+        dialog.setVisible(true);
         cancelButton.addActionListener(new CancelButtonListener());
         startButton.addActionListener(new StartButtonListener());
 

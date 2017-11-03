@@ -77,7 +77,7 @@ public class Client extends MouseActionObserver implements Runnable {
     public void terminate() {
         running = false;
         Game.getGame().setMultiplayer(false);
-        Game.getGame().resumeGame();
+        Game.getGame().notifyObservers();
         subject.removeObserver(this);
         try {
             in.close();
@@ -133,9 +133,9 @@ public class Client extends MouseActionObserver implements Runnable {
             Game.getGame().setMultiplayer(true);
             Game.getGame().getScoreCounter().setScore(0);
         } else if (command.equals("Play")) {
-            Game.getGame().resumeGame();
+            Game.getGame().notifyObservers();
         } else if (command.equals("Wait")) {
-            Game.getGame().pauseGame();
+            Game.getGame().notifyObservers();
         } else if (command.equals("ServerIsDying")) {
             System.out.println("Server died!");
             this.terminate();

@@ -1,5 +1,7 @@
 package nl.tudelft.pooralien.Controller.HighScore;
 
+import nl.tudelft.pooralien.Controller.Game;
+import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Launcher;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,9 +37,13 @@ public class ScoreCounterTest {
     }
 
     @Test
-    public void BackgroundTilesScoreUpdateChange() {
-        int currentScore = scoreCounter.getScore() + scoreCounter.getScorePerTile()
-                * scoreCounter.getScorePerBackgroundTile();
+    public void backgroundTilesScoreUpdateChange() {
+        GameControllerMachine gameControllerMachine = Game.getGame().getGameControllerMachine();
+        gameControllerMachine.setState(gameControllerMachine.getGamePlayState());
+        scoreCounter = Game.getGame().getScoreCounter();
+        scoreCounter.setScore(0);
+        int currentScore = scoreCounter.getScore() + scoreCounter.getScorePerBackgroundTile();
+
         scoreCounter.updateScoreBackgroundTileRemoved();
         assertEquals(currentScore, scoreCounter.getScore());
     }

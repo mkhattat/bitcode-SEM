@@ -1,8 +1,5 @@
 package nl.tudelft.pooralien.Controller;
 
-import nl.tu.delft.defpro.exception.NotExistingVariableException;
-import nl.tudelft.pooralien.Launcher;
-
 import java.awt.Color;
 
 /**
@@ -13,7 +10,7 @@ public class BackgroundTile {
     private int coordinateX;
     private int coordinateY;
     private Color colorBackgroundTile;
-    private int maxWidthAndHeight;
+    private Integer maxWidthAndHeight;
 
     /**
      * @param coordinateX must be [0,10]
@@ -22,31 +19,46 @@ public class BackgroundTile {
      */
     public BackgroundTile(int coordinateX, int coordinateY, Color colorBackgroundTile) {
         initWidthHeight();
-        if (!(coordinateX >= 0 && coordinateX <= maxWidthAndHeight)) {
-            throw new IllegalArgumentException("Coordinate X must be between -1 and 11");
-        }
-        if (!(coordinateY >= 0 && coordinateY <= maxWidthAndHeight)) {
-            throw new IllegalArgumentException("Coordinate Y must be between -1 and 11");
-        }
+
+        checkCoordinate(coordinateX);
+        checkCoordinate(coordinateY);
+
         // instance check is needed because a null would make the backgroundTiles hidden,
         // and as a result the game would be unplayable
-        if ((colorBackgroundTile == null)) {
-            throw new IllegalArgumentException("colorBackgroundTile should be a Color object");
-        }
+        checkColorBackgroundTile(colorBackgroundTile);
 
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY;
         this.colorBackgroundTile = colorBackgroundTile;
     }
 
-    private void initWidthHeight() {
-        try {
-            //TODO: Implement Config Boundries
-            maxWidthAndHeight = Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth");
-        } catch (NotExistingVariableException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+    /**
+     * Check if the coordinate is not smaller than 0 or bigger than maxWidthAndHeight variable.
+     * @param coordinate to be checked.
+     */
+    private void checkCoordinate(int coordinate) {
+        if (!(coordinate >= 0 && coordinate <= maxWidthAndHeight)) {
+            throw new IllegalArgumentException("Coordinate must be between -1 and "
+                    + (maxWidthAndHeight + 1));
         }
+    }
+
+    /**
+     * Check if the colorBackgroundTile is not null. If it was null then the backgroundTiles,
+     * would be invisible which would break the game.
+     * @param colorBackgroundTile object to be tested.
+     */
+    private void checkColorBackgroundTile(Color colorBackgroundTile) {
+        if ((colorBackgroundTile == null)) {
+            throw new IllegalArgumentException("colorBackgroundTile should be a Color object");
+        }
+    }
+
+    private void initWidthHeight() {
+        final int min = 5;
+        final int max = 20;
+        final int standard = 10;
+        maxWidthAndHeight = GameConfig.getInteger("maxBoardWidth", min, max, standard);
     }
 
     /**
@@ -111,18 +123,9 @@ public class BackgroundTile {
         }
         BackgroundTile backgroundTile = (BackgroundTile) object;
 
-        if (!(backgroundTile.getCoordinateX() == this.getCoordinateX())) {
-            return false;
-        }
-        if (!(backgroundTile.getCoordinateY() == this.getCoordinateY())) {
-            return false;
-        }
-
-        if (!(backgroundTile.getColorBackgroundTile().equals(this.getColorBackgroundTile()))) {
-            return false;
-        }
-
-        return true;
+        return backgroundTile.getCoordinateX() == this.getCoordinateX()
+                && backgroundTile.getCoordinateY() == this.getCoordinateY()
+                && backgroundTile.getColorBackgroundTile().equals(this.getColorBackgroundTile());
     }
 
     @Override
