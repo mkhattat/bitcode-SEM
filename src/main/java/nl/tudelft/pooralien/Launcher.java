@@ -1,9 +1,12 @@
 package nl.tudelft.pooralien;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Controller.GameConfig;
+import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreFrame;
 import nl.tudelft.pooralien.ui.MainScreen;
 
 /**
@@ -26,8 +29,12 @@ public class Launcher {
             JFrame mainWindow = new JFrame(gameTitle);
             MainScreen mainScreen = new MainScreen();
             mainWindow.setSize(0, 0);
-            mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            mainWindow.getContentPane().add(mainScreen);
+            mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+            JPanel gameHolder = new JPanel();
+            gameHolder.add(mainScreen);
+
+            mainWindow.getContentPane().add(gameHolder);
 
             mainWindow.pack();
             Game.getGame().registerObserver(mainScreen);
@@ -39,18 +46,14 @@ public class Launcher {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
+        //READDED IN THE STATE BRANCH.
+        new HighScoreFrame();
     }
-
 
     /**
      * Game config file object.
      * @return an IDefProAPI object.
      */
-    /*
-    public static IDefProAPI getGameCfgOld() {
-        return gameCfgOld;
-    }
-    */
 
     /**
      * Entry point of the game.
