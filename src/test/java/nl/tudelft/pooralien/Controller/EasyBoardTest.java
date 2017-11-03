@@ -27,29 +27,17 @@ public class EasyBoardTest extends BoardTest {
 
     @Test
     public void getWidth() {
-        try {
-            assertEquals((int) Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth"), board.getWidth());
-        } catch (NotExistingVariableException e) {
-            fail(e.getMessage());
-        }
+        assertEquals(10, board.getWidth());
     }
 
     @Test
     public void getHeight() {
-        try {
-            assertEquals((int) Launcher.getGameCfg().getIntegerValueOf("maxBoardHeight"), board.getHeight());
-        } catch (NotExistingVariableException e) {
-            fail(e.getMessage());
-        }
+        assertEquals(10, board.getHeight());
     }
 
     @Test
     public void getMinGroupSize() {
-        try {
-            assertEquals((int) Launcher.getGameCfg().getIntegerValueOf("minItemsInRow"), board.getMinGroupSize());
-        } catch (NotExistingVariableException e) {
-            fail(e.getMessage());
-        }
+        assertEquals(3, board.getMinGroupSize());
     }
 
     @Test
