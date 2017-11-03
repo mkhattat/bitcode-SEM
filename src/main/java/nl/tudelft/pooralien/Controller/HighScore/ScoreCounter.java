@@ -1,6 +1,7 @@
-package nl.tudelft.pooralien.Controller;
+package nl.tudelft.pooralien.Controller.HighScore;
 
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
+import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Launcher;
 
 /**
@@ -17,7 +18,7 @@ public class ScoreCounter {
      * Standard initialization of the class.
      * @param score will be the value that the player starts with.
      */
-    ScoreCounter(int score) {
+    public ScoreCounter(int score) {
         this.score = score;
         try {
             //TODO: Implement Config Boundries
