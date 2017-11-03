@@ -21,15 +21,12 @@ import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.Controller.Client;
 import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Controller.GameConfig;
-import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.Listener;
 import nl.tudelft.pooralien.Controller.Server;
 import nl.tudelft.pooralien.MouseActionObserver;
 import nl.tudelft.pooralien.MouseEventHandler;
 import nl.tudelft.pooralien.Observer;
 import nl.tudelft.pooralien.Subject;
-
-import static javax.swing.text.html.HTML.Tag.HEAD;
 
 /**
  * MainScreen class is the GUI of the game screen.
@@ -377,7 +374,6 @@ public class MainScreen implements Observer {
      */
     private class PauseGameListener implements ActionListener {
         private boolean buttonTextIsPaused = true;
-
         public void actionPerformed(ActionEvent e) {
             if (buttonTextIsPaused) {
                 Game.getGame().getGameControllerMachine().pauseGame();

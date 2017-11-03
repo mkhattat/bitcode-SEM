@@ -287,6 +287,10 @@ public final class Game implements Subject {
         this.mainScreen = mainScreen;
     }
 
+    /**
+     * Get main screen.
+     * @return the main screen.
+     */
     public MainScreen getMainScreen() {
         return mainScreen;
     }

@@ -13,10 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import nl.tu.delft.defpro.exception.NotExistingVariableException;
 import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Controller.GameConfig;
-import nl.tudelft.pooralien.Launcher;
 import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreFrame;
 
 /**
@@ -33,10 +31,9 @@ public class StartupScreen {
     private int port;
     private static final int WIDTH_SIZE = 600;
     private static final int HEIGHT_SIZE = 600;
-
-    final int minPort = 1000;
-    final int maxPort = 65000;
-    final int defaultPort = 9090;
+    private static final int minPort = 1000;
+    private static final int maxPort = 65000;
+    private static final int defaultPort = 9090;
 
     /**
      * Constructor for the StartupScreen.

@@ -1,16 +1,8 @@
 package nl.tudelft.pooralien.Controller.GameStates.States;
 
-import nl.tudelft.pooralien.Controller.Game;
-import nl.tudelft.pooralien.Controller.GameConfig;
 import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.GameStates.State;
-import nl.tudelft.pooralien.ui.MainScreen;
 import nl.tudelft.pooralien.ui.StartupScreen;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-
 
 /**
  * The MainMenuState class.

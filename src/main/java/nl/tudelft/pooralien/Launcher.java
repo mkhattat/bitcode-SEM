@@ -3,7 +3,6 @@ package nl.tudelft.pooralien;
 import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Controller.GameConfig;
-import nl.tudelft.pooralien.ui.MainScreen;
 
 /**
  * The Launcher of the game.

@@ -35,11 +35,11 @@ public class HighScoreEnterNameDialog {
                     "Your score is: " + Game.getGame().getScoreCounter().getScore(),
                     "GAME OVER",
                     JOptionPane.ERROR_MESSAGE);
-            Game.getGame().reset();
             MainScreen mainScreen = Game.getGame().getMainScreen();
             if (mainScreen != null) {
                 mainScreen.refreshBoard();
             }
+            Game.getGame().reset();
         }
     }
 
