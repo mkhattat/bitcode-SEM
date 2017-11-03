@@ -68,7 +68,7 @@ public class TopXTableModel extends AbstractTableModel {
         switch (columnIndex) {
             case(0):
                 //Index starts at 0, scoreNo. (Which is returned), does not.
-                return rowIndex + 10;
+                return rowIndex + 1;
             case(1):
                 return scoreManager.getTopXScores().get(rowIndex).getName();
             case(2):
