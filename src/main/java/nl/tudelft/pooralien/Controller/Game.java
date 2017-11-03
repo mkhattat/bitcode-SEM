@@ -88,7 +88,7 @@ public final class Game implements Subject {
         final int maxStandardMaxMoves = 100;
         final int defaultStandardMaxMoves = 12;
 
-        moves = GameConfig.getInteger("standardMaxMoves", minStandardMaxMoves,
+        moves = GameConfig.getInteger("maxMoves" + difficulty, minStandardMaxMoves,
                 maxStandardMaxMoves, defaultStandardMaxMoves);
     }
 
@@ -180,7 +180,8 @@ public final class Game implements Subject {
      * @return true if the game is playable.
      */
     public boolean gameIsRunning() {
-        return gameControllerMachine.equalsCurrentState(gameControllerMachine.getGamePlayState());
+        return getGameControllerMachine()
+                .equalsCurrentState(gameControllerMachine.getGamePlayState());
     }
 
     /**
