@@ -1,15 +1,13 @@
 package nl.tudelft.item;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 /**
  * Factory used to create items for the board in easy mode.
  */
 public class EasyItemFactory implements ItemFactory {
-    /**
-     * The amount of different types of items.
-     */
-    private final int itemCount;
 
     /**
      * The lower bound used for randomly generating items.
@@ -28,10 +26,35 @@ public class EasyItemFactory implements ItemFactory {
     private Random intGen;
 
     /**
+     * Array containing the itemnames this factory can use.
+     */
+    private ArrayList<String> itemNames;
+
+    /**
+     * HashMap containing the items this factory can possibly create.
+     */
+    private HashMap<String, Item> itemHashMap;
+
+    /**
      * Constructor for StandardItemFactory objects.
      */
     public EasyItemFactory() {
-        itemCount = 2 + 2 + 2;
+        itemHashMap = new HashMap<>();
+        itemHashMap.put("axe", new Axe());
+        itemHashMap.put("bone", new Bone());
+        itemHashMap.put("eye", new Eye());
+        itemHashMap.put("leaf", new Leaf());
+        itemHashMap.put("mask", new Mask());
+        itemHashMap.put("mouth", new Mouth());
+
+        itemNames = new ArrayList<>();
+        itemNames.add("axe");
+        itemNames.add("bone");
+        itemNames.add("eye");
+        itemNames.add("leaf");
+        itemNames.add("mask");
+        itemNames.add("mouth");
+
         resetRandom();
     }
 
@@ -41,7 +64,7 @@ public class EasyItemFactory implements ItemFactory {
      */
     public void resetRandom() {
         lowerBound = 0;
-        upperBound = itemCount;
+        upperBound = itemHashMap.size();
         intGen = new Random();
     }
 
@@ -50,7 +73,7 @@ public class EasyItemFactory implements ItemFactory {
      * @return The amount of different items.
      */
     public int getItemCount() {
-        return itemCount;
+        return itemHashMap.size();
     }
 
     /**
@@ -123,15 +146,8 @@ public class EasyItemFactory implements ItemFactory {
      * @return A random item.
      */
     public Item createRandomItem() {
-        int r = (intGen.nextInt(upperBound - lowerBound) + lowerBound) % itemCount;
-        switch (r) {
-            case 0: return new Axe();
-            case 1: return new Bone();
-            case 2: return new Eye();
-            case 2 + 1: return new Leaf();
-            case 2 + 2: return new Mask();
-            default: return new Mouth();
-        }
+        int r = (intGen.nextInt(upperBound - lowerBound) + lowerBound) % itemHashMap.size();
+        return itemHashMap.get(itemNames.get(r));
     }
 
     /**
@@ -147,26 +163,12 @@ public class EasyItemFactory implements ItemFactory {
      * @throws IllegalArgumentException In case the provided string does not match any item name.
      */
     public Item createItem(final String itemName) throws IllegalArgumentException {
-        if (itemName.equalsIgnoreCase("axe")) {
-            return new Axe();
+        Item res = itemHashMap.get(itemName.toLowerCase());
+        if (res == null) {
+            throw new IllegalArgumentException("The provided item name: " + itemName
+                    + "\nDoes not match any of the following: "
+                    + "axe, bone, eye, leaf, mask or mouth.");
         }
-        if (itemName.equalsIgnoreCase("bone")) {
-            return new Bone();
-        }
-        if (itemName.equalsIgnoreCase("eye")) {
-            return new Eye();
-        }
-        if (itemName.equalsIgnoreCase("leaf")) {
-            return new Leaf();
-        }
-        if (itemName.equalsIgnoreCase("mask")) {
-            return new Mask();
-        }
-        if (itemName.equalsIgnoreCase("mouth")) {
-            return new Mouth();
-        }
-        throw new IllegalArgumentException("The provided item name: " + itemName
-                + "\nDoes not match any of the following: "
-                + "axe, bone, eye, leaf, mask or mouth.");
+        return res;
     }
 }
