@@ -19,14 +19,7 @@ public class Launcher {
      */
     public void launch() {
         try {
-            final int minLengthGameTitle = 1;
-            final int maxLengthGameTitle = 50;
-            final String defaultGameTitle = "P00rAl13n";
-
-            String gameTitle = GameConfig.getString("gameTitle", minLengthGameTitle,
-                    maxLengthGameTitle, defaultGameTitle);
-
-            JFrame mainWindow = new JFrame(gameTitle);
+            JFrame mainWindow = new JFrame(getGameTitle());
             MainScreen mainScreen = new MainScreen();
             mainWindow.setSize(0, 0);
             mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -50,10 +43,20 @@ public class Launcher {
         new HighScoreFrame();
     }
 
+
     /**
-     * Game config file object.
-     * @return an IDefProAPI object.
+     * Get gameTitle from config file.
+     *
+     * @return String The game title.
      */
+    private String getGameTitle() {
+        final int minLengthGameTitle = 1;
+        final int maxLengthGameTitle = 50;
+        final String defaultGameTitle = "P00rAl13n";
+
+        return GameConfig.getString("gameTitle", minLengthGameTitle,
+                maxLengthGameTitle, defaultGameTitle);
+    }
 
     /**
      * Entry point of the game.

@@ -1,9 +1,7 @@
 package nl.tudelft.pooralien.Controller.HighScore;
 
-import nl.tu.delft.defpro.exception.NotExistingVariableException;
 import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Controller.GameConfig;
-import nl.tudelft.pooralien.Launcher;
 
 /**
  * ScoreCounter keeps track of the score of the player.
