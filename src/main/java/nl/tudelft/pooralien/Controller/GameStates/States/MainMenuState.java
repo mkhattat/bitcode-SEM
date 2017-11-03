@@ -31,9 +31,9 @@ public class MainMenuState implements State {
         // Already in main menu. -> OR should this method be called in the MainMenuState constructor
         System.out.println("CurrentState: MainMenuState, ");
 
-
         try {
-            JFrame mainWindow = new JFrame(GameConfig.getString("gameTitle",0,20,"Poor Alien"));
+            JFrame mainWindow = new JFrame(GameConfig.getString("gameTitle", 0,
+                    "Poor Alien".length() * 2, "Poor Alien"));
             MainScreen mainScreen = new MainScreen();
             mainWindow.setSize(0, 0);
             mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -46,7 +46,7 @@ public class MainMenuState implements State {
             mainWindow.pack();
             Game.getGame().registerObserver(mainScreen);
             Game.getGame().setMultiplayer(false);
-            if (!GameConfig.getBoolean("multiLevel",false)) {
+            if (!GameConfig.getBoolean("multiLevel", false)) {
                 mainWindow.setVisible(true);
             }
             mainWindow.repaint();
