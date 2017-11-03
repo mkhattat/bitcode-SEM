@@ -16,17 +16,16 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import nl.tu.delft.defpro.exception.NotExistingVariableException;
-import nl.tudelft.pooralien.Launcher;
+import nl.tudelft.pooralien.Controller.Board;
+import nl.tudelft.pooralien.Controller.Client;
+import nl.tudelft.pooralien.Controller.Game;
+import nl.tudelft.pooralien.Controller.GameConfig;
+import nl.tudelft.pooralien.Controller.Listener;
+import nl.tudelft.pooralien.Controller.Server;
 import nl.tudelft.pooralien.MouseActionObserver;
 import nl.tudelft.pooralien.MouseEventHandler;
 import nl.tudelft.pooralien.Observer;
 import nl.tudelft.pooralien.Subject;
-import nl.tudelft.pooralien.Controller.Board;
-import nl.tudelft.pooralien.Controller.Client;
-import nl.tudelft.pooralien.Controller.Game;
-import nl.tudelft.pooralien.Controller.Listener;
-import nl.tudelft.pooralien.Controller.Server;
 
 /**
  * MainScreen class is the GUI of the game screen.
@@ -60,12 +59,12 @@ public class MainScreen extends JLayeredPane implements Observer {
         mouseEventHandler = new MouseEventHandler(this);
         Observer observer = new MouseActionObserver();
         mouseEventHandler.registerObserver(observer);
-        this.port = 0;
-        try {
-            port = Launcher.getGameCfg().getIntegerValueOf("port");
-        } catch (NotExistingVariableException error) {
-            error.printStackTrace();
-        }
+
+        final int minPort = 1000;
+        final int maxPort = 65000;
+        final int defaultPort = 9090;
+
+        port = GameConfig.getInteger("port", minPort, maxPort, defaultPort);
     }
 
     /**

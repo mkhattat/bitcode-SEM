@@ -1,9 +1,9 @@
 package nl.tudelft.pooralien.Controller.GameStates.States;
 
 import nl.tudelft.pooralien.Controller.Game;
+import nl.tudelft.pooralien.Controller.GameConfig;
 import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.GameStates.State;
-import nl.tudelft.pooralien.Launcher;
 import nl.tudelft.pooralien.ui.MainScreen;
 
 import javax.swing.JFrame;
@@ -31,9 +31,9 @@ public class MainMenuState implements State {
         // Already in main menu. -> OR should this method be called in the MainMenuState constructor
         System.out.println("CurrentState: MainMenuState, ");
 
-
         try {
-            JFrame mainWindow = new JFrame(Launcher.getGameCfg().getStringValueOf("gameTitle"));
+            JFrame mainWindow = new JFrame(GameConfig.getString("gameTitle", 0,
+                    "Poor Alien".length() * 2, "Poor Alien"));
             MainScreen mainScreen = new MainScreen();
             mainWindow.setSize(0, 0);
             mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -46,7 +46,7 @@ public class MainMenuState implements State {
             mainWindow.pack();
             Game.getGame().registerObserver(mainScreen);
             Game.getGame().setMultiplayer(false);
-            if (!Launcher.getGameCfg().getBooleanValueOf("multiLevel")) {
+            if (!GameConfig.getBoolean("multiLevel", false)) {
                 mainWindow.setVisible(true);
             }
             mainWindow.repaint();

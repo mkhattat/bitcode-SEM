@@ -1,7 +1,5 @@
 package nl.tudelft.pooralien.Controller;
-import nl.tu.delft.defpro.exception.NotExistingVariableException;
 import nl.tudelft.item.StandardItemFactory;
-import nl.tudelft.pooralien.Launcher;
 
 
 
@@ -15,13 +13,11 @@ public class StandardBoard extends Board {
      * @return The initial width of the board from the config file.
      */
     protected int initWidth() {
-        try {
-            return Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth");
-        } catch (NotExistingVariableException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-        return -1;
+        final int min = 5;
+        final int max = 20;
+        final int standard = 10;
+
+        return GameConfig.getInteger("maxBoardWidth", min, max, standard);
     }
 
     /**
@@ -29,13 +25,11 @@ public class StandardBoard extends Board {
      * @return The initial height of the board from the config file.
      */
     protected int initHeight() {
-        try {
-            return Launcher.getGameCfg().getIntegerValueOf("maxBoardHeight");
-        } catch (NotExistingVariableException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-        return -1;
+        final int min = 5;
+        final int max = 20;
+        final int standard = 10;
+
+        return GameConfig.getInteger("maxBoardHeight", min, max, standard);
     }
 
     /**
@@ -43,13 +37,11 @@ public class StandardBoard extends Board {
      * @return The minimum group size from the config file.
      */
     protected int initMinGroupSize() {
-        try {
-            return Launcher.getGameCfg().getIntegerValueOf("minItemsInRow");
-        } catch (NotExistingVariableException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-        return -1;
+        final int min = 2;
+        final int max = this.initWidth() - min;
+        final int standard = 3;
+
+        return GameConfig.getInteger("minItemsInRow", min, max, standard);
     }
 
     /**

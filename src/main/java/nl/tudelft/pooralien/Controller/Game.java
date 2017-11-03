@@ -2,19 +2,17 @@ package nl.tudelft.pooralien.Controller;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import nl.tu.delft.defpro.exception.NotExistingVariableException;
 import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 import nl.tudelft.pooralien.Controller.HighScore.ScoreCounter;
-import nl.tudelft.pooralien.Launcher;
 import nl.tudelft.pooralien.Observer;
 import nl.tudelft.pooralien.Subject;
 import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreTableTopX;
 import nl.tudelft.pooralien.ui.MainScreen;
 
 import javax.swing.JTable;
-
 
 /**
  * class for controlling the flow of the game.
@@ -86,29 +84,45 @@ public final class Game implements Subject {
      * Initializes the backgroundTileCatalog.
      */
     private void initBTCatalog() {
-        int backgroundTileCount = -1;
-        Color standardColor = Color.MAGENTA;
-        try {
-            moves = Launcher.getGameCfg().getIntegerValueOf("standardMaxMoves");
-            backgroundTileCount = Launcher.getGameCfg().getIntegerValueOf("backgroundTileCount");
-            List<Integer> rgb = Launcher.getGameCfg().getListIntValueOf("colorBackgroundTile");
-            standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
-        } catch (NotExistingVariableException e) {
-            e.printStackTrace();
-        }
-        backgroundTileCatalog = new BackgroundTileCatalog(backgroundTileCount, standardColor);
+        initMoves();
+        initBackgroundTileCatalog();
     }
 
     /**
      * Initializes the amount of moves.
      */
     private void initMoves() {
-        moves = 1;
-        try {
-            moves = Launcher.getGameCfg().getIntegerValueOf("standardMaxMoves");
-        } catch (NotExistingVariableException e) {
-            e.printStackTrace();
-        }
+        final int minStandardMaxMoves = 1;
+        final int maxStandardMaxMoves = 100;
+        final int defaultStandardMaxMoves = 12;
+
+        moves = GameConfig.getInteger("standardMaxMoves", minStandardMaxMoves,
+                maxStandardMaxMoves, defaultStandardMaxMoves);
+    }
+
+    private void initBackgroundTileCatalog() {
+        int backgroundTileCount = -1;
+        Color standardColor = Color.MAGENTA;
+
+        final int minBackgroundTileCount = 0;
+        final int maxBackgroundTileCount = 20;
+        final int defaultBackgroundTileCount = 10;
+
+        backgroundTileCount = GameConfig.getInteger("backgroundTileCount", minBackgroundTileCount,
+                maxBackgroundTileCount, defaultBackgroundTileCount);
+
+        final int minRGBLength = 3;
+        final int maxRGBLength = 3;
+        final List<Integer> minRGBValue = Arrays.asList(0, 0, 0);
+        final List<Integer> maxRGBValue = Arrays.asList(255, 255, 255);
+        final List<Integer> defaultRGBValue = Arrays.asList(255, 0, 255);
+
+        List<Integer> rgb = GameConfig.getIntegerList("colorBackgroundTile",
+                minRGBLength, maxRGBLength, minRGBValue, maxRGBValue, defaultRGBValue);
+
+        standardColor = new Color(rgb.get(0), rgb.get(1), rgb.get(2));
+
+        backgroundTileCatalog = new BackgroundTileCatalog(backgroundTileCount, standardColor);
     }
 
     /**
