@@ -1,6 +1,7 @@
 package nl.tudelft.pooralien.ui.HighScoreTable;
 
 import nl.tudelft.pooralien.Controller.Game;
+import nl.tudelft.pooralien.Controller.GameStates.GameControllerMachine;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -17,9 +18,6 @@ public class HighScoreFrame {
     public HighScoreFrame() {
         JTable highScoreBoard = Game.getGame().getHighScoreTableTopX();
         JScrollPane pane = new JScrollPane(highScoreBoard);
-        //pane.setWheelScrollingEnabled(true);
-
-
 
         //Custom button text
         Object[] buttonText = {"New Game", "Exit To Main Menu", "Exit To Desktop"};
@@ -32,8 +30,6 @@ public class HighScoreFrame {
                 null, buttonText, 0);
 
         selectedOption(optionSelected);
-
-
     }
 
     /**
@@ -42,17 +38,24 @@ public class HighScoreFrame {
      */
     //TODO: THIS METHOD WILL BE IMPLEMENTED VIA THE GAMESTATE BRANCH
     private void selectedOption(int optionSelected) {
+        GameControllerMachine gameControllerMachine = Game.getGame().getGameControllerMachine();
         switch (optionSelected) {
             case (0):
                 //game controller new board
+                gameControllerMachine.setState(gameControllerMachine.getGameInitState());
+                gameControllerMachine.initGame();
                 break;
             case(1):
                 //game controller main menu
+                gameControllerMachine.setState(gameControllerMachine.getMainMenuState());
+                //gameControllerMachine.mainMenu();
+                //NO MAIN MENU HAS BEEN IMPLEMENTED YET
+                gameControllerMachine.exitGame();
                 break;
-            case(2):
-                break;
+                // Case2 does not need to be implemented, as the default also exits.
             default:
                 //game controller exit
+                gameControllerMachine.exitGame();
                 break;
         }
     }

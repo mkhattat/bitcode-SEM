@@ -110,6 +110,7 @@ public class StandardBoardTest extends BoardTest {
 
     @Test
     public void remove() {
+        Game.getGame().getGameControllerMachine();
         board.remove(0, 0);
         assertNotNull(board.getItem(0, 0));
     }
