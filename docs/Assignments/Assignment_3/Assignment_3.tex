@@ -63,17 +63,52 @@ In the figure below the sequence diagram of the implemented state deign pattern 
 \end{figure}
 
 \subsection{The Strategy Design Pattern}
-tbd
+The multi-player feature of our game requires handling multiple requests from server. This is the responsibility of the client object to listen to the server and receive these requests and parse them. Based on each request it requires doing an action but there are multiple ways of performing that action and that is why Strategy design pattern comes into play because it helps to encapsulate each request in a separate class and define each class with the same interface so they can be interchangeable.
 
 \subsubsection{Strategy Class Diagram}
-tbd
+There is a general interface called Strategy with one method which accepts two arguments. These arguments will be treated differently based on the implantation. For each request from the server we create a separate class which implements the Strategy interface. And also there is another class called invokeStrategy which is used to map each request to the appropriate implementation. This class has also a method to add a strategy dynamically, so whenever we want to extend our server functionality we don't need to change the base code, we need only to implement a class for handling the request and add it to the invokeStrategy class.
+
+
+\begin{figure}[H]
+\includegraphics[scale=0.90]{Images/StrategyClassDiagram.png}
+\end{figure}
 
 \subsubsection{Strategy Sequence Diagram} 
-tbd
+\begin{figure}[H]
+\includegraphics[scale=0.90]{Images/StrategySequenceDiagram.png}
+\end{figure}
 
-
+\newpage
 \section{Software Metrics}
-keeping track of software metrics helps to keep code clean, understandable, sustainable and expendable. 
+keeping track of software metrics helps to keep code clean, understandable, sustainable and expendable. We have chosen to use a intellij plugin called "MetricsReloaded" that helps of measuring software metrics. By running this tool we could compile the following lists of classes and methods that could be improved.
+
+\paragraph{Classes}
+\begin{enumerate}
+\item StandardItemFactory, WMC: 28
+\item MainScreen, DIT: 5
+\item Board, WMC: 40
+\item Game, WMC: 28
+\item BackgroundTileCatalog, WMC: 26
+\item ConnectionScreen, DIT: 6
+\item JPanelTile, DIT: 5
+\item Client, CBO: 23
+\item Game, CBO: 21
+\item MainScreen, CBO: 20
+\end{enumerate}
+
+\paragraph{Methods}
+\begin{enumerate}
+\item pooralien.Controller.Board.removeGroups, ECC: 6
+\item HighScoreTable.HighScoreEnterNameDialog.HighScoreEnterNameDialog, ECC: 4
+\item Controller.HighScore.TopXTableModel.getValueAt, ECC: 8
+\item pooralien.Controller.BackgroundTileCatalog.BackgroundTileCatalog, ECC: 4
+\item pooralien.Controller.BackgroundTile.BackgroundTile, ECC: 4
+\item pooralien.Controller.BackgroundTile.equals, ECC: 
+\item item.StandardItemFactory.createItem, ECC: 8
+\item item.StandardItemFactory.createRandomItem, ECC: 8
+\end{enumerate}
+
+\paragraph{} For each improvable class or method a issue is created on our github repository so that everyone can help improve the code. 
 
 \newpage
 \section{Defensive Programming}
