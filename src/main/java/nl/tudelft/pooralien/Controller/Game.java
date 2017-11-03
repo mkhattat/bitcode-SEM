@@ -86,7 +86,7 @@ public final class Game implements Subject {
     private void initMoves() {
         final int minStandardMaxMoves = 1;
         final int maxStandardMaxMoves = 100;
-        final int defaultStandardMaxMoves = 12;
+        final int defaultStandardMaxMoves = 14 - difficulty * 2;
 
         moves = GameConfig.getInteger("maxMoves" + difficulty, minStandardMaxMoves,
                 maxStandardMaxMoves, defaultStandardMaxMoves);

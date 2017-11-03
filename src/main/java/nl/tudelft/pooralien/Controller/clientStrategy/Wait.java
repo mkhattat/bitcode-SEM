@@ -11,6 +11,9 @@ public class Wait implements Strategy {
 
     @Override
     public void execute(String[] args, Client client) {
-        Game.getGame().getGameControllerMachine().pauseGame();
+        Game.getGame().getGameControllerMachine().setState(
+                Game.getGame().getGameControllerMachine().getGamePausedState()
+        );
+        Game.getGame().notifyObservers();
     }
 }

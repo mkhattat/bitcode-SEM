@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import nl.tu.delft.defpro.exception.NotExistingVariableException;
+import nl.tudelft.pooralien.Controller.Game;
 import nl.tudelft.pooralien.Controller.GameConfig;
 import nl.tudelft.pooralien.Launcher;
 import nl.tudelft.pooralien.ui.HighScoreTable.HighScoreFrame;
@@ -208,6 +209,15 @@ public class StartupScreen {
             );
             if (difficultiesdialog == null) {
                 return;
+            }
+            if (difficultiesdialog.equals(difficulties[0])) {
+                Game.setEasyMode();
+            }
+            if (difficultiesdialog.equals(difficulties[1])) {
+                Game.setStandardMode();
+            }
+            if (difficultiesdialog.equals(difficulties[2])) {
+                Game.setHardMode();
             }
             MainScreen mainScreen = new MainScreen();
             mainScreen.launch();

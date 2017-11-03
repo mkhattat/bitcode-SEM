@@ -115,7 +115,6 @@ public class MainScreen implements Observer {
         mouseEventHandler.registerObserver(client);
         disconnectNetwork.setVisible(true);
         if (client.start()) {
-            Game.getGame().getGameControllerMachine().pauseGame();
             return true;
         }
         return false;
@@ -129,7 +128,6 @@ public class MainScreen implements Observer {
     public void createHost(int port) {
         // show a new network window
         Listener listener = new Listener(port);
-        Game.getGame().getGameControllerMachine().pauseGame();
         ConnectionScreen connectionScreen = new ConnectionScreen(listener, this);
         Server.getServer().registerObserver(connectionScreen);
         Client thisPlayer = new Client("localhost", port, mouseEventHandler);
