@@ -286,4 +286,8 @@ public final class Game implements Subject {
     public void setMainScreen(MainScreen mainScreen) {
         this.mainScreen = mainScreen;
     }
+
+    public MainScreen getMainScreen() {
+        return mainScreen;
+    }
 }

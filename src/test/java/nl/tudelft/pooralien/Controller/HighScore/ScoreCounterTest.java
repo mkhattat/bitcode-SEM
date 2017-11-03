@@ -37,7 +37,7 @@ public class ScoreCounterTest {
     }
 
     @Test
-    public void BackgroundTilesScoreUpdateChange() {
+    public void backgroundTilesScoreUpdateChange() {
         GameControllerMachine gameControllerMachine = Game.getGame().getGameControllerMachine();
         gameControllerMachine.setState(gameControllerMachine.getGamePlayState());
         scoreCounter = Game.getGame().getScoreCounter();

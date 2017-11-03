@@ -61,11 +61,23 @@ public class BackgroundTileCatalog {
      * @param tileColor background color of the tile to be added to the catalog.
      * @throws IllegalArgumentException if the pre conditions are not met.
      */
-    public BackgroundTileCatalog(int backgroundTileCount, Color tileColor)
-            throws IllegalArgumentException {
+    public BackgroundTileCatalog(int backgroundTileCount, Color tileColor) {
         initWidthHeight();
         initMaxTileCount();
+
+        checkBackgroundTileCount(backgroundTileCount);
+        checkTileColor(tileColor);
+
         this.color = tileColor;
+
+        addRandomBackgroundTilesToCatalog(backgroundTileCount, tileColor);
+    }
+
+    /**
+     * Checks if the BackgroundTileCount is valid (not smaller than 0 or bigger than maxTileCount).
+     * @param backgroundTileCount check if count is legal.
+     */
+    private void checkBackgroundTileCount(int backgroundTileCount) {
         if (backgroundTileCount < 0) {
             throw new IllegalArgumentException(
                     "BackgroundTileCount must be bigger than 0 to be added to the catalog");
@@ -74,9 +86,33 @@ public class BackgroundTileCatalog {
             throw new IllegalArgumentException(
                     "BackgroundTileCount must be smaller than 101 to be added to the catalog");
         }
+        if (backgroundTileCount < 0) {
+            throw new IllegalArgumentException(
+                    "BackgroundTileCount must be bigger than 0 to be added to the catalog");
+        }
+        if (backgroundTileCount > maxTileCount) {
+            throw new IllegalArgumentException(
+                    "BackgroundTileCount must be smaller than 101 to be added to the catalog");
+        }
+    }
+
+    /**
+     * Check if the tileColor object is not null,
+     * which would make the game unplayable due to invisible backgroundTiles.
+     * @param tileColor object to be checked.
+     */
+    private void checkTileColor(Color tileColor) {
         if (tileColor == null) {
             throw new IllegalArgumentException("colorBackgroundTile should be a Color object");
         }
+    }
+
+    /**
+     * Adds random backgroundTiles to the catalog, with the specified tileColor.
+     * @param backgroundTileCount amount of backgroundTiles to be added to the catalog.
+     * @param tileColor color of the tiles to be added.
+     */
+    private void addRandomBackgroundTilesToCatalog(int backgroundTileCount, Color tileColor) {
         intGen = new Random();
 
         int tilesAdded = 0;
@@ -187,7 +223,7 @@ public class BackgroundTileCatalog {
      * @param tileColor background color of the tile to be added to the catalog.
      * @return Returns true if the tile has been added to the catalog.
      */
-    public boolean addRandomBackgroundTile(Color tileColor) {
+    private boolean addRandomBackgroundTile(Color tileColor) {
         if (tileColor == null) {
             throw new IllegalArgumentException("colorBackgroundTile should be a Color object");
         }
@@ -205,10 +241,13 @@ public class BackgroundTileCatalog {
             standardColor = color;
         }
         String newBTC = String.valueOf(standardColor.getRGB());
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         buffer.append(newBTC);
         for (BackgroundTile item : backgroundTiles) {
-            buffer.append("," + item.getCoordinateX() + " " + item.getCoordinateY());
+            buffer.append(",")
+                    .append(item.getCoordinateX())
+                    .append(" ")
+                    .append(item.getCoordinateY());
         }
         return buffer.toString();
     }

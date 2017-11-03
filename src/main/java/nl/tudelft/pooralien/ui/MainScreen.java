@@ -90,7 +90,6 @@ public class MainScreen implements Observer {
             error.printStackTrace();
             System.exit(-1);
         }
-        System.out.println("Packed");
     }
 
     /**

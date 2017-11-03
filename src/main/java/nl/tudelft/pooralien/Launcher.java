@@ -14,6 +14,7 @@ public class Launcher {
      * Launch the game GUI.
      */
     public void launch() {
+        Game.getGame().setMultiplayer(false);
         GameControllerMachine gameControllerMachine = Game.getGame().getGameControllerMachine();
         gameControllerMachine.setState(gameControllerMachine.getMainMenuState());
         gameControllerMachine.mainMenu();
