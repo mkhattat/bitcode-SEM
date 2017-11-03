@@ -65,5 +65,5 @@ public interface ItemFactory {
      * @return The item corresponding to the input string.
      * @throws IllegalArgumentException In case the provided string does not match any item name.
      */
-    Item createItem(String itemName);
+    Item createItem(String itemName) throws IllegalArgumentException;
 }

@@ -1,13 +1,11 @@
 package nl.tudelft.pooralien.Controller;
-import nl.tudelft.item.StandardItemFactory;
 
-
+import nl.tudelft.item.EasyItemFactory;
 
 /**
- * The StandardBoard class.
+ * Board for easy mode.
  */
-public class StandardBoard extends Board {
-
+public class EasyBoard extends Board {
     /**
      * Initializes the width of the board using the config file.
      * @return The initial width of the board from the config file.
@@ -45,10 +43,10 @@ public class StandardBoard extends Board {
     }
 
     /**
-     * Initializes the StandardItemFactory.
-     * @return The initial StandardItemFactory.
+     * Initializes the EasyItemFactory.
+     * @return The initial EasyItemFactory.
      */
-    protected StandardItemFactory initItemFactory() {
-        return new StandardItemFactory();
+    protected EasyItemFactory initItemFactory() {
+        return new EasyItemFactory();
     }
 }

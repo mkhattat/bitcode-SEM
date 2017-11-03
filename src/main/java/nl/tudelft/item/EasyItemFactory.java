@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Random;
 
 /**
- * Factory used to create the items that are placed on the board.
+ * Factory used to create items for the board in easy mode.
  */
-public class StandardItemFactory implements ItemFactory {
+public class EasyItemFactory implements ItemFactory {
 
     /**
      * The lower bound used for randomly generating items.
@@ -38,7 +38,7 @@ public class StandardItemFactory implements ItemFactory {
     /**
      * Constructor for StandardItemFactory objects.
      */
-    public StandardItemFactory() {
+    public EasyItemFactory() {
         itemHashMap = new HashMap<>();
         itemHashMap.put("axe", new Axe());
         itemHashMap.put("bone", new Bone());
@@ -46,7 +46,6 @@ public class StandardItemFactory implements ItemFactory {
         itemHashMap.put("leaf", new Leaf());
         itemHashMap.put("mask", new Mask());
         itemHashMap.put("mouth", new Mouth());
-        itemHashMap.put("sun", new Sun());
 
         itemNames = new ArrayList<>();
         itemNames.add("axe");
@@ -55,7 +54,6 @@ public class StandardItemFactory implements ItemFactory {
         itemNames.add("leaf");
         itemNames.add("mask");
         itemNames.add("mouth");
-        itemNames.add("sun");
 
         resetRandom();
     }
@@ -144,7 +142,7 @@ public class StandardItemFactory implements ItemFactory {
 
     /**
      * Randomly creates one of the following items:
-     * Axe, Bone, Eye, Leaf, Mask, Mouth or Sun.
+     * Axe, Bone, Eye, Leaf, Mask or Mouth.
      * @return A random item.
      */
     public Item createRandomItem() {
@@ -160,7 +158,6 @@ public class StandardItemFactory implements ItemFactory {
      * "Leaf" results in a leaf item
      * "Mask" results in a mask item
      * "Mouth" results in a mouth item
-     * "Sun" results in a sun item
      * @param itemName The string representing the desired item.
      * @return The item corresponding to the input string.
      * @throws IllegalArgumentException In case the provided string does not match any item name.
@@ -170,7 +167,7 @@ public class StandardItemFactory implements ItemFactory {
         if (res == null) {
             throw new IllegalArgumentException("The provided item name: " + itemName
                     + "\nDoes not match any of the following: "
-                    + "axe, bone, eye, leaf, mask, mouth or sun.");
+                    + "axe, bone, eye, leaf, mask or mouth.");
         }
         return res;
     }

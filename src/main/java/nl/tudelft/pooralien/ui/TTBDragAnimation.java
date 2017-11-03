@@ -1,9 +1,8 @@
 package nl.tudelft.pooralien.ui;
 
-import nl.tu.delft.defpro.exception.NotExistingVariableException;
 import nl.tudelft.pooralien.Controller.Board;
 import nl.tudelft.pooralien.Controller.Game;
-import nl.tudelft.pooralien.Launcher;
+import nl.tudelft.pooralien.Controller.GameConfig;
 
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -37,14 +36,16 @@ public class TTBDragAnimation implements Animation {
         previousCoordinate = new Point(0, 0);
         originalYGridPosition = 0;
         originalXScreenPosition = 0;
-        try {
-            this.margin = Launcher.getGameCfg().getIntegerValueOf("marginVDrag");
-            this.gap = Launcher.getGameCfg().getRealValueOf("gap");
-        } catch (NotExistingVariableException e) {
-            e.printStackTrace();
-            this.margin = 0;
-            this.gap = 0;
-        }
+
+        final int minMargin = 1;
+        final int maxMargin = 20;
+        final int defaultMargin = 10;
+        this.margin = GameConfig.getInteger("marginHDrag", minMargin, maxMargin, defaultMargin);
+
+        final Double minGap = 0.0;
+        final Double maxGap = 5.0;
+        final Double defaultGap = 1.22;
+        this.gap = GameConfig.getReal("gap", minGap, maxGap, defaultGap);
     }
 
     @Override
@@ -117,8 +118,8 @@ public class TTBDragAnimation implements Animation {
         } else {
             //Update Score
             Game.getGame().getScoreCounter().updateScoreTilesRemoved(x);
-            Game.getGame().useMove();
             mainScreen.refreshBoard();
+            Game.getGame().useMove();
         }
     }
 

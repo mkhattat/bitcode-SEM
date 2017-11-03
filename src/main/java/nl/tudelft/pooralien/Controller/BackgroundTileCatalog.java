@@ -1,8 +1,5 @@
 package nl.tudelft.pooralien.Controller;
 
-import nl.tu.delft.defpro.exception.NotExistingVariableException;
-import nl.tudelft.pooralien.Launcher;
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -38,25 +35,21 @@ public class BackgroundTileCatalog {
      * Initiliazes the max width and height using the config file.
      */
     private void initWidthHeight() {
-        try {
-            maxWidthAndHeight = Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth");
-        } catch (NotExistingVariableException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
+        final int min = 5;
+        final int max = 20;
+        final int standard = 10;
+        maxWidthAndHeight = GameConfig.getInteger("maxBoardWidth", min, max, standard);
     }
 
     /**
      * Initializes the max tile count using the config file.
      */
     private void initMaxTileCount() {
-        try {
-            maxTileCount = Launcher.getGameCfg().getIntegerValueOf("maxBoardWidth")
-                    * Launcher.getGameCfg().getIntegerValueOf("maxBoardHeight");
-        } catch (NotExistingVariableException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
+        final int min = 5;
+        final int max = 20;
+        final int standard = 10;
+        maxTileCount = GameConfig.getInteger("maxBoardWidth", min, max, standard)
+                * GameConfig.getInteger("maxBoardHeight", min, max, standard);
     }
 
     /**
@@ -85,6 +78,14 @@ public class BackgroundTileCatalog {
      * @param backgroundTileCount check if count is legal.
      */
     private void checkBackgroundTileCount(int backgroundTileCount) {
+        if (backgroundTileCount < 0) {
+            throw new IllegalArgumentException(
+                    "BackgroundTileCount must be bigger than 0 to be added to the catalog");
+        }
+        if (backgroundTileCount > maxTileCount) {
+            throw new IllegalArgumentException(
+                    "BackgroundTileCount must be smaller than 101 to be added to the catalog");
+        }
         if (backgroundTileCount < 0) {
             throw new IllegalArgumentException(
                     "BackgroundTileCount must be bigger than 0 to be added to the catalog");
